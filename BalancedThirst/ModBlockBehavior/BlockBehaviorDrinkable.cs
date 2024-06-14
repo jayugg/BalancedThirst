@@ -5,21 +5,20 @@ using Vintagestory.API.Common;
 using Vintagestory.API.Config;
 using Vintagestory.API.Datastructures;
 using Vintagestory.API.MathTools;
-using Vintagestory.GameContent;
 
 namespace BalancedThirst.ModBlockBehavior;
 
 public class BlockBehaviorDrinkable : BlockBehavior
 {
-    private int _thirstSlake;
+    private int _thirstSaturation;
     private int _vomitEvery;
-
+    
     public BlockBehaviorDrinkable(Block block) : base(block) { }
     
     public override void Initialize(JsonObject properties)
     {
         base.Initialize(properties);
-        this._thirstSlake = properties["thirstSlake"].AsInt();
+        this._thirstSaturation = properties["thirstSaturation"].AsInt();
         this._vomitEvery = properties["vomitEvery"].AsInt();
     }
 
@@ -31,7 +30,7 @@ public class BlockBehaviorDrinkable : BlockBehavior
     {
         if (byPlayer.Entity.Controls.Sneak)
         {
-            BtCore.Logger.Warning("Can Drinking!");
+            BtModSystem.Logger.Warning("Can Drinking!");
             byPlayer.Entity.PlayEntitySound("drink", byPlayer);
             handling = EnumHandling.PreventDefault;
             return true;
@@ -41,33 +40,31 @@ public class BlockBehaviorDrinkable : BlockBehavior
 
     public override bool OnBlockInteractStep(float secondsUsed, IWorldAccessor world, IPlayer byPlayer, BlockSelection blockSel, ref EnumHandling handling)
     {
-        BtCore.Logger.Warning("Drinking continues");
-        if (secondsUsed % 0.5 == 0)
+        BtModSystem.Logger.Warning("Drinking continues");
+        if (secondsUsed % 1 == 0)
         {
-            PlayDrinkSound(byPlayer.Entity, 10);
+            PlayDrinkSound(byPlayer.Entity, 40);
             Item waterItem = byPlayer.Entity.World.GetItem(new AssetLocation("game:water-still-7"));
             if (waterItem != null)
             {
                 ItemStack waterStack = new ItemStack(waterItem);
                 byPlayer.Entity.World.SpawnCubeParticles(byPlayer.Entity.Pos.AheadCopy(0.25).XYZ.Add(0.0, byPlayer.Entity.SelectionBox.Y2 / 2.0, 0.0), waterStack, 0.75f, 20, 0.45f);
             }
-            BtCore.Logger.Warning(_thirstSlake.ToString());
-            AddSlakeTo(byPlayer, _thirstSlake != 0 ? (int)(_thirstSlake/2.5) : 20);
+            addSaturationTo(byPlayer, _thirstSaturation != 0 ? _thirstSaturation : 50);
         }
         handling = EnumHandling.PreventDefault;
         return false;
     }
     
-    private void AddSlakeTo(IPlayer player, int value)
+    private void addSaturationTo(IPlayer player, int value)
     {
-        var thirstTree = player.Entity.WatchedAttributes.GetTreeAttribute(BtCore.Modid+":thirst");
+        var thirstTree = player.Entity.WatchedAttributes.GetTreeAttribute(BtModSystem.Modid+":thirst");
 
-        float? currentSlake = thirstTree.TryGetFloat("currentslake");
-        float? maxSlake = thirstTree.TryGetFloat("maxslake");
+        float? currentSaturation = thirstTree.TryGetFloat("currentsaturation");
+        float? maxSaturation = thirstTree.TryGetFloat("maxsaturation");
 
-        if (!currentSlake.HasValue || !maxSlake.HasValue) return;
-        thirstTree.SetFloat("currentslake", Math.Min(currentSlake.Value + value, maxSlake.Value));
-        player.Entity.WatchedAttributes.MarkPathDirty(BtCore.Modid+":thirst");
+        if (!currentSaturation.HasValue || !maxSaturation.HasValue) return;
+        thirstTree.SetFloat("currentsaturation", Math.Min(currentSaturation.Value + value, maxSaturation.Value));
     }
     
     private void PlayDrinkSound(EntityAgent byEntity, int eatSoundRepeats = 1)

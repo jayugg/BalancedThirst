@@ -9,7 +9,7 @@ using Vintagestory.API.Util;
 
 namespace BalancedThirst;
 
-public class BtCore : ModSystem
+public class BtModSystem : ModSystem
 {
     public static ILogger Logger;
     public static string Modid;
@@ -53,7 +53,7 @@ public class BtCore : ModSystem
             {
                 continue;
             }
-            if (block.Code.ToString().Contains("game:water-"))
+            if (block.Code.ToString().Contains("water"))
             {
                 Logger.Warning("Adding drinkable behavior to block: " + block.Code);
                 block.BlockBehaviors = block.BlockBehaviors.Append(new BlockBehaviorDrinkable(block));

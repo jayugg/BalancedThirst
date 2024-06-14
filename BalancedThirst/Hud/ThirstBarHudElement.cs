@@ -7,8 +7,10 @@ namespace BalancedThirst.Hud
     public class ThirstBarHudElement : HudElement
     {
         private GuiElementStatbar _thirstBar;
-        private float _lastSlake;
-        private float _lastMaxSlake;
+        private float _lastSaturation;
+        private float _lastMaxSaturation;
+
+        private EntityBehaviorThirst Behavior => capi.World?.Player?.Entity?.GetBehavior<EntityBehaviorThirst>();
 
         public ThirstBarHudElement(ICoreClientAPI capi) : base(capi)
         {
@@ -22,34 +24,26 @@ namespace BalancedThirst.Hud
 
         private void UpdateThirstBar()
         {
-            var thirstTree = this.capi.World.Player.Entity.WatchedAttributes.GetTreeAttribute(BtCore.Modid+":thirst");
-            if (thirstTree == null)
-            {
-                BtCore.Logger.Warning("Thirst tree is null");
-                return;
-            }
+            //BtModSystem.Logger.Warning("Updating thirst bar");
+            var thirstTree = this.capi.World.Player.Entity.WatchedAttributes.GetTreeAttribute(BtModSystem.Modid+":thirst");
             if (thirstTree == null || _thirstBar == null) return;
-            
 
-            BtCore.Logger.Warning("Thirst tree: " + thirstTree);
-            float? currentSlake = thirstTree.TryGetFloat("currentslake");
-            float? maxSlake = thirstTree.TryGetFloat("maxslake");
-            
-            BtCore.Logger.Warning("Current thirst: " + currentSlake + " Max thirst: " + maxSlake);
+            float? currentSaturation = thirstTree.TryGetFloat("currentsaturation");
+            float? maxSaturation = thirstTree.TryGetFloat("maxsaturation");
 
-            if (!currentSlake.HasValue || !maxSlake.HasValue) return;
+            if (!currentSaturation.HasValue || !maxSaturation.HasValue) return;
 
-            bool isSlakeChanged = Math.Abs(_lastSlake - currentSlake.Value) >= 0.1;
-            bool isMaxSlakeChanged = Math.Abs(_lastMaxSlake - maxSlake.Value) >= 0.1;
+            bool isSaturationChanged = Math.Abs(_lastSaturation - currentSaturation.Value) >= 0.1;
+            bool isMaxSaturationChanged = Math.Abs(_lastMaxSaturation - maxSaturation.Value) >= 0.1;
 
-            if (!isSlakeChanged && !isMaxSlakeChanged) return;
+            if (!isSaturationChanged && !isMaxSaturationChanged) return;
 
             _thirstBar.SetLineInterval(100f);
-            _thirstBar.SetValues(currentSlake.Value, 0.0f, maxSlake.Value);
+            _thirstBar.SetValues(currentSaturation.Value, 0.0f, maxSaturation.Value);
 
-            _lastSlake = currentSlake.Value;
-            _lastMaxSlake = maxSlake.Value;
-            //BtModSystem.Logger.Warning("Last slake: " + _lastSlake + " Last max slake: " + _lastMaxSlake);
+            _lastSaturation = currentSaturation.Value;
+            _lastMaxSaturation = maxSaturation.Value;
+            //BtModSystem.Logger.Warning("Last saturation: " + _lastSaturation + " Last max saturation: " + _lastMaxSaturation);
         }
 
         public override void OnOwnPlayerDataReceived()

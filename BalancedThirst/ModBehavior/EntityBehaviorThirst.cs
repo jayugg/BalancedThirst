@@ -4,8 +4,6 @@ using Vintagestory.API.Common.Entities;
 using Vintagestory.API.Config;
 using Vintagestory.API.Datastructures;
 using Vintagestory.API.MathTools;
-using Vintagestory.API.Util;
-using Vintagestory.Client.NoObf;
 using Vintagestory.GameContent;
 
 namespace BalancedThirst.ModBehavior
@@ -21,34 +19,34 @@ namespace BalancedThirst.ModBehavior
     private ICoreAPI _api;
     private float _detoxCounter;
 
-    private readonly string _attributeKey = BtCore.Modid + ":thirst";
+    private readonly string _attributeKey = BtModSystem.Modid + ":thirst";
 
-    public float SlakeLossDelay
+    public float SaturationLossDelay
     {
-      get => this._thirstTree?.GetFloat("slakelossdelay") ?? 180;
+      get => this._thirstTree?.GetFloat("saturationlossdelay") ?? 180;
       set
       {
-        this._thirstTree?.SetFloat("slakelossdelay", value);
+        this._thirstTree?.SetFloat("saturationlossdelay", value);
         this.entity.WatchedAttributes.MarkPathDirty(_attributeKey);
       }
     }
 
-    public float Slake
+    public float Saturation
     {
-      get => this._thirstTree?.GetFloat("currentslake") ?? 1500f;
+      get => this._thirstTree?.GetFloat("currentsaturation") ?? 1500f;
       set
       {
-        this._thirstTree?.SetFloat("currentslake", value);
+        this._thirstTree?.SetFloat("currentsaturation", value);
         this.entity.WatchedAttributes.MarkPathDirty(_attributeKey);
       }
     }
 
-    public float MaxSlake
+    public float MaxSaturation
     {
-      get => this._thirstTree?.GetFloat("maxslake") ?? 1500f;
+      get => this._thirstTree?.GetFloat("maxsaturation") ?? 1500f;
       set
       {
-        this._thirstTree?.SetFloat("maxslake", value);
+        this._thirstTree?.SetFloat("maxsaturation", value);
         this.entity.WatchedAttributes.MarkPathDirty(_attributeKey);
       }
     }
@@ -66,12 +64,12 @@ namespace BalancedThirst.ModBehavior
       if (this._thirstTree == null)
       {
         this.entity.WatchedAttributes.SetAttribute(_attributeKey, _thirstTree = new TreeAttribute());
-        this.Slake = typeAttributes["currentslake"].AsFloat(1500f);
-        this.MaxSlake = typeAttributes["maxslake"].AsFloat(1500f);
-        this.SlakeLossDelay = 180.0f;
+        this.Saturation = typeAttributes["currentsaturation"].AsFloat(1500f);
+        this.MaxSaturation = typeAttributes["maxsaturation"].AsFloat(1500f);
+        this.SaturationLossDelay = 180.0f;
       }
       this._listenerId = this.entity.World.RegisterGameTickListener(this.SlowTick, 6000);
-      entity.Stats.Register(BtCore.Modid+":thirstrate");
+      entity.Stats.Register(BtModSystem.Modid+":thirstrate");
       this.UpdateThirstHungerBoost();
     }
 
@@ -86,49 +84,49 @@ namespace BalancedThirst.ModBehavior
       EntityAgent targetEntity,
       ref EnumHandling handled)
     {
-      this.ConsumeSlake(3f);
+      this.ConsumeSaturation(3f);
     }
 
-    public virtual void ConsumeSlake(float amount) => this.ReduceSlake(amount / 10f);
-    
-    public override void OnEntityReceiveSaturation(
-      float saturation,
-      EnumFoodCategory foodCat = EnumFoodCategory.Unknown,
-      float saturationLossDelay = 10f,
-      float nutritionGainMultiplier = 1f)
-    {
-    float maxSlake = this.MaxSlake;
-    bool isSlakeMaxed = this.Slake >= maxSlake;
-    
-    // Adjust slake and slake loss delay based on food category
+    public virtual void ConsumeSaturation(float amount) => this.ReduceSaturation(amount / 10f);
+
+public override void OnEntityReceiveSaturation(
+    float saturation,
+    EnumFoodCategory foodCat = EnumFoodCategory.Unknown,
+    float saturationLossDelay = 10f,
+    float nutritionGainMultiplier = 1f)
+{
+    float maxSaturation = this.MaxSaturation;
+    bool isSaturationMaxed = this.Saturation >= maxSaturation;
+
+    // Adjust saturation and saturation loss delay based on food category
     switch (foodCat)
     {
         case EnumFoodCategory.Fruit:
-          saturation *= 0.3f;
-          saturationLossDelay *= 0.3f;
-          break;
+            saturation *= 0.3f;
+            saturationLossDelay *= 0.3f;
+            break;
         case EnumFoodCategory.Vegetable:
-          saturation *= 0.25f;
-          saturationLossDelay *= 0.25f;
-          break;
+            saturation *= 0.25f;
+            saturationLossDelay *= 0.25f;
+            break;
         case EnumFoodCategory.Dairy:
-          saturation *= 0.2f;
-          saturationLossDelay *= 0.2f;
-          break;
+            saturation *= 0.2f;
+            saturationLossDelay *= 0.2f;
+            break;
         case EnumFoodCategory.Protein:
-          saturation *= 0.1f;
-          saturationLossDelay *= 0.1f;
-          break;
+            saturation *= 0.1f;
+            saturationLossDelay *= 0.1f;
+            break;
         case EnumFoodCategory.Grain:
-          saturation *= -0.1f;
-          saturationLossDelay *= -0.1f;
-          break;
+            saturation *= -0.1f;
+            saturationLossDelay *= -0.1f;
+            break;
         default:
-          break;
+            break;
     }
 
-    this.Slake = Math.Min(maxSlake, Math.Max(0, this.Slake + saturation));
-    if (!isSlakeMaxed) this.SlakeLossDelay = Math.Max(this.SlakeLossDelay, saturationLossDelay);
+    this.Saturation = Math.Min(maxSaturation, Math.Max(0, this.Saturation + saturation));
+    if (!isSaturationMaxed) this.SaturationLossDelay = Math.Max(this.SaturationLossDelay, saturationLossDelay);
     this.UpdateThirstHungerBoost();
 }
 
@@ -138,10 +136,10 @@ namespace BalancedThirst.ModBehavior
       {
         if (entity.World.Side == EnumAppSide.Server)
         {
-          //BtCore.Logger.Notification("Thirst Rate: " + this.entity.Stats.GetBlended("thirstrate"));
-          //BtCore.Logger.Notification("Hunger Modifier: " + this.HungerModifier);
-          //BtCore.Logger.Notification("Hunger Rate: " + entity.Stats.GetBlended("hungerrate"));
-          //BtCore.Logger.Notification("Current slake (Behaviour): " + this.Slake + " / " + this.MaxSlake);
+          //BtModSystem.Logger.Notification("Thirst Rate: " + this.entity.Stats.GetBlended("thirstrate"));
+          //BtModSystem.Logger.Notification("Hunger Modifier: " + this.HungerModifier);
+          //BtModSystem.Logger.Notification("Hunger Rate: " + entity.Stats.GetBlended("hungerrate"));
+          //BtModSystem.Logger.Notification("Current saturation (Behaviour): " + this.Saturation + " / " + this.MaxSaturation);
         }
 
         EnumGameMode currentGameMode = player.World.PlayerByUid(player.PlayerUID).WorldData.CurrentGameMode;
@@ -161,7 +159,7 @@ namespace BalancedThirst.ModBehavior
       float num3 = GlobalConstants.HungerSpeedModifier / 30f;
       if (num1 != 0)
         num3 /= 4f;
-      this.ReduceSlake(num3 * (float) (1.2000000476837158 * (8.0 + this._sprintCounter / 15.0) / 10.0) * this.entity.Stats.GetBlended("thirstrate") * num2);
+      this.ReduceSaturation(num3 * (float) (1.2000000476837158 * (8.0 + this._sprintCounter / 15.0) / 10.0) * this.entity.Stats.GetBlended("thirstrate") * num2);
       this._thirstCounter = 0.0f;
       this._sprintCounter = 0;
       this.Detox(deltaTime);
@@ -178,27 +176,27 @@ namespace BalancedThirst.ModBehavior
       this._detoxCounter = 0.0f;
     }
 
-    private bool ReduceSlake(float slakeLossMultiplier)
+    private bool ReduceSaturation(float satLossMultiplier)
     {
       bool flag = false;
-      slakeLossMultiplier *= GlobalConstants.HungerSpeedModifier;
-      if (this.SlakeLossDelay > 0.0)
+      satLossMultiplier *= GlobalConstants.HungerSpeedModifier;
+      if (this.SaturationLossDelay > 0.0)
       {
-        this.SlakeLossDelay -= 10f * slakeLossMultiplier;
+        this.SaturationLossDelay -= 10f * satLossMultiplier;
         flag = true;
       }
       else
-        this.Slake = Math.Max(0.0f, this.Slake - (float) (Math.Max(0.5f, 1f / 1000f * this.Slake) * (double) slakeLossMultiplier * 0.25));
+        this.Saturation = Math.Max(0.0f, this.Saturation - (float) (Math.Max(0.5f, 1f / 1000f * this.Saturation) * (double) satLossMultiplier * 0.25));
       this.UpdateThirstHungerBoost();
       if (flag)
       {
         this._thirstCounter -= 10f;
         return true;
       }
-      float slake = this.Slake;
-      if (slake > 0.0)
+      float saturation = this.Saturation;
+      if (saturation > 0.0)
       {
-        this.Slake = Math.Max(0.0f, slake - slakeLossMultiplier * 10f);
+        this.Saturation = Math.Max(0.0f, saturation - satLossMultiplier * 10f);
         this._sprintCounter = 0;
       }
       return false;
@@ -206,11 +204,11 @@ namespace BalancedThirst.ModBehavior
     
     private static float _bParam = 0.3f; // Will be targetable by config
     private static float _cParam = 2f;
-    public float HungerModifier => _bParam * (float) Math.Tanh(_cParam*(1f - 2f*Slake/MaxSlake));
+    public float HungerModifier => _bParam * (float) Math.Tanh(_cParam*(1f - 2f*Saturation/MaxSaturation));
 
     private void UpdateThirstHungerBoost()
     {
-      this.entity.Stats.Set("hungerrate", BtCore.Modid + ":thirsty", HungerModifier);
+      this.entity.Stats.Set("hungerrate", BtModSystem.Modid + ":thirsty", HungerModifier);
       entity.WatchedAttributes.MarkPathDirty("stats");
     }
 
@@ -218,30 +216,28 @@ namespace BalancedThirst.ModBehavior
     {
       if (this.entity is EntityPlayer && this.entity.World.PlayerByUid(((EntityPlayer) this.entity).PlayerUID).WorldData.CurrentGameMode == EnumGameMode.Creative)
         return;
-      
-      bool flag = this.entity.World.Config.GetString("harshWinters").ToBool(true);
       float temperature = this.entity.World.BlockAccessor.GetClimateAt(this.entity.Pos.AsBlockPos, EnumGetClimateMode.ForSuppliedDate_TemperatureOnly, this.entity.World.Calendar.TotalDays).Temperature;
       float bodyTemperature = entity.GetBehavior<EntityBehaviorBodyTemperature>().CurBodyTemperature = temperature;
-      if (temperature <= 30.0 && !flag)
+      if (temperature >= 30.0)
       {
-        this.entity.Stats.Remove(BtCore.Modid+":thirstrate", "resistheat");
+        this.entity.Stats.Remove(BtModSystem.Modid+":thirstrate", "resistheat");
       }
       else
       {
         float num = GameMath.Clamp(30f - temperature, 0.0f, 10f);
-        this.entity.Stats.Set(BtCore.Modid+":thirstrate", "resistheat", this.entity.World.Api.ModLoader.GetModSystem<RoomRegistry>().GetRoomForPosition(this.entity.Pos.AsBlockPos).ExitCount == 0 ? 0.0f : num / 40f, true);
+        this.entity.Stats.Set(BtModSystem.Modid+":thirstrate", "resistheat", this.entity.World.Api.ModLoader.GetModSystem<RoomRegistry>().GetRoomForPosition(this.entity.Pos.AsBlockPos).ExitCount == 0 ? 0.0f : num / 40f, true);
       }
       UpdateThirstHungerBoost();
     }
 
-    public override string PropertyName() => BtCore.Modid + ":thirst";
+    public override string PropertyName() => BtModSystem.Modid + ":thirst";
 
     public override void OnEntityReceiveDamage(DamageSource damageSource, ref float damage)
     {
       if (damageSource.Type != EnumDamageType.Heal || damageSource.Source != EnumDamageSource.Revive)
         return;
-      this.SlakeLossDelay = this.MaxSlake / 2f;
-      this.Slake = this.MaxSlake / 2f;
+      this.SaturationLossDelay = this.MaxSaturation / 2f;
+      this.Saturation = this.MaxSaturation / 2f;
     }
   }
 }
