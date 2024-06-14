@@ -19,7 +19,7 @@ namespace BalancedThirst.ModBehavior
     private ICoreAPI _api;
     private float _detoxCounter;
 
-    private readonly string _attributeKey = BtModSystem.Modid + ":thirst";
+    private string AttributeKey => BtModSystem.Modid + ":thirst";
 
     public float SaturationLossDelay
     {
@@ -27,7 +27,7 @@ namespace BalancedThirst.ModBehavior
       set
       {
         this._thirstTree?.SetFloat("saturationlossdelay", value);
-        this.entity.WatchedAttributes.MarkPathDirty(_attributeKey);
+        this.entity.WatchedAttributes.MarkPathDirty(AttributeKey);
       }
     }
 
@@ -37,7 +37,7 @@ namespace BalancedThirst.ModBehavior
       set
       {
         this._thirstTree?.SetFloat("currentsaturation", value);
-        this.entity.WatchedAttributes.MarkPathDirty(_attributeKey);
+        this.entity.WatchedAttributes.MarkPathDirty(AttributeKey);
       }
     }
 
@@ -47,7 +47,7 @@ namespace BalancedThirst.ModBehavior
       set
       {
         this._thirstTree?.SetFloat("maxsaturation", value);
-        this.entity.WatchedAttributes.MarkPathDirty(_attributeKey);
+        this.entity.WatchedAttributes.MarkPathDirty(AttributeKey);
       }
     }
 
@@ -59,11 +59,16 @@ namespace BalancedThirst.ModBehavior
 
     public override void Initialize(EntityProperties properties, JsonObject typeAttributes)
     {
-      this._thirstTree = this.entity.WatchedAttributes.GetTreeAttribute(_attributeKey);
+      BtModSystem.Logger.Warning("Initializing thirst behaviour");
+      this._thirstTree = this.entity.WatchedAttributes.GetTreeAttribute(AttributeKey);
       this._api = this.entity.World.Api;
       if (this._thirstTree == null)
       {
-        this.entity.WatchedAttributes.SetAttribute(_attributeKey, _thirstTree = new TreeAttribute());
+        BtModSystem.Logger.Warning("Thirst tree is null");
+        BtModSystem.Logger.Warning("Entity is");
+        BtModSystem.Logger.Warning(this.entity.Code.ToString());
+        this.entity.WatchedAttributes.SetAttribute(AttributeKey, _thirstTree = new TreeAttribute());
+        BtModSystem.Logger.Warning("Thirst tree set");
         this.Saturation = typeAttributes["currentsaturation"].AsFloat(1500f);
         this.MaxSaturation = typeAttributes["maxsaturation"].AsFloat(1500f);
         this.SaturationLossDelay = 180.0f;
@@ -136,11 +141,14 @@ public override void OnEntityReceiveSaturation(
       {
         if (entity.World.Side == EnumAppSide.Server)
         {
-          //BtModSystem.Logger.Notification("Thirst Rate: " + this.entity.Stats.GetBlended("thirstrate"));
-          //BtModSystem.Logger.Notification("Hunger Modifier: " + this.HungerModifier);
-          //BtModSystem.Logger.Notification("Hunger Rate: " + entity.Stats.GetBlended("hungerrate"));
-          //BtModSystem.Logger.Notification("Current saturation (Behaviour): " + this.Saturation + " / " + this.MaxSaturation);
+          BtModSystem.Logger.Notification("Thirst Rate: " + this.entity.Stats.GetBlended("thirstrate"));
+          BtModSystem.Logger.Notification("Hunger Modifier: " + this.HungerModifier);
+          BtModSystem.Logger.Notification("Hunger Rate: " + entity.Stats.GetBlended("hungerrate"));
+          BtModSystem.Logger.Notification("Current saturation (Behaviour): " + this.Saturation + " / " + this.MaxSaturation);
         }
+        var tree = player.WatchedAttributes.GetTreeAttribute(AttributeKey);
+        BtModSystem.Logger.Warning("Tree");
+        BtModSystem.Logger.Notification("Current saturation (Player): " + tree.GetFloat("currentsaturation") + " / " + tree.GetFloat("maxsaturation"));
 
         EnumGameMode currentGameMode = player.World.PlayerByUid(player.PlayerUID).WorldData.CurrentGameMode;
         this.Detox(deltaTime);
@@ -230,7 +238,7 @@ public override void OnEntityReceiveSaturation(
       UpdateThirstHungerBoost();
     }
 
-    public override string PropertyName() => BtModSystem.Modid + ":thirst";
+    public override string PropertyName() => AttributeKey;
 
     public override void OnEntityReceiveDamage(DamageSource damageSource, ref float damage)
     {

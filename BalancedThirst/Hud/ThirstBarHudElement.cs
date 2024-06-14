@@ -24,7 +24,7 @@ namespace BalancedThirst.Hud
 
         private void UpdateThirstBar()
         {
-            //BtModSystem.Logger.Warning("Updating thirst bar");
+            BtModSystem.Logger.Warning("Updating thirst bar");
             var thirstTree = this.capi.World.Player.Entity.WatchedAttributes.GetTreeAttribute(BtModSystem.Modid+":thirst");
             if (thirstTree == null || _thirstBar == null) return;
 
@@ -43,7 +43,7 @@ namespace BalancedThirst.Hud
 
             _lastSaturation = currentSaturation.Value;
             _lastMaxSaturation = maxSaturation.Value;
-            //BtModSystem.Logger.Warning("Last saturation: " + _lastSaturation + " Last max saturation: " + _lastMaxSaturation);
+            BtModSystem.Logger.Warning("Last saturation: " + _lastSaturation + " Last max saturation: " + _lastMaxSaturation);
         }
 
         public override void OnOwnPlayerDataReceived()
