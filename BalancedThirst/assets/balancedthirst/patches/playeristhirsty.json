@@ -4,9 +4,9 @@
     "path": "/server/behaviors/6",
     "value": {
       "code": "balancedthirst:thirst",
-      "currentsaturation": 1500.0,
-      "maxsaturation": 1500.0,
-      "saturationlossdelay": 180.0
+      "currenthydration": 1500.0,
+      "maxhydration": 1500.0,
+      "hydrationlossdelay": 180.0
     },
     "file": "game:entities/humanoid/player.json",
     "side": "Server"

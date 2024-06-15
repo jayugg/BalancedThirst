@@ -10,7 +10,7 @@ namespace BalancedThirst.ModBlockBehavior;
 
 public class BlockBehaviorDrinkable : BlockBehavior
 {
-    private int _thirstSaturation;
+    private int _hydration;
     private int _vomitEvery;
     
     public BlockBehaviorDrinkable(Block block) : base(block) { }
@@ -18,7 +18,7 @@ public class BlockBehaviorDrinkable : BlockBehavior
     public override void Initialize(JsonObject properties)
     {
         base.Initialize(properties);
-        this._thirstSaturation = properties["thirstSaturation"].AsInt();
+        this._hydration = properties["hydration"].AsInt();
         this._vomitEvery = properties["vomitEvery"].AsInt();
     }
 
@@ -50,21 +50,21 @@ public class BlockBehaviorDrinkable : BlockBehavior
                 ItemStack waterStack = new ItemStack(waterItem);
                 byPlayer.Entity.World.SpawnCubeParticles(byPlayer.Entity.Pos.AheadCopy(0.25).XYZ.Add(0.0, byPlayer.Entity.SelectionBox.Y2 / 2.0, 0.0), waterStack, 0.75f, 20, 0.45f);
             }
-            addSaturationTo(byPlayer, _thirstSaturation != 0 ? _thirstSaturation : 50);
+            addHydrationTo(byPlayer, _hydration != 0 ? _hydration : 50);
         }
         handling = EnumHandling.PreventDefault;
         return false;
     }
     
-    private void addSaturationTo(IPlayer player, int value)
+    private void addHydrationTo(IPlayer player, int value)
     {
         var thirstTree = player.Entity.WatchedAttributes.GetTreeAttribute(BtModSystem.Modid+":thirst");
 
-        float? currentSaturation = thirstTree.TryGetFloat("currentsaturation");
-        float? maxSaturation = thirstTree.TryGetFloat("maxsaturation");
+        float? currentHydration = thirstTree.TryGetFloat("currenthydration");
+        float? maxHydration = thirstTree.TryGetFloat("maxhydration");
 
-        if (!currentSaturation.HasValue || !maxSaturation.HasValue) return;
-        thirstTree.SetFloat("currentsaturation", Math.Min(currentSaturation.Value + value, maxSaturation.Value));
+        if (!currentHydration.HasValue || !maxHydration.HasValue) return;
+        thirstTree.SetFloat("currenthydration", Math.Min(currentHydration.Value + value, maxHydration.Value));
     }
     
     private void PlayDrinkSound(EntityAgent byEntity, int eatSoundRepeats = 1)

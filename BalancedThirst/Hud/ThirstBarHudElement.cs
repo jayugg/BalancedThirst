@@ -7,11 +7,9 @@ namespace BalancedThirst.Hud
     public class ThirstBarHudElement : HudElement
     {
         private GuiElementStatbar _thirstBar;
-        private float _lastSaturation;
-        private float _lastMaxSaturation;
-
-        private EntityBehaviorThirst Behavior => capi.World?.Player?.Entity?.GetBehavior<EntityBehaviorThirst>();
-
+        private float _lastHydration;
+        private float _lastMaxHydration;
+        
         public ThirstBarHudElement(ICoreClientAPI capi) : base(capi)
         {
             capi.Event.RegisterGameTickListener(OnGameTick, 20);
@@ -28,22 +26,22 @@ namespace BalancedThirst.Hud
             var thirstTree = this.capi.World.Player.Entity.WatchedAttributes.GetTreeAttribute(BtModSystem.Modid+":thirst");
             if (thirstTree == null || _thirstBar == null) return;
 
-            float? currentSaturation = thirstTree.TryGetFloat("currentsaturation");
-            float? maxSaturation = thirstTree.TryGetFloat("maxsaturation");
+            float? currentHydration = thirstTree.TryGetFloat("currenthydration");
+            float? maxHydration = thirstTree.TryGetFloat("maxhydration");
 
-            if (!currentSaturation.HasValue || !maxSaturation.HasValue) return;
+            if (!currentHydration.HasValue || !maxHydration.HasValue) return;
 
-            bool isSaturationChanged = Math.Abs(_lastSaturation - currentSaturation.Value) >= 0.1;
-            bool isMaxSaturationChanged = Math.Abs(_lastMaxSaturation - maxSaturation.Value) >= 0.1;
+            bool isHydrationChanged = Math.Abs(_lastHydration - currentHydration.Value) >= 0.1;
+            bool isMaxHydrationChanged = Math.Abs(_lastMaxHydration - maxHydration.Value) >= 0.1;
 
-            if (!isSaturationChanged && !isMaxSaturationChanged) return;
+            if (!isHydrationChanged && !isMaxHydrationChanged) return;
 
             _thirstBar.SetLineInterval(100f);
-            _thirstBar.SetValues(currentSaturation.Value, 0.0f, maxSaturation.Value);
+            _thirstBar.SetValues(currentHydration.Value, 0.0f, maxHydration.Value);
 
-            _lastSaturation = currentSaturation.Value;
-            _lastMaxSaturation = maxSaturation.Value;
-            BtModSystem.Logger.Warning("Last saturation: " + _lastSaturation + " Last max saturation: " + _lastMaxSaturation);
+            _lastHydration = currentHydration.Value;
+            _lastMaxHydration = maxHydration.Value;
+            BtModSystem.Logger.Warning("Last hydration: " + _lastHydration + " Last max hydration: " + _lastMaxHydration);
         }
 
         public override void OnOwnPlayerDataReceived()
