@@ -5,13 +5,16 @@
     { code: "type", states: ["bambooshoot"] },
   ],
   shapebytype: {
-    "*-bambooshoot": { base: "item/food/vegetable/bambooshoot" }
+    "*-bambooshoot": { base: "game:item/food/vegetable/bambooshoot" }
   },
   "attributes": {
     "hydrationProps": {
       "Hydration": 100,
       "Contamination": 0.0
     }
+  },
+  nutritionPropsByType: {
+    "*": { satiety: 0, foodcategory: "NoNutrition" }
   },
   creativeinventory: { "general": ["*"], "items": ["*"] },
   materialDensity: 600,

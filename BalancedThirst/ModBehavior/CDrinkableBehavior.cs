@@ -15,26 +15,19 @@ public class CDrinkableBehavior : CollectibleBehavior
   
     public HydrationProperties HydrationProps;
     private ICoreAPI _api;
-  
+    
     public CDrinkableBehavior(CollectibleObject collObj) : base(collObj)
     {
-    }
-
-    public void Initialize(ICoreAPI api)
-    {
-      _api = api;
-      JsonObject attributes = collObj.Attributes;
-      JToken hydrationToken = attributes["hydrationProps"].Token;
-      if (hydrationToken != null)
-      {
-        HydrationProps = hydrationToken.ToObject<HydrationProperties>();
-      }
+      BtCore.Logger.Warning("Creating CDrinkableBehavior");
     }
     
     public void Initialize(ICoreAPI api, HydrationProperties props)
     {
       _api = api;
+      BtCore.Logger.Warning("Initializing CDrinkableBehavior");
+      BtCore.Logger.Warning("Hydration props: " + props.Hydration + " " + props.Contamination);
       HydrationProps = props.Clone();
+      BtCore.Logger.Warning("Hydration props2: " + HydrationProps.Hydration + " " + HydrationProps.Contamination);
     }
     
     public virtual HydrationProperties GetHydrationProperties(
@@ -42,6 +35,7 @@ public class CDrinkableBehavior : CollectibleBehavior
       ItemStack itemstack,
       Entity forEntity)
     {
+      BtCore.Logger.Warning("Getting hydration properties");
       return HydrationProps;
     }
     
@@ -106,13 +100,6 @@ public class CDrinkableBehavior : CollectibleBehavior
       if (byEntity is EntityPlayer entityPlayer) {
         player = entityPlayer.World.PlayerByUid(entityPlayer.PlayerUID);
         slot.TakeOut(1);
-        if (hydrationProperties.EatenStack != null)
-        {
-          if (slot.Empty)
-            slot.Itemstack = hydrationProperties.EatenStack.ResolvedItemstack.Clone();
-          else if (player == null || !player.InventoryManager.TryGiveItemstack(hydrationProperties.EatenStack.ResolvedItemstack.Clone(), true))
-            entityPlayer.World.SpawnItemEntity(hydrationProperties.EatenStack.ResolvedItemstack.Clone(), entityPlayer.SidedPos.XYZ);
-        }
         slot.MarkDirty();
         player?.InventoryManager.BroadcastHotbarSlot();
       }
@@ -130,29 +117,5 @@ public class CDrinkableBehavior : CollectibleBehavior
       if (eatSoundRepeats <= 0)
         return;
       byEntity.World.RegisterCallback(_ => PlayDrinkSound(byEntity, eatSoundRepeats), 300);
-    }
-
-    public override void OnHeldInteractStart(ItemSlot slot, EntityAgent byEntity, BlockSelection blockSel, EntitySelection entitySel,
-      bool firstEvent, ref EnumHandHandling handHandling, ref EnumHandling handling)
-    {
-      BtCore.Logger.Warning("OnHeldInteractStart");
-      TryDrinkBegin(slot, byEntity, ref handHandling);
-      base.OnHeldInteractStart(slot, byEntity, blockSel, entitySel, firstEvent, ref handHandling, ref handling);
-    }
-
-    public override bool OnHeldInteractStep(float secondsUsed, ItemSlot slot, EntityAgent byEntity, BlockSelection blockSel,
-      EntitySelection entitySel, ref EnumHandling handling)
-    {
-      BtCore.Logger.Warning("OnHeldInteractStep");
-      TryDrinkStep(secondsUsed, slot, byEntity);
-      return base.OnHeldInteractStep(secondsUsed, slot, byEntity, blockSel, entitySel, ref handling);
-    }
-    
-    public override void OnHeldInteractStop(float secondsUsed, ItemSlot slot, EntityAgent byEntity, BlockSelection blockSel,
-      EntitySelection entitySel, ref EnumHandling handling)
-    {
-      BtCore.Logger.Warning("OnHeldInteractStop");
-      TryDrinkStop(secondsUsed, slot, byEntity);
-      base.OnHeldInteractStop(secondsUsed, slot, byEntity, blockSel, entitySel, ref handling);
     }
 }

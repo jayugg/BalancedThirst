@@ -56,7 +56,7 @@ public class BlockBehaviorDrinkable : BlockBehavior
         return false;
     }
     
-    private void AddHydrationTo(IPlayer player, int value)
+    private static void AddHydrationTo(IPlayer player, int value)
     {
         var thirstTree = player.Entity.WatchedAttributes.GetTreeAttribute(BtCore.Modid+":thirst");
 
