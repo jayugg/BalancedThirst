@@ -62,7 +62,7 @@ namespace BalancedThirst.ModBehavior
       BtCore.Logger.Warning("Initializing thirst behaviour");
       this._thirstTree = this.entity.WatchedAttributes.GetTreeAttribute(AttributeKey);
       this._api = this.entity.World.Api;
-      if (this._thirstTree == null)
+      if (this._thirstTree == null || this._thirstTree.GetFloat("maxhydration") == 0)
       {
         BtCore.Logger.Warning("Thirst tree is null");
         BtCore.Logger.Warning("Entity is");

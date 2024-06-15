@@ -4,7 +4,7 @@ namespace BalancedThirst.ModBehavior;
 
 public class HydrationProperties
 {
-    public int Hydration;
+    public float Hydration;
     public float HydrationLossDelay = 10f;
     public float Contamination;
     
