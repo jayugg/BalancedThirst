@@ -9,7 +9,7 @@ using Vintagestory.API.Util;
 
 namespace BalancedThirst;
 
-public class BtModSystem : ModSystem
+public class BtCore : ModSystem
 {
     public static ILogger Logger;
     public static string Modid;
@@ -20,6 +20,7 @@ public class BtModSystem : ModSystem
         Logger = Mod.Logger;
         api.RegisterBlockBehaviorClass(Modid + ":Drinkable", typeof(BlockBehaviorDrinkable));
         api.RegisterEntityBehaviorClass(Modid + ":thirst", typeof(EntityBehaviorThirst));
+        api.RegisterCollectibleBehaviorClass(Modid + ":cDrinkable", typeof(CDrinkableBehavior));
     }
 
     public override void StartServerSide(ICoreServerAPI api)
@@ -30,9 +31,9 @@ public class BtModSystem : ModSystem
 
     public override void StartClientSide(ICoreClientAPI capi)
     {
-        capi.Gui.RegisterDialog(new GuiDialog[1]
+        capi.Gui.RegisterDialog(new GuiDialog[]
         {
-            (GuiDialog) new ThirstBarHudElement(capi)
+            new ThirstBarHudElement(capi)
         });
     }
     
@@ -57,6 +58,22 @@ public class BtModSystem : ModSystem
             {
                 Logger.Warning("Adding drinkable behavior to block: " + block.Code);
                 block.BlockBehaviors = block.BlockBehaviors.Append(new BlockBehaviorDrinkable(block));
+            }
+        }
+        
+        foreach (CollectibleObject collectible in api.World.Collectibles)
+        {
+            if (collectible?.Code == null)
+            {
+                continue;
+            }
+            if (collectible.Code.ToString().Contains("drinkitem"))
+            {
+                Logger.Warning("Adding cDrinkable behavior to collectible: " + collectible.Code);
+                var props = new HydrationProperties() { Hydration = 100 };
+                var behavior = new CDrinkableBehavior(collectible);
+                behavior.Initialize(api, props);
+                collectible.CollectibleBehaviors = collectible.CollectibleBehaviors.Append(behavior);
             }
         }
     }

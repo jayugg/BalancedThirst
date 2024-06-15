@@ -30,7 +30,7 @@ public class BlockBehaviorDrinkable : BlockBehavior
     {
         if (byPlayer.Entity.Controls.Sneak)
         {
-            BtModSystem.Logger.Warning("Can Drinking!");
+            BtCore.Logger.Warning("Can Drinking!");
             byPlayer.Entity.PlayEntitySound("drink", byPlayer);
             handling = EnumHandling.PreventDefault;
             return true;
@@ -40,7 +40,7 @@ public class BlockBehaviorDrinkable : BlockBehavior
 
     public override bool OnBlockInteractStep(float secondsUsed, IWorldAccessor world, IPlayer byPlayer, BlockSelection blockSel, ref EnumHandling handling)
     {
-        BtModSystem.Logger.Warning("Drinking continues");
+        BtCore.Logger.Warning("Drinking continues");
         if (secondsUsed % 1 == 0)
         {
             PlayDrinkSound(byPlayer.Entity, 40);
@@ -50,15 +50,15 @@ public class BlockBehaviorDrinkable : BlockBehavior
                 ItemStack waterStack = new ItemStack(waterItem);
                 byPlayer.Entity.World.SpawnCubeParticles(byPlayer.Entity.Pos.AheadCopy(0.25).XYZ.Add(0.0, byPlayer.Entity.SelectionBox.Y2 / 2.0, 0.0), waterStack, 0.75f, 20, 0.45f);
             }
-            addHydrationTo(byPlayer, _hydration != 0 ? _hydration : 50);
+            AddHydrationTo(byPlayer, _hydration != 0 ? _hydration : 50);
         }
         handling = EnumHandling.PreventDefault;
         return false;
     }
     
-    private void addHydrationTo(IPlayer player, int value)
+    private void AddHydrationTo(IPlayer player, int value)
     {
-        var thirstTree = player.Entity.WatchedAttributes.GetTreeAttribute(BtModSystem.Modid+":thirst");
+        var thirstTree = player.Entity.WatchedAttributes.GetTreeAttribute(BtCore.Modid+":thirst");
 
         float? currentHydration = thirstTree.TryGetFloat("currenthydration");
         float? maxHydration = thirstTree.TryGetFloat("maxhydration");
