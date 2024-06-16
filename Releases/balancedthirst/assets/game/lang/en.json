@@ -1,0 +1,9 @@
+{
+  "blockhelp-drinkable-drink": "Drink",
+  "blockdesc-drinkable": "Can drink",
+
+  "When eaten: {0} sat, {1} hyd, {2} hp": "When eaten: {0} sat, {2} hyd, {3} hp",
+  "When eaten: {0} sat, {1} hyd": "When eaten: {0} sat, {1} hyd",
+  "When drank: {0} hyd, {1} hp": "When drank: {0} hyd, {1} hp",
+  "When drank: {0} hyd": "When drank: {0} hyd"
+}

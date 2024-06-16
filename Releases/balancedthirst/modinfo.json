@@ -3,11 +3,11 @@
     "modid": "balancedthirst",
     "name": "BalancedThirst",
     "authors": [
-        "jayugg"
+        "Unknown"
     ],
-    "description": "Adds a thirst mechanic to the game.",
+    "description": "To be added",
     "version": "1.0.0",
     "dependencies": {
-        "game": "1.19.8"
+        "game": ""
     }
 }

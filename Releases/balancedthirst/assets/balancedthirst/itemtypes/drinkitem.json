@@ -7,6 +7,12 @@
   shapebytype: {
     "*-bambooshoot": { base: "game:item/food/vegetable/bambooshoot" }
   },
+  "attributes": {
+    "hydrationProps": {
+      "Hydration": 100,
+      "Contamination": 0.0
+    }
+  },
   creativeinventory: { "general": ["*"], "items": ["*"] },
   materialDensity: 600,
   guiTransform: {
