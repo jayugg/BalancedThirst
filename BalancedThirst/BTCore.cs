@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using BalancedThirst.Hud;
 using BalancedThirst.ModBehavior;
@@ -11,7 +10,10 @@ using Vintagestory.API.Server;
 using Vintagestory.API.Common;
 using Vintagestory.API.Common.Entities;
 using Vintagestory.API.Config;
+using Vintagestory.API.Datastructures;
+using Vintagestory.API.MathTools;
 using Vintagestory.API.Util;
+using Vintagestory.GameContent;
 
 namespace BalancedThirst;
 
@@ -73,14 +75,15 @@ public class BtCore : ModSystem
             {
                 continue;
             }
-            if (collectible.Code.ToString().Contains("drinkitem"))
+            
+            if (collectible.Code.ToString().Contains("drinkitem") || collectible.Code.ToString().Contains("waterportion"))
             {
                 Logger.Warning("Adding cDrinkable behavior to collectible: " + collectible.Code);
                 var props = new HydrationProperties() { Hydration = 100 };
                 var behavior = new CDrinkableBehavior(collectible);
                 behavior.Initialize(api, props);
                 collectible.CollectibleBehaviors = collectible.CollectibleBehaviors.Append(behavior);
-                HydrationStore.hydrationPropDict.Add(collectible.Code, props);
+                HydrationStore.hydrationPropDict.TryAdd(collectible.Code, props);
                 Logger.Warning($"HydrationProps for {collectible.Code}: {props.Hydration}");
             }
         }
@@ -93,26 +96,131 @@ public class BtCore : ModSystem
             }
             if (block.Code.ToString().Contains("water"))
             {
-                Logger.Warning("Adding drinkable behavior to block: " + block.Code);
-                block.BlockBehaviors = block.BlockBehaviors.Append(new BlockBehaviorDrinkable(block));
+                //Logger.Warning("Adding drinkable behavior to block: " + block.Code);
+                //block.BlockBehaviors = block.BlockBehaviors.Append(new BlockBehaviorDrinkable(block));
             }
         }
     }
     
-    [HarmonyPatch(typeof(CollectibleObject), "tryEatStop")]
+    [HarmonyPatch(typeof(CollectibleObject), "tryEatBegin")]
     public static class TryEatBeginPatch
     {
-        public static bool Prefix(float secondsUsed, ItemSlot slot, EntityAgent byEntity)
+        public static void Postfix(
+            ItemSlot slot,
+            EntityAgent byEntity,
+            ref EnumHandHandling handling,
+            string eatSound = "eat",
+            int eatSoundRepeats = 1)
         {
-            if (!slot.Itemstack.Collectible.HasBehavior<CDrinkableBehavior>()) return true;
-            HydrationProperties hydrationProperties = slot.Itemstack.Collectible.GetBehavior<CDrinkableBehavior>().HydrationProps;
+            Logger.Warning("TryEatBeginPatch");
+            if (!slot.Itemstack.Collectible.HasBehavior<CDrinkableBehavior>()) return;
+            var behavior = slot.Itemstack.Collectible.GetBehavior<CDrinkableBehavior>();
+            HydrationProperties hydrationProperties = HydrationStore.hydrationPropDict.Get(slot.Itemstack.Collectible.Code);
+            if (slot.Empty || !(byEntity.World is IServerWorldAccessor) || !byEntity.HasBehavior<EntityBehaviorThirst>() || hydrationProperties == null)
+                return;
+            byEntity.World.RegisterCallback(_ => behavior.PlayDrinkSound(byEntity, eatSoundRepeats), 500);
+            byEntity.AnimManager?.StartAnimation("eat");
+            handling = EnumHandHandling.PreventDefault;
+        }
+    }
+    
+    [HarmonyPatch(typeof(CollectibleObject), "tryEatStep")]
+    public static class TryEatStepPatch
+    {
+        public static void Postfix(
+            ref bool __result,
+            float secondsUsed,
+            ItemSlot slot,
+            EntityAgent byEntity,
+            ItemStack spawnParticleStack = null)
+        {
+            Logger.Warning("TryEatStepPatch");
+            if (!slot.Itemstack.Collectible.HasBehavior<CDrinkableBehavior>()) return;
+            HydrationProperties hydrationProperties = HydrationStore.hydrationPropDict.Get(slot.Itemstack.Collectible.Code);
+            if (hydrationProperties == null) return;
+            Vec3d xyz = byEntity.Pos.AheadCopy(0.4000000059604645).XYZ;
+            xyz.X += byEntity.LocalEyePos.X;
+            xyz.Y += byEntity.LocalEyePos.Y - 0.4000000059604645;
+            xyz.Z += byEntity.LocalEyePos.Z;
+            if ((double) secondsUsed > 0.5 && (int) (30.0 * (double) secondsUsed) % 7 == 1)
+                byEntity.World.SpawnCubeParticles(xyz, spawnParticleStack ?? slot.Itemstack, 0.3f, 4, 0.5f, byEntity is EntityPlayer entityPlayer ? entityPlayer.Player : (IPlayer) null);
+            if (!(byEntity.World is IClientWorldAccessor))
+                __result = true;
+            ModelTransform modelTransform = new ModelTransform();
+            modelTransform.EnsureDefaultValues();
+            modelTransform.Origin.Set(0.0f, 0.0f, 0.0f);
+            if ((double) secondsUsed > 0.5)
+                modelTransform.Translation.Y = Math.Min(0.02f, GameMath.Sin(20f * secondsUsed) / 10f);
+            modelTransform.Translation.X -= Math.Min(1f, (float) ((double) secondsUsed * 4.0 * 1.5700000524520874));
+            modelTransform.Translation.Y -= Math.Min(0.05f, secondsUsed * 2f);
+            modelTransform.Rotation.X += Math.Min(30f, secondsUsed * 350f);
+            modelTransform.Rotation.Y += Math.Min(80f, secondsUsed * 350f);
+            byEntity.Controls.UsingHeldItemTransformAfter = modelTransform;
+            __result = secondsUsed <= 1.0;
+        }
+    }
+    
+    [HarmonyPatch(typeof(CollectibleObject), "tryEatStop")]
+    public static class TryEatStopPatch
+    {
+        public static void Postfix(float secondsUsed, ItemSlot slot, EntityAgent byEntity)
+        {
+            Logger.Warning("TryEatStopPatch");
+            if (!slot.Itemstack.Collectible.HasBehavior<CDrinkableBehavior>()) return;
+            HydrationProperties hydrationProperties = HydrationStore.hydrationPropDict.Get(slot.Itemstack.Collectible.Code);
             if (!(byEntity.World is IServerWorldAccessor) || !byEntity.HasBehavior<EntityBehaviorThirst>() || hydrationProperties == null || secondsUsed < 0.949999988079071)
-                return true;
+                return;
             TransitionState transitionState = slot.Itemstack.Collectible.UpdateAndGetTransitionState(byEntity.Api.World, slot, EnumTransitionType.Perish);
             double spoilState = transitionState?.TransitionLevel ?? 0.0;
             float num1 = GlobalConstants.FoodSpoilageSatLossMul((float) spoilState, slot.Itemstack, byEntity);
             byEntity.GetBehavior<EntityBehaviorThirst>().ReceiveHydration(hydrationProperties.Hydration*num1, hydrationProperties.HydrationLossDelay*num1);
-            return true;
+        }
+    }
+    
+    public static HydrationProperties GetContainerHydrationProperties(BlockLiquidContainerBase container, IWorldAccessor world, ItemStack itemstack, Entity forEntity)
+    {
+        ItemStack content = container.GetContent(itemstack);
+        if (!itemstack.Collectible.HasBehavior<CDrinkableBehavior>()) return null;
+        HydrationProperties hydrationProperties = itemstack.Collectible.GetBehavior<CDrinkableBehavior>().HydrationProps;
+        if (!(forEntity.World is IServerWorldAccessor) || !forEntity.HasBehavior<EntityBehaviorThirst>() || hydrationProperties == null)
+            return null;
+        WaterTightContainableProps containableProps = content == null ?  null : BlockLiquidContainerBase.GetContainableProps(content);
+        if (containableProps?.NutritionPropsPerLitre == null) return HydrationStore.hydrationPropDict.Get(container.Code);
+        float num = content.StackSize / containableProps.ItemsPerLitre;
+        hydrationProperties.Hydration *= num;
+        hydrationProperties.HydrationLossDelay *= num;
+        return hydrationProperties;
+    }
+    
+    [HarmonyPatch(typeof(BlockLiquidContainerBase), "tryEatStop")]
+    public static class ContainerTryEastStopPatch
+    {
+        public static void Postfix(float secondsUsed, ItemSlot slot, EntityAgent byEntity)
+        {
+            var container = (BlockLiquidContainerBase) slot.Itemstack.Collectible;
+            if (!container.HasBehavior<CDrinkableBehavior>() || !byEntity.HasBehavior<EntityBehaviorThirst>()) return;
+            HydrationProperties hydrationProperties = GetContainerHydrationProperties(container, byEntity.World, slot.Itemstack, byEntity);
+            if (!(byEntity.World is IServerWorldAccessor) || hydrationProperties == null || secondsUsed < 0.949999988079071) return;
+            var hydration = hydrationProperties.Hydration;
+            var hydrationLossDelay = hydrationProperties.HydrationLossDelay;
+            float val1 = 1f;
+            float currentLitres = container.GetCurrentLitres(slot.Itemstack);
+            float val2 = currentLitres * slot.StackSize;
+            if (currentLitres > (double) val1)
+            {
+                hydration /= currentLitres;
+                hydrationLossDelay /= currentLitres;
+            }
+            TransitionState transitionState = container.UpdateAndGetTransitionState(byEntity.World, slot, EnumTransitionType.Perish);
+            double spoilState = transitionState?.TransitionLevel ?? 0.0;
+            float num1 = GlobalConstants.FoodSpoilageSatLossMul((float) spoilState, slot.Itemstack, byEntity);
+            byEntity.GetBehavior<EntityBehaviorThirst>().ReceiveHydration(hydration * num1, hydrationLossDelay * num1);
+            IPlayer player = null;
+            if (byEntity is EntityPlayer entityPlayer) player = entityPlayer.World.PlayerByUid(entityPlayer.PlayerUID);
+            float num3 = Math.Min(val1, val2);
+            container.TryTakeLiquid(slot.Itemstack, num3 / slot.Itemstack.StackSize);
+            slot.MarkDirty();
+            player?.InventoryManager.BroadcastHotbarSlot();
         }
     }
     
@@ -128,7 +236,7 @@ public class BtCore : ModSystem
             if (collObj?.HasBehavior<CDrinkableBehavior>() ?? false)
             { 
                 CDrinkableBehavior drinkableBehavior = collObj?.GetBehavior<CDrinkableBehavior>();
-                float hydration = HydrationStore.hydrationPropDict.Get(collObj.Code).Hydration;
+                float hydration = HydrationStore.hydrationPropDict.Get(collObj?.Code).Hydration;
                 if (drinkableBehavior is { HydrationProps: not null })
                 {
                     hydration = drinkableBehavior.HydrationProps.Hydration;
@@ -142,10 +250,10 @@ public class BtCore : ModSystem
                 EntityPlayer entity = world.Side == EnumAppSide.Client ? (world as IClientWorldAccessor)?.Player.Entity : null;
                 float spoilState = collObj?.AppendPerishableInfoText(inSlot, dsc, world) ?? 0;
                 FoodNutritionProperties nutritionProperties = collObj?.GetNutritionProperties(world, itemstack, entity);
+                float num1 = GlobalConstants.FoodSpoilageSatLossMul(spoilState, itemstack, entity);
+                float num2 = GlobalConstants.FoodSpoilageHealthLossMul(spoilState, itemstack, entity);
                 if (nutritionProperties != null)
                 {
-                    float num1 = GlobalConstants.FoodSpoilageSatLossMul(spoilState, itemstack, entity);
-                    float num2 = GlobalConstants.FoodSpoilageHealthLossMul(spoilState, itemstack, entity);
                     float satiety = nutritionProperties.Satiety;
                     float health = nutritionProperties.Health;
                     if (Math.Abs(health * num2) > 1.0 / 1000.0)
@@ -165,6 +273,10 @@ public class BtCore : ModSystem
                                 Math.Round(hydration * (double)num1)));
                     }
                     dsc.AppendLine(Lang.Get("Food Category: {0}", Lang.Get("foodcategory-" + nutritionProperties.FoodCategory.ToString().ToLowerInvariant())));
+                }
+                else
+                {
+                    dsc.AppendLine(Lang.Get("When drank: {0} hyd", hydration * (double)num1));
                 }
                 if (collObj?.GrindingProps?.GroundStack?.ResolvedItemstack != null)
                     dsc.AppendLine(Lang.Get("When ground: Turns into {0}x {1}", collObj.GrindingProps.GroundStack.ResolvedItemstack.StackSize, collObj.GrindingProps.GroundStack.ResolvedItemstack.GetName()));

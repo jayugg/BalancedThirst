@@ -13,9 +13,6 @@
       "Contamination": 0.0
     }
   },
-  nutritionPropsByType: {
-    "*": { satiety: 0, foodcategory: "NoNutrition" }
-  },
   creativeinventory: { "general": ["*"], "items": ["*"] },
   materialDensity: 600,
   guiTransform: {

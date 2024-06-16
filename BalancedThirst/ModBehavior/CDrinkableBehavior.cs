@@ -105,7 +105,7 @@ public class CDrinkableBehavior : CollectibleBehavior
       }
     }
     
-    protected void PlayDrinkSound(EntityAgent byEntity, int eatSoundRepeats = 1)
+    public void PlayDrinkSound(EntityAgent byEntity, int eatSoundRepeats = 1)
     {
       if (byEntity.Controls.HandUse != EnumHandInteract.HeldItemInteract)
         return;
