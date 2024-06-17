@@ -30,9 +30,9 @@ public class CDrinkableBehavior : CollectibleBehavior
     
     public virtual HydrationProperties GetHydrationProperties(ItemStack itemstack)
     {
-      BtCore.Logger.Warning("Getting hydration properties");
       if (collObj is BlockLiquidContainerBase)
       {
+        BtCore.Logger.Warning(collObj.Code.Path + " is a BlockLiquidContainerBase");
         return GetContainerHydrationProperties(collObj as BlockLiquidContainerBase, itemstack);
       }
       try
@@ -60,11 +60,10 @@ public class CDrinkableBehavior : CollectibleBehavior
       if  (hydrationProperties == null)
         return null;
       WaterTightContainableProps containableProps = BlockLiquidContainerBase.GetContainableProps(content);
-      if (containableProps?.NutritionPropsPerLitre == null) return hydrationProperties;
       float num = content.StackSize / containableProps.ItemsPerLitre;
       hydrationProperties.Hydration *= num;
       hydrationProperties.HydrationLossDelay *= num;
-      hydrationProperties.Contamination *= num;
+      BtCore.Logger.Warning("Hydration in container: " + hydrationProperties.Hydration);
       return hydrationProperties;
     }
     
