@@ -93,8 +93,8 @@ namespace BalancedThirst.ModBehavior
     }
 
     public virtual void ConsumeHydration(float amount) => this.ReduceHydration(amount / 10f);
-
-
+    
+    [Obsolete("Use ReceiveHydration(HydrationProperties) instead")]
     public void ReceiveHydration(
       float hydration,
       float hydrationLossDelay = 10f
@@ -104,6 +104,15 @@ namespace BalancedThirst.ModBehavior
       bool isHydrationMaxed = this.Hydration >= maxHydration;
       this.Hydration = Math.Min(maxHydration, Math.Max(0, this.Hydration + hydration));
       if (!isHydrationMaxed) this.HydrationLossDelay = Math.Max(this.HydrationLossDelay, hydrationLossDelay);
+      this.UpdateThirstHungerBoost();
+    }
+    
+    public void ReceiveHydration(HydrationProperties hydrationProperties)
+    {
+      float maxHydration = this.MaxHydration;
+      bool isHydrationMaxed = this.Hydration >= maxHydration;
+      this.Hydration = Math.Min(maxHydration, Math.Max(0, this.Hydration + hydrationProperties.Hydration));
+      if (!isHydrationMaxed) this.HydrationLossDelay = Math.Max(this.HydrationLossDelay, hydrationProperties.HydrationLossDelay);
       this.UpdateThirstHungerBoost();
     }
     
