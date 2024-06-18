@@ -1,6 +1,7 @@
 
 using System;
 using BalancedThirst.ModBehavior;
+using BalancedThirst.ModBlockBehavior;
 using Newtonsoft.Json.Linq;
 using Vintagestory.API.Common;
 using Vintagestory.API.Common.Entities;
@@ -55,6 +56,19 @@ public static class Extensions
             return null;
         var behavior = collObj.GetBehavior<DrinkableBehavior>();
         return behavior.GetHydrationProperties(itemStack);
+    }
+
+    public static HydrationProperties GetHydrationProperties(this Block block, IWorldAccessor world, Entity byEntity)
+    {
+        if (block != null && world != null)
+        {
+            var drinkableBehavior = block.GetBehavior<BlockBehaviorDrinkable>();
+            if (drinkableBehavior != null)
+            {
+                return drinkableBehavior.GetHydrationProperties(world, byEntity);
+            }
+        }
+        return null;
     }
 
     [Obsolete("Use ReceiveHydration(HydrationProperties) instead")]

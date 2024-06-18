@@ -1,6 +1,6 @@
-﻿using BalancedThirst.Hud;
+﻿using BalancedThirst.Blocks;
+using BalancedThirst.Hud;
 using BalancedThirst.ModBehavior;
-using BalancedThirst.ModBlockBehavior;
 using Vintagestory.API.Client;
 using Vintagestory.API.Server;
 using Vintagestory.API.Common;
@@ -20,7 +20,9 @@ public class BtCore : ModSystem
     {
         Modid = Mod.Info.ModID;
         Logger = Mod.Logger;
-        api.RegisterBlockBehaviorClass(Modid + ":BlockDrinkable", typeof(BlockBehaviorDrinkable));
+        api.RegisterBlockClass(Modid + "." + nameof(BlockLiquidContainerNoCapacity), typeof(BlockLiquidContainerNoCapacity));
+        api.RegisterBlockClass(Modid + "." + nameof(BlockLiquidContainerLeaking), typeof(BlockLiquidContainerLeaking));
+        //api.RegisterBlockBehaviorClass(Modid + ":BlockDrinkable", typeof(BlockBehaviorDrinkable));
         api.RegisterEntityBehaviorClass(Modid + ":thirst", typeof(EntityBehaviorThirst));
         api.RegisterCollectibleBehaviorClass(Modid + ":Drinkable", typeof(DrinkableBehavior));
     }
@@ -49,23 +51,6 @@ public class BtCore : ModSystem
 
     public override void AssetsFinalize(ICoreAPI api)
     {
-        foreach (Block block in api.World.Blocks)
-        {
-            if (block?.Code == null)
-            {
-                continue;
-            }
-            if (block.Code.ToString().Contains("game:water") || block.Code.ToString().Contains("game:soil"))
-            {
-                Logger.Warning("Adding drinkable behavior to block: " + block.Code);
-                block.BlockBehaviors = block.BlockBehaviors.Append(new BlockBehaviorDrinkable(block));
-                var hydrationProperties = new HydrationProperties()
-                {
-                    Hydration = 100, Contamination = 0.1f
-                };
-                block.SetHydrationProperties(hydrationProperties);
-            }
-        }
         if (!api.Side.IsServer()) return;
         foreach (CollectibleObject collectible in api.World.Collectibles)
         {
@@ -89,5 +74,24 @@ public class BtCore : ModSystem
                 collectible.SetHydrationProperties(hydrationProperties);
             }
         }
+        /*
+        foreach (Block block in api.World.Blocks)
+        {
+            if (block?.Code == null)
+            {
+                continue;
+            }
+            if (block.Code.ToString().Contains(Modid + ":straw"))
+            {
+                Logger.Warning("Adding drinkable behavior to block: " + block.Code);
+                block.BlockBehaviors = block.BlockBehaviors.Append(new BlockBehaviorDrinkable(block));
+                var hydrationProperties = new HydrationProperties()
+                {
+                    Hydration = 100, Contamination = 0.1f
+                };
+                block.SetHydrationProperties(hydrationProperties);
+            }
+        }
+        */
     }
 }

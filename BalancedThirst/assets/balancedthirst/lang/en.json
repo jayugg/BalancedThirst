@@ -1,3 +1,5 @@
 {
-    "hello": "hello world!"
+    "block-woodenbowl-raw": "Wooden bowl",
+    "block-woodenbowl-waxed": "Waxed wooden bowl",
+    "block-straw": "Straw"
 }

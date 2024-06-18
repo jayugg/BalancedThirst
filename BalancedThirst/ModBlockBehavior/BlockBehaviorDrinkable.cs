@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using BalancedThirst.ModBehavior;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
+using Vintagestory.API.Common.Entities;
 using Vintagestory.API.Config;
 using Vintagestory.API.Datastructures;
 using Vintagestory.API.MathTools;
+using Vintagestory.GameContent;
 
 namespace BalancedThirst.ModBlockBehavior;
 
@@ -18,6 +20,22 @@ public class BlockBehaviorDrinkable : BlockBehavior
     
     public virtual HydrationProperties GetHydrationProperties(ItemStack itemstack)
     {
+        try
+        {
+            BtCore.Logger.Warning("Getting hydration properties for " + itemstack.Collectible.Code.Path);
+            JsonObject itemAttribute = itemstack?.ItemAttributes?["hydrationProps"];
+            return itemAttribute is { Exists: true } ? itemAttribute.AsObject<HydrationProperties>( null, itemstack.Collectible.Code.Domain) : null;
+        }
+        catch (Exception ex)
+        {
+            BtCore.Logger.Error("Error getting hydration properties: " + ex.Message);
+            return null;
+        }
+    }
+    
+    public HydrationProperties GetHydrationProperties(IWorldAccessor world, Entity byEntity)
+    {
+        var itemstack = GetBlockStack(world, byEntity);
         try
         {
             BtCore.Logger.Warning("Getting hydration properties for " + itemstack.Collectible.Code.Path);
@@ -91,7 +109,7 @@ public class BlockBehaviorDrinkable : BlockBehavior
         return false;
     }
 
-    private ItemStack GetBlockStack(IWorldAccessor world, EntityPlayer byEntity)
+    private ItemStack GetBlockStack(IWorldAccessor world, Entity byEntity)
     {
         AssetLocation assetLocation = new AssetLocation(this.block.Code.ToString());
         Item blockItem = byEntity.World.GetItem(assetLocation);
