@@ -17,10 +17,8 @@ public static class Extensions
         ItemStack itemStack,
         Entity byEntity)
     {
-        BtCore.Logger.Warning("Getting hydration properties for " + collObj.Code.Path);
         if (!collObj.HasBehavior<DrinkableBehavior>())
         {
-            BtCore.Logger.Warning("No DrinkableBehavior found for " + collObj.Code.Path + "trying NutritionProperties");
             return HydrationProperties.FromNutrition(collObj.GetNutritionProperties(world, itemStack, byEntity));
         }
         var behavior = collObj.GetBehavior<DrinkableBehavior>();
@@ -56,6 +54,8 @@ public static class Extensions
     
     public static void SetHydrationProperties(this CollectibleObject collectible, HydrationProperties hydrationProperties)
     {
+        BtCore.Logger.Warning("Setting hydration properties for " + collectible.Code.Path);
+        BtCore.Logger.Warning(hydrationProperties.Hydration.ToString());
         collectible.EnsureAttributesNotNull();
         JToken token = collectible.Attributes.Token;
         token["hydrationProps"] = JToken.FromObject(hydrationProperties);

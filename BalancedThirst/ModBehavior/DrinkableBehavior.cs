@@ -30,14 +30,14 @@ public class DrinkableBehavior : CollectibleBehavior
     
     public virtual HydrationProperties GetHydrationProperties(ItemStack itemstack)
     {
-      if (collObj is BlockLiquidContainerBase)
+      if (collObj is BlockLiquidContainerBase container)
       {
-        BtCore.Logger.Warning(collObj.Code.Path + " is a BlockLiquidContainerBase");
-        return GetContainerHydrationProperties(collObj as BlockLiquidContainerBase, itemstack);
+        return GetContainerHydrationProperties(container, itemstack);
       }
       try
       {
         JsonObject itemAttribute = itemstack?.ItemAttributes?["hydrationProps"];
+        BtCore.Logger.Warning(itemAttribute?.ToString());
         return itemAttribute is { Exists: true } ? itemAttribute.AsObject<HydrationProperties>( null, itemstack.Collectible.Code.Domain) : null;
       }
       catch (Exception ex)
@@ -56,14 +56,18 @@ public class DrinkableBehavior : CollectibleBehavior
       if (content == null) return null;
       if (!content.Collectible.HasBehavior<DrinkableBehavior>()) return null;
       var behavior = content.Collectible.GetBehavior<DrinkableBehavior>();
-      HydrationProperties hydrationProperties = behavior.GetHydrationProperties(itemstack);
-      if  (hydrationProperties == null)
+      BtCore.Logger.Warning("Getting hydration properties for " + content.Collectible.Code.Path);
+      HydrationProperties hydrationProperties = behavior.GetHydrationProperties(new ItemStack(content.Item));
+      if (hydrationProperties == null)
         return null;
       WaterTightContainableProps containableProps = BlockLiquidContainerBase.GetContainableProps(content);
+      BtCore.Logger.Warning("Items per litre: " + containableProps.ItemsPerLitre);
+      BtCore.Logger.Warning("Stack size: " + content.StackSize);
+      BtCore.Logger.Warning("Hydration: " + hydrationProperties.Hydration);
       float num = content.StackSize / containableProps.ItemsPerLitre;
       hydrationProperties.Hydration *= num;
       hydrationProperties.HydrationLossDelay *= num;
-      //BtCore.Logger.Warning("Hydration in container: " + hydrationProperties.Hydration);
+      BtCore.Logger.Warning("Hydration in container: " + hydrationProperties.Hydration);
       return hydrationProperties;
     }
     

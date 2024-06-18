@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using BalancedThirst.ModBehavior;
 using Vintagestory.API.Common;
 using Vintagestory.API.Util;
@@ -15,61 +16,44 @@ public static class Assets
             {
                 continue;
             }
-
-            HydrationProperties hydrationProps = new HydrationProperties();
-            bool shouldAddHydration = false;
-
-            if (collectible.Code.ToString().Contains("game:waterportion"))
+            if (collectible is BlockLiquidContainerBase)
             {
-                hydrationProps.Hydration = 100;
-                shouldAddHydration = true;
-            }
-            if (collectible.Code.ToString().Contains("game:rawjuice") ||
-                collectible.Code.ToString().Contains("game:milkportion"))
-            {
-                hydrationProps.Hydration = 90;
-                shouldAddHydration = true;
-            }
-            if (collectible.Code.ToString().Contains("game:vinegarportion") || collectible.Code.ToString().Contains("game:cider"))
-            {
-                hydrationProps.Hydration = 60;
-                shouldAddHydration = true;
-            }
-            if (collectible.Code.ToString().Contains("game:spirit"))
-            {
-                hydrationProps.Hydration = 20;
-                shouldAddHydration = true;
-            }
-            if (collectible.Code.ToString().Contains("game:honeyportion"))
-            {
-                hydrationProps.Hydration = 10;
-                shouldAddHydration = true;
-            }
-            if (collectible.Code.ToString().Contains("game:boilingwaterportion"))
-            {
-                hydrationProps.Hydration = 100;
-                hydrationProps.Scalding = true;
-                hydrationProps.Purity = 0.99f;
-                shouldAddHydration = true;
-            }
-            if (collectible.Code.ToString().Contains("game:saltwaterportion"))
-            {
-                hydrationProps.Hydration = 75;
-                hydrationProps.Salty = true;
-                shouldAddHydration = true;
-            }
-            if (!shouldAddHydration)
-            {
+                BtCore.Logger.Warning("Adding drinkable behavior to container: " + collectible.Code);
+                collectible.CollectibleBehaviors = collectible.CollectibleBehaviors.Append(new DrinkableBehavior(collectible));
                 continue;
             }
-            BtCore.Logger.Warning("Adding drinkable behavior to collectible: " + collectible.Code);
-            var behavior = new DrinkableBehavior(collectible);
-            collectible.CollectibleBehaviors = collectible.CollectibleBehaviors.Append(behavior);
-            collectible.SetHydrationProperties(hydrationProps);
+            
+            Dictionary<string, HydrationProperties> hydrationDictionary = new Dictionary<string, HydrationProperties>
+            {
+                { "game:waterportion", new HydrationProperties { Hydration = 100 } },
+                { "game:rawjuice", new HydrationProperties { Hydration = 90 } },
+                { "game:milkportion", new HydrationProperties { Hydration = 90 } },
+                { "game:vinegarportion", new HydrationProperties { Hydration = 60 } },
+                { "game:cider", new HydrationProperties { Hydration = 60 } },
+                { "game:spirit", new HydrationProperties { Hydration = 20 } },
+                { "game:honeyportion", new HydrationProperties { Hydration = 10 } },
+                { "game:boilingwaterportion", new HydrationProperties { Hydration = 100, Scalding = true, Purity = 0.99f } },
+                { "game:saltwaterportion", new HydrationProperties { Hydration = 75, Salty = true } }
+            };
+
+            string code = collectible.Code.ToString();
+
+            foreach (var pair in hydrationDictionary)
+            {
+                if (code.Contains(pair.Key))
+                {
+                    HydrationProperties hydrationProps = pair.Value;
+                    BtCore.Logger.Warning("Adding drinkable behavior and hydration to collectible: " + collectible.Code);
+                    var behavior = new DrinkableBehavior(collectible);
+                    collectible.CollectibleBehaviors = collectible.CollectibleBehaviors.Append(behavior);
+                    collectible.SetHydrationProperties(hydrationProps);
+                    break;
+                }
+            }
         }
 
         
-        foreach (Block block in api.World.Blocks)
+        /*foreach (Block block in api.World.Blocks)
         {
             if (block?.Code == null)
             {
@@ -104,10 +88,6 @@ public static class Assets
                 hydrationProps.Salty = true;
                 shouldAddHydration = true;
             }
-            if (block is BlockLiquidContainerBase)
-            {
-                shouldAddHydration = true;
-            }
             if (!shouldAddHydration)
             {
                 continue;
@@ -115,6 +95,7 @@ public static class Assets
             BtCore.Logger.Warning("Adding hydration properties to block: " + block.Code);
             block.SetHydrationProperties(hydrationProps);
         }
+        */
         
     }
 }
