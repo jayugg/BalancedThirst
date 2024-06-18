@@ -55,7 +55,7 @@
   "creativeinventory": { "general": ["purewater-still-7"], "terrain": ["purewater-still-7"] },
   "replaceable": 9500,
   "lightAbsorption": 2,
-  "climateColorMap": "climatePureWaterTint",
+  "climateColorMap": "climateWaterTint",
   "drops": [],
   "liquidLevelByType": {
     "*-1": 1,
@@ -67,8 +67,8 @@
     "*-7": 7
   },
   "textures": {
-    "all": { "base": "game:block/liquid/water" },
-    "specialSecondTexture": { "base": "game:block/liquid/water2" }
+    "all": { "base": "balancedthirst:purewater" },
+    "specialSecondTexture": { "base": "balancedthirst:purewater2" }
   },
   "sidesolid": {
     "all": false
