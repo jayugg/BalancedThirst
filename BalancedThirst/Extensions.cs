@@ -54,9 +54,9 @@ public static class Extensions
     {
         if (!collObj.HasBehavior<DrinkableBehavior>())
             return null;
-        if (collObj is BlockLiquidContainerBase)
+        if (collObj is BlockLiquidContainerBase container)
         {
-            return GetHydrationProperties((BlockLiquidContainerBase) collObj, itemStack);
+            return GetHydrationProperties(container, itemStack);
         }
         var behavior = collObj.GetBehavior<DrinkableBehavior>();
         return behavior.GetHydrationProperties(itemStack);

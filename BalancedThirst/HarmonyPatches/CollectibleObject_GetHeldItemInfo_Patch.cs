@@ -13,8 +13,10 @@ public class CollectibleObject_GetHeldItemInfo_Patch
         {
             ItemStack itemstack = inSlot.Itemstack;
             CollectibleObject collObj = itemstack?.Collectible;
+            BtCore.Logger.Warning("CollectibleObject_GetHeldItemInfo_Patch: {0}", collObj.Code.ToString());
             HydrationProperties hydrationProperties = collObj?.GetHydrationProperties(itemstack);
             if (hydrationProperties == null) return true;
+            BtCore.Logger.Warning("Got hydration properties");
             var hydration = hydrationProperties.Hydration;
             if (hydrationProperties.Hydration == 0) return true;
             string itemDescText = collObj?.GetItemDescText();
@@ -46,7 +48,9 @@ public class CollectibleObject_GetHeldItemInfo_Patch
             {
                 dsc.AppendLine(Lang.Get("When drank: {0} hyd", Math.Round(hydration * (double)num1)));
             }
-            dsc.AppendLine(Lang.Get("Purity: {0}%", (int)(hydrationProperties.Purity * 100)));
+            if (hydrationProperties.Purity + spoilState > 0.0)
+                BtCore.Logger.Warning("SpoilState: {0}", spoilState.ToString());
+            dsc.AppendLine(Lang.Get("Purity: {0}%", (int)(Math.Min(hydrationProperties.Purity + spoilState, 1) * 100)));
             if (collObj?.GrindingProps?.GroundStack?.ResolvedItemstack != null)
                 dsc.AppendLine(Lang.Get("When ground: Turns into {0}x {1}", collObj.GrindingProps.GroundStack.ResolvedItemstack.StackSize, collObj.GrindingProps.GroundStack.ResolvedItemstack.GetName()));
             if (collObj?.CrushingProps != null)

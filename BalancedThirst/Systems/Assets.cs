@@ -18,7 +18,7 @@ public class Assets : ModSystem
 
     public override void AssetsFinalize(ICoreAPI api)
     {
-        if (api is not ICoreServerAPI)
+        if (!api.Side.IsServer())
             return;
         this.AddHydrationToCollectibles(api);
     }
@@ -98,10 +98,6 @@ public class Assets : ModSystem
                 hydrationProps.Salty = true;
                 shouldAddHydration = true;
             }
-            if (collectible is BlockLiquidContainerBase)
-            {
-                shouldAddHydration = true;
-            }
             if (!shouldAddHydration)
             {
                 continue;
@@ -145,6 +141,10 @@ public class Assets : ModSystem
                 hydrationProps.Hydration = 75;
                 hydrationProps.Purity = 1;
                 hydrationProps.Salty = true;
+                shouldAddHydration = true;
+            }
+            if (block is BlockLiquidContainerBase)
+            {
                 shouldAddHydration = true;
             }
             if (!shouldAddHydration)
