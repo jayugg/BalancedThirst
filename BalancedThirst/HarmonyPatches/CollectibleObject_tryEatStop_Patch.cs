@@ -10,7 +10,7 @@ public class CollectibleObject_tryEatStop_Patch
     public static void Postfix(float secondsUsed, ItemSlot slot, EntityAgent byEntity)
     {
         var collObj = slot.Itemstack.Collectible;
-        HydrationProperties hydrationProperties = collObj.GetHydrationProperties(slot.Itemstack);
+        HydrationProperties hydrationProperties = collObj.GetHydrationProperties(slot.Itemstack, byEntity);
         if (!(byEntity.World is IServerWorldAccessor) || !byEntity.HasBehavior<EntityBehaviorThirst>() || hydrationProperties == null || secondsUsed < 0.949999988079071)
             return;
         TransitionState transitionState = collObj.UpdateAndGetTransitionState(byEntity.Api.World, slot, EnumTransitionType.Perish);

@@ -32,7 +32,7 @@ public class DrinkableBehavior : CollectibleBehavior
     {
       if (collObj is BlockLiquidContainerBase)
       {
-        //BtCore.Logger.Warning(collObj.Code.Path + " is a BlockLiquidContainerBase");
+        BtCore.Logger.Warning(collObj.Code.Path + " is a BlockLiquidContainerBase");
         return GetContainerHydrationProperties(collObj as BlockLiquidContainerBase, itemstack);
       }
       try

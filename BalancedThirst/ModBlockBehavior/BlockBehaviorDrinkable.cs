@@ -23,7 +23,7 @@ public class BlockBehaviorDrinkable : BlockBehavior
         try
         {
             BtCore.Logger.Warning("Getting hydration properties for " + itemstack.Collectible.Code.Path);
-            JsonObject itemAttribute = itemstack?.ItemAttributes?["hydrationProps"];
+            JsonObject itemAttribute = itemstack.ItemAttributes?["hydrationProps"];
             return itemAttribute is { Exists: true } ? itemAttribute.AsObject<HydrationProperties>( null, itemstack.Collectible.Code.Domain) : null;
         }
         catch (Exception ex)
@@ -39,7 +39,7 @@ public class BlockBehaviorDrinkable : BlockBehavior
         try
         {
             BtCore.Logger.Warning("Getting hydration properties for " + itemstack.Collectible.Code.Path);
-            JsonObject itemAttribute = itemstack?.ItemAttributes?["hydrationProps"];
+            JsonObject itemAttribute = itemstack.ItemAttributes?["hydrationProps"];
             return itemAttribute is { Exists: true } ? itemAttribute.AsObject<HydrationProperties>( null, itemstack.Collectible.Code.Domain) : null;
         }
         catch (Exception ex)
@@ -61,7 +61,7 @@ public class BlockBehaviorDrinkable : BlockBehavior
         handling = EnumHandling.PreventDefault;
         var itemStack = GetBlockStack(world, byEntity);
         if (itemStack == null) return false;
-        HydrationProperties hydrationProperties = collObj.GetHydrationProperties(itemStack);
+        HydrationProperties hydrationProperties = collObj.GetHydrationProperties(itemStack, byEntity);
         BtCore.Logger.Warning(hydrationProperties?.Hydration.ToString());
         byEntity.World.RegisterCallback(_ => PlayDrinkSound(byEntity, 4), 500);
         byEntity.AnimManager?.StartAnimation("eat");

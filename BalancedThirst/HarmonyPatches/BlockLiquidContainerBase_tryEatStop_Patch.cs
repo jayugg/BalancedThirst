@@ -13,7 +13,7 @@ public class BlockLiquidContainerBase_tryEatStop_Patch
     {
         var container = (BlockLiquidContainerBase) slot.Itemstack.Collectible;
         if (container == null) return;
-        HydrationProperties hydrationProperties = container.GetHydrationProperties(slot.Itemstack);
+        HydrationProperties hydrationProperties = container.GetHydrationProperties(slot.Itemstack, byEntity);
         if (!(byEntity.World is IServerWorldAccessor) || hydrationProperties == null || secondsUsed < 0.949999988079071) return;
         float val1 = 1f;
         float currentLitres = container.GetCurrentLitres(slot.Itemstack);

@@ -13,17 +13,17 @@ public class CollectibleObject_GetHeldItemInfo_Patch
         {
             ItemStack itemstack = inSlot.Itemstack;
             CollectibleObject collObj = itemstack?.Collectible;
-            HydrationProperties hydrationProperties = collObj?.GetHydrationProperties(itemstack);
-            if (hydrationProperties == null) return true;
-            var hydration = hydrationProperties.Hydration;
-            if (hydrationProperties.Hydration == 0) return true;
             string itemDescText = collObj?.GetItemDescText();
             int index;
             int maxDurability = collObj?.GetMaxDurability(itemstack) ?? 0;
             if (maxDurability > 1) dsc.AppendLine(Lang.Get("Durability: {0} / {1}", collObj?.GetRemainingDurability(itemstack), maxDurability));
             EntityPlayer entity = world.Side == EnumAppSide.Client ? (world as IClientWorldAccessor)?.Player.Entity : null;
-            float spoilState = collObj?.AppendPerishableInfoText(inSlot, dsc, world) ?? 0;
-            FoodNutritionProperties nutritionProperties = collObj?.GetNutritionProperties(world, itemstack, entity);
+            HydrationProperties hydrationProperties = collObj?.GetHydrationProperties(world, itemstack, entity);
+            if (hydrationProperties == null) return true;
+            var hydration = hydrationProperties.Hydration;
+            if (hydrationProperties.Hydration == 0) return true;
+            float spoilState = collObj.AppendPerishableInfoText(inSlot, dsc, world);
+            FoodNutritionProperties nutritionProperties = collObj.GetNutritionProperties(world, itemstack, entity);
             float num1 = GlobalConstants.FoodSpoilageSatLossMul(spoilState, itemstack, entity);
             float num2 = GlobalConstants.FoodSpoilageHealthLossMul(spoilState, itemstack, entity);
             if (nutritionProperties != null)
@@ -46,18 +46,16 @@ public class CollectibleObject_GetHeldItemInfo_Patch
             {
                 dsc.AppendLine(Lang.Get("When drank: {0} hyd", Math.Round(hydration * (double)num1)));
             }
-            if (hydrationProperties.Contamination + spoilState > 0.0)
-                BtCore.Logger.Warning("SpoilState: {0}", spoilState.ToString());
-            dsc.AppendLine(Lang.Get("Contamination: {0}%", (int)(Math.Min(hydrationProperties.Contamination + spoilState, 1) * 100)));
-            if (collObj?.GrindingProps?.GroundStack?.ResolvedItemstack != null)
+            dsc.AppendLine(Lang.Get("Purity: {0}%", hydrationProperties.Purity * 100));
+            if (collObj.GrindingProps?.GroundStack?.ResolvedItemstack != null)
                 dsc.AppendLine(Lang.Get("When ground: Turns into {0}x {1}", collObj.GrindingProps.GroundStack.ResolvedItemstack.StackSize, collObj.GrindingProps.GroundStack.ResolvedItemstack.GetName()));
-            if (collObj?.CrushingProps != null)
+            if (collObj.CrushingProps != null)
             {
                 float num = collObj.CrushingProps.Quantity.avg * collObj.CrushingProps.CrushedStack.ResolvedItemstack.StackSize;
                 dsc.AppendLine(Lang.Get("When pulverized: Turns into {0:0.#}x {1}", num, collObj.CrushingProps.CrushedStack.ResolvedItemstack.GetName()));
                 dsc.AppendLine(Lang.Get("Requires Pulverizer tier: {0}", collObj.CrushingProps.HardnessTier));
             }
-            if (collObj?.CombustibleProps != null)
+            if (collObj.CombustibleProps != null)
             {
                 string lowerInvariant = collObj.CombustibleProps.SmeltingType.ToString().ToLowerInvariant();
                 if (lowerInvariant == "fire")
@@ -84,7 +82,7 @@ public class CollectibleObject_GetHeldItemInfo_Patch
                     dsc.AppendLine(str2); 
                 }
             }
-            CollectibleBehavior[] collectibleBehaviors = collObj?.CollectibleBehaviors;
+            CollectibleBehavior[] collectibleBehaviors = collObj.CollectibleBehaviors;
             for (index = 0; index < collectibleBehaviors.Length; ++index)
                 collectibleBehaviors[index].GetHeldItemInfo(inSlot, dsc, world, withDebugInfo);
             if (itemDescText.Length > 0 && dsc.Length > 0) dsc.Append("\n");

@@ -1,12 +1,9 @@
-
-using System;
 using BalancedThirst.ModBehavior;
 using BalancedThirst.ModBlockBehavior;
 using Newtonsoft.Json.Linq;
 using Vintagestory.API.Common;
 using Vintagestory.API.Common.Entities;
 using Vintagestory.API.Datastructures;
-using Vintagestory.GameContent;
 
 namespace BalancedThirst;
 
@@ -14,48 +11,28 @@ public static class Extensions
 {
     public static void EnsureAttributesNotNull(this CollectibleObject obj) => obj.Attributes ??= new JsonObject(new JObject());
     
-    [Obsolete ("Use GetHydrationProperties(BlockLiquidContainerBase, ItemStack) instead")]
-    public static HydrationProperties GetHydrationProperties(this BlockLiquidContainerBase container, ItemSlot slot)
+    public static HydrationProperties GetHydrationProperties(
+        this CollectibleObject collObj,
+        IWorldAccessor world,
+        ItemStack itemStack,
+        Entity byEntity)
     {
-        BtCore.Logger.Warning($"GetHydrationProperties: {container}, {slot}");
-        var content = container?.GetContent(slot.Itemstack);
-        if (container == null ||
-            !container.HasBehavior<DrinkableBehavior>() ||
-            content?.Collectible.HasBehavior<DrinkableBehavior>() != true)
-            return null;
-
-        var behavior = container.GetBehavior<DrinkableBehavior>();
-        return behavior.GetHydrationProperties(slot.Itemstack);
-    }
-    
-    [Obsolete("Use GetHydrationProperties(CollectibleObject, ItemStack) instead")]
-    public static HydrationProperties GetHydrationProperties(this CollectibleObject collObj, ItemSlot slot)
-    {
+        BtCore.Logger.Warning("Getting hydration properties for " + collObj.Code.Path);
         if (!collObj.HasBehavior<DrinkableBehavior>())
-            return null;
-        var behavior = collObj.GetBehavior<DrinkableBehavior>();
-        return behavior.GetHydrationProperties(slot.Itemstack);
-    }
-    
-    public static HydrationProperties GetHydrationProperties(this BlockLiquidContainerBase container, ItemStack itemStack)
-    {
-        BtCore.Logger.Warning($"GetHydrationProperties: {container}, {itemStack}");
-        var content = container?.GetContent(itemStack);
-        if (container == null ||
-            !container.HasBehavior<DrinkableBehavior>() ||
-            content?.Collectible.HasBehavior<DrinkableBehavior>() != true)
-            return null;
-
-        var behavior = container.GetBehavior<DrinkableBehavior>();
-        return behavior.GetHydrationProperties(itemStack);
-    }
-    
-    public static HydrationProperties GetHydrationProperties(this CollectibleObject collObj, ItemStack itemStack)
-    {
-        if (!collObj.HasBehavior<DrinkableBehavior>())
-            return null;
+        {
+            BtCore.Logger.Warning("No DrinkableBehavior found for " + collObj.Code.Path + "trying NutritionProperties");
+            return HydrationProperties.FromNutrition(collObj.GetNutritionProperties(world, itemStack, byEntity));
+        }
         var behavior = collObj.GetBehavior<DrinkableBehavior>();
         return behavior.GetHydrationProperties(itemStack);
+    }
+
+    public static HydrationProperties GetHydrationProperties(
+        this CollectibleObject collObj,
+        ItemStack itemStack,
+        Entity byEntity)
+    {
+        return GetHydrationProperties(collObj, byEntity.World, itemStack, byEntity);
     }
 
     public static HydrationProperties GetHydrationProperties(this Block block, IWorldAccessor world, Entity byEntity)
@@ -69,13 +46,6 @@ public static class Extensions
             }
         }
         return null;
-    }
-
-    [Obsolete("Use ReceiveHydration(HydrationProperties) instead")]
-    public static void ReceiveHydration(this Entity entity, float hydration, float hydrationLossDelay = 10f)
-    {
-        if (!entity.HasBehavior<EntityBehaviorThirst>()) return;
-        entity.GetBehavior<EntityBehaviorThirst>().ReceiveHydration(hydration, hydrationLossDelay);
     }
     
     public static void ReceiveHydration(this Entity entity, HydrationProperties hydrationProperties)
@@ -95,5 +65,4 @@ public static class Extensions
         // Assign the new JsonObject back to the collectible
         collectible.Attributes = newAttributes;
     }
-    
 }

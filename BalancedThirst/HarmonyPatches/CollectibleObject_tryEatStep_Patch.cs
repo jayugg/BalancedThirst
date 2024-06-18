@@ -15,7 +15,7 @@ public class CollectibleObject_tryEatStep_Patch
         EntityAgent byEntity,
         ItemStack spawnParticleStack = null)
     {
-        HydrationProperties hydrationProperties = slot.Itemstack.Collectible.GetHydrationProperties(slot.Itemstack);
+        HydrationProperties hydrationProperties = slot.Itemstack.Collectible.GetHydrationProperties(slot.Itemstack, byEntity);
         if (hydrationProperties == null) return;
         Vec3d xyz = byEntity.Pos.AheadCopy(0.4000000059604645).XYZ;
         xyz.X += byEntity.LocalEyePos.X;
