@@ -46,9 +46,7 @@ public class CollectibleObject_GetHeldItemInfo_Patch
             {
                 dsc.AppendLine(Lang.Get("When drank: {0} hyd", Math.Round(hydration * (double)num1)));
             }
-            if (hydrationProperties.Contamination + spoilState > 0.0)
-                BtCore.Logger.Warning("SpoilState: {0}", spoilState.ToString());
-            dsc.AppendLine(Lang.Get("Contamination: {0}%", (int)(Math.Min(hydrationProperties.Contamination + spoilState, 1) * 100)));
+            dsc.AppendLine(Lang.Get("Purity: {0}%", (int)(hydrationProperties.Purity * 100)));
             if (collObj?.GrindingProps?.GroundStack?.ResolvedItemstack != null)
                 dsc.AppendLine(Lang.Get("When ground: Turns into {0}x {1}", collObj.GrindingProps.GroundStack.ResolvedItemstack.StackSize, collObj.GrindingProps.GroundStack.ResolvedItemstack.GetName()));
             if (collObj?.CrushingProps != null)

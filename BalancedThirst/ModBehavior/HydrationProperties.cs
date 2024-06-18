@@ -6,7 +6,7 @@ public class HydrationProperties
 {
     public float Hydration;
     public float HydrationLossDelay = 10f;
-    public float Contamination;
+    public float Purity = 1;
     public bool Scalding;
     public bool Salty;
     
@@ -16,7 +16,7 @@ public class HydrationProperties
         {
             Hydration = this.Hydration,
             HydrationLossDelay = this.HydrationLossDelay,
-            Contamination = this.Contamination,
+            Purity = this.Purity,
             Scalding = this.Scalding,
             Salty = this.Salty
         };
