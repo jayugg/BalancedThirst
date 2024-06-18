@@ -4,6 +4,7 @@ using BalancedThirst.ModBehavior;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
 using Vintagestory.API.Config;
+using Vintagestory.GameContent;
 
 namespace BalancedThirst.HarmonyPatches;
 
@@ -47,6 +48,7 @@ public class CollectibleObject_GetHeldItemInfo_Patch
                 dsc.AppendLine(Lang.Get("When drank: {0} hyd", Math.Round(hydration * (double)num1)));
             }
             dsc.AppendLine(Lang.Get("Purity: {0}%", hydrationProperties.Purity * 100));
+            if (collObj is BlockLiquidContainerBase && hydration > 0) return false;
             if (collObj.GrindingProps?.GroundStack?.ResolvedItemstack != null)
                 dsc.AppendLine(Lang.Get("When ground: Turns into {0}x {1}", collObj.GrindingProps.GroundStack.ResolvedItemstack.StackSize, collObj.GrindingProps.GroundStack.ResolvedItemstack.GetName()));
             if (collObj.CrushingProps != null)

@@ -28,12 +28,8 @@ public class DrinkableBehavior : CollectibleBehavior
       base.OnLoaded(api);
     }
     
-    public virtual HydrationProperties GetHydrationProperties(ItemStack itemstack)
+    internal HydrationProperties GetHydrationProperties(ItemStack itemstack)
     {
-      if (collObj is BlockLiquidContainerBase container)
-      {
-        return GetContainerHydrationProperties(container, itemstack);
-      }
       try
       {
         JsonObject itemAttribute = itemstack?.ItemAttributes?["hydrationProps"];
@@ -42,7 +38,7 @@ public class DrinkableBehavior : CollectibleBehavior
       }
       catch (Exception ex)
       {
-        //BtCore.Logger.Error("Error getting hydration properties: " + ex.Message);
+        BtCore.Logger.Error("Error getting hydration properties: " + ex.Message);
         return null;
       }
     }

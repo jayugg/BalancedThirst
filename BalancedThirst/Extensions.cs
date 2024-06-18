@@ -4,6 +4,7 @@ using Newtonsoft.Json.Linq;
 using Vintagestory.API.Common;
 using Vintagestory.API.Common.Entities;
 using Vintagestory.API.Datastructures;
+using Vintagestory.GameContent;
 
 namespace BalancedThirst;
 
@@ -19,6 +20,12 @@ public static class Extensions
     {
         if (!collObj.HasBehavior<DrinkableBehavior>())
         {
+            if (collObj is BlockLiquidContainerBase container &&
+                container.GetContent(itemStack) != null &&
+                container.GetContent(itemStack).Collectible.HasBehavior<DrinkableBehavior>())
+            {
+                return DrinkableBehavior.GetContainerHydrationProperties(container, itemStack);
+            }
             return HydrationProperties.FromNutrition(collObj.GetNutritionProperties(world, itemStack, byEntity));
         }
         var behavior = collObj.GetBehavior<DrinkableBehavior>();

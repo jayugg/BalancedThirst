@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using BalancedThirst.ModBehavior;
 using Vintagestory.API.Common;
 using Vintagestory.API.Util;
@@ -10,19 +11,8 @@ public static class Assets
 {
     public static void AddHydrationToCollectibles(ICoreAPI api)
     {
-        foreach (var collectible in api.World.Collectibles)
+        foreach (var collectible in api.World.Collectibles.Where(c => c?.Code != null))
         {
-            if (collectible?.Code == null)
-            {
-                continue;
-            }
-            if (collectible is BlockLiquidContainerBase)
-            {
-                BtCore.Logger.Warning("Adding drinkable behavior to container: " + collectible.Code);
-                collectible.CollectibleBehaviors = collectible.CollectibleBehaviors.Append(new DrinkableBehavior(collectible));
-                continue;
-            }
-            
             Dictionary<string, HydrationProperties> hydrationDictionary = new Dictionary<string, HydrationProperties>
             {
                 { "game:waterportion", new HydrationProperties { Hydration = 100 } },
@@ -51,7 +41,6 @@ public static class Assets
                 }
             }
         }
-
         
         /*foreach (Block block in api.World.Blocks)
         {

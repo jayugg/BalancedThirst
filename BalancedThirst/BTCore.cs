@@ -55,32 +55,6 @@ public class BtCore : ModSystem
     public override void AssetsFinalize(ICoreAPI api)
     {
         if (!api.Side.IsServer()) return;
-        foreach (var collectible in api.World.Collectibles)
-        {
-            if (collectible?.Code == null)
-            {
-                continue;
-            }
-            
-            if (collectible is BlockLiquidContainerBase)
-            {
-                collectible.CollectibleBehaviors = collectible.CollectibleBehaviors.Append(new DrinkableBehavior(collectible));
-                collectible.SetHydrationProperties(new HydrationProperties(){Hydration = 0});
-            }
-            
-            if (collectible.Code.ToString().Contains("game:waterportion"))
-            {
-                Logger.Warning("Adding drinkable behavior to collectible: " + collectible.Code);
-                var behavior = new DrinkableBehavior(collectible);
-                collectible.CollectibleBehaviors = collectible.CollectibleBehaviors.Append(behavior);
-                var hydrationProperties = new HydrationProperties()
-                {
-                    Hydration = 100, Purity = 0.99f
-                };
-                collectible.SetHydrationProperties(hydrationProperties);
-            }
-        }
-
-        
+        Assets.AddHydrationToCollectibles(api);
     }
 }
