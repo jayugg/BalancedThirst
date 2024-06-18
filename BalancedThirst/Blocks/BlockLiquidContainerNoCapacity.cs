@@ -8,5 +8,5 @@ public class BlockLiquidContainerNoCapacity : BlockLiquidContainerLeaking
     {
         return 1;
     }
-    protected float LeakagePerTick => 0.01f;
+    protected override float LeakagePerTick => 1;
 }

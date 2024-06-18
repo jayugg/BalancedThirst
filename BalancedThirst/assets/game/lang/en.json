@@ -7,5 +7,7 @@
   "When drank: {0} hyd, {1} hp": "When drank: {0} hyd, {1} hp",
   "When drank: {0} hyd": "When drank: {0} hyd",
   
-  "Contamination {0}%": "Contamination {0}%"
+  "Contamination {0}%": "Contamination {0}%",
+  
+  "block-water-d-7": "Water"
 }

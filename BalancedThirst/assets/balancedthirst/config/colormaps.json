@@ -1,0 +1,9 @@
+[
+  {
+    code: "climatePureWaterTint",
+    texture: {
+      base: "balancedthirst/purewatertint" },
+    padding: 4,
+    loadIntoBlockTextureAtlas: true
+  }
+]
