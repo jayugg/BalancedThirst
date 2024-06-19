@@ -64,11 +64,7 @@ namespace BalancedThirst.ModBehavior
       this._api = this.entity.World.Api;
       if (this._thirstTree == null || this._thirstTree.GetFloat("maxhydration") == 0)
       {
-        BtCore.Logger.Warning("Thirst tree is null");
-        BtCore.Logger.Warning("Entity is");
-        BtCore.Logger.Warning(this.entity.Code.ToString());
         this.entity.WatchedAttributes.SetAttribute(AttributeKey, _thirstTree = new TreeAttribute());
-        BtCore.Logger.Warning("Thirst tree set");
         this.Hydration = typeAttributes["currenthydration"].AsFloat(1500f);
         this.MaxHydration = typeAttributes["maxhydration"].AsFloat(1500f);
         this.HydrationLossDelay = 180.0f;

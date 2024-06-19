@@ -33,7 +33,7 @@ public static class Assets
                 if (code.Contains(pair.Key))
                 {
                     HydrationProperties hydrationProps = pair.Value;
-                    BtCore.Logger.Warning("Adding drinkable behavior and hydration to collectible: " + collectible.Code);
+                    //BtCore.Logger.Warning("Adding drinkable behavior and hydration to collectible: " + collectible.Code);
                     var behavior = new DrinkableBehavior(collectible);
                     collectible.CollectibleBehaviors = collectible.CollectibleBehaviors.Append(behavior);
                     collectible.SetHydrationProperties(hydrationProps);
@@ -54,7 +54,6 @@ public static class Assets
             }
             if (block.Code.ToString().Contains(BtCore.Modid + ":purewater"))
             {
-                block.BlockBehaviors = block.BlockBehaviors.Append(new BlockBehaviorRisingWater(block));
                 hydrationProps.Hydration = 100;
                 hydrationProps.Purity = 1;
                 shouldAddHydration = true;
@@ -77,7 +76,7 @@ public static class Assets
             {
                 continue;
             }
-            BtCore.Logger.Warning("Adding hydration properties to block: " + block.Code);
+            //BtCore.Logger.Warning("Adding hydration properties to block: " + block.Code);
             block.SetHydrationProperties(hydrationProps);
         }
         

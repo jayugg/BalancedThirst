@@ -36,23 +36,4 @@ public class BlockLiquidContainerBase_tryEatStop_Patch
         slot.MarkDirty();
         player?.InventoryManager.BroadcastHotbarSlot();
     }
-        
-    /*
-    public static bool OnHeldInteractStartPrefix(
-        ItemSlot itemslot,
-        EntityAgent byEntity,
-        BlockSelection blockSel,
-        EntitySelection entitySel,
-        bool firstEvent,
-        ref EnumHandHandling handHandling)
-    {
-        BtCore.Logger.Warning("OnHeldInteractStart");
-        if (itemslot.Itemstack.Collectible is not BlockLiquidContainerBase container) return true;
-        if (container.GetHydrationProperties(itemslot, byEntity) == null) return true;
-        BtCore.Logger.Warning("CanDrinkFrom");
-        //TryEatBeginPatch.Postfix(itemslot, byEntity, ref handHandling, "drink", 4);
-        handHandling = EnumHandHandling.PreventDefault;
-        return true;
-    }
-    */
 }

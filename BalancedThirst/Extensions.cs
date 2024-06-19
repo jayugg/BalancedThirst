@@ -60,6 +60,17 @@ public static class Extensions
         entity.GetBehavior<EntityBehaviorThirst>().ReceiveHydration(hydrationProperties);
     }
     
+    public static void SetAttribute(this CollectibleObject collectible, string name, object obj)
+    {
+        collectible.EnsureAttributesNotNull();
+        JToken token = collectible.Attributes.Token;
+        token[name] = JToken.FromObject(obj);
+        // Convert the JToken back to a JsonObject
+        JsonObject newAttributes = new JsonObject(token);
+        // Assign the new JsonObject back to the collectible
+        collectible.Attributes = newAttributes;
+    }
+    
     public static void SetHydrationProperties(this CollectibleObject collectible, HydrationProperties hydrationProperties)
     {
         collectible.EnsureAttributesNotNull();

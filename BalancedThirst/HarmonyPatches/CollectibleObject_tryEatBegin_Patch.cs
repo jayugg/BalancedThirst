@@ -20,7 +20,7 @@ public class CollectibleObject_tryEatBegin_Patch
     {
         var collObj = slot.Itemstack.Collectible;
         HydrationProperties hydrationProperties = collObj.GetHydrationProperties(slot.Itemstack, byEntity);
-        BtCore.Logger.Warning(hydrationProperties?.Hydration.ToString());
+        //BtCore.Logger.Warning(hydrationProperties?.Hydration.ToString());
         if (slot.Empty) return;
         byEntity.World.RegisterCallback(_ => DrinkableBehavior.PlayDrinkSound(byEntity, eatSoundRepeats), 500);
         byEntity.AnimManager?.StartAnimation("eat");
