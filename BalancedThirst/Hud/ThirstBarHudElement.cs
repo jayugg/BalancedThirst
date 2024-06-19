@@ -41,7 +41,7 @@ namespace BalancedThirst.Hud
 
             _lastHydration = currentHydration.Value;
             _lastMaxHydration = maxHydration.Value;
-            BtCore.Logger.Warning("Last hydration: " + _lastHydration + " Last max hydration: " + _lastMaxHydration);
+            //BtCore.Logger.Warning("Last hydration: " + _lastHydration + " Last max hydration: " + _lastMaxHydration);
         }
 
         public override void OnOwnPlayerDataReceived()

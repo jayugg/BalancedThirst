@@ -2,7 +2,6 @@
 using BalancedThirst.Hud;
 using BalancedThirst.Items;
 using BalancedThirst.ModBehavior;
-using BalancedThirst.ModBlockBehavior;
 using BalancedThirst.Systems;
 using Vintagestory.API.Client;
 using Vintagestory.API.Server;

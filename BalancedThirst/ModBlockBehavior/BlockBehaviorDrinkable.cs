@@ -7,7 +7,6 @@ using Vintagestory.API.Common.Entities;
 using Vintagestory.API.Config;
 using Vintagestory.API.Datastructures;
 using Vintagestory.API.MathTools;
-using Vintagestory.GameContent;
 
 namespace BalancedThirst.ModBlockBehavior;
 
@@ -15,14 +14,14 @@ public class BlockBehaviorDrinkable : BlockBehavior
 {
     public BlockBehaviorDrinkable(Block block) : base(block)
     {
-        BtCore.Logger.Warning("Creating BlockBehaviorDrinkable for " + block.Code.Path);
+        //BtCore.Logger.Warning("Creating BlockBehaviorDrinkable for " + block.Code.Path);
     }
     
     public virtual HydrationProperties GetHydrationProperties(ItemStack itemstack)
     {
         try
         {
-            BtCore.Logger.Warning("Getting hydration properties for " + itemstack.Collectible.Code.Path);
+            //BtCore.Logger.Warning("Getting hydration properties for " + itemstack.Collectible.Code.Path);
             JsonObject itemAttribute = itemstack.ItemAttributes?["hydrationProps"];
             return itemAttribute is { Exists: true } ? itemAttribute.AsObject<HydrationProperties>( null, itemstack.Collectible.Code.Domain) : null;
         }
@@ -38,7 +37,7 @@ public class BlockBehaviorDrinkable : BlockBehavior
         var itemstack = GetBlockStack(world, byEntity);
         try
         {
-            BtCore.Logger.Warning("Getting hydration properties for " + itemstack.Collectible.Code.Path);
+            //BtCore.Logger.Warning("Getting hydration properties for " + itemstack.Collectible.Code.Path);
             JsonObject itemAttribute = itemstack.ItemAttributes?["hydrationProps"];
             return itemAttribute is { Exists: true } ? itemAttribute.AsObject<HydrationProperties>( null, itemstack.Collectible.Code.Domain) : null;
         }
@@ -62,12 +61,12 @@ public class BlockBehaviorDrinkable : BlockBehavior
         var itemStack = GetBlockStack(world, byEntity);
         if (itemStack == null) return false;
         HydrationProperties hydrationProperties = collObj.GetHydrationProperties(itemStack, byEntity);
-        BtCore.Logger.Warning(hydrationProperties?.Hydration.ToString());
+        //BtCore.Logger.Warning(hydrationProperties?.Hydration.ToString());
         byEntity.World.RegisterCallback(_ => PlayDrinkSound(byEntity, 4), 500);
         byEntity.AnimManager?.StartAnimation("eat");
         if (byEntity is { Player: IClientPlayer clientPlayer })
         {
-            BtCore.Logger.Warning("TriggerFpAnimation");
+            //BtCore.Logger.Warning("TriggerFpAnimation");
             clientPlayer.TriggerFpAnimation(EnumHandInteract.HeldItemInteract);
         }
         handling = EnumHandling.PreventDefault;
@@ -76,7 +75,7 @@ public class BlockBehaviorDrinkable : BlockBehavior
 
     public override bool OnBlockInteractStep(float secondsUsed, IWorldAccessor world, IPlayer byPlayer, BlockSelection blockSel, ref EnumHandling handling)
     {
-        BtCore.Logger.Warning("Drinking continues");
+        //BtCore.Logger.Warning("Drinking continues");
         if (secondsUsed % 1 == 0)
         {
             var byEntity = byPlayer.Entity;

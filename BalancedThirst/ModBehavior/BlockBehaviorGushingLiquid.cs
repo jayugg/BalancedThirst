@@ -1,19 +1,27 @@
 using System;
 using System.Collections.Generic;
 using Vintagestory.API.Common;
+using Vintagestory.API.Datastructures;
 using Vintagestory.API.MathTools;
 using Vintagestory.API.Server;
 using Vintagestory.GameContent;
 
 namespace BalancedThirst.ModBehavior;
 
-public class BlockBehaviorGushingLiquid : BlockBehavior
+public class BlockBehaviorGushingLiquid : BlockBehaviorFiniteSpreadingLiquid
 {
     private bool IsLiquidSourceBlock(Block b) => b.LiquidLevel == 7;
     private bool IsSameLiquid(Block b, Block o) => b.LiquidCode == o.LiquidCode;
+    private AssetLocation collisionReplaceSound;
     
     public BlockBehaviorGushingLiquid(Block block) : base(block)
     {
+    }
+
+    public override void Initialize(JsonObject properties)
+    {
+        base.Initialize(properties);
+        this.collisionReplaceSound = CreateAssetLocation(properties, "sounds/", "liquidCollisionSound");
     }
 
     public override void OnBlockPlaced(IWorldAccessor world, BlockPos blockPos, ref EnumHandling handling)
@@ -21,7 +29,8 @@ public class BlockBehaviorGushingLiquid : BlockBehavior
         base.OnBlockPlaced(world, blockPos, ref handling);
         if (world is IServerWorldAccessor serverWorld)
         {
-            serverWorld.RegisterCallbackUnique(DoTryRise, blockPos, 150);
+            //DoTryRise(serverWorld, blockPos, 300);
+            serverWorld.RegisterCallback(DoTryRise, blockPos, 300);
         }
     }
 
@@ -31,7 +40,8 @@ public class BlockBehaviorGushingLiquid : BlockBehavior
         BtCore.Logger.Warning("Gushing water neighbour change");
         if (world is IServerWorldAccessor serverWorld)
         {
-            serverWorld.RegisterCallbackUnique(DoTryRise, pos, 150);
+            DoTryRise(serverWorld, pos, 300);
+            serverWorld.RegisterCallback(DoTryRise, pos, 300);
         }
     }
     
@@ -40,6 +50,7 @@ public class BlockBehaviorGushingLiquid : BlockBehavior
         if (2*CountColumnHeight(world.BlockAccessor, pos, this.block) < CountConnectedSourceBlocks(world.BlockAccessor, pos, this.block))
         {
             TryRise(world, pos);
+            world.PlaySoundAt(this.collisionReplaceSound, pos.X, pos.Y, pos.Z, range: 16f);
         }
     }
     
@@ -121,5 +132,16 @@ public class BlockBehaviorGushingLiquid : BlockBehavior
             }
         }
         return count;
+    }
+    
+    private static AssetLocation CreateAssetLocation(
+        JsonObject properties,
+        string prefix,
+        string propertyName)
+    {
+        string domainAndPath = properties[propertyName]?.AsString();
+        if (domainAndPath == null)
+            return (AssetLocation) null;
+        return prefix != null ? new AssetLocation(prefix + domainAndPath) : new AssetLocation(domainAndPath);
     }
 }

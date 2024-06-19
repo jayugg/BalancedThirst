@@ -9,7 +9,7 @@
   "behaviors":
   [
     {
-      "name": "FiniteSpreadingLiquid",
+      "name": "balancedthirst:GushingLiquid",
       "properties":
       {
         "spreadDelay": 125,
@@ -18,8 +18,7 @@
         "flowingReplacementCode": "game:rock-basalt",
         "collidesWith": "game:lava"
       }
-    },
-    { "name": "balancedthirst:GushingLiquid" }
+    }
   ],
   "attributes": {
     "smothersFire": true,

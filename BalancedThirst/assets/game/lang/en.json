@@ -6,6 +6,8 @@
   "When eaten: {0} sat, {1} hyd": "When eaten: {0} sat, {1} hyd",
   "When drank: {0} hyd, {1} hp": "When drank: {0} hyd, {1} hp",
   "When drank: {0} hyd": "When drank: {0} hyd",
+
+  "Found water below!" : "Found water below!",
   
   "Contamination {0}%": "Contamination {0}%",
   

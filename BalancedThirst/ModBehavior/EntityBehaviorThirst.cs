@@ -59,7 +59,7 @@ namespace BalancedThirst.ModBehavior
 
     public override void Initialize(EntityProperties properties, JsonObject typeAttributes)
     {
-      BtCore.Logger.Warning("Initializing thirst behaviour");
+      //BtCore.Logger.Warning("Initializing thirst behaviour");
       this._thirstTree = this.entity.WatchedAttributes.GetTreeAttribute(AttributeKey);
       this._api = this.entity.World.Api;
       if (this._thirstTree == null || this._thirstTree.GetFloat("maxhydration") == 0)

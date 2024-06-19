@@ -1,5 +1,6 @@
 using System;
 using Vintagestory.API.Common;
+using Vintagestory.API.Config;
 using Vintagestory.API.MathTools;
 using Vintagestory.API.Server;
 
@@ -7,6 +8,7 @@ namespace BalancedThirst.Items;
 
 public class ItemDowsingRod : Item
 {
+    private float _baseWaterChance = 0.005f;
     public override void OnHeldInteractStart(
         ItemSlot slot,
         EntityAgent byEntity,
@@ -18,19 +20,50 @@ public class ItemDowsingRod : Item
         IPlayer player = (byEntity as EntityPlayer)?.Player;
         if (player == null || slot.Itemstack == null) return;
         BlockPos pos = GetLowestDirtBlockPos(byEntity.Pos.AsBlockPos, byEntity.World);
-        if (pos != null)
+        if (pos != null && byEntity.World.Rand.NextSingle() < CalcWaterChance(byEntity.World, pos))
         {
             Block waterBlock = byEntity.World.GetBlock(new AssetLocation(BtCore.Modid, "purewater-still-7"));
-            if (waterBlock != null)
+            if (waterBlock == null || !PlaceReservoir(byEntity, pos, waterBlock)) return;
+            slot.MarkDirty();
+            handling = EnumHandHandling.PreventDefault;
+            this.DamageItem(byEntity.World, byEntity, slot);
+            if (byEntity is EntityPlayer playerEntity)
             {
-                byEntity.World.BlockAccessor.SetBlock(waterBlock.BlockId, pos);
-                slot.MarkDirty();
-                handling = EnumHandHandling.PreventDefault;
-                slot.Itemstack.ReduceDurability(1);
+                playerEntity.AnimManager.StartAnimation("coldidle-fp");
+            }
+
+            if (player is IServerPlayer serverPlayer)
+            {
+                serverPlayer.SendMessage(GlobalConstants.InfoLogChatGroup,
+                    Lang.GetL(serverPlayer.LanguageCode, "Found water below!"), EnumChatType.Notification);
             }
         }
     }
-    
+
+    private static bool PlaceReservoir(EntityAgent byEntity, BlockPos pos, Block waterBlock)
+    {
+        Random rand = new Random();
+        int radius = rand.Next(2, 5);
+        bool placedAny = false;
+        for (int x = -radius; x <= radius; x++)
+        {
+            for (int z = -radius; z <= radius; z++)
+            {
+                if (x * x + z * z <= radius * radius)
+                {
+                    BlockPos newPos = new BlockPos(pos.X + x, pos.Y, pos.Z + z, 0);
+                    Block existingBlock = byEntity.World.BlockAccessor.GetBlock(newPos);
+                    if (existingBlock.FirstCodePart() == "soil")
+                    {
+                        byEntity.World.BlockAccessor.SetBlock(waterBlock.BlockId, newPos);
+                        placedAny = true;
+                    }
+                }
+            }
+        }
+        return placedAny;
+    }
+
     private BlockPos GetLowestDirtBlockPos(BlockPos startPos, IWorldAccessor world)
     {
         for (int y = Math.Max(0, startPos.Y - 10); y <= startPos.Y; y++)
@@ -44,5 +77,15 @@ public class ItemDowsingRod : Item
             }
         }
         return null;
+    }
+
+    private float CalcWaterChance(IWorldAccessor world, BlockPos pos)
+    {
+        ClimateCondition climate = world.BlockAccessor.GetClimateAt(pos, EnumGetClimateMode.WorldGenValues,
+            world.Calendar.TotalDays);
+        float geo = climate.GeologicActivity;
+        float rain = climate.WorldgenRainfall;
+        float forest = climate.ForestDensity;
+        return _baseWaterChance * (1 + Math.Min(rain - geo*0.5f - forest*0.5f, 0));
     }
 }
