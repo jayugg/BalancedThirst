@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using BalancedThirst.ModBehavior;
+using BalancedThirst.ModBlockBehavior;
 using Vintagestory.API.Common;
 using Vintagestory.API.Util;
-using Vintagestory.GameContent;
 
 namespace BalancedThirst.Systems;
 
@@ -15,7 +15,7 @@ public static class Assets
         {
             Dictionary<string, HydrationProperties> hydrationDictionary = new Dictionary<string, HydrationProperties>
             {
-                { "game:waterportion", new HydrationProperties { Hydration = 100 } },
+                { "game:waterportion", new HydrationProperties { Hydration = 100, Purity = 0.90f } },
                 { "game:rawjuice", new HydrationProperties { Hydration = 90 } },
                 { "game:milkportion", new HydrationProperties { Hydration = 90 } },
                 { "game:vinegarportion", new HydrationProperties { Hydration = 60 } },
@@ -42,13 +42,8 @@ public static class Assets
             }
         }
         
-        /*foreach (Block block in api.World.Blocks)
+        foreach (Block block in api.World.Blocks.Where(b => b?.Code != null))
         {
-            if (block?.Code == null)
-            {
-                continue;
-            }
-
             var hydrationProps = new HydrationProperties();
             var shouldAddHydration = false;
             if (block.Code.ToString().Contains("game:water"))
@@ -59,6 +54,7 @@ public static class Assets
             }
             if (block.Code.ToString().Contains(BtCore.Modid + ":purewater"))
             {
+                block.BlockBehaviors = block.BlockBehaviors.Append(new BlockBehaviorRisingWater(block));
                 hydrationProps.Hydration = 100;
                 hydrationProps.Purity = 1;
                 shouldAddHydration = true;
@@ -84,7 +80,6 @@ public static class Assets
             BtCore.Logger.Warning("Adding hydration properties to block: " + block.Code);
             block.SetHydrationProperties(hydrationProps);
         }
-        */
         
     }
 }

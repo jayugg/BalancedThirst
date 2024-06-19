@@ -1,4 +1,3 @@
-using System;
 using Vintagestory.API.Common;
 
 namespace BalancedThirst.ModBehavior;

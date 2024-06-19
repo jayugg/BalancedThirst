@@ -2,7 +2,9 @@
 using System.Linq;
 using BalancedThirst.Blocks;
 using BalancedThirst.Hud;
+using BalancedThirst.Items;
 using BalancedThirst.ModBehavior;
+using BalancedThirst.ModBlockBehavior;
 using BalancedThirst.Systems;
 using Vintagestory.API.Client;
 using Vintagestory.API.Server;
@@ -25,9 +27,10 @@ public class BtCore : ModSystem
         Logger = Mod.Logger;
         api.RegisterBlockClass(Modid + "." + nameof(BlockLiquidContainerNoCapacity), typeof(BlockLiquidContainerNoCapacity));
         api.RegisterBlockClass(Modid + "." + nameof(BlockLiquidContainerLeaking), typeof(BlockLiquidContainerLeaking));
-        //api.RegisterBlockBehaviorClass(Modid + ":BlockDrinkable", typeof(BlockBehaviorDrinkable));
+        api.RegisterItemClass(Modid + "." + nameof(ItemDowsingRod), typeof(ItemDowsingRod));
         api.RegisterEntityBehaviorClass(Modid + ":thirst", typeof(EntityBehaviorThirst));
         api.RegisterCollectibleBehaviorClass(Modid + ":Drinkable", typeof(DrinkableBehavior));
+        api.RegisterBlockBehaviorClass(Modid + ":RisingWater", typeof(BlockBehaviorRisingWater));
     }
 
     public override void StartServerSide(ICoreServerAPI api)

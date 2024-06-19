@@ -1,3 +1,4 @@
+using System;
 using BalancedThirst.ModBehavior;
 using BalancedThirst.ModBlockBehavior;
 using Newtonsoft.Json.Linq;
@@ -61,15 +62,24 @@ public static class Extensions
     
     public static void SetHydrationProperties(this CollectibleObject collectible, HydrationProperties hydrationProperties)
     {
-        BtCore.Logger.Warning("Setting hydration properties for " + collectible.Code.Path);
-        BtCore.Logger.Warning(hydrationProperties.Hydration.ToString());
         collectible.EnsureAttributesNotNull();
         JToken token = collectible.Attributes.Token;
         token["hydrationProps"] = JToken.FromObject(hydrationProperties);
-
         // Convert the JToken back to a JsonObject
         JsonObject newAttributes = new JsonObject(token);
         // Assign the new JsonObject back to the collectible
         collectible.Attributes = newAttributes;
+    }
+    
+    public static ItemStack ReduceDurability(this ItemStack itemStack, float amount)
+    {
+        if (itemStack == null) return null;
+        var durability = itemStack.Attributes.GetDecimal("durability");
+        var maxDurability = itemStack.Collectible.GetMaxDurability(itemStack);
+        BtCore.Logger.Warning($"Reduced durability of {itemStack.GetName()} by {(int) Math.Clamp(durability - amount, 0, maxDurability)}");
+        BtCore.Logger.Warning($"Amount: {amount}");
+        BtCore.Logger.Warning($"Durability: {durability}");
+        itemStack.Attributes.SetInt("durability", (int) Math.Clamp(durability - amount, 0, maxDurability));
+        return itemStack;
     }
 }

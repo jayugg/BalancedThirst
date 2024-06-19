@@ -94,65 +94,13 @@ namespace BalancedThirst.ModBehavior
 
     public virtual void ConsumeHydration(float amount) => this.ReduceHydration(amount / 10f);
     
-    [Obsolete("Use ReceiveHydration(HydrationProperties) instead")]
-    public void ReceiveHydration(
-      float hydration,
-      float hydrationLossDelay = 10f
-      )
-    {
-      float maxHydration = this.MaxHydration;
-      bool isHydrationMaxed = this.Hydration >= maxHydration;
-      this.Hydration = Math.Min(maxHydration, Math.Max(0, this.Hydration + hydration));
-      if (!isHydrationMaxed) this.HydrationLossDelay = Math.Max(this.HydrationLossDelay, hydrationLossDelay);
-      this.UpdateThirstHungerBoost();
-    }
-    
     public void ReceiveHydration(HydrationProperties hydrationProperties)
     {
       float maxHydration = this.MaxHydration;
       bool isHydrationMaxed = this.Hydration >= maxHydration;
-      this.Hydration = Math.Min(maxHydration, Math.Max(0, this.Hydration + hydrationProperties.Hydration));
+      this.Hydration = Math.Clamp(this.Hydration + hydrationProperties.Hydration, 0, maxHydration);
       if (!isHydrationMaxed) this.HydrationLossDelay = Math.Max(this.HydrationLossDelay, hydrationProperties.HydrationLossDelay);
       this.UpdateThirstHungerBoost();
-    }
-    
-    public override void OnEntityReceiveSaturation(
-        float saturation,
-        EnumFoodCategory foodCat = EnumFoodCategory.Unknown,
-        float saturationLossDelay = 10f,
-        float nutritionGainMultiplier = 1f)
-    {
-        float maxHydration = this.MaxHydration;
-        bool isHydrationMaxed = this.Hydration >= maxHydration;
-
-        // Adjust saturation and saturation loss delay based on food category
-        switch (foodCat)
-        {
-            case EnumFoodCategory.Fruit:
-                saturation *= 0.3f;
-                saturationLossDelay *= 0.3f;
-                break;
-            case EnumFoodCategory.Vegetable:
-                saturation *= 0.25f;
-                saturationLossDelay *= 0.25f;
-                break;
-            case EnumFoodCategory.Dairy:
-                saturation *= 0.2f;
-                saturationLossDelay *= 0.2f;
-                break;
-            case EnumFoodCategory.Protein:
-                saturation *= 0.1f;
-                saturationLossDelay *= 0.1f;
-                break;
-            case EnumFoodCategory.Grain:
-                saturation *= -0.1f;
-                saturationLossDelay *= -0.1f;
-                break;
-        }
-
-        this.Hydration = Math.Min(maxHydration, Math.Max(0, this.Hydration + saturation));
-        if (!isHydrationMaxed) this.HydrationLossDelay = Math.Max(this.HydrationLossDelay, saturationLossDelay);
-        this.UpdateThirstHungerBoost();
     }
 
     public override void OnGameTick(float deltaTime)
