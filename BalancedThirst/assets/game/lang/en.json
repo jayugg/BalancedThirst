@@ -11,5 +11,15 @@
   
   "Contamination {0}%": "Contamination {0}%",
   
-  "block-water-d-7": "Water"
+  "block-water-d-7": "Water",
+  
+  "block-balancedthirst-purewater-still-7": "Still spring water",
+  "block-balancedthirst-purewater-d-7": "Spring water",
+
+  "dowsingrod-nodesearch-traceamount": "Found trace amounts of water",
+  "dowsingrod-nodesearch-smallamount": "Found small amounts of water",
+  "dowsingrod-nodesearch-mediumamount": "Found medium amounts of water",
+  "dowsingrod-nodesearch-largeamount": "Found large amounts of water",
+  "dowsingrod-nodesearch-verylargeamount": "Found very large amounts of water",
+  "dowsingrod-nodesearch-hugeamount": "Found huge amounts of water"
 }

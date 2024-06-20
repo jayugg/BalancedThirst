@@ -1,108 +1,245 @@
 using System;
+using System.Collections.Generic;
+using Vintagestory.API.Client;
 using Vintagestory.API.Common;
+using Vintagestory.API.Common.Entities;
 using Vintagestory.API.Config;
+using Vintagestory.API.Datastructures;
 using Vintagestory.API.MathTools;
 using Vintagestory.API.Server;
+using Vintagestory.API.Util;
+using Vintagestory.GameContent;
+using Vintagestory.ServerMods;
 
 namespace BalancedThirst.Items;
 
-public class ItemDowsingRod : Item
-{
-    private float _baseWaterChance = 0.005f;
+  public class ItemDowsingRod : Item
+  {
+    private ProPickWorkSpace ppws;
+    private SkillItem[] toolModes;
+    public override void OnLoaded(ICoreAPI api)
+    {
+      base.OnLoaded(api);
+      ICoreClientAPI capi = api as ICoreClientAPI;
+      this.toolModes = ObjectCacheUtil.GetOrCreate<SkillItem[]>(api, "dowsingRodToolModes", (CreateCachableObjectDelegate<SkillItem[]>) (() =>
+      {
+        SkillItem[] skillItemArray;
+        if (api.World.Config.GetString("propickNodeSearchRadius").ToInt() > 0)
+          skillItemArray = new SkillItem[2]
+          {
+            new SkillItem()
+            {
+              Code = new AssetLocation("density"),
+              Name = Lang.Get("Density Search Mode (Long range, chance based search)")
+            },
+            new SkillItem()
+            {
+              Code = new AssetLocation("node"),
+              Name = Lang.Get("Node Search Mode (Short range, exact search)")
+            }
+          };
+        else
+          skillItemArray = new SkillItem[1]
+          {
+            new SkillItem()
+            {
+              Code = new AssetLocation("density"),
+              Name = Lang.Get("Density Search Mode (Long range, chance based search)")
+            }
+          };
+        if (capi != null)
+        {
+          skillItemArray[0].WithIcon(capi, capi.Gui.LoadSvgWithPadding(new AssetLocation("textures/icons/heatmap.svg"), 48, 48, 5, new int?(-1)));
+          skillItemArray[0].TexturePremultipliedAlpha = false;
+          if (skillItemArray.Length > 1)
+          {
+            skillItemArray[1].WithIcon(capi, capi.Gui.LoadSvgWithPadding(new AssetLocation("textures/icons/rocks.svg"), 48, 48, 5, new int?(-1)));
+            skillItemArray[1].TexturePremultipliedAlpha = false;
+          }
+        }
+        return skillItemArray;
+      }));
+      if (api.Side != EnumAppSide.Server)
+        return;
+      this.ppws = ObjectCacheUtil.GetOrCreate<ProPickWorkSpace>(api, "dowsingrodworkspace", (CreateCachableObjectDelegate<ProPickWorkSpace>) (() =>
+      {
+        ProPickWorkSpace proPickWorkSpace = new ProPickWorkSpace();
+        proPickWorkSpace.OnLoaded(api);
+        return proPickWorkSpace;
+      }));
+    }
+    
     public override void OnHeldInteractStart(
-        ItemSlot slot,
-        EntityAgent byEntity,
-        BlockSelection blockSel,
-        EntitySelection entitySel,
-        bool firstEvent,
-        ref EnumHandHandling handling)
+      ItemSlot itemslot,
+      EntityAgent byEntity,
+      BlockSelection blockSel,
+      EntitySelection entitySel,
+      bool firstEvent,
+      ref EnumHandHandling handling)
     {
-        IPlayer player = (byEntity as EntityPlayer)?.Player;
-        if (player == null || slot.Itemstack == null) return;
-        BlockPos pos = GetLowestDirtBlockPos(byEntity.Pos.AsBlockPos, byEntity.World);
-        if (pos != null &&
-            byEntity.World.Claims.TryAccess(player, blockSel.Position, EnumBlockAccessFlags.BuildOrBreak) &&
-            byEntity.World.Rand.NextSingle() < CalcWaterChance(byEntity.World, pos))
-        {
-            Block waterBlock = byEntity.World.GetBlock(new AssetLocation(BtCore.Modid, "purewater-still-7"));
-            if (waterBlock == null || !PlaceReservoir(byEntity, pos, waterBlock)) return;
-            slot.MarkDirty();
-            handling = EnumHandHandling.PreventDefault;
-            if (byEntity is EntityPlayer playerEntity)
-            {
-                // TODO: Add animation
-                //playerEntity.AnimManager.StartAnimation("coldidle");
-            }
-
-            if (player is IServerPlayer serverPlayer)
-            {
-                serverPlayer.SendMessage(GlobalConstants.InfoLogChatGroup,
-                    Lang.GetL(serverPlayer.LanguageCode, "Found water below!"), EnumChatType.Notification);
-            }
-        }
-        this.DamageItem(byEntity.World, byEntity, slot);
+      int toolMode = this.GetToolMode(itemslot, (byEntity as EntityPlayer).Player, blockSel);
+      int radius = 8 * this.api.World.Config.GetString("propickNodeSearchRadius").ToInt();
+      int amount = 1;
+      if (toolMode == 1 && radius > 0)
+      {
+        this.ProbeBlockNodeMode(byEntity.World, byEntity, itemslot, blockSel, radius);
+        amount = 2;
+      }
+      else
+        this.ProbeBlockDensityMode(byEntity.World, byEntity, itemslot, blockSel);
+      if (this.DamagedBy != null && this.DamagedBy.Contains<EnumItemDamageSource>(EnumItemDamageSource.BlockBreaking))
+        this.DamageItem(byEntity.World, byEntity, itemslot, amount);
+      handling = EnumHandHandling.PreventDefault;
+    }
+    
+    public override SkillItem[] GetToolModes(
+      ItemSlot slot,
+      IClientPlayer forPlayer,
+      BlockSelection blockSel)
+    {
+      return this.toolModes;
     }
 
-    private static bool PlaceReservoir(EntityAgent byEntity, BlockPos pos, Block waterBlock)
+    public override int GetToolMode(ItemSlot slot, IPlayer byPlayer, BlockSelection blockSel)
     {
-        Random rand = new Random();
-        int radius = rand.Next(2, 5);
-        bool placedAny = false;
-        for (int x = -radius; x <= radius; x++)
-        {
-            for (int z = -radius; z <= radius; z++)
-            {
-                if (x * x + z * z <= radius * radius)
-                {
-                    BlockPos newPos = new BlockPos(pos.X + x, pos.Y, pos.Z + z, 0);
-                    Block existingBlock = byEntity.World.BlockAccessor.GetBlock(newPos);
-                    if (existingBlock.FirstCodePart() == "soil" && !IsExposed(byEntity.World.BlockAccessor, newPos))
-                    {
-                        byEntity.World.BlockAccessor.SetBlock(waterBlock.BlockId, newPos);
-                        placedAny = true;
-                    }
-                }
-            }
-        }
-        return placedAny;
+      return Math.Min(this.toolModes.Length - 1, slot.Itemstack.Attributes.GetInt("toolMode"));
     }
 
-    private BlockPos GetLowestDirtBlockPos(BlockPos startPos, IWorldAccessor world)
+    public override void SetToolMode(
+      ItemSlot slot,
+      IPlayer byPlayer,
+      BlockSelection blockSel,
+      int toolMode)
     {
-        for (int y = Math.Max(0, startPos.Y - 10); y <= startPos.Y; y++)
-        {
-            BlockPos pos = new BlockPos(startPos.X, y, startPos.Z, 0);
-            Block block = world.BlockAccessor.GetBlock(pos);
-            if (block.FirstCodePart() == "soil")
-            {
-                Block blockBelow = world.BlockAccessor.GetBlock(pos.DownCopy());
-                return blockBelow.Code.ToString().Contains("water") ? null : pos;
-            }
-        }
-        return null;
+      slot.Itemstack.Attributes.SetInt(nameof (toolMode), toolMode);
+    }
+    
+    protected virtual void ProbeBlockNodeMode(
+      IWorldAccessor world,
+      Entity byEntity,
+      ItemSlot itemslot,
+      BlockSelection blockSel,
+      int radius)
+    {
+      IPlayer byPlayer = (IPlayer) null;
+      if (byEntity is EntityPlayer)
+        byPlayer = world.PlayerByUid(((EntityPlayer) byEntity).PlayerUID);
+      if (!(byPlayer is IServerPlayer serverPlayer))
+        return;
+      BlockPos blockPos = blockSel.Position.Copy();
+      int quantityFound = 0;
+      this.api.World.BlockAccessor.WalkBlocks(blockPos.AddCopy(radius, radius, radius), blockPos.AddCopy(-radius, -radius, -radius), (Action<Block, int, int, int>) ((nblock, x, y, z) =>
+      {
+        if (nblock.BlockMaterial != EnumBlockMaterial.Liquid || !nblock.Code.ToString().Contains("purewater"))
+          return;
+        quantityFound += 1;
+      }));
+      if (quantityFound == 0)
+      {
+        serverPlayer.SendMessage(GlobalConstants.InfoLogChatGroup, Lang.GetL(serverPlayer.LanguageCode, "No pure water nearby"), EnumChatType.Notification);
+      }
+      else
+      {
+        string l2 = Lang.GetL(serverPlayer.LanguageCode, this.resultTextByQuantity(quantityFound));
+        serverPlayer.SendMessage(GlobalConstants.InfoLogChatGroup, Lang.GetL(serverPlayer.LanguageCode, l2), EnumChatType.Notification);
+      }
     }
 
-    private float CalcWaterChance(IWorldAccessor world, BlockPos pos)
+    protected virtual string resultTextByQuantity(int value)
     {
-        ClimateCondition climate = world.BlockAccessor.GetClimateAt(pos, EnumGetClimateMode.WorldGenValues,
-            world.Calendar.TotalDays);
-        float geo = climate.GeologicActivity;
-        float rain = climate.WorldgenRainfall;
-        float forest = climate.ForestDensity;
-        return _baseWaterChance * (1 + Math.Min(rain*3 - geo*1 - forest*1, 0));
+      if (value < 2)
+        return "dowsingrod-nodesearch-traceamount";
+      if (value < 4)
+        return "dowsingrod-nodesearch-smallamount";
+      if (value < 10)
+        return "dowsingrod-nodesearch-mediumamount";
+      if (value < 30)
+        return "dowsingrod-nodesearch-largeamount";
+      return value < 60 ? "dowsingrod-nodesearch-verylargeamount" : "dowsingrod-nodesearch-hugeamount";
     }
 
-    private static bool IsExposed(IBlockAccessor blockAccessor, BlockPos pos)
+    protected virtual void ProbeBlockDensityMode(
+      IWorldAccessor world,
+      Entity byEntity,
+      ItemSlot itemslot,
+      BlockSelection blockSel)
     {
-        foreach (BlockFacing facing in BlockFacing.ALLFACES)
+      IPlayer byPlayer = (IPlayer) null;
+      if (byEntity is EntityPlayer)
+        byPlayer = world.PlayerByUid(((EntityPlayer) byEntity).PlayerUID);
+      if (!(byPlayer is IServerPlayer splr))
+        return;
+      this.PrintProbeResults(world, splr, itemslot, blockSel.Position);
+    }
+
+    protected virtual void PrintProbeResults(
+      IWorldAccessor world,
+      IServerPlayer splr,
+      ItemSlot itemslot,
+      BlockPos pos)
+    {
+      PropickReading results = this.GenProbeResults(world, pos);
+      string humanReadable = results.ToHumanReadable(splr.LanguageCode, this.ppws.pageCodes);
+      splr.SendMessage(GlobalConstants.InfoLogChatGroup, humanReadable, EnumChatType.Notification);
+      world.Api.ModLoader.GetModSystem<ModSystemOreMap>()?.DidProbe(results, splr);
+    }
+
+    protected virtual PropickReading GenProbeResults(IWorldAccessor world, BlockPos pos)
+    {
+      if (this.api.ModLoader.GetModSystem<GenDeposits>()?.Deposits == null)
+        return (PropickReading) null;
+      int regionSize = world.BlockAccessor.RegionSize;
+      IMapRegion mapRegion = world.BlockAccessor.GetMapRegion(pos.X / regionSize, pos.Z / regionSize);
+      int num1 = pos.X % regionSize;
+      int num2 = pos.Z % regionSize;
+      pos = pos.Copy();
+      pos.Y = world.BlockAccessor.GetTerrainMapheightAt(pos);
+      int[] rockColumn = this.ppws.GetRockColumn(pos.X, pos.Z);
+      PropickReading propickReading = new PropickReading();
+      propickReading.Position = new Vec3d((double) pos.X, (double) pos.Y, (double) pos.Z);
+      foreach (KeyValuePair<string, IntDataMap2D> oreMap in mapRegion.OreMaps)
+      {
+        IntDataMap2D intDataMap2D = oreMap.Value;
+        int innerSize = intDataMap2D.InnerSize;
+        int unpaddedColorLerped = intDataMap2D.GetUnpaddedColorLerped((float) num1 / (float) regionSize * (float) innerSize, (float) num2 / (float) regionSize * (float) innerSize);
+        if (oreMap.Key.ToString().Contains("purewater") && this.ppws.depositsByCode.ContainsKey(oreMap.Key))
         {
-            BlockPos adjacentPos = pos.AddCopy(facing);
-            if (!blockAccessor.GetBlock(adjacentPos).SideSolid[facing.Opposite.Index] &&
-                blockAccessor.GetBlock(adjacentPos).FirstCodePart() != "purewater")
+          double ppt;
+          double totalFactor;
+          this.ppws.depositsByCode[oreMap.Key].GetPropickReading(pos, unpaddedColorLerped, rockColumn, out ppt, out totalFactor);
+          if (totalFactor > 0.0)
+            propickReading.OreReadings[oreMap.Key] = new OreReading()
             {
-                return true;
-            }
+              TotalFactor = totalFactor,
+              PartsPerThousand = ppt
+            };
         }
-        return false;
+      }
+      return propickReading;
+    }
+
+    public override void OnUnloaded(ICoreAPI api)
+    {
+      base.OnUnloaded(api);
+      if (api is ICoreServerAPI coreServerApi)
+      {
+        this.ppws?.Dispose(api);
+        coreServerApi.ObjectCache.Remove("dowsingrodworkspace");
+      }
+      for (int index = 0; this.toolModes != null && index < this.toolModes.Length; ++index)
+        this.toolModes[index]?.Dispose();
+    }
+
+    public override WorldInteraction[] GetHeldInteractionHelp(ItemSlot inSlot)
+    {
+      return new WorldInteraction[1]
+      {
+        new WorldInteraction()
+        {
+          ActionLangCode = "Change tool mode",
+          HotKeyCodes = new string[1]{ "toolmodeselect" },
+          MouseButton = EnumMouseButton.None
+        }
+      };
     }
 }

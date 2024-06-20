@@ -7,7 +7,7 @@ using Vintagestory.API.Util;
 namespace BalancedThirst.Systems;
 
 public static class EditAssets
-{
+{ // Todo: fix recipes, change boiling water pickup item to hot water
     public static void AddHydrationToCollectibles(ICoreAPI api)
     {
         foreach (var collectible in api.World.Collectibles.Where(c => c?.Code != null))
@@ -46,7 +46,7 @@ public static class EditAssets
         Dictionary<string, HydrationProperties> hydrationBlockDictionary = new Dictionary<string, HydrationProperties>
         {
             { "game:water", new HydrationProperties { Hydration = 100, Purity = 0.9f } },
-            { BtCore.Modid + ":purewater", new HydrationProperties { Hydration = 100, Purity = 1 } },
+            { "game:" + BtCore.Modid + "-purewater", new HydrationProperties { Hydration = 100, Purity = 1 } },
             { "game:boilingwater", new HydrationProperties { Hydration = 100, Scalding = true, Purity = 0.99f } },
             { "game:saltwater", new HydrationProperties { Hydration = 75, Purity = 1, Salty = true } }
         };

@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 using Vintagestory.API.Common;
-using Vintagestory.API.Datastructures;
 using Vintagestory.API.MathTools;
 using Vintagestory.API.Server;
 using Vintagestory.GameContent;
@@ -15,7 +15,7 @@ public class BlockBehaviorGushingLiquid : BlockBehaviorFiniteSpreadingLiquid
     public BlockBehaviorGushingLiquid(Block block) : base(block)
     {
     }
-    
+
     public override void OnBlockPlaced(IWorldAccessor world, BlockPos blockPos, ref EnumHandling handling)
     {
         base.OnBlockPlaced(world, blockPos, ref handling);
@@ -23,6 +23,7 @@ public class BlockBehaviorGushingLiquid : BlockBehaviorFiniteSpreadingLiquid
         {
             serverWorld.RegisterCallback(DoTryRise, blockPos, 300);
         }
+        world.RegisterCallback(ForceDelayedWaterUpdateCheck, blockPos, 300);
     }
 
     public override void OnNeighbourBlockChange(IWorldAccessor world, BlockPos pos, BlockPos neibpos, ref EnumHandling handling)
@@ -33,15 +34,36 @@ public class BlockBehaviorGushingLiquid : BlockBehaviorFiniteSpreadingLiquid
         {
             serverWorld.RegisterCallback(DoTryRise, pos, 300);
         }
+        world.RegisterCallback(ForceDelayedWaterUpdateCheck, pos, 300);
+    }
+    
+    public void ForceDelayedWaterUpdateCheck(IWorldAccessor world, BlockPos pos, float dt)
+    {
+        Type baseType = typeof(BlockBehaviorFiniteSpreadingLiquid);
+        MethodInfo method = baseType.GetMethod("OnDelayedWaterUpdateCheck", BindingFlags.NonPublic | BindingFlags.Instance);
+        if (method != null)
+        {
+            try
+            {
+                method.Invoke(this, new object[] { world, pos, dt });
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Exception during reflection: " + ex.Message);
+            }
+        }
+        else
+        {
+            Console.WriteLine("Could not find method 'OnDelayedWaterUpdateCheck'");
+        }
     }
     
     public void DoTryRise(IWorldAccessor world, BlockPos pos, float dt)
     {
-        if (2*CountColumnHeight(world.BlockAccessor, pos, this.block) < CountConnectedSourceBlocks(world.BlockAccessor, pos, this.block))
-        {
-            TryRise(world, pos);
-            world.PlaySoundAt(this.gushSound, pos.X, pos.Y, pos.Z, range: 16f);
-        }
+        if (!(2.5 * CountColumnHeight(world.BlockAccessor, pos, this.block) < 
+            CountConnectedSourceBlocks(world.BlockAccessor, pos, this.block))) return;
+        TryRise(world, pos);
+        world.PlaySoundAt(this.gushSound, pos.X, pos.Y, pos.Z, range: 16f);
     }
     
     private void TryRise(IWorldAccessor world, BlockPos pos)

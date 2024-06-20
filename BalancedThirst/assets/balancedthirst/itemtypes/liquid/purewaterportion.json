@@ -13,9 +13,9 @@
       "tintIndex": 1,
       "whenSpilled": {
         "action": "PlaceBlock",
-        "stack": { "type": "block", "code": "balancedthirst:purewater-still-3" },
+        "stack": { "type": "block", "code": "game:purewater-still-3" },
         "stackByFillLevel": {
-          "10": { "type": "block", "code": "balancedthirst:purewater-still-7" }
+          "10": { "type": "block", "code": "game:purewater-still-7" }
         }
       }
     }

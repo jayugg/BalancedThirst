@@ -1,9 +1,9 @@
 {
-  "code": "purewater",
+  "code": "balancedthirst-purewater",
   "__comment": "BlockGushingWater contains code to rise up when discovered",
   "classByType": {
-    "purewater-still-*": "BlockWater",
-    "purewater-d-*": "BlockWaterfall",
+    "*-still-*": "BlockWater",
+    "*-d-*": "BlockWaterfall",
     "*": "BlockWaterflowing"
   },
   "behaviors":
@@ -53,7 +53,7 @@
   "liquidCode": "game:water",
   "snowCoverage": false,
   "materialdensity": 1000,
-  "creativeinventory": { "general": ["purewater-still-7"], "terrain": ["purewater-still-7"] },
+  "creativeinventory": { "general": ["balancedthirst-purewater-still-7"], "terrain": ["balancedthirst-purewater-still-7"] },
   "replaceable": 9500,
   "lightAbsorption": 2,
   "climateColorMap": "climateWaterTint",
@@ -80,18 +80,18 @@
   "collisionbox": null,
   "selectionbox": null,
   "soundsByType": {
-    "purewater-still-*": {
+    "*-still-*": {
       "place": "game:block/water",
       "inside": "game:walk/water",
       "ambient": "game:environment/waterwaves",
       "ambientBlockCount": 50
     },
-    "purewater-d-*": { "place": "game:block/water", "inside": "game:walk/water", "ambient": "game:environment/waterfall" },
+    "*-d-*": { "place": "game:block/water", "inside": "game:walk/water", "ambient": "game:environment/waterfall" },
     "*": { "place": "game:block/water", "game:inside": "game:walk/water", "ambient": "game:environment/creek" }
   },
   "particlePropertiesByType": {
-    "purewater-still-*": [],
-    "purewater-d-*":
+    "*-still-*": [],
+    "*-d-*":
     [
       {
         "comment": "North side",
