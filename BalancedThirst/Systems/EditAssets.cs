@@ -23,6 +23,7 @@ public static class EditAssets
                 { "game:honeyportion", new HydrationProperties { Hydration = 10 } },
                 { "game:boilingwaterportion", new HydrationProperties { Hydration = 100, Scalding = true, Purity = 0.99f } },
                 { "game:saltwaterportion", new HydrationProperties { Hydration = 75, Salty = true } },
+                { "game:brineportion", new HydrationProperties { Hydration = 60, Salty = true } },
                 { BtCore.Modid + ":purewaterportion", new HydrationProperties { Hydration = 100, Purity = 1 } }
             };
 

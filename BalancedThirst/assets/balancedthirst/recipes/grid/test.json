@@ -1,0 +1,10 @@
+{
+  "ingredientPattern": "K,S",
+  "ingredients": {
+    "K": { "type": "item", "code": "game:knife-*", "isTool": true },
+    "S": { "type": "item", "code": "game:waterportion" }
+  },
+  "width": 1,
+  "height": 2,
+  "output": { "type": "block", "code": "balancedthirst:straw-bamboo"  }
+}

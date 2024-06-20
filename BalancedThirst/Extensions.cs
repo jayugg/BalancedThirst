@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using BalancedThirst.ModBehavior;
 using BalancedThirst.ModBlockBehavior;
 using Newtonsoft.Json.Linq;
@@ -79,6 +80,19 @@ public static class Extensions
         JsonObject newAttributes = new JsonObject(token);
         // Assign the new JsonObject back to the collectible
         collectible.Attributes = newAttributes;
+    }
+    
+    private static readonly List<string> WaterPortions = new List<string>
+    {
+        "game:waterportion",
+        "game:boilingwaterportion",
+        "game:saltwaterportion",
+        BtCore.Modid + ":purewaterportion"
+    };
+
+    public static bool IsWaterPortion(this CollectibleObject collectible)
+    {
+        return WaterPortions.Contains(collectible.Code.FirstCodePart());
     }
     
     public static bool IsLiquidSourceBlock(this Block b) => b.LiquidLevel == 7;

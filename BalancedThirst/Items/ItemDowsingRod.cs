@@ -30,7 +30,8 @@ public class ItemDowsingRod : Item
             handling = EnumHandHandling.PreventDefault;
             if (byEntity is EntityPlayer playerEntity)
             {
-                playerEntity.AnimManager.StartAnimation("coldidle");
+                // TODO: Add animation
+                //playerEntity.AnimManager.StartAnimation("coldidle");
             }
 
             if (player is IServerPlayer serverPlayer)
