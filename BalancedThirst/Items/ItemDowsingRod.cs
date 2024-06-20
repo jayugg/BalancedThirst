@@ -20,16 +20,17 @@ public class ItemDowsingRod : Item
         IPlayer player = (byEntity as EntityPlayer)?.Player;
         if (player == null || slot.Itemstack == null) return;
         BlockPos pos = GetLowestDirtBlockPos(byEntity.Pos.AsBlockPos, byEntity.World);
-        if (pos != null && byEntity.World.Rand.NextSingle() < CalcWaterChance(byEntity.World, pos))
+        if (pos != null &&
+            byEntity.World.Claims.TryAccess(player, blockSel.Position, EnumBlockAccessFlags.BuildOrBreak) &&
+            byEntity.World.Rand.NextSingle() < CalcWaterChance(byEntity.World, pos))
         {
             Block waterBlock = byEntity.World.GetBlock(new AssetLocation(BtCore.Modid, "purewater-still-7"));
             if (waterBlock == null || !PlaceReservoir(byEntity, pos, waterBlock)) return;
             slot.MarkDirty();
             handling = EnumHandHandling.PreventDefault;
-            this.DamageItem(byEntity.World, byEntity, slot);
             if (byEntity is EntityPlayer playerEntity)
             {
-                playerEntity.AnimManager.StartAnimation("coldidle-fp");
+                playerEntity.AnimManager.StartAnimation("coldidle");
             }
 
             if (player is IServerPlayer serverPlayer)
@@ -38,6 +39,7 @@ public class ItemDowsingRod : Item
                     Lang.GetL(serverPlayer.LanguageCode, "Found water below!"), EnumChatType.Notification);
             }
         }
+        this.DamageItem(byEntity.World, byEntity, slot);
     }
 
     private static bool PlaceReservoir(EntityAgent byEntity, BlockPos pos, Block waterBlock)
@@ -53,7 +55,7 @@ public class ItemDowsingRod : Item
                 {
                     BlockPos newPos = new BlockPos(pos.X + x, pos.Y, pos.Z + z, 0);
                     Block existingBlock = byEntity.World.BlockAccessor.GetBlock(newPos);
-                    if (existingBlock.FirstCodePart() == "soil")
+                    if (existingBlock.FirstCodePart() == "soil" && !IsExposed(byEntity.World.BlockAccessor, newPos))
                     {
                         byEntity.World.BlockAccessor.SetBlock(waterBlock.BlockId, newPos);
                         placedAny = true;
@@ -86,6 +88,20 @@ public class ItemDowsingRod : Item
         float geo = climate.GeologicActivity;
         float rain = climate.WorldgenRainfall;
         float forest = climate.ForestDensity;
-        return _baseWaterChance * (1 + Math.Min(rain - geo*0.5f - forest*0.5f, 0));
+        return _baseWaterChance * (1 + Math.Min(rain*3 - geo*1 - forest*1, 0));
+    }
+
+    private static bool IsExposed(IBlockAccessor blockAccessor, BlockPos pos)
+    {
+        foreach (BlockFacing facing in BlockFacing.ALLFACES)
+        {
+            BlockPos adjacentPos = pos.AddCopy(facing);
+            if (!blockAccessor.GetBlock(adjacentPos).SideSolid[facing.Opposite.Index] &&
+                blockAccessor.GetBlock(adjacentPos).FirstCodePart() != "purewater")
+            {
+                return true;
+            }
+        }
+        return false;
     }
 }

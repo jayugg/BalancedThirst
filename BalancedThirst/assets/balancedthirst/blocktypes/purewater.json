@@ -13,12 +13,13 @@
       "properties":
       {
         "spreadDelay": 125,
-        "liquidCollisionSound": "game:sizzle",
-        "sourceReplacementCode": "game:rock-obsidian",
-        "flowingReplacementCode": "game:rock-basalt",
-        "collidesWith": "game:lava"
+        "liquidCollisionSound": "sizzle",
+        "sourceReplacementCode": "rock-obsidian",
+        "flowingReplacementCode": "rock-basalt",
+        "collidesWith": "lava"
       }
-    }
+    },
+    { "name" :  "balancedthirst:PureWater" }
   ],
   "attributes": {
     "smothersFire": true,
@@ -36,7 +37,7 @@
     "waterTightContainerProps": {
       "containable": true,
       "itemsPerLitre": 0.001,
-      "whenFilled": { "stack": { "type": "item", "code": "game:waterportion" } }
+      "whenFilled": { "stack": { "type": "item", "code": "balancedthirst:purewaterportion" } }
     }
   },
   "shape": { "base": "game:block/basic/cube" },

@@ -2,6 +2,7 @@
 using BalancedThirst.Hud;
 using BalancedThirst.Items;
 using BalancedThirst.ModBehavior;
+using BalancedThirst.ModBlockBehavior;
 using BalancedThirst.Systems;
 using Vintagestory.API.Client;
 using Vintagestory.API.Server;
@@ -24,6 +25,7 @@ public class BtCore : ModSystem
         api.RegisterBlockClass(Modid + "." + nameof(BlockLiquidContainerLeaking), typeof(BlockLiquidContainerLeaking));
         api.RegisterItemClass(Modid + "." + nameof(ItemDowsingRod), typeof(ItemDowsingRod));
         api.RegisterBlockBehaviorClass(Modid + ":GushingLiquid", typeof(BlockBehaviorGushingLiquid));
+        api.RegisterBlockBehaviorClass(Modid + ":PureWater", typeof(BlockBehaviorPureWater));
         api.RegisterEntityBehaviorClass(Modid + ":thirst", typeof(EntityBehaviorThirst));
         api.RegisterCollectibleBehaviorClass(Modid + ":Drinkable", typeof(DrinkableBehavior));
     }
@@ -53,6 +55,6 @@ public class BtCore : ModSystem
     public override void AssetsFinalize(ICoreAPI api)
     {
         if (!api.Side.IsServer()) return;
-        Assets.AddHydrationToCollectibles(api);
+        EditAssets.AddHydrationToCollectibles(api);
     }
 }

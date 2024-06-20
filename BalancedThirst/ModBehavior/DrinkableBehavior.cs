@@ -9,6 +9,7 @@ public class DrinkableBehavior : CollectibleBehavior
 {
   
     private ICoreAPI _api;
+  
     
     public DrinkableBehavior(CollectibleObject collObj) : base(collObj)
     {

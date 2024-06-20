@@ -1,4 +1,3 @@
-using System;
 using BalancedThirst.ModBehavior;
 using BalancedThirst.ModBlockBehavior;
 using Newtonsoft.Json.Linq;
@@ -81,4 +80,7 @@ public static class Extensions
         // Assign the new JsonObject back to the collectible
         collectible.Attributes = newAttributes;
     }
+    
+    public static bool IsLiquidSourceBlock(this Block b) => b.LiquidLevel == 7;
+    public static bool IsSameLiquid(this Block b, Block o) => b.LiquidCode == o.LiquidCode;
 }

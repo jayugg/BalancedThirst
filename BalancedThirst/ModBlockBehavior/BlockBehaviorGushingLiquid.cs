@@ -6,30 +6,21 @@ using Vintagestory.API.MathTools;
 using Vintagestory.API.Server;
 using Vintagestory.GameContent;
 
-namespace BalancedThirst.ModBehavior;
+namespace BalancedThirst.ModBlockBehavior;
 
 public class BlockBehaviorGushingLiquid : BlockBehaviorFiniteSpreadingLiquid
 {
-    private bool IsLiquidSourceBlock(Block b) => b.LiquidLevel == 7;
-    private bool IsSameLiquid(Block b, Block o) => b.LiquidCode == o.LiquidCode;
-    private AssetLocation collisionReplaceSound;
+    private AssetLocation gushSound = new AssetLocation("sounds/block/water");
     
     public BlockBehaviorGushingLiquid(Block block) : base(block)
     {
     }
-
-    public override void Initialize(JsonObject properties)
-    {
-        base.Initialize(properties);
-        this.collisionReplaceSound = CreateAssetLocation(properties, "sounds/", "liquidCollisionSound");
-    }
-
+    
     public override void OnBlockPlaced(IWorldAccessor world, BlockPos blockPos, ref EnumHandling handling)
     {
         base.OnBlockPlaced(world, blockPos, ref handling);
         if (world is IServerWorldAccessor serverWorld)
         {
-            //DoTryRise(serverWorld, blockPos, 300);
             serverWorld.RegisterCallback(DoTryRise, blockPos, 300);
         }
     }
@@ -40,7 +31,6 @@ public class BlockBehaviorGushingLiquid : BlockBehaviorFiniteSpreadingLiquid
         BtCore.Logger.Warning("Gushing water neighbour change");
         if (world is IServerWorldAccessor serverWorld)
         {
-            DoTryRise(serverWorld, pos, 300);
             serverWorld.RegisterCallback(DoTryRise, pos, 300);
         }
     }
@@ -50,7 +40,7 @@ public class BlockBehaviorGushingLiquid : BlockBehaviorFiniteSpreadingLiquid
         if (2*CountColumnHeight(world.BlockAccessor, pos, this.block) < CountConnectedSourceBlocks(world.BlockAccessor, pos, this.block))
         {
             TryRise(world, pos);
-            world.PlaySoundAt(this.collisionReplaceSound, pos.X, pos.Y, pos.Z, range: 16f);
+            world.PlaySoundAt(this.gushSound, pos.X, pos.Y, pos.Z, range: 16f);
         }
     }
     
@@ -92,7 +82,7 @@ public class BlockBehaviorGushingLiquid : BlockBehaviorFiniteSpreadingLiquid
             if (!visited.Add(currentPos)) continue;
 
             Block block = blockAccessor.GetBlock(currentPos);
-            if (IsSameLiquid(ourBlock, block) && IsLiquidSourceBlock(block))
+            if (ourBlock.IsSameLiquid(block) && block.IsLiquidSourceBlock())
             {
                 count++;
 
@@ -121,7 +111,7 @@ public class BlockBehaviorGushingLiquid : BlockBehaviorFiniteSpreadingLiquid
         while (true)
         {
             Block block = blockAccessor.GetBlock(currentPos);
-            if (IsSameLiquid(ourBlock, block) && IsLiquidSourceBlock(block))
+            if (ourBlock.IsSameLiquid(block) && block.IsLiquidSourceBlock())
             {
                 count++;
                 currentPos.Down();
@@ -132,16 +122,5 @@ public class BlockBehaviorGushingLiquid : BlockBehaviorFiniteSpreadingLiquid
             }
         }
         return count;
-    }
-    
-    private static AssetLocation CreateAssetLocation(
-        JsonObject properties,
-        string prefix,
-        string propertyName)
-    {
-        string domainAndPath = properties[propertyName]?.AsString();
-        if (domainAndPath == null)
-            return (AssetLocation) null;
-        return prefix != null ? new AssetLocation(prefix + domainAndPath) : new AssetLocation(domainAndPath);
     }
 }

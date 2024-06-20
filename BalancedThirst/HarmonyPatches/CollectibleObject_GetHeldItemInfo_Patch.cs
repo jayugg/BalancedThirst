@@ -16,13 +16,13 @@ public class CollectibleObject_GetHeldItemInfo_Patch
             CollectibleObject collObj = itemstack?.Collectible;
             string itemDescText = collObj?.GetItemDescText();
             int index;
-            int maxDurability = collObj?.GetMaxDurability(itemstack) ?? 0;
-            if (maxDurability > 1) dsc.AppendLine(Lang.Get("Durability: {0} / {1}", collObj?.GetRemainingDurability(itemstack), maxDurability));
             EntityPlayer entity = world.Side == EnumAppSide.Client ? (world as IClientWorldAccessor)?.Player.Entity : null;
             HydrationProperties hydrationProperties = collObj?.GetHydrationProperties(world, itemstack, entity);
             if (hydrationProperties == null) return true;
             var hydration = hydrationProperties.Hydration;
             if (hydrationProperties.Hydration == 0) return true;
+            int maxDurability = collObj?.GetMaxDurability(itemstack) ?? 0;
+            if (maxDurability > 1) dsc.AppendLine(Lang.Get("Durability: {0} / {1}", collObj?.GetRemainingDurability(itemstack), maxDurability));
             float spoilState = collObj.AppendPerishableInfoText(inSlot, dsc, world);
             FoodNutritionProperties nutritionProperties = collObj.GetNutritionProperties(world, itemstack, entity);
             float num1 = GlobalConstants.FoodSpoilageSatLossMul(spoilState, itemstack, entity);
@@ -47,7 +47,7 @@ public class CollectibleObject_GetHeldItemInfo_Patch
             {
                 dsc.AppendLine(Lang.Get("When drank: {0} hyd", Math.Round(hydration * (double)num1)));
             }
-            dsc.AppendLine(Lang.Get("Purity: {0}%", hydrationProperties.Purity * 100));
+            //dsc.AppendLine(Lang.Get("Purity: {0}%", hydrationProperties.Purity * 100));
             if (collObj is BlockLiquidContainerBase && hydration > 0) return false;
             if (collObj.GrindingProps?.GroundStack?.ResolvedItemstack != null)
                 dsc.AppendLine(Lang.Get("When ground: Turns into {0}x {1}", collObj.GrindingProps.GroundStack.ResolvedItemstack.StackSize, collObj.GrindingProps.GroundStack.ResolvedItemstack.GetName()));

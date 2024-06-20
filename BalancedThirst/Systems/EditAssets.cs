@@ -1,13 +1,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using BalancedThirst.ModBehavior;
-using BalancedThirst.ModBlockBehavior;
 using Vintagestory.API.Common;
 using Vintagestory.API.Util;
 
 namespace BalancedThirst.Systems;
 
-public static class Assets
+public static class EditAssets
 {
     public static void AddHydrationToCollectibles(ICoreAPI api)
     {
@@ -23,7 +22,8 @@ public static class Assets
                 { "game:spirit", new HydrationProperties { Hydration = 20 } },
                 { "game:honeyportion", new HydrationProperties { Hydration = 10 } },
                 { "game:boilingwaterportion", new HydrationProperties { Hydration = 100, Scalding = true, Purity = 0.99f } },
-                { "game:saltwaterportion", new HydrationProperties { Hydration = 75, Salty = true } }
+                { "game:saltwaterportion", new HydrationProperties { Hydration = 75, Salty = true } },
+                { BtCore.Modid + ":purewaterportion", new HydrationProperties { Hydration = 100, Purity = 1 } }
             };
 
             string code = collectible.Code.ToString();
@@ -42,43 +42,26 @@ public static class Assets
             }
         }
         
+        Dictionary<string, HydrationProperties> hydrationBlockDictionary = new Dictionary<string, HydrationProperties>
+        {
+            { "game:water", new HydrationProperties { Hydration = 100, Purity = 0.9f } },
+            { BtCore.Modid + ":purewater", new HydrationProperties { Hydration = 100, Purity = 1 } },
+            { "game:boilingwater", new HydrationProperties { Hydration = 100, Scalding = true, Purity = 0.99f } },
+            { "game:saltwater", new HydrationProperties { Hydration = 75, Purity = 1, Salty = true } }
+        };
+
         foreach (Block block in api.World.Blocks.Where(b => b?.Code != null))
         {
-            var hydrationProps = new HydrationProperties();
-            var shouldAddHydration = false;
-            if (block.Code.ToString().Contains("game:water"))
+            foreach (var pair in hydrationBlockDictionary)
             {
-                hydrationProps.Hydration = 100;
-                hydrationProps.Purity = 0.9f;
-                shouldAddHydration = true;
+                if (block.Code.ToString().Contains(pair.Key))
+                {
+                    HydrationProperties hydrationProps = pair.Value;
+                    block.SetHydrationProperties(hydrationProps);
+                    break;
+                }
             }
-            if (block.Code.ToString().Contains(BtCore.Modid + ":purewater"))
-            {
-                hydrationProps.Hydration = 100;
-                hydrationProps.Purity = 1;
-                shouldAddHydration = true;
-            }
-            if (block.Code.ToString().Contains("game:boilingwater"))
-            {
-                hydrationProps.Hydration = 100;
-                hydrationProps.Scalding = true;
-                hydrationProps.Purity = 0.99f;
-                shouldAddHydration = true;
-            }
-            if (block.Code.ToString().Contains("game:saltwater"))
-            {
-                hydrationProps.Hydration = 75;
-                hydrationProps.Purity = 1;
-                hydrationProps.Salty = true;
-                shouldAddHydration = true;
-            }
-            if (!shouldAddHydration)
-            {
-                continue;
-            }
-            //BtCore.Logger.Warning("Adding hydration properties to block: " + block.Code);
-            block.SetHydrationProperties(hydrationProps);
         }
-        
     }
+    
 }

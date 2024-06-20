@@ -6,16 +6,14 @@
   ],
   "shape": { "base": "game:item/stick" },
   "attributes": {
-    "durabilitybytype": {
-      "*": 100
-    },
     "placeSound": "game:sounds/block/loosestick",
     "groundStorageTransform": {
       "rotation": { "x": 0, "y": -13, "z": 0 }
     }
   },
-  "creativeinventory": { "general": ["*"], "items": ["*"] },
-  "maxstacksize": 64,
+  "durability": 100,
+  "creativeinventory": { "general": ["*"], "items": ["*"], "tools": ["*"] },
+  "maxstacksize": 1,
   "materialDensity": 450,
   "attackRange": 2.5,
   "combustibleProps": {
@@ -35,10 +33,10 @@
     "scale": 2.11
   },
   "tpHandTransform": {
-    "translation": { "x": -1.22, "y": 0.06, "z": -0.89 },
-    "rotation": { "x": -6, "y": 30, "z": 18 },
+    "translation": { "x": -1.22, "y": -0.22, "z": -0.89 },
+    "rotation": { "x": -33, "y": 30, "z": -51 },
     "origin": { "x": 0.5, "y": 0, "z": 0.5 },
-    "scale": 0.59
+    "scale": 0.5899
   },
   "groundTransform": {
     "translation": { "x": 0, "y": 0, "z": 0 },

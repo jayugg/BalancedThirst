@@ -29,6 +29,9 @@ public class HarmonyPatches : ModSystem
         HarmonyInstance.Patch(typeof(BlockLiquidContainerBase).GetMethod("tryEatStop", BindingFlags.NonPublic | BindingFlags.Instance),
             postfix: typeof(BlockLiquidContainerBase_tryEatStop_Patch).GetMethod(
                 nameof(BlockLiquidContainerBase_tryEatStop_Patch.Postfix)));
+        /*HarmonyInstance.Patch(typeof(BlockLiquidContainerBase).GetMethod(nameof(BlockLiquidContainerBase.TryTakeContent)),
+            postfix: typeof(BlockLiquidContainerBase_TryTakeContent_Patch).GetMethod(
+                nameof(BlockLiquidContainerBase_TryTakeContent_Patch.Postfix)));*/
     }
 
     public override void Dispose() {

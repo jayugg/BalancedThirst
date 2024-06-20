@@ -1,0 +1,9 @@
+{
+  "ingredientPattern": "_S,SS",
+  "ingredients": {
+    "S": { "type": "item", "code": "game:stick" }
+  },
+  "width": 2,
+  "height": 2,
+  "output": { "type": "item", "code": "balancedthirst:dowsingrod"  }
+}
