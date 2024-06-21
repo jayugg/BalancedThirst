@@ -202,8 +202,9 @@ namespace BalancedThirst.Items;
         IntDataMap2D intDataMap2D = oreMap.Value;
         int innerSize = intDataMap2D.InnerSize;
         int unpaddedColorLerped = intDataMap2D.GetUnpaddedColorLerped((float) num1 / (float) regionSize * (float) innerSize, (float) num2 / (float) regionSize * (float) innerSize);
-        if (oreMap.Key.ToString().Contains("purewater") && this.ppws.depositsByCode.ContainsKey(oreMap.Key))
+        if (this.ppws.depositsByCode.ContainsKey(oreMap.Key))
         {
+          BtCore.Logger.Warning("Key: " + oreMap.Key + " is in depositsByCode)");
           double ppt;
           double totalFactor;
           this.ppws.depositsByCode[oreMap.Key].GetPropickReading(pos, unpaddedColorLerped, rockColumn, out ppt, out totalFactor);

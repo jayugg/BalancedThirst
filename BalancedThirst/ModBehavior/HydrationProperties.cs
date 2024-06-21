@@ -6,7 +6,7 @@ public class HydrationProperties
 {
     public float Hydration;
     public float HydrationLossDelay = 10f;
-    public float Purity = 1;
+    public EnumPurityLevel Purity;
     public bool Scalding;
     public bool Salty;
     

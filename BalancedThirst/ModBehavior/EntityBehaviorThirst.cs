@@ -92,21 +92,51 @@ namespace BalancedThirst.ModBehavior
 
     public double VomitChance(double purity) => Math.Exp(-8.445*purity);
     
+    public double VomitChance(EnumPurityLevel purityLevel)
+    {
+      double purity;
+
+      switch (purityLevel)
+      {
+        case EnumPurityLevel.Pure:
+          purity = 1.0;
+          break;
+        case EnumPurityLevel.Filtered:
+          purity = 0.9;
+          break;
+        case EnumPurityLevel.Boiled:
+          purity = 0.8;
+          break;
+        case EnumPurityLevel.Okay:
+          purity = 0.6;
+          break;
+        case EnumPurityLevel.Stagnant:
+          purity = 0.3;
+          break;
+        case EnumPurityLevel.Yuck:
+          purity = 0.1;
+          break;
+        default:
+          throw new ArgumentOutOfRangeException(nameof(purityLevel), purityLevel, null);
+      }
+
+      return VomitChance(purity);
+    }
+    
     public void ReceiveHydration(HydrationProperties hydrationProperties)
     {
       float maxHydration = this.MaxHydration;
       bool isHydrationMaxed = this.Hydration >= maxHydration;
       this.Hydration = Math.Clamp(this.Hydration + hydrationProperties.Hydration, 0, maxHydration);
       if (!isHydrationMaxed) this.HydrationLossDelay = Math.Max(this.HydrationLossDelay, hydrationProperties.HydrationLossDelay);
-      if ((hydrationProperties.Purity < 1.0 &&
-          entity.World.Rand.NextDouble() < VomitChance(hydrationProperties.Purity)))
+      if (entity.World.Rand.NextDouble() < VomitChance(hydrationProperties.Purity))
       {
         entity.WatchedAttributes.SetFloat("intoxication", 1.0f);
         entity.World.RegisterCallback(dt => Vomit(), 2000);
       }
       if (hydrationProperties.Salty)
       {
-        this.entity.Stats.Set(BtCore.Modid+":thirstrate", "dranksaltwater", 100.0f);
+        this.entity.Stats.Set(BtCore.Modid+":thirstrate", "dranksaltwater", 3);
         entity.World.RegisterCallback(dt => entity.Stats.Remove(BtCore.Modid+":thirstrate", "dranksaltwater"), 10000);
       }
       if (hydrationProperties.Scalding) entity.ReceiveDamage(new DamageSource() {Type = EnumDamageType.Heat, Source = EnumDamageSource.Internal}, 3);

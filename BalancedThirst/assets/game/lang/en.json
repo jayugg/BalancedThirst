@@ -21,5 +21,12 @@
   "dowsingrod-nodesearch-mediumamount": "Found medium amounts of water",
   "dowsingrod-nodesearch-largeamount": "Found large amounts of water",
   "dowsingrod-nodesearch-verylargeamount": "Found very large amounts of water",
-  "dowsingrod-nodesearch-hugeamount": "Found huge amounts of water"
+  "dowsingrod-nodesearch-hugeamount": "Found huge amounts of water",
+  
+  "purity-Pure": "<font color=\"green\">Pure</font>",
+  "purity-Filtered": "<font color=\"blue\">Filtered</font>",
+  "purity-Boiled": "<font color=\"yellow\">Boiled</font>",
+  "purity-Stagnant": "<font color=\"red\">Stagnant</font>",
+  "purity-Yuck": "<font color=\"black\">Yuck</font>"
+
 }

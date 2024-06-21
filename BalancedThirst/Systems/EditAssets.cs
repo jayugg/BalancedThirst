@@ -14,17 +14,19 @@ public static class EditAssets
         {
             Dictionary<string, HydrationProperties> hydrationDictionary = new Dictionary<string, HydrationProperties>
             {
-                { "game:waterportion", new HydrationProperties { Hydration = 100, Purity = 0.90f } },
+                { "game:waterportion", new HydrationProperties { Hydration = 100, Purity = EnumPurityLevel.Okay } },
                 { "game:rawjuice", new HydrationProperties { Hydration = 90 } },
                 { "game:milkportion", new HydrationProperties { Hydration = 90 } },
                 { "game:vinegarportion", new HydrationProperties { Hydration = 60 } },
                 { "game:cider", new HydrationProperties { Hydration = 60 } },
                 { "game:spirit", new HydrationProperties { Hydration = 20 } },
                 { "game:honeyportion", new HydrationProperties { Hydration = 10 } },
-                { "game:boilingwaterportion", new HydrationProperties { Hydration = 100, Scalding = true, Purity = 0.99f } },
-                { "game:saltwaterportion", new HydrationProperties { Hydration = 75, Salty = true } },
-                { "game:brineportion", new HydrationProperties { Hydration = 60, Salty = true } },
-                { BtCore.Modid + ":purewaterportion", new HydrationProperties { Hydration = 100, Purity = 1 } }
+                { "game:boilingwaterportion", new HydrationProperties { Hydration = 100, Scalding = true, Purity = EnumPurityLevel.Boiled } },
+                { "game:saltwaterportion", new HydrationProperties { Hydration = 75, Salty = true, Purity = EnumPurityLevel.Okay } },
+                { "game:brineportion", new HydrationProperties { Hydration = 60, Salty = true, Purity = EnumPurityLevel.Okay } },
+                { BtCore.Modid + ":waterportion-pure", new HydrationProperties { Hydration = 100, Purity = EnumPurityLevel.Pure } },
+                { BtCore.Modid + ":waterportion-stagnant", new HydrationProperties { Hydration = 100, Purity = EnumPurityLevel.Stagnant } },
+                { "game:rot", new HydrationProperties { Hydration = 20, Purity = EnumPurityLevel.Yuck } }
             };
 
             string code = collectible.Code.ToString();
@@ -45,10 +47,10 @@ public static class EditAssets
         
         Dictionary<string, HydrationProperties> hydrationBlockDictionary = new Dictionary<string, HydrationProperties>
         {
-            { "game:water", new HydrationProperties { Hydration = 100, Purity = 0.9f } },
-            { "game:" + BtCore.Modid + "-purewater", new HydrationProperties { Hydration = 100, Purity = 1 } },
-            { "game:boilingwater", new HydrationProperties { Hydration = 100, Scalding = true, Purity = 0.99f } },
-            { "game:saltwater", new HydrationProperties { Hydration = 75, Purity = 1, Salty = true } }
+            { "game:water", new HydrationProperties { Hydration = 100, Purity = EnumPurityLevel.Okay } },
+            { "game:" + BtCore.Modid + "-purewater", new HydrationProperties { Hydration = 100, Purity = EnumPurityLevel.Pure } },
+            { "game:boilingwater", new HydrationProperties { Hydration = 100, Scalding = true, Purity = EnumPurityLevel.Boiled } },
+            { "game:saltwater", new HydrationProperties { Hydration = 75, Purity = EnumPurityLevel.Okay, Salty = true } }
         };
 
         foreach (Block block in api.World.Blocks.Where(b => b?.Code != null))

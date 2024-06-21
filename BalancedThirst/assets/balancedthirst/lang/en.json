@@ -4,6 +4,8 @@
     "block-straw-bamboo": "Bamboo straw",
     "item-dowsingrod": "Dowsing rod",
 
-    "item-purewaterportion": "Pure water",
-    "incontainer-item-purewaterportion": "Pure water"
+    "item-waterportion-pure": "Pure water",
+    "incontainer-item-waterportion-pure": "Pure water",
+    "item-waterportion-stagnant": "Stagnant water",
+    "incontainer-item-waterportion-stagnant": "Stagnant water"
 }

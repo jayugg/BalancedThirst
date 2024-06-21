@@ -1,5 +1,7 @@
 using System;
+using System.Text;
 using Vintagestory.API.Common;
+using Vintagestory.API.Config;
 using Vintagestory.API.Datastructures;
 using Vintagestory.GameContent;
 
@@ -71,5 +73,9 @@ public class DrinkableBehavior : CollectibleBehavior
         return;
       byEntity.World.RegisterCallback(_ => PlayDrinkSound(byEntity, eatSoundRepeats), 300);
     }
-    
+
+    public override void GetHeldItemInfo(ItemSlot inSlot, StringBuilder dsc, IWorldAccessor world, bool withDebugInfo)
+    {
+      base.GetHeldItemInfo(inSlot, dsc, world, withDebugInfo);
+    }
 }

@@ -37,7 +37,7 @@
     "waterTightContainerProps": {
       "containable": true,
       "itemsPerLitre": 0.001,
-      "whenFilled": { "stack": { "type": "item", "code": "balancedthirst:purewaterportion" } }
+      "whenFilled": { "stack": { "type": "item", "code": "balancedthirst:waterportion-pure" } }
     }
   },
   "shape": { "base": "game:block/basic/cube" },

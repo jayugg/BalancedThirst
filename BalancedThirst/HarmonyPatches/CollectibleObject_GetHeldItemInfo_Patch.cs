@@ -47,7 +47,10 @@ public class CollectibleObject_GetHeldItemInfo_Patch
             {
                 dsc.AppendLine(Lang.Get("When drank: {0} hyd", Math.Round(hydration * (double)num1)));
             }
-            //dsc.AppendLine(Lang.Get("Purity: {0}%", hydrationProperties.Purity * 100));
+            if (hydrationProperties.Purity != EnumPurityLevel.Okay)
+            {
+                dsc.AppendLine(Lang.Get($"purity-{hydrationProperties.Purity}"));
+            }
             if (collObj is BlockLiquidContainerBase && hydration > 0) return false;
             if (collObj.GrindingProps?.GroundStack?.ResolvedItemstack != null)
                 dsc.AppendLine(Lang.Get("When ground: Turns into {0}x {1}", collObj.GrindingProps.GroundStack.ResolvedItemstack.StackSize, collObj.GrindingProps.GroundStack.ResolvedItemstack.GetName()));
