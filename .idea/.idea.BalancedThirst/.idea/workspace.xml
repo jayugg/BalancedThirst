@@ -9,17 +9,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e6b49e4b-520d-4578-b261-331cc4832028" name="Changes" comment="Improve euhydration">
+    <list default="true" id="e6b49e4b-520d-4578-b261-331cc4832028" name="Changes" comment="Removing density mode">
+      <change afterPath="$PROJECT_DIR$/BalancedThirst/Network/DowsingRodMessage.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.BalancedThirst/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.BalancedThirst/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BalancedThirst/BalancedThirst.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/BalancedThirst.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BalancedThirst/ModBehavior/EntityBehaviorThirst.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/ModBehavior/EntityBehaviorThirst.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BalancedThirst/ModBehavior/HydrationProperties.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/ModBehavior/HydrationProperties.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BalancedThirst/Network/DrinkMessage.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/Network/DrinkMessage.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BalancedThirst/Network/TestNetwork.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BalancedThirst/Extensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/Extensions.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BalancedThirst/Items/ItemDowsingRod.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/Items/ItemDowsingRod.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BalancedThirst/Systems/DrinkNetwork.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/Systems/DrinkNetwork.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/blocktypes/straw.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/recipes/grid/straw.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CakeBuild/CakeBuild.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/CakeBuild/CakeBuild.csproj" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -137,6 +132,7 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/c1f9f1d656394ee5bb78c49d93c5e56f1c2400/a1/7ea867a1/AssetLocation.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/c1f9f1d656394ee5bb78c49d93c5e56f1c2400/a2/7b53f947/OnChunkPeekedDelegate.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/c1f9f1d656394ee5bb78c49d93c5e56f1c2400/a7/02d4cffa/ItemStack.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/c1f9f1d656394ee5bb78c49d93c5e56f1c2400/a8/61f20c76/IServerPlayer.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/c1f9f1d656394ee5bb78c49d93c5e56f1c2400/a8/6828eb93/WorldInteraction.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/c1f9f1d656394ee5bb78c49d93c5e56f1c2400/ab/4e5c1a98/IClientEventAPI.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/c1f9f1d656394ee5bb78c49d93c5e56f1c2400/ba/1fab3870/IServerNetworkAPI.cs" root0="SKIP_HIGHLIGHTING" />
@@ -144,7 +140,9 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/c1f9f1d656394ee5bb78c49d93c5e56f1c2400/c6/99302b28/CairoFont.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/c1f9f1d656394ee5bb78c49d93c5e56f1c2400/c9/d20e412e/BlockBehavior.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/c1f9f1d656394ee5bb78c49d93c5e56f1c2400/ca/c57ac05f/CollectibleBehavior.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/c1f9f1d656394ee5bb78c49d93c5e56f1c2400/cb/cd02b4df/EntityPos.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/c1f9f1d656394ee5bb78c49d93c5e56f1c2400/d1/3600425e/GuiElementDynamicTextHelper.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/c1f9f1d656394ee5bb78c49d93c5e56f1c2400/d2/5a0c9d1c/Entity.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/c1f9f1d656394ee5bb78c49d93c5e56f1c2400/d8/d90a4b67/LinkTextComponent.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/c1f9f1d656394ee5bb78c49d93c5e56f1c2400/e6/24ce9b3a/Vec3i.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/c1f9f1d656394ee5bb78c49d93c5e56f1c2400/f1/6da67d1d/ICoreAPICommon.cs" root0="SKIP_HIGHLIGHTING" />
@@ -175,29 +173,30 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;.NET Launch Settings Profile.BalancedThirst: Client.executor&quot;: &quot;Run&quot;,
-    &quot;.NET Project.CakeBuild.executor&quot;: &quot;Run&quot;,
-    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;working-for-containers&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    ".NET Launch Settings Profile.BalancedThirst: Client.executor": "Run",
+    ".NET Project.CakeBuild.executor": "Run",
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "ToolWindowGitHub Copilot Chat.ShowToolbar": "false",
+    "git-widget-placeholder": "working-for-containers",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;rider.external.source.directories&quot;: [
-      &quot;/Users/jacopouggeri/Library/Application Support/JetBrains/Rider2024.1/resharper-host/DecompilerCache&quot;,
-      &quot;/Users/jacopouggeri/Library/Application Support/JetBrains/Rider2024.1/resharper-host/SourcesCache&quot;,
-      &quot;/Users/jacopouggeri/Library/Application Support/Symbols/src&quot;
+  "keyToStringList": {
+    "rider.external.source.directories": [
+      "/Users/jacopouggeri/Library/Application Support/JetBrains/Rider2024.1/resharper-host/DecompilerCache",
+      "/Users/jacopouggeri/Library/Application Support/JetBrains/Rider2024.1/resharper-host/SourcesCache",
+      "/Users/jacopouggeri/Library/Application Support/Symbols/src"
     ]
   }
-}</component>
+}]]></component>
   <component name="RunManager" selected=".NET Launch Settings Profile.BalancedThirst: Client">
     <configuration name="CakeBuild" type="DotNetProject" factoryName=".NET Project">
       <option name="EXE_PATH" value="" />
@@ -260,7 +259,7 @@
       <workItem from="1718561360542" duration="18000" />
       <workItem from="1718561389490" duration="154405000" />
       <workItem from="1718970222561" duration="110000" />
-      <workItem from="1718970349554" duration="9152000" />
+      <workItem from="1718970349554" duration="23132000" />
     </task>
     <task id="LOCAL-00001" summary="Sorta working for containers">
       <option name="closed" value="true" />
@@ -454,7 +453,23 @@
       <option name="project" value="LOCAL" />
       <updated>1718973586208</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary="Improved drink particles">
+      <option name="closed" value="true" />
+      <created>1718980786827</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1718980786827</updated>
+    </task>
+    <task id="LOCAL-00026" summary="Removing density mode">
+      <option name="closed" value="true" />
+      <created>1718980797143</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1718980797143</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -499,6 +514,8 @@
     <MESSAGE value="Network attempt" />
     <MESSAGE value="Dynamic stat updating in character menu" />
     <MESSAGE value="Improve euhydration" />
-    <option name="LAST_COMMIT_MESSAGE" value="Improve euhydration" />
+    <MESSAGE value="Improved drink particles" />
+    <MESSAGE value="Removing density mode" />
+    <option name="LAST_COMMIT_MESSAGE" value="Removing density mode" />
   </component>
 </project>

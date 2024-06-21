@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using BalancedThirst.Network;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
 using Vintagestory.API.Common.Entities;
@@ -11,13 +13,6 @@ namespace BalancedThirst.Items;
 
   public class ItemDowsingRod : Item
   {
-    public override void OnLoaded(ICoreAPI api)
-    {
-      base.OnLoaded(api);
-      ICoreClientAPI capi = api as ICoreClientAPI;
-      if (api.Side != EnumAppSide.Server)
-        return;
-    }
     
     public override void OnHeldInteractStart(
       ItemSlot itemslot,
@@ -27,10 +22,10 @@ namespace BalancedThirst.Items;
       bool firstEvent,
       ref EnumHandHandling handling)
     {
-      int toolMode = this.GetToolMode(itemslot, (byEntity as EntityPlayer).Player, blockSel);
       int radius = 8 * this.api.World.Config.GetString("propickNodeSearchRadius").ToInt();
+      if (radius <= 0) return;
       this.ProbeBlockNodeMode(byEntity.World, byEntity, itemslot, blockSel, radius);
-      this.DamageItem(byEntity.World, byEntity, itemslot);
+      if (api.World.Rand.NextSingle() > 0.1f) DamageItem(byEntity.World, byEntity, itemslot);
       handling = EnumHandHandling.PreventDefault;
     }
     
@@ -41,31 +36,67 @@ namespace BalancedThirst.Items;
       BlockSelection blockSel,
       int radius)
     {
-      IPlayer byPlayer = (IPlayer) null;
-      if (byEntity is EntityPlayer)
-        byPlayer = world.PlayerByUid(((EntityPlayer) byEntity).PlayerUID);
+      IPlayer byPlayer = null;
+      if (byEntity is EntityPlayer player)
+        byPlayer = world.PlayerByUid(player.PlayerUID);
       if (!(byPlayer is IServerPlayer serverPlayer))
         return;
-      BlockPos blockPos = blockSel.Position.Copy();
-      int quantityFound = 0;
-      this.api.World.BlockAccessor.WalkBlocks(blockPos.AddCopy(radius, radius, radius), blockPos.AddCopy(-radius, -radius, -radius), (Action<Block, int, int, int>) ((nblock, x, y, z) =>
-      {
-        if (nblock.BlockMaterial != EnumBlockMaterial.Liquid || !nblock.Code.ToString().Contains("purewater"))
-          return;
-        quantityFound += 1;
-      }));
-      if (quantityFound == 0)
+      BlockPos blockPos = serverPlayer.Entity.Pos.AsBlockPos;
+      BlockPos closestWaterPos = FindClosestWaterBlock(world, byEntity, blockPos, radius);
+
+      if (closestWaterPos == null)
       {
         serverPlayer.SendMessage(GlobalConstants.InfoLogChatGroup, Lang.GetL(serverPlayer.LanguageCode, "No pure water nearby"), EnumChatType.Notification);
       }
       else
       {
-        string l2 = Lang.GetL(serverPlayer.LanguageCode, this.resultTextByQuantity(quantityFound));
-        serverPlayer.SendMessage(GlobalConstants.InfoLogChatGroup, Lang.GetL(serverPlayer.LanguageCode, l2), EnumChatType.Notification);
+        //string l2 = Lang.GetL(serverPlayer.LanguageCode, this.ResultTextByQuantity(quantityFound));
+        //serverPlayer.SendMessage(GlobalConstants.InfoLogChatGroup, Lang.GetL(serverPlayer.LanguageCode, l2), EnumChatType.Notification);
+        // Guide the player towards the closest water
+        serverPlayer.SendMessage(GlobalConstants.GeneralChatGroup, "Closest water found at " + closestWaterPos, EnumChatType.Notification);
+        
+        var message = new DowsingRodMessage()
+        {
+          Position = closestWaterPos
+        };
+        
+        // Send the message to the client
+        ((IServerNetworkChannel)serverPlayer.Entity.Api.Network.GetChannel(BtCore.Modid + ".drink")).SendPacket(message, serverPlayer);
       }
     }
+    
+    public BlockPos FindClosestWaterBlock(IWorldAccessor world, Entity byEntity, BlockPos startPos, int radius)
+    {
+      Queue<BlockPos> queue = new Queue<BlockPos>();
+      HashSet<BlockPos> visited = new HashSet<BlockPos>();
+      queue.Enqueue(startPos);
+      visited.Add(startPos);
 
-    protected virtual string resultTextByQuantity(int value)
+      while (queue.Count > 0)
+      {
+        BlockPos currentPos = queue.Dequeue();
+        Block block = world.BlockAccessor.GetBlock(currentPos);
+
+        if (block.BlockMaterial == EnumBlockMaterial.Liquid && block.Code.ToString().Contains("purewater"))
+        {
+          return currentPos;
+        }
+
+        foreach (BlockFacing facing in BlockFacing.ALLFACES)
+        {
+          BlockPos neighborPos = currentPos.AddCopy(facing.Normali);
+          if (!visited.Contains(neighborPos) && startPos.DistanceTo(neighborPos) <= radius)
+          {
+            queue.Enqueue(neighborPos);
+            visited.Add(neighborPos);
+          }
+        }
+      }
+      
+      return null;
+    }
+
+    protected virtual string ResultTextByQuantity(int value)
     {
       if (value < 2)
         return "dowsingrod-nodesearch-traceamount";
@@ -80,12 +111,11 @@ namespace BalancedThirst.Items;
 
     public override WorldInteraction[] GetHeldInteractionHelp(ItemSlot inSlot)
     {
-      return new WorldInteraction[1]
+      return new []
       {
         new WorldInteraction()
         {
-          ActionLangCode = "Change tool mode",
-          HotKeyCodes = new string[1]{ "toolmodeselect" },
+          ActionLangCode = "Search for water",
           MouseButton = EnumMouseButton.None
         }
       };

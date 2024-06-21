@@ -5,6 +5,7 @@ using Newtonsoft.Json.Linq;
 using Vintagestory.API.Common;
 using Vintagestory.API.Common.Entities;
 using Vintagestory.API.Datastructures;
+using Vintagestory.API.MathTools;
 using Vintagestory.GameContent;
 
 namespace BalancedThirst;
@@ -105,4 +106,6 @@ public static class Extensions
     
     public static bool IsLiquidSourceBlock(this Block b) => b.LiquidLevel == 7;
     public static bool IsSameLiquid(this Block b, Block o) => b.LiquidCode == o.LiquidCode;
+    
+    public static Vec3d NoY(this Vec3d vec) => new Vec3d(vec.X, 0, vec.Z);
 }
