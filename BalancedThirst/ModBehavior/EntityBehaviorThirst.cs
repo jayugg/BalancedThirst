@@ -268,7 +268,6 @@ namespace BalancedThirst.ModBehavior
       if (this.entity is EntityPlayer && this.entity.World.PlayerByUid(((EntityPlayer) this.entity).PlayerUID).WorldData.CurrentGameMode == EnumGameMode.Creative)
         return;
       float temperature = this.entity.World.BlockAccessor.GetClimateAt(this.entity.Pos.AsBlockPos, EnumGetClimateMode.ForSuppliedDate_TemperatureOnly, this.entity.World.Calendar.TotalDays).Temperature;
-      //float bodyTemperature = entity.GetBehavior<EntityBehaviorBodyTemperature>().CurBodyTemperature = temperature;
       if (temperature <= 30.0)
       {
         this.entity.Stats.Remove(BtCore.Modid+":thirstrate", "resistheat");
@@ -293,12 +292,13 @@ namespace BalancedThirst.ModBehavior
 
     public void Vomit()
     {
-      Hydration = 0.6f * Hydration;
+      Hydration = 0.5f * Hydration;
       HydrationLossDelay = 0;
+      Euhydration *= 0.8f;
       if (entity.HasBehavior<EntityBehaviorHunger>())
       {
         var bh = entity.GetBehavior<EntityBehaviorHunger>();
-        bh.Saturation = 0.6f * bh.Saturation;
+        bh.Saturation = 0.5f * bh.Saturation;
       }
       entity.World.PlaySoundAt(this.vomitSound, entity.Pos.X, entity.Pos.Y, entity.Pos.Z, range: 10f);
       entity.World.RegisterCallback(dt => entity.WatchedAttributes.SetFloat("intoxication", 0.0f), 5000);

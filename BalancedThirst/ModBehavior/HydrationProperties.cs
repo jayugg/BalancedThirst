@@ -47,4 +47,28 @@ public class HydrationProperties
         }
         return hydrationProps;
     }
+    
+    public static HydrationProperties operator /(HydrationProperties a, HydrationProperties b)
+    {
+        return new HydrationProperties()
+        {
+            Hydration = a.Hydration / b.Hydration,
+            HydrationLossDelay = a.HydrationLossDelay / b.HydrationLossDelay,
+            Purity = a.Purity,
+            Scalding = a.Scalding,
+            Salty = a.Salty
+        };
+    }
+
+    public static HydrationProperties operator /(HydrationProperties a, float b)
+    {
+        return new HydrationProperties()
+        {
+            Hydration = a.Hydration / b,
+            HydrationLossDelay = a.HydrationLossDelay / b,
+            Purity = a.Purity,
+            Scalding = a.Scalding,
+            Salty = a.Salty
+        };
+    }
 }

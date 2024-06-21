@@ -3,13 +3,11 @@ using BalancedThirst.Network;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
 using Vintagestory.API.Common.Entities;
-using Vintagestory.API.Config;
-using Vintagestory.API.Datastructures;
 using Vintagestory.API.MathTools;
 using Vintagestory.API.Server;
 
 namespace BalancedThirst.Systems;
-/*
+
 public class DrinkNetwork : ModSystem
 {
     public override double ExecuteOrder() => 1.02;
@@ -17,18 +15,19 @@ public class DrinkNetwork : ModSystem
     #region Client
     IClientNetworkChannel clientChannel;
     ICoreClientAPI capi;
-
+    
+    static SimpleParticleProperties WaterParticles;
+    
     public override void StartClientSide(ICoreClientAPI api)
     {
         capi = api;
-
         clientChannel =
-            api.Network.RegisterChannel("playerDrink")
+            api.Network.RegisterChannel(BtCore.Modid + ".drink")
                 .RegisterMessageType(typeof(DrinkMessage.Request))
                 .RegisterMessageType(typeof(DrinkMessage.Response))
-                .SetMessageHandler<DrinkMessage.Request>(OnServerMessage)
+                .SetMessageHandler<DrinkMessage.Response>(OnServerMessage)
             ;
-        capi.World.RegisterGameTickListener((dt) => OnClientGameTick(capi, dt), 1000);
+        capi.World.RegisterGameTickListener((dt) => OnClientGameTick(capi, dt), 200);
     }
     
     public void OnClientGameTick(ICoreClientAPI capi, float dt)
@@ -41,104 +40,69 @@ public class DrinkNetwork : ModSystem
             var selFace = player.BlockSelection?.Face;
             var waterPos = selPos?.AddCopy(selFace);
             if (waterPos == null) return;
+            clientChannel.SendPacket(new DrinkMessage.Request() {Position = waterPos});
         }
     }
     
-    private void OnServerMessage(DrinkMessage.Request networkMessage)
+    private void OnServerMessage(DrinkMessage.Response response)
     {
-        capi.ShowChatMessage("Received following message from server: " + networkMessage.message);
-        capi.ShowChatMessage("Sending response.");
-        clientChannel.SendPacket(new DrinkMessage.Response()
-        {
-            response = "RE: Hello World!"
-        });
+        var entity = capi.World.Player.Entity;
+        IPlayer dualCallByPlayer = entity.World.PlayerByUid(((EntityPlayer) entity).PlayerUID);
+        entity?.PlayEntitySound("drink", dualCallByPlayer);
+        SpawnDrinkParticles(capi.World.Player.Entity, response.Position);
     }
     #endregion
     
+    #region Server
+    IServerNetworkChannel serverChannel;
+    ICoreServerAPI sapi;
+
+    public override void StartServerSide(ICoreServerAPI api)
+    {
+        sapi = api;
+        
+        serverChannel =
+            api.Network.RegisterChannel(BtCore.Modid + ".drink")
+                .RegisterMessageType(typeof(DrinkMessage.Request))
+                .RegisterMessageType(typeof(DrinkMessage.Response))
+                .SetMessageHandler<DrinkMessage.Request>(HandleDrinkAction)
+            ;
+    }
     
-    private void HandleDrinkAction(IServerPlayer player, BlockPos pos)
+    private void HandleDrinkAction(IServerPlayer player, DrinkMessage.Request request)
     {
         BtCore.Logger.Warning("Handling drink action");
         // Get the block at the selected position
-        Block block = player.Entity.World.BlockAccessor.GetBlock(pos);
+        Block block = player.Entity.World.BlockAccessor.GetBlock(request.Position);
 
         // Get the hydration properties of the block
         HydrationProperties hydrationProps = block.GetBlockHydrationProperties();
         if (hydrationProps == null) return;
-
         if (player.Entity.HasBehavior<EntityBehaviorThirst>())
         {
-            player.Entity.GetBehavior<EntityBehaviorThirst>().ReceiveHydration(hydrationProps);
+            player.Entity.GetBehavior<EntityBehaviorThirst>().ReceiveHydration(hydrationProps/5);
+            DrinkableBehavior.PlayDrinkSound(player.Entity, 2);
+            SpawnDrinkParticles(player.Entity, request.Position);
+            serverChannel.SendPacket(new DrinkMessage.Response() { Position = request.Position }, player);
         }
-        
-        DrinkableBehavior.PlayDrinkSound(player.Entity, 2);
-        SpawnDrinkParticles(player.Entity);
-    }
-    
-    #region Server
-    IServerNetworkChannel serverChannel;
-    ICoreServerAPI serverApi;
-
-    public override void StartServerSide(ICoreServerAPI api)
-    {
-        serverApi = api;
-
-        serverChannel =
-            api.Network.RegisterChannel("playerDrink")
-                .RegisterMessageType(typeof(DrinkMessage.Request))
-                .RegisterMessageType(typeof(DrinkMessage.Response))
-                .SetMessageHandler<DrinkMessage.Response>(OnClientMessage)
-            ;
-
-        api.ChatCommands.Create("nwtest")
-            .WithDescription("Send a test network message")
-            .RequiresPrivilege(Privilege.controlserver)
-            .HandleWith(new OnCommandDelegate(OnNwTestCmd));
-    }
-    
-    private TextCommandResult OnNwTestCmd(TextCommandCallingArgs args)
-    {
-        serverChannel.BroadcastPacket(new DrinkMessage.Request()
-        {
-            message = "Hello World!",
-        });
-        return TextCommandResult.Success();
-    }
-    
-    private void OnClientMessage(IPlayer fromPlayer, DrinkMessage.Response networkMessage)
-    {
-        serverApi.SendMessageToGroup(
-            GlobalConstants.GeneralChatGroup,
-            "Received following response from " + fromPlayer.PlayerName + ": " + networkMessage.response,
-            EnumChatType.Notification
-        );
     }
     #endregion
 
-    public static void SpawnDrinkParticles(Entity byEntity)
+    public static void SpawnDrinkParticles(Entity byEntity, BlockPos pos)
     {
-        Vec3d xyz = byEntity.Pos.AheadCopy(0.4000000059604645).XYZ;
-        xyz.X += byEntity.LocalEyePos.X;
-        xyz.Y += byEntity.LocalEyePos.Y - 0.4000000059604645;
-        xyz.Z += byEntity.LocalEyePos.Z;
-        // Get the item from the asset location
-        Item item = byEntity.World.GetItem(new AssetLocation(BtCore.Modid, "waterportion-pure"));
-
-        // Create a new ItemStack with the item
-        ItemStack itemStack = new ItemStack(item);
-        byEntity.World.SpawnCubeParticles(xyz, itemStack, 0.3f, 4, 0.5f, byEntity is EntityPlayer entityPlayer ? entityPlayer.Player : null);
+        Vec3d posVec = pos.ToVec3d().AddCopy(0.5, 0.3, 0.5);
+        Vec3d entityPos = byEntity.Pos.XYZ + byEntity.LocalEyePos;
+        Vec3d dist = (posVec - entityPos);
+        Vec3d xyz = entityPos + 1.5*dist.Normalize();
+        
+        WaterParticles = new SimpleParticleProperties(10f, 20f, -1, new Vec3d(), new Vec3d(), new Vec3f(-1.5f, 0.0f, -1.5f), new Vec3f(1.5f, 3f, 1.5f), minSize: 0.33f, maxSize: 1f);
+        WaterParticles.AddPos = new Vec3d(1.0 / 16.0, 0.125, 1.0 / 16.0);
+        WaterParticles.SizeEvolve = new EvolvingNatFloat(EnumTransformFunction.LINEAR, -1f);
+        WaterParticles.ClimateColorMap = "climateWaterTint";
+        WaterParticles.AddQuantity = 1f;
+        
+        WaterParticles.MinPos = xyz;
+        byEntity.World.SpawnParticles(WaterParticles, byEntity is EntityPlayer entityPlayer ? entityPlayer.Player : null);
     }
     
-    private static void GetHydration(
-        EntityPlayer entity,
-        out float? hydration,
-        out float? maxHydration)
-    {
-        hydration = new float?();
-        maxHydration = new float?();
-        ITreeAttribute treeAttribute1 = entity.WatchedAttributes.GetTreeAttribute("balancedthirst:thirst");
-        if (treeAttribute1 == null) return;
-        hydration = treeAttribute1.TryGetFloat("currenthydration");
-        maxHydration = treeAttribute1.TryGetFloat("maxhydration");
-    }
-}*/
+}

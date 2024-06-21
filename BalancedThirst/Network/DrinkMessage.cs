@@ -1,4 +1,5 @@
 using ProtoBuf;
+using Vintagestory.API.MathTools;
 
 namespace BalancedThirst.Network;
 
@@ -8,13 +9,13 @@ public class DrinkMessage
     public class Request
     {
         [ProtoMember(1)]
-        public string message;
+        public BlockPos Position;
     }
 
     [ProtoContract]
     public class Response
     {
         [ProtoMember(1)]
-        public string response;
+        public BlockPos Position;
     }
 }
