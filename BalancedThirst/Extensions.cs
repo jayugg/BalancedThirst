@@ -54,6 +54,14 @@ public static class Extensions
         return null;
     }
     
+    public static HydrationProperties GetBlockHydrationProperties(this Block block)
+    {
+        block.EnsureAttributesNotNull();
+        JToken token = block.Attributes.Token;
+        HydrationProperties hydrationProperties = token["hydrationProps"]?.ToObject<HydrationProperties>();
+        return hydrationProperties;
+    }
+    
     public static void ReceiveHydration(this Entity entity, HydrationProperties hydrationProperties)
     {
         if (!entity.HasBehavior<EntityBehaviorThirst>()) return;

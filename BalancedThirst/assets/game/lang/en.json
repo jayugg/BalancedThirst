@@ -27,6 +27,8 @@
   "purity-Filtered": "<font color=\"blue\">Filtered</font>",
   "purity-Boiled": "<font color=\"yellow\">Boiled</font>",
   "purity-Stagnant": "<font color=\"red\">Stagnant</font>",
-  "purity-Yuck": "<font color=\"black\">Yuck</font>"
+  "purity-Yuck": "<font color=\"black\">Yuck</font>",
+  
+  "playerinfo-hydration": "Hydration"
 
 }

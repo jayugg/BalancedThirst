@@ -1,4 +1,5 @@
 using System;
+using System.Threading;
 using Vintagestory.API.Common;
 using Vintagestory.API.Common.Entities;
 using Vintagestory.API.Config;
@@ -19,6 +20,7 @@ namespace BalancedThirst.ModBehavior
     private ICoreAPI _api;
     private float _detoxCounter;
     private AssetLocation vomitSound = new AssetLocation("sounds/player/hurt1");
+    
     public override string PropertyName() => AttributeKey;
     private string AttributeKey => BtCore.Modid + ":thirst";
 
@@ -51,6 +53,16 @@ namespace BalancedThirst.ModBehavior
         this.entity.WatchedAttributes.MarkPathDirty(AttributeKey);
       }
     }
+    
+    public float HydrationHealthLevel
+    {
+      get => this._thirstTree?.GetFloat("hydrationhealthlevel") ?? 0f;
+      set
+      {
+        this._thirstTree?.SetFloat("hydrationhealthlevel", value);
+        this.entity.WatchedAttributes.MarkPathDirty(AttributeKey);
+      }
+    }
 
     public EntityBehaviorThirst(Entity entity)
       : base(entity)
@@ -68,10 +80,12 @@ namespace BalancedThirst.ModBehavior
         this.Hydration = typeAttributes["currenthydration"].AsFloat(1500f);
         this.MaxHydration = typeAttributes["maxhydration"].AsFloat(1500f);
         this.HydrationLossDelay = 180.0f;
+        this.HydrationHealthLevel = 0f;
       }
       this._listenerId = this.entity.World.RegisterGameTickListener(this.SlowTick, 6000);
       entity.Stats.Register(BtCore.Modid+":thirstrate");
       this.UpdateThirstHungerBoost();
+      this.UpdateThirstHealthBoost();
     }
 
     public override void OnEntityDespawn(EntityDespawnData despawn)
@@ -141,6 +155,7 @@ namespace BalancedThirst.ModBehavior
       }
       if (hydrationProperties.Scalding) entity.ReceiveDamage(new DamageSource() {Type = EnumDamageType.Heat, Source = EnumDamageSource.Internal}, 3);
       this.UpdateThirstHungerBoost();
+      this.UpdateThirstHealthBoost(hydrationProperties);
     }
 
     public override void OnGameTick(float deltaTime)
@@ -196,8 +211,9 @@ namespace BalancedThirst.ModBehavior
         flag = true;
       }
       else
-        this.Hydration = Math.Max(0.0f, this.Hydration - (float) (Math.Max(0.5f, 1f / 1000f * this.Hydration) * (double) satLossMultiplier * 0.25));
+        this.HydrationHealthLevel = Math.Max(0.0f, this.HydrationHealthLevel - satLossMultiplier * 10f);
       this.UpdateThirstHungerBoost();
+      this.UpdateThirstHealthBoost();
       if (flag)
       {
         this._thirstCounter -= 10f;
@@ -221,6 +237,30 @@ namespace BalancedThirst.ModBehavior
       this.entity.Stats.Set("hungerrate", BtCore.Modid + ":thirsty", HungerModifier);
       entity.WatchedAttributes.MarkPathDirty("stats");
     }
+    
+    public void UpdateThirstHealthBoost()
+    {
+      EntityBehaviorHealth behavior = this.entity.GetBehavior<EntityBehaviorHealth>();
+      behavior.MaxHealthModifiers[BtCore.Modid+"thirstHealthMod"] = HydrationHealthLevel / this.MaxHydration;
+      behavior.MarkDirty();
+    }
+    
+    public void UpdateThirstHealthBoost(HydrationProperties hydrationProperties)
+    {
+      var mul = hydrationProperties.Salty ? 0f : 1f ;
+      mul = hydrationProperties.Purity switch
+      {
+        EnumPurityLevel.Pure => 1.5f,
+        EnumPurityLevel.Filtered => 1.3f,
+        EnumPurityLevel.Boiled => 1.2f,
+        EnumPurityLevel.Okay => 1,
+        EnumPurityLevel.Stagnant => 0.5f,
+        EnumPurityLevel.Yuck => 0,
+        _ => 1
+      };
+      this.HydrationHealthLevel = Math.Clamp(this.HydrationHealthLevel + mul * hydrationProperties.Hydration, 0, this.MaxHydration);
+      this.UpdateThirstHealthBoost();
+    }
 
     private void SlowTick(float dt)
     {
@@ -238,6 +278,7 @@ namespace BalancedThirst.ModBehavior
         this.entity.Stats.Set(BtCore.Modid+":thirstrate", "resistheat", this.entity.World.Api.ModLoader.GetModSystem<RoomRegistry>().GetRoomForPosition(this.entity.Pos.AsBlockPos).ExitCount == 0 ? 0.0f : num / 40f, true);
       }
       UpdateThirstHungerBoost();
+      UpdateThirstHealthBoost();
     }
 
     public override void OnEntityReceiveDamage(DamageSource damageSource, ref float damage)
@@ -246,6 +287,7 @@ namespace BalancedThirst.ModBehavior
         return;
       this.HydrationLossDelay = this.MaxHydration / 2f;
       this.Hydration = this.MaxHydration / 2f;
+      this.HydrationHealthLevel /= 2f;
     }
 
     public void Vomit()

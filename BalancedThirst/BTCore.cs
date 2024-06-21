@@ -1,4 +1,7 @@
-﻿using BalancedThirst.Blocks;
+﻿using System;
+using System.IO;
+using System.Runtime.Serialization.Json;
+using BalancedThirst.Blocks;
 using BalancedThirst.Hud;
 using BalancedThirst.Items;
 using BalancedThirst.ModBehavior;
@@ -8,6 +11,8 @@ using Vintagestory.API.Client;
 using Vintagestory.API.Server;
 using Vintagestory.API.Common;
 using Vintagestory.API.Common.Entities;
+using Vintagestory.API.Datastructures;
+using Vintagestory.API.MathTools;
 
 
 namespace BalancedThirst;
@@ -16,6 +21,9 @@ public class BtCore : ModSystem
 {
     public static ILogger Logger;
     public static string Modid;
+    
+    public IServerNetworkChannel ServerChannel;
+    public IClientNetworkChannel ClientChannel;
     
     public override void Start(ICoreAPI api)
     {

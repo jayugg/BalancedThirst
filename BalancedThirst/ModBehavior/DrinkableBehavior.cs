@@ -1,5 +1,6 @@
 using System;
 using System.Text;
+using System.Threading;
 using Vintagestory.API.Common;
 using Vintagestory.API.Config;
 using Vintagestory.API.Datastructures;
@@ -11,7 +12,6 @@ public class DrinkableBehavior : CollectibleBehavior
 {
   
     private ICoreAPI _api;
-  
     
     public DrinkableBehavior(CollectibleObject collObj) : base(collObj)
     {
