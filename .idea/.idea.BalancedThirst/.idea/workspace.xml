@@ -9,11 +9,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e6b49e4b-520d-4578-b261-331cc4832028" name="Changes" comment="Network attempt">
-      <change afterPath="$PROJECT_DIR$/BalancedThirst/HarmonyPatches/CharacterExtraDialogs_UpdateStatBars_Patch.cs" afterDir="false" />
+    <list default="true" id="e6b49e4b-520d-4578-b261-331cc4832028" name="Changes" comment="Dynamic stat updating in character menu">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.BalancedThirst/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.BalancedThirst/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BalancedThirst/HarmonyPatches/CharacterExtraDialogs_Dlg_ComposeExtraGuis_Patch.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/HarmonyPatches/CharacterExtraDialogs_Dlg_ComposeExtraGuis_Patch.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BalancedThirst/HarmonyPatches/CharacterExtraDialogs_UpdateStatBars_Patch.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/HarmonyPatches/CharacterExtraDialogs_UpdateStatBars_Patch.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BalancedThirst/ModBehavior/EntityBehaviorThirst.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/ModBehavior/EntityBehaviorThirst.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BalancedThirst/Systems/HarmonyPatches.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/Systems/HarmonyPatches.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BalancedThirst/assets/game/lang/en.json" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/assets/game/lang/en.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -134,6 +136,7 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/f4f0f8dbf5044cc9b54d09261e66625987e00/d6/5694afb6/Enumerable.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/58b0b7706a8be4f7160749424eb996a3f845a1682c3c7ac5e405a346a8c20f1/JToken.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/cb2420db748f7fd88d1ab6c5e0f9ff39f769eb6f7372b38df2188dfee6a86e3/Traverse.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Users/jacopouggeri/workspace/VintageModding/BalancedThirst/BalancedThirst/HarmonyPatches/CharacterExtraDialogs_Dlg_ComposeExtraGuis_Patch.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/BalancedThirst/assets/game/worldgen/deposits/purewater-deep.json" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="KubernetesApiPersistence">{}</component>
@@ -240,7 +243,7 @@
       <workItem from="1718561360542" duration="18000" />
       <workItem from="1718561389490" duration="154405000" />
       <workItem from="1718970222561" duration="110000" />
-      <workItem from="1718970349554" duration="1856000" />
+      <workItem from="1718970349554" duration="3182000" />
     </task>
     <task id="LOCAL-00001" summary="Sorta working for containers">
       <option name="closed" value="true" />
@@ -418,7 +421,15 @@
       <option name="project" value="LOCAL" />
       <updated>1718971728406</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="Dynamic stat updating in character menu">
+      <option name="closed" value="true" />
+      <created>1718972229490</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1718972229490</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -461,6 +472,7 @@
     <MESSAGE value="Added worldgen and different dowsing rod" />
     <MESSAGE value="Working + GUI" />
     <MESSAGE value="Network attempt" />
-    <option name="LAST_COMMIT_MESSAGE" value="Network attempt" />
+    <MESSAGE value="Dynamic stat updating in character menu" />
+    <option name="LAST_COMMIT_MESSAGE" value="Dynamic stat updating in character menu" />
   </component>
 </project>

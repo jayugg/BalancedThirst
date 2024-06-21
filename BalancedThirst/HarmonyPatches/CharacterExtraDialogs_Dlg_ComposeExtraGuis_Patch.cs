@@ -50,20 +50,12 @@ public class CharacterExtraDialogs_Dlg_ComposeExtraGuis_Patch
         if (hydration.HasValue)
         {
             ElementBounds refBounds;
-            composers["modstats"].AddStaticText(Lang.Get("playerinfo-hydration"), CairoFont.WhiteDetailText(), elementBounds1.WithFixedWidth(90.0)).AddStatbar(refBounds = elementBounds2.WithFixedOffset(0, -5), ModGuiStyle.ThirstBarColor, "thirstHealthBar");
+            composers["modstats"].AddStaticText(Lang.Get("playerinfo-hydration-boost"), CairoFont.WhiteDetailText(), elementBounds1.WithFixedWidth(90.0)).AddStatbar(refBounds = elementBounds2.WithFixedOffset(0, -5), ModGuiStyle.ThirstBarColor, "thirstHealthBar");
             leftColumnBoundsW = leftColumnBoundsW.FixedUnder(refBounds, -5.0);
         }
         
-        /*
-        composers["modstats"].AddStaticText(Lang.Get("Physical"), CairoFont.WhiteSmallText().WithWeight((FontWeight) 1), leftColumnBoundsW.WithFixedWidth(200.0).WithFixedOffset(0.0, 23.0)).Execute((Action) (() =>
-        {
-            leftColumnBoundsW = leftColumnBoundsW.FlatCopy();
-            leftColumnBoundsW.fixedY += 5.0;
-        }));
-        */
-        
         if (hydration.HasValue && maxHydration.HasValue)
-            composers["modstats"].AddStaticText(Lang.Get("Hydration"), CairoFont.WhiteDetailText(), leftColumnBoundsW = leftColumnBoundsW.BelowCopy()).AddDynamicText(((int) hydration.Value) + " / " + ((int) maxHydration.Value), CairoFont.WhiteDetailText(), elementBounds3 = elementBounds3.FlatCopy().WithFixedPosition(elementBounds3.fixedX, leftColumnBoundsW.fixedY), "hydration");
+            composers["modstats"].AddStaticText(Lang.Get("playerinfo-hydration"), CairoFont.WhiteDetailText(), leftColumnBoundsW = leftColumnBoundsW.BelowCopy()).AddDynamicText(((int) hydration.Value) + " / " + ((int) maxHydration.Value), CairoFont.WhiteDetailText(), elementBounds3 = elementBounds3.FlatCopy().WithFixedPosition(elementBounds3.fixedX, leftColumnBoundsW.fixedY), "hydration");
         
         var composer = composers["modstats"].AddStaticText(Lang.Get("Thirst Rate"), CairoFont.WhiteDetailText(), leftColumnBoundsW = leftColumnBoundsW.BelowCopy()).AddDynamicText(text2, CairoFont.WhiteDetailText(), elementBounds3 = elementBounds3.FlatCopy().WithFixedPosition(elementBounds3.fixedX, leftColumnBoundsW.fixedY).WithFixedHeight(30.0), "thirstrate");
         composer.Compose();

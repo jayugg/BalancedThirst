@@ -29,6 +29,7 @@
   "purity-Stagnant": "<font color=\"red\">Stagnant</font>",
   "purity-Yuck": "<font color=\"black\">Yuck</font>",
   
-  "playerinfo-hydration": "Hydration"
+  "playerinfo-hydration": "Hydration",
+  "playerinfo-hydration-boost": "Euhydration"
 
 }
