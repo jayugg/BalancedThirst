@@ -20,9 +20,8 @@ public class CharacterExtraDialogs_Dlg_ComposeExtraGuis_Patch
         var dlg = traverse.Field("dlg").GetValue() as GuiDialogCharacterBase;
         if (dlg == null) return;
         var composers = dlg.Composers;
-        
-        // Get the thirst rate
         var entity = capi.World.Player.Entity;
+        
         float blended = entity.Stats.GetBlended(BtCore.Modid+":thirstrate");
         var num3 = (int) Math.Round(100.0 * blended);
         string text2 = num3 + "%";
@@ -67,24 +66,7 @@ public class CharacterExtraDialogs_Dlg_ComposeExtraGuis_Patch
             composers["modstats"].AddStaticText(Lang.Get("Hydration"), CairoFont.WhiteDetailText(), leftColumnBoundsW = leftColumnBoundsW.BelowCopy()).AddDynamicText(((int) hydration.Value) + " / " + ((int) maxHydration.Value), CairoFont.WhiteDetailText(), elementBounds3 = elementBounds3.FlatCopy().WithFixedPosition(elementBounds3.fixedX, leftColumnBoundsW.fixedY), "hydration");
         
         var composer = composers["modstats"].AddStaticText(Lang.Get("Thirst Rate"), CairoFont.WhiteDetailText(), leftColumnBoundsW = leftColumnBoundsW.BelowCopy()).AddDynamicText(text2, CairoFont.WhiteDetailText(), elementBounds3 = elementBounds3.FlatCopy().WithFixedPosition(elementBounds3.fixedX, leftColumnBoundsW.fixedY).WithFixedHeight(30.0), "thirstrate");
-        UpdateStatBars(composer, entity, traverse.Method("IsOpened").GetValue<bool>());
         composer.Compose();
-    }
-    
-    private static void UpdateStatBars(GuiComposer composer, EntityPlayer entity, bool isOpened)
-    {
-        if (composer == null || !isOpened)
-            return;
-        ITreeAttribute treeAttribute = entity.WatchedAttributes.GetTreeAttribute("balancedthirst:thirst");
-        if (treeAttribute == null)
-            return;
-        float hydration = treeAttribute.GetFloat("currenthydration");
-        float max = treeAttribute.GetFloat("maxhydration");
-        float hboost = treeAttribute.GetFloat("hydrationhealthlevel");
-        BtCore.Logger.Warning(hboost.ToString());
-        composer.GetDynamicText("hydration").SetNewText((int) hydration + " / " + max);
-        composer.GetStatbar("thirstHealthBar").SetLineInterval(max / 10f);
-        composer.GetStatbar("thirstHealthBar").SetValues(hboost, 0.0f, max);
     }
 
     private static void getHydration(

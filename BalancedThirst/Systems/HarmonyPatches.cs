@@ -32,14 +32,12 @@ public class HarmonyPatches : ModSystem
         HarmonyInstance.Patch(typeof(CharacterExtraDialogs).GetMethod("Dlg_ComposeExtraGuis",  BindingFlags.NonPublic | BindingFlags.Instance),
             postfix: typeof(CharacterExtraDialogs_Dlg_ComposeExtraGuis_Patch).GetMethod(
                 nameof(CharacterExtraDialogs_Dlg_ComposeExtraGuis_Patch.Postfix)));
-        /* Cannot get Stats updating in real time with patches
-        HarmonyInstance.Patch(typeof(CharacterExtraDialogs).GetMethod("Dlg_ComposeExtraGuis",  BindingFlags.NonPublic | BindingFlags.Instance),
+        HarmonyInstance.Patch(typeof(CharacterExtraDialogs).GetMethod("UpdateStats",  BindingFlags.NonPublic | BindingFlags.Instance),
             postfix: typeof(CharacterExtraDialogs_UpdateStats_Patch).GetMethod(
-                nameof(CharacterExtraDialogs_UpdateStats_Patch.Postfix)));*/
-        // If can be made working, smoother character gui:
-        /*HarmonyInstance.Patch(typeof(CharacterExtraDialogs).GetMethod(nameof(CharacterExtraDialogs.ComposeStatsGui),  BindingFlags.NonPublic | BindingFlags.Instance),
-            postfix: typeof(CharacterExtraDialogs_ComposeStatsGui_Patch).GetMethod(
-                nameof(CharacterExtraDialogs_ComposeStatsGui_Patch.Postfix)));*/
+                nameof(CharacterExtraDialogs_UpdateStats_Patch.Postfix)));
+        HarmonyInstance.Patch(typeof(CharacterExtraDialogs).GetMethod("UpdateStatBars",  BindingFlags.NonPublic | BindingFlags.Instance),
+            postfix: typeof(CharacterExtraDialogs_UpdateStatBars_Patch).GetMethod(
+                nameof(CharacterExtraDialogs_UpdateStatBars_Patch.Postfix)));
         /*HarmonyInstance.Patch(typeof(BlockLiquidContainerBase).GetMethod(nameof(BlockLiquidContainerBase.TryTakeContent)),
             postfix: typeof(BlockLiquidContainerBase_TryTakeContent_Patch).GetMethod(
                 nameof(BlockLiquidContainerBase_TryTakeContent_Patch.Postfix)));*/
