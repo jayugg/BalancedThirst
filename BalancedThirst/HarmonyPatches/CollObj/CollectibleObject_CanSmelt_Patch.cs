@@ -14,6 +14,7 @@ public class CollectibleObject_CanSmelt_Patch
         ItemStack outputStack)
     {
         if (__instance is not BlockLiquidContainerBase container) return;
+        if (!__instance.IsHeatableLiquidContainer()) return;
         var contentStack = container.GetContent(inputStack);
         ItemStack resolvedItemstack = contentStack?.Collectible.CombustibleProps?.SmeltedStack?.ResolvedItemstack;
         if (resolvedItemstack == null ||

@@ -60,5 +60,6 @@ public class BtCore : ModSystem
     {
         if (!api.Side.IsServer()) return;
         EditAssets.AddHydrationToCollectibles(api);
+        EditAssets.AddContainerProps(api);
     }
 }

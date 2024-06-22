@@ -1,8 +1,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using BalancedThirst.ModBehavior;
+using BalancedThirst.Util;
 using Vintagestory.API.Common;
 using Vintagestory.API.Util;
+using Vintagestory.GameContent;
 
 namespace BalancedThirst.Systems;
 
@@ -12,28 +14,10 @@ public static class EditAssets
     {
         foreach (var collectible in api.World.Collectibles.Where(c => c?.Code != null))
         {
-            Dictionary<string, HydrationProperties> hydrationDictionary = new Dictionary<string, HydrationProperties>
-            {
-                { "game:waterportion", new HydrationProperties { Hydration = 100, Purity = EnumPurityLevel.Okay } },
-                { "game:rawjuice", new HydrationProperties { Hydration = 90 } },
-                { "game:milkportion", new HydrationProperties { Hydration = 90 } },
-                { "game:vinegarportion", new HydrationProperties { Hydration = 60 } },
-                { "game:cider", new HydrationProperties { Hydration = 60 } },
-                { "game:spirit", new HydrationProperties { Hydration = 20 } },
-                { "game:honeyportion", new HydrationProperties { Hydration = 10 } },
-                { "game:jamhoneyportion", new HydrationProperties { Hydration = 10 } },
-                { "game:boilingwaterportion", new HydrationProperties { Hydration = 100, Scalding = true, Purity = EnumPurityLevel.Boiled } },
-                { "game:saltwaterportion", new HydrationProperties { Hydration = 60, Salty = true, Purity = EnumPurityLevel.Okay } },
-                { "game:brineportion", new HydrationProperties { Hydration = 80, Salty = true, Purity = EnumPurityLevel.Okay } },
-                { BtCore.Modid + ":waterportion-pure", new HydrationProperties { Hydration = 100, Purity = EnumPurityLevel.Pure } },
-                { BtCore.Modid + ":waterportion-boiled", new HydrationProperties { Hydration = 100, Purity = EnumPurityLevel.Boiled } },
-                { BtCore.Modid + ":waterportion-stagnant", new HydrationProperties { Hydration = 100, Purity = EnumPurityLevel.Stagnant } },
-                { "game:rot", new HydrationProperties { Hydration = 20, Purity = EnumPurityLevel.Yuck } }
-            };
 
             string code = collectible.Code.ToString();
 
-            foreach (var pair in hydrationDictionary)
+            foreach (var pair in BtConstants.HydratingLiquids)
             {
                 if (code.Contains(pair.Key))
                 {
@@ -46,18 +30,10 @@ public static class EditAssets
                 }
             }
         }
-        
-        Dictionary<string, HydrationProperties> hydrationBlockDictionary = new Dictionary<string, HydrationProperties>
-        {
-            { "game:water", new HydrationProperties { Hydration = 100, Purity = EnumPurityLevel.Okay } },
-            { "game:" + BtCore.Modid + "-purewater", new HydrationProperties { Hydration = 100, Purity = EnumPurityLevel.Pure } },
-            { "game:boilingwater", new HydrationProperties { Hydration = 100, Scalding = true, Purity = EnumPurityLevel.Boiled } },
-            { "game:saltwater", new HydrationProperties { Hydration = 75, Purity = EnumPurityLevel.Okay, Salty = true } }
-        };
 
         foreach (Block block in api.World.Blocks.Where(b => b?.Code != null))
         {
-            foreach (var pair in hydrationBlockDictionary)
+            foreach (var pair in BtConstants.HydratingBlocks)
             {
                 if (block.Code.ToString().Contains(pair.Key))
                 {
@@ -69,4 +45,14 @@ public static class EditAssets
         }
     }
     
+    public static void AddContainerProps(ICoreAPI api)
+    {
+        foreach (var block in api.World.Blocks) {
+        if (block is not BlockLiquidContainerBase container) continue;
+        if (!BtConstants.HeatableLiquidContainers.Any(code => block.Code.Path.Contains(code))) continue;
+
+        container.SetAttribute("maxTemperature", 100);
+        container.SetAttribute("allowHeating", true);
+        }
+    }
 }

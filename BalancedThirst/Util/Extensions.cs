@@ -1,6 +1,8 @@
 using System.Collections.Generic;
+using System.Linq;
 using BalancedThirst.ModBehavior;
 using BalancedThirst.ModBlockBehavior;
+using BalancedThirst.Util;
 using Newtonsoft.Json.Linq;
 using Vintagestory.API.Common;
 using Vintagestory.API.Common.Entities;
@@ -91,23 +93,17 @@ public static class Extensions
         collectible.Attributes = newAttributes;
     }
     
-    private static readonly List<string> WaterPortions = new List<string>
+    public static bool IsHeatableLiquidContainer(this CollectibleObject collectible)
     {
-        "game:waterportion",
-        "game:boilingwaterportion",
-        "game:saltwaterportion",
-        BtCore.Modid + ":waterportion-pure",
-        BtCore.Modid + ":waterportion-boiled",
-        BtCore.Modid + ":waterportion-stagnant"
-    };
+        return BtConstants.HeatableLiquidContainers.Any(code => collectible.Code.Path.Contains(code));
+    }
 
     public static bool IsWaterPortion(this CollectibleObject collectible)
     {
-        return WaterPortions.Contains(collectible.Code.ToString());
+        return BtConstants.WaterPortions.Contains(collectible.Code.ToString());
     }
     
     public static bool IsLiquidSourceBlock(this Block b) => b.LiquidLevel == 7;
     public static bool IsSameLiquid(this Block b, Block o) => b.LiquidCode == o.LiquidCode;
-    
     public static Vec3d NoY(this Vec3d vec) => new Vec3d(vec.X, 0, vec.Z);
 }
