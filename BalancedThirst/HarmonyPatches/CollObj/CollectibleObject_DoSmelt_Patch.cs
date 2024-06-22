@@ -34,7 +34,8 @@ public class CollectibleObject_DoSmelt_Patch
             float val2 = (float) ( transitionState1.TransitionedHours / (transitionState1.TransitionHours + (double) transitionState1.FreshHours) * 0.800000011920929 * ( transitionState2.TransitionHours + (double) transitionState2.FreshHours) - 1.0);
             stack.Collectible.SetTransitionState(stack, EnumTransitionType.Perish, Math.Max(0.0f, val2));
         }
-        stack.StackSize = contentSize;
+        var smeltRatio = contentStack.Collectible.CombustibleProps.SmeltedRatio;
+        stack.StackSize = contentSize / smeltRatio;
         if (outputSlot.Itemstack != null) return true;
         outputSlot.Itemstack = new ItemStack(container);
         if (outputSlot.Itemstack.Collectible is not BlockLiquidContainerBase outContainer) return true;
