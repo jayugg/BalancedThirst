@@ -1,9 +1,7 @@
-using System.Reflection;
-using Vintagestory.API.Common;
 using Vintagestory.API.MathTools;
 using Vintagestory.GameContent;
 
-namespace BalancedThirst.HarmonyPatches;
+namespace BalancedThirst.HarmonyPatches.BlockLiquidContainer;
 
 public class BlockLiquidContainerBase_TryTakeContent_Patch
 {

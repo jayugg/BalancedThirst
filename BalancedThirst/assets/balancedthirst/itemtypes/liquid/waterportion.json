@@ -2,7 +2,7 @@
   "code": "waterportion",
   "class": "ItemLiquidPortion",
   "variantgroups": [
-    { "code": "type", "states": ["pure", "boiled" ,"stagnant"] }
+    { "code": "type", "states": ["pure", "boiled", "stagnant"] }
   ],
   "matterState": "liquid",
   "attributes": {
@@ -12,7 +12,7 @@
     "waterTightContainerProps": {
       "containable": true,
       "itemsPerLitre": 100,
-      "texture": { "base": "game:block/liquid/waterportion" },
+      "texture": { "base": "balancedthirst:block/waterportion-{type}" },
       "tintIndex": 1,
       "whenSpilled": {
         "action": "PlaceBlock",
@@ -33,8 +33,8 @@
     }],
     "*-stagnant": [{
       "type": "Perish",
-      "freshHours": { "avg": 168 },
-      "transitionHours": { "avg": 72 },
+      "freshHours": { "avg": 0 },
+      "transitionHours": { "avg": 168 },
       "transitionedStack": { "type": "item", "code": "game:rot" },
       "transitionRatio": 0.25
     }],
@@ -46,10 +46,20 @@
       "transitionRatio": 1
     }]
   },
+  "combustiblePropsByType": {
+    "*": {
+      "meltingPoint": 100,
+      "meltingDuration": 30,
+      "smeltedRatio": 1,
+      "smeltingType": "cook",
+      "smeltedStack": { "type": "item", "code": "game:boilingwaterportion" },
+      "requiresContainer": false
+    }
+  },
   "shape": { "base": "game:item/liquid" },
   "textureByType": {
-    "*-pure": { "base": "game:block/liquid/waterportion" },
-    "*-stagnant": { "base": "game:block/liquid/waterportion" },
+    "*-pure": { "base": "balancedthirst:block/waterportion-pure" },
+    "*-stagnant": { "base": "balancedthirst:block/waterportion-stagnant" },
     "*": { "base": "game:block/liquid/waterportion" }
   },
   "creativeinventoryStacks": [ { "tabs": ["general", "liquids"],

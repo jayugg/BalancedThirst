@@ -1,8 +1,6 @@
 using System;
 using System.Text;
-using System.Threading;
 using Vintagestory.API.Common;
-using Vintagestory.API.Config;
 using Vintagestory.API.Datastructures;
 using Vintagestory.GameContent;
 
@@ -15,13 +13,11 @@ public class DrinkableBehavior : CollectibleBehavior
     
     public DrinkableBehavior(CollectibleObject collObj) : base(collObj)
     {
-      //BtCore.Logger.Warning("Creating DrinkableBehavior");
     }
     
     public override void OnLoaded(ICoreAPI api)
     {
       _api = api;
-      //BtCore.Logger.Warning("Initializing DrinkableBehavior");
       base.OnLoaded(api);
     }
     
@@ -30,7 +26,6 @@ public class DrinkableBehavior : CollectibleBehavior
       try
       {
         JsonObject itemAttribute = itemstack?.ItemAttributes?["hydrationProps"];
-        //BtCore.Logger.Warning(itemAttribute?.ToString());
         return itemAttribute is { Exists: true } ? itemAttribute.AsObject<HydrationProperties>( null, itemstack.Collectible.Code.Domain) : null;
       }
       catch (Exception ex)

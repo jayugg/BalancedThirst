@@ -1,5 +1,7 @@
 using System;
+using System.Text;
 using Vintagestory.API.Common;
+using Vintagestory.API.Config;
 using Vintagestory.API.Datastructures;
 using Vintagestory.GameContent;
 
@@ -45,5 +47,11 @@ public class BlockLiquidContainerLeaking : BlockLiquidContainerTopOpened
         base.OnHeldIdle(slot, byEntity);
         if (this.api.World.Rand.NextSingle() > 1 - GetLeakageRate(slot.Itemstack))
             this.TryTakeLiquid(slot.Itemstack, LeakagePerTick / (float) slot.Itemstack.StackSize);
+    }
+
+    public override void GetHeldItemInfo(ItemSlot inSlot, StringBuilder dsc, IWorldAccessor world, bool withDebugInfo)
+    {
+        base.GetHeldItemInfo(inSlot, dsc, world, withDebugInfo);
+        dsc.AppendLine(Lang.Get("container-leaky"));
     }
 }

@@ -1,12 +1,11 @@
 using System;
-using BalancedThirst.ModBehavior;
 using HarmonyLib;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
 using Vintagestory.API.Datastructures;
 using Vintagestory.GameContent;
 
-namespace BalancedThirst.HarmonyPatches;
+namespace BalancedThirst.HarmonyPatches.CharExtraDialogs;
 
 public class CharacterExtraDialogs_UpdateStats_Patch
 {

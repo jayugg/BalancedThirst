@@ -3,7 +3,7 @@ using Vintagestory.API.Common;
 using Vintagestory.API.Config;
 using Vintagestory.API.Server;
 
-namespace BalancedThirst.HarmonyPatches;
+namespace BalancedThirst.HarmonyPatches.CollObj;
 
 public class CollectibleObject_tryEatStop_Patch
 {

@@ -6,7 +6,7 @@ using Vintagestory.API.Common;
 using Vintagestory.API.Config;
 using Vintagestory.GameContent;
 
-namespace BalancedThirst.HarmonyPatches;
+namespace BalancedThirst.HarmonyPatches.CollObj;
 
 public class CollectibleObject_GetHeldItemInfo_Patch
 {
@@ -47,7 +47,8 @@ public class CollectibleObject_GetHeldItemInfo_Patch
             {
                 dsc.AppendLine(Lang.Get("When drank: {0} hyd", Math.Round(hydration * (double)num1)));
             }
-            if (hydrationProperties.Purity != EnumPurityLevel.Okay)
+            if ((hydrationProperties.Purity != EnumPurityLevel.Okay && hydrationProperties.Purity != EnumPurityLevel.Pure) ||
+                (hydrationProperties.Purity == EnumPurityLevel.Pure && itemstack.Collectible.Code.ToString().Contains("pure")))
             {
                 dsc.AppendLine(Lang.Get($"purity-{hydrationProperties.Purity}"));
             }

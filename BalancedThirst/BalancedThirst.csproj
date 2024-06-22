@@ -35,8 +35,12 @@
             <HintPath>$(VINTAGE_STORY)/Lib/cairo-sharp.dll</HintPath>
             <Private>False</Private>
         </Reference>
-                <Reference Include="protobuf-net">
+        <Reference Include="protobuf-net">
             <HintPath>$(VINTAGE_STORY)/Lib/protobuf-net.dll</HintPath>
+            <Private>False</Private>
+        </Reference>
+        <Reference Include="SkiaSharp">
+            <HintPath>$(VINTAGE_STORY)/Lib/SkiaSharp.dll</HintPath>
             <Private>False</Private>
         </Reference>
     </ItemGroup>
@@ -53,7 +57,6 @@
     <ItemGroup>
       <PackageReference Include="Lib.Harmony" Version="2.3.3" />
       <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-      <PackageReference Include="SkiaSharp" Version="3.0.0-preview.3.1" />
     </ItemGroup>
 
 </Project>

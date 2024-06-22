@@ -25,7 +25,7 @@ namespace BalancedThirst.Items;
       int radius = 8 * this.api.World.Config.GetString("propickNodeSearchRadius").ToInt();
       if (radius <= 0) return;
       this.ProbeBlockNodeMode(byEntity.World, byEntity, itemslot, blockSel, radius);
-      if (api.World.Rand.NextSingle() > 0.1f) DamageItem(byEntity.World, byEntity, itemslot);
+      if (api.World.Rand.NextSingle() > 0.5f) DamageItem(byEntity.World, byEntity, itemslot);
       handling = EnumHandHandling.PreventDefault;
     }
     
@@ -50,17 +50,11 @@ namespace BalancedThirst.Items;
       }
       else
       {
-        //string l2 = Lang.GetL(serverPlayer.LanguageCode, this.ResultTextByQuantity(quantityFound));
-        //serverPlayer.SendMessage(GlobalConstants.InfoLogChatGroup, Lang.GetL(serverPlayer.LanguageCode, l2), EnumChatType.Notification);
-        // Guide the player towards the closest water
-        serverPlayer.SendMessage(GlobalConstants.GeneralChatGroup, "Closest water found at " + closestWaterPos, EnumChatType.Notification);
-        
+        //serverPlayer.SendMessage(GlobalConstants.GeneralChatGroup, "Closest water found at " + closestWaterPos, EnumChatType.Notification);
         var message = new DowsingRodMessage()
         {
           Position = closestWaterPos
         };
-        
-        // Send the message to the client
         ((IServerNetworkChannel)serverPlayer.Entity.Api.Network.GetChannel(BtCore.Modid + ".drink")).SendPacket(message, serverPlayer);
       }
     }
@@ -94,19 +88,6 @@ namespace BalancedThirst.Items;
       }
       
       return null;
-    }
-
-    protected virtual string ResultTextByQuantity(int value)
-    {
-      if (value < 2)
-        return "dowsingrod-nodesearch-traceamount";
-      if (value < 4)
-        return "dowsingrod-nodesearch-smallamount";
-      if (value < 10)
-        return "dowsingrod-nodesearch-mediumamount";
-      if (value < 30)
-        return "dowsingrod-nodesearch-largeamount";
-      return value < 60 ? "dowsingrod-nodesearch-verylargeamount" : "dowsingrod-nodesearch-hugeamount";
     }
 
     public override WorldInteraction[] GetHeldInteractionHelp(ItemSlot inSlot)

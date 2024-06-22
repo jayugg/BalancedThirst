@@ -9,12 +9,74 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e6b49e4b-520d-4578-b261-331cc4832028" name="Changes" comment="Removing density mode">
-      <change afterPath="$PROJECT_DIR$/BalancedThirst/Network/DowsingRodMessage.cs" afterDir="false" />
+    <list default="true" id="e6b49e4b-520d-4578-b261-331cc4832028" name="Changes" comment="Changed dowsing rod mode">
+      <change afterPath="$PROJECT_DIR$/BalancedThirst/Blocks/BlockWaterStorageContainer.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BalancedThirst/HarmonyPatches/CollectibleObject_GetTransitionRateMul_Patch.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BalancedThirst/HarmonyPatches/CookingRecipe_Matches_Patch.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/blocktypes/waterskin.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/patches/boiledwatercools.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/patches/waterinsoup.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/recipes/barrel/preservewater.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/recipes/smithing/dowsingrod.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/shapes/dowsingrod.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/textures/block/waterportion-boiled.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/textures/block/waterportion-pure.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/textures/block/waterportion-stagnant.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BalancedThirst/assets/game/recipes/cooking/boiledwater.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Releases/balancedthirst/assets/balancedthirst/blocktypes/waterskin.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Releases/balancedthirst/assets/balancedthirst/blocktypes/woodenbowl.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Releases/balancedthirst/assets/balancedthirst/itemtypes/dowsingrod.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Releases/balancedthirst/assets/balancedthirst/itemtypes/liquid/waterportion.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Releases/balancedthirst/assets/balancedthirst/patches/boiledwatercools.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Releases/balancedthirst/assets/balancedthirst/patches/waterexpires.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Releases/balancedthirst/assets/balancedthirst/patches/waterinsoup.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Releases/balancedthirst/assets/balancedthirst/recipes/barrel/preservewater.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Releases/balancedthirst/assets/balancedthirst/recipes/grid/woodenbowl-waxed.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Releases/balancedthirst/assets/balancedthirst/recipes/grid/woodenbowl.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Releases/balancedthirst/assets/balancedthirst/recipes/smithing/dowsingrod.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Releases/balancedthirst/assets/balancedthirst/shapes/dowsingrod.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Releases/balancedthirst/assets/balancedthirst/textures/block/waterportion-boiled.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Releases/balancedthirst/assets/balancedthirst/textures/block/waterportion-pure.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Releases/balancedthirst/assets/balancedthirst/textures/block/waterportion-stagnant.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Releases/balancedthirst/assets/game/blocktypes/purewater.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Releases/balancedthirst/assets/game/recipes/cooking/boiledwater.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Releases/balancedthirst/assets/game/textures/block/purewater.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Releases/balancedthirst/assets/game/textures/block/purewater2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Releases/balancedthirst/assets/game/worldgen/deposits/purewater-deep.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Releases/balancedthirst/assets/game/worldgen/deposits/purewater.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.BalancedThirst/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.BalancedThirst/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BalancedThirst.sln.DotSettings.user" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst.sln.DotSettings.user" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BalancedThirst/BTCore.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/BTCore.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BalancedThirst/BalancedThirst.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/BalancedThirst.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BalancedThirst/Blocks/BlockLiquidContainerLeaking.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/Blocks/BlockLiquidContainerLeaking.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BalancedThirst/Blocks/BlockWaterskin.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/Blocks/BlockWaterskin.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BalancedThirst/Extensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/Extensions.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BalancedThirst/HarmonyPatches/CollectibleObject_GetHeldItemInfo_Patch.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/HarmonyPatches/CollectibleObject_GetHeldItemInfo_Patch.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BalancedThirst/HarmonyPatches/CollectibleObject_tryEatBegin_Patch.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/HarmonyPatches/CollectibleObject_tryEatBegin_Patch.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BalancedThirst/Items/ItemDowsingRod.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/Items/ItemDowsingRod.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BalancedThirst/Systems/DrinkNetwork.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/Systems/DrinkNetwork.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BalancedThirst/ModBehavior/DrinkableBehavior.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/ModBehavior/DrinkableBehavior.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BalancedThirst/Systems/EditAssets.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/Systems/EditAssets.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BalancedThirst/Systems/HarmonyPatches.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/Systems/HarmonyPatches.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/blocktypes/woodenbowl.json" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/blocktypes/woodenbowl.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/itemtypes/dowsingrod.json" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/itemtypes/dowsingrod.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/itemtypes/drinkitem.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/itemtypes/liquid/waterportion.json" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/itemtypes/liquid/waterportion.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/lang/en.json" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/lang/en.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/patches/waterexpires.json" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/patches/waterexpires.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/recipes/grid/dowsingrod.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/textures/purewater.png" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/assets/game/textures/block/purewater.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/textures/purewater2.png" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/assets/game/textures/block/purewater2.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BalancedThirst/assets/game/blocktypes/purewater.json" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/assets/game/blocktypes/purewater.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BalancedThirst/assets/game/lang/en.json" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/assets/game/lang/en.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BalancedThirst/assets/game/worldgen/deposits/purewater.json" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/assets/game/worldgen/deposits/purewater.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CakeBuild/CakeBuild.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/CakeBuild/CakeBuild.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Releases/balancedthirst/BalancedThirst.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Releases/balancedthirst/BalancedThirst.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Releases/balancedthirst/BalancedThirst.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Releases/balancedthirst/BalancedThirst.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Releases/balancedthirst/assets/balancedthirst/itemtypes/drinkitem.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Releases/balancedthirst/assets/balancedthirst/lang/en.json" beforeDir="false" afterPath="$PROJECT_DIR$/Releases/balancedthirst/assets/balancedthirst/lang/en.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Releases/balancedthirst/assets/game/lang/en.json" beforeDir="false" afterPath="$PROJECT_DIR$/Releases/balancedthirst/assets/game/lang/en.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Releases/balancedthirst/modinfo.json" beforeDir="false" afterPath="$PROJECT_DIR$/Releases/balancedthirst/modinfo.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Releases/balancedthirst_1.0.0.zip" beforeDir="false" afterPath="$PROJECT_DIR$/Releases/balancedthirst_1.0.0.zip" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -60,28 +122,36 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/542ba26bb8aa4ea49b5afc99fb8541f2246200/2d/bf8c825f/DepositVariant.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/542ba26bb8aa4ea49b5afc99fb8541f2246200/2e/433ece08/ILiquidSink.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/542ba26bb8aa4ea49b5afc99fb8541f2246200/32/08a8df87/DlgTalkComponent.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/542ba26bb8aa4ea49b5afc99fb8541f2246200/37/5713de01/BlockContainer.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/542ba26bb8aa4ea49b5afc99fb8541f2246200/3c/353a7682/BlockBucket.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/542ba26bb8aa4ea49b5afc99fb8541f2246200/3d/f55bfc9a/PropickReading.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/542ba26bb8aa4ea49b5afc99fb8541f2246200/3f/b3a1f6c5/BlockWateringCan.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/542ba26bb8aa4ea49b5afc99fb8541f2246200/41/d3f2d48f/BlockFirepit.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/542ba26bb8aa4ea49b5afc99fb8541f2246200/42/dddb5950/ModLootRandomizer.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/542ba26bb8aa4ea49b5afc99fb8541f2246200/43/148d9802/ItemScythe.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/542ba26bb8aa4ea49b5afc99fb8541f2246200/43/bb8171f9/ItemIngot.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/542ba26bb8aa4ea49b5afc99fb8541f2246200/4b/4aa0b1fd/ModJournal.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/542ba26bb8aa4ea49b5afc99fb8541f2246200/4d/34307b21/ModSystemBlockReinforcement.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/542ba26bb8aa4ea49b5afc99fb8541f2246200/4e/b120d92d/CollectibleBehaviorGroundStorable.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/542ba26bb8aa4ea49b5afc99fb8541f2246200/4f/c7aa49d6/BlockCookedContainerBase.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/542ba26bb8aa4ea49b5afc99fb8541f2246200/51/e5ca7e8b/GuiDialogTrader.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/542ba26bb8aa4ea49b5afc99fb8541f2246200/54/c2da83b8/IBlockMealContainer.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/542ba26bb8aa4ea49b5afc99fb8541f2246200/55/73d4bb14/VanillaCookingRecipeNames.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/542ba26bb8aa4ea49b5afc99fb8541f2246200/57/e817ab79/ItemAxe.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/542ba26bb8aa4ea49b5afc99fb8541f2246200/75/0de4894e/TemporalStabilityEffects.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/542ba26bb8aa4ea49b5afc99fb8541f2246200/81/0e30afec/BlockBerryBush.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/542ba26bb8aa4ea49b5afc99fb8541f2246200/92/db029b1a/EntityBehaviorConversable.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/542ba26bb8aa4ea49b5afc99fb8541f2246200/97/ddb27eb9/EntityTrader.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/542ba26bb8aa4ea49b5afc99fb8541f2246200/9b/07fc2989/ModTemperature.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/542ba26bb8aa4ea49b5afc99fb8541f2246200/a6/c63a9b8d/TeleporterManager.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/542ba26bb8aa4ea49b5afc99fb8541f2246200/a9/ca9f61c2/CharacterSystem.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/542ba26bb8aa4ea49b5afc99fb8541f2246200/ad/5e96cd92/BlockLiquidContainerTopOpened.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/542ba26bb8aa4ea49b5afc99fb8541f2246200/b2/057d2a5f/ModSleeping.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/542ba26bb8aa4ea49b5afc99fb8541f2246200/b7/eaebe87e/BlockLiquidContainerBase.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/542ba26bb8aa4ea49b5afc99fb8541f2246200/c1/a60d8f23/CookingRecipe.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/542ba26bb8aa4ea49b5afc99fb8541f2246200/c7/0efe32cb/IAnvilWorkable.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/542ba26bb8aa4ea49b5afc99fb8541f2246200/d2/4cdea674/IContainedMeshSource.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/542ba26bb8aa4ea49b5afc99fb8541f2246200/d6/3fb04396/IFirePit.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/542ba26bb8aa4ea49b5afc99fb8541f2246200/d6/578d7456/BlockWater.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/542ba26bb8aa4ea49b5afc99fb8541f2246200/d7/55c756df/ProPickWorkSpace.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/542ba26bb8aa4ea49b5afc99fb8541f2246200/d8/94267592/IContainedCustomName.cs" root0="SKIP_HIGHLIGHTING" />
@@ -152,6 +222,12 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/58b0b7706a8be4f7160749424eb996a3f845a1682c3c7ac5e405a346a8c20f1/JToken.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/cb2420db748f7fd88d1ab6c5e0f9ff39f769eb6f7372b38df2188dfee6a86e3/Traverse.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock:///Users/jacopouggeri/workspace/VintageModding/BalancedThirst/BalancedThirst/HarmonyPatches/CharacterExtraDialogs_Dlg_ComposeExtraGuis_Patch.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/BalancedThirst/HarmonyPatches/CollectibleObject_GetTransitionRateMul_Patch.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/BalancedThirst/HarmonyPatches/CollectibleObject_tryEatBegin_Patch.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/BalancedThirst/ModBehavior/DrinkableBehavior.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/itemtypes/dowsingrod.json" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/itemtypes/liquid/waterportion.json" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/BalancedThirst/assets/game/recipes/cooking/boiledwater.json" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/BalancedThirst/assets/game/worldgen/deposits/purewater-deep.json" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="KubernetesApiPersistence">{}</component>
@@ -259,7 +335,7 @@
       <workItem from="1718561360542" duration="18000" />
       <workItem from="1718561389490" duration="154405000" />
       <workItem from="1718970222561" duration="110000" />
-      <workItem from="1718970349554" duration="23132000" />
+      <workItem from="1718970349554" duration="44786000" />
     </task>
     <task id="LOCAL-00001" summary="Sorta working for containers">
       <option name="closed" value="true" />
@@ -469,7 +545,15 @@
       <option name="project" value="LOCAL" />
       <updated>1718980797143</updated>
     </task>
-    <option name="localTasksCounter" value="27" />
+    <task id="LOCAL-00027" summary="Changed dowsing rod mode">
+      <option name="closed" value="true" />
+      <created>1718994390903</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1718994390903</updated>
+    </task>
+    <option name="localTasksCounter" value="28" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -491,7 +575,6 @@
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-    <MESSAGE value="Sorta working for containers" />
     <MESSAGE value="Working for containers!" />
     <MESSAGE value="Working patches, non working block behavior" />
     <MESSAGE value="Working Leaking Bowl" />
@@ -516,6 +599,7 @@
     <MESSAGE value="Improve euhydration" />
     <MESSAGE value="Improved drink particles" />
     <MESSAGE value="Removing density mode" />
-    <option name="LAST_COMMIT_MESSAGE" value="Removing density mode" />
+    <MESSAGE value="Changed dowsing rod mode" />
+    <option name="LAST_COMMIT_MESSAGE" value="Changed dowsing rod mode" />
   </component>
 </project>

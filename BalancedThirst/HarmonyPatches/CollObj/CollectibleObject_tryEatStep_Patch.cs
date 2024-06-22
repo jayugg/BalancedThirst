@@ -4,7 +4,7 @@ using Vintagestory.API.Client;
 using Vintagestory.API.Common;
 using Vintagestory.API.MathTools;
 
-namespace BalancedThirst.HarmonyPatches;
+namespace BalancedThirst.HarmonyPatches.CollObj;
 
 public class CollectibleObject_tryEatStep_Patch
 {

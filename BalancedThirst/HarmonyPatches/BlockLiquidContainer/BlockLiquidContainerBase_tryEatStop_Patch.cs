@@ -5,7 +5,7 @@ using Vintagestory.API.Config;
 using Vintagestory.API.Server;
 using Vintagestory.GameContent;
 
-namespace BalancedThirst.HarmonyPatches;
+namespace BalancedThirst.HarmonyPatches.BlockLiquidContainer;
 
 public class BlockLiquidContainerBase_tryEatStop_Patch
 {

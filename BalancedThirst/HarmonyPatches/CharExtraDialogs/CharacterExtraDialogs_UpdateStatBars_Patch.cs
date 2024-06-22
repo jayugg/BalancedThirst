@@ -3,7 +3,7 @@ using Vintagestory.API.Client;
 using Vintagestory.API.Datastructures;
 using Vintagestory.GameContent;
 
-namespace BalancedThirst.HarmonyPatches;
+namespace BalancedThirst.HarmonyPatches.CharExtraDialogs;
 
 public class CharacterExtraDialogs_UpdateStatBars_Patch
 {

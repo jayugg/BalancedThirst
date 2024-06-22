@@ -7,7 +7,7 @@ using Vintagestory.API.Config;
 using Vintagestory.API.Datastructures;
 using Vintagestory.GameContent;
 
-namespace BalancedThirst.HarmonyPatches;
+namespace BalancedThirst.HarmonyPatches.CharExtraDialogs;
 
 public class CharacterExtraDialogs_Dlg_ComposeExtraGuis_Patch
 {

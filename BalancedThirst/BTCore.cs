@@ -1,7 +1,4 @@
-﻿using System;
-using System.IO;
-using System.Runtime.Serialization.Json;
-using BalancedThirst.Blocks;
+﻿using BalancedThirst.Blocks;
 using BalancedThirst.Hud;
 using BalancedThirst.Items;
 using BalancedThirst.ModBehavior;
@@ -11,8 +8,6 @@ using Vintagestory.API.Client;
 using Vintagestory.API.Server;
 using Vintagestory.API.Common;
 using Vintagestory.API.Common.Entities;
-using Vintagestory.API.Datastructures;
-using Vintagestory.API.MathTools;
 
 
 namespace BalancedThirst;
@@ -29,8 +24,9 @@ public class BtCore : ModSystem
     {
         Modid = Mod.Info.ModID;
         Logger = Mod.Logger;
-        api.RegisterBlockClass(Modid + "." + nameof(BlockLiquidContainerNoCapacity), typeof(BlockLiquidContainerNoCapacity));
         api.RegisterBlockClass(Modid + "." + nameof(BlockLiquidContainerLeaking), typeof(BlockLiquidContainerLeaking));
+        api.RegisterBlockClass(Modid + "." + nameof(BlockWaterStorageContainer), typeof(BlockWaterStorageContainer));
+        api.RegisterBlockClass(Modid + "." + nameof(BlockWaterskin), typeof(BlockWaterskin));
         api.RegisterItemClass(Modid + "." + nameof(ItemDowsingRod), typeof(ItemDowsingRod));
         api.RegisterBlockBehaviorClass(Modid + ":GushingLiquid", typeof(BlockBehaviorGushingLiquid));
         api.RegisterBlockBehaviorClass(Modid + ":PureWater", typeof(BlockBehaviorPureWater));

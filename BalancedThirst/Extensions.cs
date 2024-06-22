@@ -96,12 +96,14 @@ public static class Extensions
         "game:waterportion",
         "game:boilingwaterportion",
         "game:saltwaterportion",
-        BtCore.Modid + ":purewaterportion"
+        BtCore.Modid + ":waterportion-pure",
+        BtCore.Modid + ":waterportion-boiled",
+        BtCore.Modid + ":waterportion-stagnant"
     };
 
     public static bool IsWaterPortion(this CollectibleObject collectible)
     {
-        return WaterPortions.Contains(collectible.Code.FirstCodePart());
+        return WaterPortions.Contains(collectible.Code.ToString());
     }
     
     public static bool IsLiquidSourceBlock(this Block b) => b.LiquidLevel == 7;

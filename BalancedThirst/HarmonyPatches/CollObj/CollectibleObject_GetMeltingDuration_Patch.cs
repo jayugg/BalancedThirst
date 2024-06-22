@@ -1,0 +1,20 @@
+using Vintagestory.API.Common;
+using Vintagestory.GameContent;
+
+namespace BalancedThirst.HarmonyPatches.CollObj;
+
+public class CollectibleObject_GetMeltingDuration_Patch
+{
+    public static void Postfix(
+        CollectibleObject __instance,
+        ref float __result,
+        IWorldAccessor world,
+        ISlotProvider cookingSlotsProvider,
+        ItemSlot inputSlot)
+    {
+        if (__instance is not BlockLiquidContainerBase container) return;
+        ItemStack contentStack = container.GetContent(inputSlot.Itemstack);
+        if (contentStack == null) return;
+        __result = contentStack.Collectible.CombustibleProps?.MeltingDuration ?? 0.0f;
+    }
+}

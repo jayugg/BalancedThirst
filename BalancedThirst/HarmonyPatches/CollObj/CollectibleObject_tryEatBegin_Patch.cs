@@ -1,13 +1,8 @@
-using System;
-using System.Text;
 using BalancedThirst.ModBehavior;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
-using Vintagestory.API.Config;
-using Vintagestory.API.MathTools;
-using Vintagestory.API.Server;
 
-namespace BalancedThirst.HarmonyPatches;
+namespace BalancedThirst.HarmonyPatches.CollObj;
 
 public class CollectibleObject_tryEatBegin_Patch
 {
@@ -20,8 +15,7 @@ public class CollectibleObject_tryEatBegin_Patch
     {
         var collObj = slot.Itemstack.Collectible;
         HydrationProperties hydrationProperties = collObj.GetHydrationProperties(slot.Itemstack, byEntity);
-        //BtCore.Logger.Warning(hydrationProperties?.Hydration.ToString());
-        if (slot.Empty) return;
+        if (slot.Empty || hydrationProperties == null) return;
         byEntity.World.RegisterCallback(_ => DrinkableBehavior.PlayDrinkSound(byEntity, eatSoundRepeats), 500);
         byEntity.AnimManager?.StartAnimation("eat");
         if (byEntity is EntityPlayer { Player: IClientPlayer clientPlayer })
