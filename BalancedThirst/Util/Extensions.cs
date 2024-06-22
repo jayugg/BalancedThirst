@@ -95,7 +95,7 @@ public static class Extensions
     
     public static bool IsHeatableLiquidContainer(this CollectibleObject collectible)
     {
-        return BtConstants.HeatableLiquidContainers.Any(code => collectible.Code.Path.Contains(code));
+        return BtConstants.HeatableLiquidContainers.Any(code => collectible.Code.ToString().Contains(code));
     }
 
     public static bool IsWaterPortion(this CollectibleObject collectible)

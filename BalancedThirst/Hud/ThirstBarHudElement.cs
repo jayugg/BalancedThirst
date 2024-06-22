@@ -1,6 +1,7 @@
 using System;
 using BalancedThirst.ModBehavior;
 using Vintagestory.API.Client;
+using Vintagestory.API.Datastructures;
 
 namespace BalancedThirst.Hud
 {
@@ -12,7 +13,8 @@ namespace BalancedThirst.Hud
         
         public ThirstBarHudElement(ICoreClientAPI capi) : base(capi)
         {
-            capi.Event.RegisterGameTickListener(OnGameTick, 20);
+            capi.Event.RegisterGameTickListener(OnGameTick, 50);
+            capi.Event.RegisterGameTickListener(this.OnFlashStatbars, 2500);
         }
 
         private void OnGameTick(float dt)
@@ -22,7 +24,6 @@ namespace BalancedThirst.Hud
 
         private void UpdateThirstBar()
         {
-            //BtCore.Logger.Warning("Updating thirst bar");
             var thirstTree = this.capi.World.Player.Entity.WatchedAttributes.GetTreeAttribute(BtCore.Modid+":thirst");
             if (thirstTree == null || _thirstBar == null) return;
 
@@ -41,7 +42,20 @@ namespace BalancedThirst.Hud
 
             _lastHydration = currentHydration.Value;
             _lastMaxHydration = maxHydration.Value;
-            //BtCore.Logger.Warning("Last hydration: " + _lastHydration + " Last max hydration: " + _lastMaxHydration);
+        }
+        
+        private void OnFlashStatbars(float dt)
+        {
+            var thirstTree = this.capi.World.Player.Entity.WatchedAttributes.GetTreeAttribute(BtCore.Modid+":thirst");
+            if (thirstTree != null && this._thirstBar != null) 
+            {
+                float? nullable2 = thirstTree.TryGetFloat("currenthydration");
+                float? nullable1 = thirstTree.TryGetFloat("maxhydration");
+                double? nullable8 = nullable2.HasValue & nullable1.HasValue ? nullable2.GetValueOrDefault() / (double) nullable1.GetValueOrDefault() : new double?();
+                double num = 0.2;
+                if (nullable8.GetValueOrDefault() < num & nullable8.HasValue) 
+                    this._thirstBar.ShouldFlash = true; 
+            }
         }
 
         public override void OnOwnPlayerDataReceived()
@@ -66,6 +80,8 @@ namespace BalancedThirst.Hud
             Composers["thirstBar"] = compo;
             TryOpen();
         }
+        
+        
 
         public override bool TryClose() => false;
 

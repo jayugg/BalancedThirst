@@ -2,6 +2,16 @@
     "block-woodenbowl-raw": "Wooden bowl",
     "block-woodenbowl-waxed": "Waxed wooden bowl",
 
+    "block-kettle-clay-raw": "Raw kettle",
+    "block-kettle-clay-fired": "Kettle (Ceramic)",
+
+    "balancedthirst:block-kettle-copper": "Kettle (Copper)",
+    "balancedthirst:block-kettle-tinbronze": "Kettle (Tin bronze)",
+    "balancedthirst:block-kettle-bismuthbronze": "Kettle (Bismuth bronze)",
+    "balancedthirst:block-kettle-blackbronze": "Kettle (Black bronze)",
+    "balancedthirst:block-kettle-stainlesssteel": "Kettle (Stainless steel)",
+    "balancedthirst:block-kettle-silver": "Kettle (Silver)",
+
     "block-waterskin-pelt": "Pelt waterskin",
     "block-waterskin-leather": "Leather waterskin",
 

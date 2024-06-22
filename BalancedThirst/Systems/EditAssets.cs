@@ -49,7 +49,7 @@ public static class EditAssets
     {
         foreach (var block in api.World.Blocks) {
         if (block is not BlockLiquidContainerBase container) continue;
-        if (!BtConstants.HeatableLiquidContainers.Any(code => block.Code.Path.Contains(code))) continue;
+        if (!block.IsHeatableLiquidContainer()) continue;
 
         container.SetAttribute("maxTemperature", 100);
         container.SetAttribute("allowHeating", true);

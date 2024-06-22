@@ -21,13 +21,10 @@ public class CharacterExtraDialogs_UpdateStats_Patch
         GuiComposer composer = composers["modstats"];
         if (composer == null || !traverse.Method("IsOpened").GetValue<bool>())
             return;
-        BtCore.Logger.Warning("Updating thirst stats");
         float? hydration;
         float? maxHydration;
         getHydration(entity, out hydration, out maxHydration);
         float blended = entity.Stats.GetBlended(BtCore.Modid+":thirstrate");
-        BtCore.Logger.Warning("Blended thirst rate: " + blended);
-        BtCore.Logger.Warning("Hydration: " + hydration);
         if (hydration.HasValue && maxHydration.HasValue)
             composer.GetDynamicText("hydration").SetNewText(((int) hydration.Value).ToString() + " / " + ((int) maxHydration.Value).ToString());
         GuiElementDynamicText dynamicText = composer.GetDynamicText("thirstrate");

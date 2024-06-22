@@ -15,7 +15,7 @@ public class BlockBehaviorGushingLiquid : BlockBehaviorFiniteSpreadingLiquid
     public BlockBehaviorGushingLiquid(Block block) : base(block)
     {
     }
-
+    
     public override void OnBlockPlaced(IWorldAccessor world, BlockPos blockPos, ref EnumHandling handling)
     {
         base.OnBlockPlaced(world, blockPos, ref handling);

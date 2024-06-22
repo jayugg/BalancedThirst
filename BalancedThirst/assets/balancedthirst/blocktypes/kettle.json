@@ -7,7 +7,7 @@
     { "name": "RightClickPickup"}
   ],
   "variantgroups": [
-    { "code": "material", "states": ["copper", "tinbronze", "bismuthbronze", "blackbronze", "stainlesssteel"] }
+    { "code": "material", "states": ["copper", "tinbronze", "bismuthbronze", "blackbronze", "silver", "stainlesssteel"] }
   ],
   "attributes": {
     "shelvable": true,

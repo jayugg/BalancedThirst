@@ -15,7 +15,7 @@ public class BlockBehaviorPureWater : BlockBehavior
         base.OnBlockPlaced(world, blockPos, ref handling);
         if (world is IServerWorldAccessor serverWorld)
         {
-            serverWorld.RegisterCallback(Contaminate, blockPos, 5000);
+            serverWorld.RegisterCallback(Contaminate, blockPos, 100);
         }
     }
 
@@ -25,7 +25,7 @@ public class BlockBehaviorPureWater : BlockBehavior
         BtCore.Logger.Warning("Gushing water neighbour change");
         if (world is IServerWorldAccessor serverWorld)
         {
-            serverWorld.RegisterCallback(Contaminate, pos, 5000);
+            serverWorld.RegisterCallback(Contaminate, pos, 100);
         }
     }
 
