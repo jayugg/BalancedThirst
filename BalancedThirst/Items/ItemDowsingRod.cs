@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using BalancedThirst.Network;
 using Vintagestory.API.Client;
@@ -22,6 +21,11 @@ namespace BalancedThirst.Items;
       bool firstEvent,
       ref EnumHandHandling handling)
     {
+      if (byEntity.Controls.Sneak)
+      {
+        base.OnHeldInteractStart(itemslot, byEntity, blockSel, entitySel, firstEvent, ref handling);
+        return;
+      }
       int radius = 8 * this.api.World.Config.GetString("propickNodeSearchRadius").ToInt();
       if (radius <= 0) return;
       this.ProbeBlockNodeMode(byEntity.World, byEntity, itemslot, blockSel, radius);

@@ -56,12 +56,6 @@ public class HarmonyPatches : ModSystem
         HarmonyInstance.Patch(typeof(CollectibleObject).GetMethod(nameof(CollectibleObject.GetMeltingPoint)),
             postfix: typeof(CollectibleObject_GetMeltingPoint_Patch).GetMethod(
                 nameof(CollectibleObject_GetMeltingPoint_Patch.Postfix)));
-        /*Type[] parameterTypes = { typeof(ItemStack[]), typeof(int).MakeByRefType() };
-        MethodInfo matchesMethod = typeof(CookingRecipe).GetMethod(nameof(CookingRecipe.Matches), BindingFlags.Public | BindingFlags.Instance, null, parameterTypes, null);
-        HarmonyInstance.Patch(matchesMethod, postfix: new HarmonyMethod(typeof(CookingRecipe_Matches_Patch).GetMethod(nameof(CookingRecipe_Matches_Patch.Postfix))));
-        ConstructorInfo staticConstructor = typeof(CookingRecipe).GetConstructors(BindingFlags.Static | BindingFlags.NonPublic)[0];
-        HarmonyInstance.Patch(staticConstructor, postfix: new HarmonyMethod(typeof(CookingRecipe_Patch).GetMethod(nameof(CookingRecipe_Patch.Postfix))));
-        */
     }
 
     public override void Dispose() {
