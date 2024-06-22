@@ -7,6 +7,7 @@ using Vintagestory.API.Config;
 using Vintagestory.API.MathTools;
 using Vintagestory.API.Server;
 using Vintagestory.API.Util;
+using Vintagestory.GameContent;
 
 namespace BalancedThirst.Items;
 
@@ -54,6 +55,15 @@ namespace BalancedThirst.Items;
       }
       else
       {
+        TextCommandCallingArgs args1 = new TextCommandCallingArgs();
+        args1.Caller = new Caller()
+        {
+          Player = serverPlayer,
+          Pos = serverPlayer.Entity.Pos.XYZ,
+        };
+        args1.RawArgs = new CmdArgs("add blue Spring water");
+        
+        this.api.ChatCommands.Execute("waypoint", args1);
         //serverPlayer.SendMessage(GlobalConstants.GeneralChatGroup, "Closest water found at " + closestWaterPos, EnumChatType.Notification);
         var message = new DowsingRodMessage()
         {
