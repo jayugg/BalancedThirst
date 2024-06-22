@@ -1,0 +1,48 @@
+{
+  "textureWidth": 16,
+  "textureHeight": 16,
+  "textures": {
+    "metal": "game:block/clay/ceramic"
+  },
+  "elements": [
+  {
+    "name": "base",
+    "from": [16, 0, 16],
+    "to": [17, 7, 17],
+    "faces": {
+      "north": {"uv": [0, 0, 1, 7], "texture": "#metal"},
+      "east": {"uv": [0, 0, 1, 7], "texture": "#metal"},
+      "south": {"uv": [0, 0, 1, 7], "texture": "#metal"},
+      "west": {"uv": [0, 0, 1, 7], "texture": "#metal"},
+      "up": {"uv": [0, 0, 1, 1], "texture": "#metal"},
+      "down": {"uv": [0, 0, 1, 1], "texture": "#metal"}
+    }
+  },
+  {
+    "name": "left",
+    "from": [15, 5, 16],
+    "to": [16, 11, 17],
+    "faces": {
+      "north": {"uv": [0, 0, 1, 6], "texture": "#metal"},
+      "east": {"uv": [0, 0, 1, 6], "texture": "#metal"},
+      "south": {"uv": [0, 0, 1, 6], "texture": "#metal"},
+      "west": {"uv": [0, 0, 1, 6], "texture": "#metal"},
+      "up": {"uv": [0, 0, 1, 1], "texture": "#metal"},
+      "down": {"uv": [0, 0, 1, 1], "texture": "#metal"}
+    }
+  },
+  {
+    "name": "right",
+    "from": [17, 5, 16],
+    "to": [18, 11, 17],
+    "faces": {
+      "north": {"uv": [0, 0, 1, 6], "texture": "#metal"},
+      "east": {"uv": [0, 0, 1, 6], "texture": "#metal"},
+      "south": {"uv": [0, 0, 1, 6], "texture": "#metal"},
+      "west": {"uv": [0, 0, 1, 6], "texture": "#metal"},
+      "up": {"uv": [0, 0, 1, 1], "texture": "#metal"},
+      "down": {"uv": [0, 0, 1, 1], "texture": "#metal"}
+    }
+  }
+]
+}

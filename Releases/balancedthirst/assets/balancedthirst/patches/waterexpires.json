@@ -1,0 +1,24 @@
+[
+  {
+    "op": "addmerge",
+    "path": "/transitionableProps",
+    "value": [
+      {
+        "type": "Perish",
+        "freshHours": {
+          "avg": 168
+        },
+        "transitionHours": {
+          "avg": 0
+        },
+        "transitionedStack": {
+          "type": "item",
+          "code": "balancedthirst:waterportion-stagnant"
+        },
+        "transitionRatio": 1
+      }
+    ],
+    "file": "game:itemtypes/liquid/waterportion.json",
+    "side": "Server"
+  }
+]

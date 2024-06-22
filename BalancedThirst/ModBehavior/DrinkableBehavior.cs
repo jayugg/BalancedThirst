@@ -1,12 +1,7 @@
 using System;
-using Newtonsoft.Json.Linq;
-using Vintagestory.API.Client;
+using System.Text;
 using Vintagestory.API.Common;
-using Vintagestory.API.Common.Entities;
-using Vintagestory.API.Config;
 using Vintagestory.API.Datastructures;
-using Vintagestory.API.MathTools;
-using Vintagestory.API.Server;
 using Vintagestory.GameContent;
 
 namespace BalancedThirst.ModBehavior;
@@ -18,22 +13,16 @@ public class DrinkableBehavior : CollectibleBehavior
     
     public DrinkableBehavior(CollectibleObject collObj) : base(collObj)
     {
-      //BtCore.Logger.Warning("Creating DrinkableBehavior");
     }
     
     public override void OnLoaded(ICoreAPI api)
     {
       _api = api;
-      //BtCore.Logger.Warning("Initializing DrinkableBehavior");
       base.OnLoaded(api);
     }
     
-    public virtual HydrationProperties GetHydrationProperties(ItemStack itemstack)
+    internal HydrationProperties GetHydrationProperties(ItemStack itemstack)
     {
-      if (collObj is BlockLiquidContainerBase obj)
-      {
-        return GetContainerHydrationProperties(obj, itemstack);
-      }
       try
       {
         JsonObject itemAttribute = itemstack?.ItemAttributes?["hydrationProps"];
@@ -55,14 +44,14 @@ public class DrinkableBehavior : CollectibleBehavior
       if (content == null) return null;
       if (!content.Collectible.HasBehavior<DrinkableBehavior>()) return null;
       var behavior = content.Collectible.GetBehavior<DrinkableBehavior>();
-      HydrationProperties hydrationProperties = behavior.GetHydrationProperties(itemstack);
-      if  (hydrationProperties == null)
+      //BtCore.Logger.Warning("Getting hydration properties for " + content.Collectible.Code.Path);
+      HydrationProperties hydrationProperties = behavior.GetHydrationProperties(new ItemStack(content.Item));
+      if (hydrationProperties == null)
         return null;
       WaterTightContainableProps containableProps = BlockLiquidContainerBase.GetContainableProps(content);
       float num = content.StackSize / containableProps.ItemsPerLitre;
       hydrationProperties.Hydration *= num;
       hydrationProperties.HydrationLossDelay *= num;
-      //BtCore.Logger.Warning("Hydration in container: " + hydrationProperties.Hydration);
       return hydrationProperties;
     }
     
@@ -79,5 +68,9 @@ public class DrinkableBehavior : CollectibleBehavior
         return;
       byEntity.World.RegisterCallback(_ => PlayDrinkSound(byEntity, eatSoundRepeats), 300);
     }
-    
+
+    public override void GetHeldItemInfo(ItemSlot inSlot, StringBuilder dsc, IWorldAccessor world, bool withDebugInfo)
+    {
+      base.GetHeldItemInfo(inSlot, dsc, world, withDebugInfo);
+    }
 }

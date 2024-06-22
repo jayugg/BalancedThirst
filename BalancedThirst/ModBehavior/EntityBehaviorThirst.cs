@@ -1,4 +1,5 @@
 using System;
+using System.Threading;
 using Vintagestory.API.Common;
 using Vintagestory.API.Common.Entities;
 using Vintagestory.API.Config;
@@ -18,6 +19,8 @@ namespace BalancedThirst.ModBehavior
     private long _lastMoveMs;
     private ICoreAPI _api;
     private float _detoxCounter;
+    private AssetLocation vomitSound = new AssetLocation("sounds/player/hurt1");
+    
     public override string PropertyName() => AttributeKey;
     private string AttributeKey => BtCore.Modid + ":thirst";
 
@@ -50,6 +53,16 @@ namespace BalancedThirst.ModBehavior
         this.entity.WatchedAttributes.MarkPathDirty(AttributeKey);
       }
     }
+    
+    public float Euhydration
+    {
+      get => this._thirstTree?.GetFloat("euhydration") ?? 0f;
+      set
+      {
+        this._thirstTree?.SetFloat("euhydration", value);
+        this.entity.WatchedAttributes.MarkPathDirty(AttributeKey);
+      }
+    }
 
     public EntityBehaviorThirst(Entity entity)
       : base(entity)
@@ -59,23 +72,20 @@ namespace BalancedThirst.ModBehavior
 
     public override void Initialize(EntityProperties properties, JsonObject typeAttributes)
     {
-      BtCore.Logger.Warning("Initializing thirst behaviour");
       this._thirstTree = this.entity.WatchedAttributes.GetTreeAttribute(AttributeKey);
       this._api = this.entity.World.Api;
       if (this._thirstTree == null || this._thirstTree.GetFloat("maxhydration") == 0)
       {
-        BtCore.Logger.Warning("Thirst tree is null");
-        BtCore.Logger.Warning("Entity is");
-        BtCore.Logger.Warning(this.entity.Code.ToString());
         this.entity.WatchedAttributes.SetAttribute(AttributeKey, _thirstTree = new TreeAttribute());
-        BtCore.Logger.Warning("Thirst tree set");
         this.Hydration = typeAttributes["currenthydration"].AsFloat(1500f);
         this.MaxHydration = typeAttributes["maxhydration"].AsFloat(1500f);
         this.HydrationLossDelay = 180.0f;
+        this.Euhydration = 0f;
       }
       this._listenerId = this.entity.World.RegisterGameTickListener(this.SlowTick, 6000);
       entity.Stats.Register(BtCore.Modid+":thirstrate");
       this.UpdateThirstHungerBoost();
+      this.UpdateThirstHealthBoost();
     }
 
     public override void OnEntityDespawn(EntityDespawnData despawn)
@@ -93,66 +103,59 @@ namespace BalancedThirst.ModBehavior
     }
 
     public virtual void ConsumeHydration(float amount) => this.ReduceHydration(amount / 10f);
+
+    public double VomitChance(double purity) => Math.Exp(-8.445*purity);
     
-    [Obsolete("Use ReceiveHydration(HydrationProperties) instead")]
-    public void ReceiveHydration(
-      float hydration,
-      float hydrationLossDelay = 10f
-      )
+    public double VomitChance(EnumPurityLevel purityLevel)
     {
-      float maxHydration = this.MaxHydration;
-      bool isHydrationMaxed = this.Hydration >= maxHydration;
-      this.Hydration = Math.Min(maxHydration, Math.Max(0, this.Hydration + hydration));
-      if (!isHydrationMaxed) this.HydrationLossDelay = Math.Max(this.HydrationLossDelay, hydrationLossDelay);
-      this.UpdateThirstHungerBoost();
+      double purity;
+
+      switch (purityLevel)
+      {
+        case EnumPurityLevel.Pure:
+          purity = 1.0;
+          break;
+        case EnumPurityLevel.Filtered:
+          purity = 0.9;
+          break;
+        case EnumPurityLevel.Boiled:
+          purity = 0.8;
+          break;
+        case EnumPurityLevel.Okay:
+          purity = 0.6;
+          break;
+        case EnumPurityLevel.Stagnant:
+          purity = 0.3;
+          break;
+        case EnumPurityLevel.Yuck:
+          purity = 0.1;
+          break;
+        default:
+          throw new ArgumentOutOfRangeException(nameof(purityLevel), purityLevel, null);
+      }
+
+      return VomitChance(purity);
     }
     
     public void ReceiveHydration(HydrationProperties hydrationProperties)
     {
       float maxHydration = this.MaxHydration;
       bool isHydrationMaxed = this.Hydration >= maxHydration;
-      this.Hydration = Math.Min(maxHydration, Math.Max(0, this.Hydration + hydrationProperties.Hydration));
+      this.Hydration = Math.Clamp(this.Hydration + hydrationProperties.Hydration, 0, maxHydration);
       if (!isHydrationMaxed) this.HydrationLossDelay = Math.Max(this.HydrationLossDelay, hydrationProperties.HydrationLossDelay);
+      if (entity.World.Rand.NextDouble() < VomitChance(hydrationProperties.Purity))
+      {
+        entity.WatchedAttributes.SetFloat("intoxication", 1.0f);
+        entity.World.RegisterCallback(dt => Vomit(), 2000);
+      }
+      if (hydrationProperties.Salty)
+      {
+        this.entity.Stats.Set(BtCore.Modid+":thirstrate", "dranksaltwater", 3);
+        entity.World.RegisterCallback(dt => entity.Stats.Remove(BtCore.Modid+":thirstrate", "dranksaltwater"), 10000);
+      }
+      if (hydrationProperties.Scalding) entity.ReceiveDamage(new DamageSource() {Type = EnumDamageType.Heat, Source = EnumDamageSource.Internal}, 3);
       this.UpdateThirstHungerBoost();
-    }
-    
-    public override void OnEntityReceiveSaturation(
-        float saturation,
-        EnumFoodCategory foodCat = EnumFoodCategory.Unknown,
-        float saturationLossDelay = 10f,
-        float nutritionGainMultiplier = 1f)
-    {
-        float maxHydration = this.MaxHydration;
-        bool isHydrationMaxed = this.Hydration >= maxHydration;
-
-        // Adjust saturation and saturation loss delay based on food category
-        switch (foodCat)
-        {
-            case EnumFoodCategory.Fruit:
-                saturation *= 0.3f;
-                saturationLossDelay *= 0.3f;
-                break;
-            case EnumFoodCategory.Vegetable:
-                saturation *= 0.25f;
-                saturationLossDelay *= 0.25f;
-                break;
-            case EnumFoodCategory.Dairy:
-                saturation *= 0.2f;
-                saturationLossDelay *= 0.2f;
-                break;
-            case EnumFoodCategory.Protein:
-                saturation *= 0.1f;
-                saturationLossDelay *= 0.1f;
-                break;
-            case EnumFoodCategory.Grain:
-                saturation *= -0.1f;
-                saturationLossDelay *= -0.1f;
-                break;
-        }
-
-        this.Hydration = Math.Min(maxHydration, Math.Max(0, this.Hydration + saturation));
-        if (!isHydrationMaxed) this.HydrationLossDelay = Math.Max(this.HydrationLossDelay, saturationLossDelay);
-        this.UpdateThirstHungerBoost();
+      if (!isHydrationMaxed) this.UpdateThirstHealthBoost(hydrationProperties);
     }
 
     public override void OnGameTick(float deltaTime)
@@ -161,15 +164,9 @@ namespace BalancedThirst.ModBehavior
       {
         if (entity.World.Side == EnumAppSide.Server)
         {
-          //BtCore.Logger.Notification("Thirst Rate: " + this.entity.Stats.GetBlended("thirstrate"));
-          //BtCore.Logger.Notification("Hunger Modifier: " + this.HungerModifier);
-          //BtCore.Logger.Notification("Hunger Rate: " + entity.Stats.GetBlended("hungerrate"));
-          //BtCore.Logger.Notification("Current hydration (Behaviour): " + this.Hydration + " / " + this.MaxHydration);
         }
         var tree = player.WatchedAttributes.GetTreeAttribute(AttributeKey);
-        //BtCore.Logger.Warning("Tree");
-        //BtCore.Logger.Notification("Current hydration (Player): " + tree.GetFloat("currenthydration") + " / " + tree.GetFloat("maxhydration"));
-
+        
         EnumGameMode currentGameMode = player.World.PlayerByUid(player.PlayerUID).WorldData.CurrentGameMode;
         this.Detox(deltaTime);
         if (currentGameMode == EnumGameMode.Creative || currentGameMode == EnumGameMode.Spectator)
@@ -213,9 +210,10 @@ namespace BalancedThirst.ModBehavior
         this.HydrationLossDelay -= 10f * satLossMultiplier;
         flag = true;
       }
-      else
-        this.Hydration = Math.Max(0.0f, this.Hydration - (float) (Math.Max(0.5f, 1f / 1000f * this.Hydration) * (double) satLossMultiplier * 0.25));
+      else if (this.Hydration < 0.6*this.MaxHydration)
+        this.Euhydration = Math.Max(0.0f, this.Euhydration - satLossMultiplier); // 10 times less
       this.UpdateThirstHungerBoost();
+      this.UpdateThirstHealthBoost();
       if (flag)
       {
         this._thirstCounter -= 10f;
@@ -239,23 +237,48 @@ namespace BalancedThirst.ModBehavior
       this.entity.Stats.Set("hungerrate", BtCore.Modid + ":thirsty", HungerModifier);
       entity.WatchedAttributes.MarkPathDirty("stats");
     }
+    
+    public void UpdateThirstHealthBoost()
+    {
+      EntityBehaviorHealth behavior = this.entity.GetBehavior<EntityBehaviorHealth>();
+      behavior.MaxHealthModifiers[BtCore.Modid+"thirstHealthMod"] = Euhydration / this.MaxHydration;
+      behavior.MarkDirty();
+    }
+    
+    public void UpdateThirstHealthBoost(HydrationProperties hydrationProperties)
+    {
+      var mul = hydrationProperties.Salty ? 0f : 1f ;
+      mul = hydrationProperties.Purity switch
+      {
+        EnumPurityLevel.Pure => 1.5f,
+        EnumPurityLevel.Filtered => 1.3f,
+        EnumPurityLevel.Boiled => 1.2f,
+        EnumPurityLevel.Okay => 1,
+        EnumPurityLevel.Stagnant => 0.5f,
+        EnumPurityLevel.Yuck => 0,
+        _ => 1
+      };
+      mul /= 10f; // 10 times less
+      this.Euhydration = Math.Clamp(this.Euhydration + mul * Math.Max(hydrationProperties.Hydration, 0), 0, this.MaxHydration);
+      this.UpdateThirstHealthBoost();
+    }
 
     private void SlowTick(float dt)
     {
       if (this.entity is EntityPlayer && this.entity.World.PlayerByUid(((EntityPlayer) this.entity).PlayerUID).WorldData.CurrentGameMode == EnumGameMode.Creative)
         return;
       float temperature = this.entity.World.BlockAccessor.GetClimateAt(this.entity.Pos.AsBlockPos, EnumGetClimateMode.ForSuppliedDate_TemperatureOnly, this.entity.World.Calendar.TotalDays).Temperature;
-      float bodyTemperature = entity.GetBehavior<EntityBehaviorBodyTemperature>().CurBodyTemperature = temperature;
       if (temperature <= 30.0)
       {
         this.entity.Stats.Remove(BtCore.Modid+":thirstrate", "resistheat");
       }
       else
       {
-        float num = GameMath.Clamp(30f - temperature, 0.0f, 10f);
+        float num = GameMath.Clamp(temperature - 30, 0.0f, 40f);
         this.entity.Stats.Set(BtCore.Modid+":thirstrate", "resistheat", this.entity.World.Api.ModLoader.GetModSystem<RoomRegistry>().GetRoomForPosition(this.entity.Pos.AsBlockPos).ExitCount == 0 ? 0.0f : num / 40f, true);
       }
       UpdateThirstHungerBoost();
+      UpdateThirstHealthBoost();
     }
 
     public override void OnEntityReceiveDamage(DamageSource damageSource, ref float damage)
@@ -264,6 +287,22 @@ namespace BalancedThirst.ModBehavior
         return;
       this.HydrationLossDelay = this.MaxHydration / 2f;
       this.Hydration = this.MaxHydration / 2f;
+      this.Euhydration /= 2f;
+    }
+
+    public void Vomit()
+    {
+      Hydration = 0.5f * Hydration;
+      HydrationLossDelay = 0;
+      Euhydration *= 0.8f;
+      if (entity.HasBehavior<EntityBehaviorHunger>())
+      {
+        var bh = entity.GetBehavior<EntityBehaviorHunger>();
+        bh.Saturation = 0.5f * bh.Saturation;
+      }
+      entity.World.PlaySoundAt(this.vomitSound, entity.Pos.X, entity.Pos.Y, entity.Pos.Z, range: 10f);
+      entity.World.RegisterCallback(dt => entity.WatchedAttributes.SetFloat("intoxication", 0.0f), 5000);
     }
   }
+  
 }

@@ -1,0 +1,21 @@
+{
+  "code": "boilingwater",
+  "perishableProps": {
+    "freshHours": { "avg": 1 },
+    "transitionHours": { "avg": 0 },
+    "transitionRatio": 1,
+    "transitionedStack": { "type": "item", "code": "balancedthirst:waterportion-boiled" }
+  },
+  "shape": { "base": "block/food/meal/soup" },
+  "ingredients": [
+    {
+      "code": "water",
+      "validStacks": [
+        { "type": "item", "code": "waterportion", "shapeElement": "bowl/water"}
+      ],
+      "minQuantity": 1,
+      "maxQuantity": 1,
+      "portionSizeLitres": 1
+    }
+  ]
+}

@@ -1,3 +1,24 @@
 {
-    "hello": "hello world!"
+    "block-woodenbowl-raw": "Wooden bowl",
+    "block-woodenbowl-waxed": "Waxed wooden bowl",
+
+    "block-waterskin-pelt": "Pelt waterskin",
+    "block-waterskin-leather": "Leather waterskin",
+
+    "item-waterportion-pure": "Pure water",
+    "incontainer-item-waterportion-pure": "Pure water",
+    "item-waterportion-boiled": "Boiled water",
+    "incontainer-item-waterportion-boiled": "Boiled water",
+    "item-waterportion-stagnant": "Stagnant water",
+    "incontainer-item-waterportion-stagnant": "Stagnant water",
+
+    "item-dowsingrod-copper": "Copper dowsing rod",
+    "item-dowsingrod-tinbronze": "Tin bronze dowsing rod",
+    "item-dowsingrod-bismuthbronze": "Bismuth bronze dowsing rod",
+    "item-dowsingrod-blackbronze": "Black bronze dowsing rod",
+    "item-dowsingrod-gold": "Gold dowsing rod",
+    "item-dowsingrod-silver": "Silver dowsing rod",
+    "item-dowsingrod-iron": "Iron dowsing rod",
+    "item-dowsingrod-meteoriciron": "Meteoric iron dowsing rod",
+    "item-dowsingrod-steel": "Steel dowsing rod"
 }

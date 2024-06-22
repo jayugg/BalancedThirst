@@ -1,0 +1,24 @@
+[
+  {
+    "op": "addmerge",
+    "path": "/ingredients/0/validStacks/1",
+    "value": {
+      "type": "item",
+      "code": "balancedthirst:waterportion-pure",
+      "shapeElement": "bowl/water"
+    },
+    "file": "game:recipes/cooking/soup.json",
+    "side": "Server"
+  },
+  {
+    "op": "addmerge",
+    "path": "/ingredients/0/validStacks/2",
+    "value": {
+      "type": "item",
+      "code": "balancedthirst:waterportion-boiled",
+      "shapeElement": "bowl/water"
+    },
+    "file": "game:recipes/cooking/soup.json",
+    "side": "Server"
+  }
+]

@@ -1,0 +1,10 @@
+{
+  "ingredient": { "type": "item", "code": "game:ingot-*", "name": "metal", "allowedVariants": ["copper", "tinbronze", "bismuthbronze", "blackbronze", "silver", "gold", "iron", "meteoriciron", "steel"] },
+  "pattern": [[
+    "______#####",
+    "#######____",
+    "______#####"
+  ]],
+  "name": "Dowsing Rod",
+  "output": { "type": "item", "code": "balancedthirst:dowsingrod-{metal}"  }
+}

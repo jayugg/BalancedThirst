@@ -7,7 +7,26 @@
   "When drank: {0} hyd, {1} hp": "When drank: {0} hyd, {1} hp",
   "When drank: {0} hyd": "When drank: {0} hyd",
 
-  "Purity: {0}%": "Purity: {0}%",
+  "Found water below!" : "Found water below!",
   
-  "block-water-d-7": "Water"
+  "Contamination {0}%": "Contamination {0}%",
+  
+  "container-leaky": "Leaky",
+  
+  "block-water-d-7": "Water",
+  
+  "block-balancedthirst-purewater-still-7": "Still spring water",
+  "block-balancedthirst-purewater-d-7": "Spring water",
+  
+  "purity-Pure": "<font color=\"blue\">Pure</font>",
+  "purity-Filtered": "<font color=\"green\">Filtered</font>",
+  "purity-Boiled": "<font color=\"yellow\">Boiled</font>",
+  "purity-Stagnant": "<font color=\"darkgreen\">Stagnant</font>",
+  "purity-Yuck": "<font color=\"brown\">Yuck</font>",
+  
+  "playerinfo-hydration": "Hydration",
+  "playerinfo-hydration-boost": "Euhydration",
+
+  "Stored water perish speed: {0}" : "Stored water perish speed: {0}",
+  "cookingrecipe-boilingwater" : "Boiling water",
 }
