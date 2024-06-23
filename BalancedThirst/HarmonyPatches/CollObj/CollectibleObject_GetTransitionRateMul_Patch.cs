@@ -13,6 +13,6 @@ public class CollectibleObject_GetTransitionRateMul_Patch
     {
         var stack = inSlot.Itemstack;
         if (!stack.Collectible.IsWaterPortion()) return;
-        __result = 1f;
+        __result = __result*1f;
     }
 }

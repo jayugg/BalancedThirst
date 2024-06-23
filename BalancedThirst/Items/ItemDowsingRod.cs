@@ -64,6 +64,7 @@ namespace BalancedThirst.Items;
         args1.RawArgs = new CmdArgs("add blue Spring water");
         
         this.api.ChatCommands.Execute("waypoint", args1);
+        serverPlayer.SendMessage(GlobalConstants.GeneralChatGroup, "Found water nearby!", EnumChatType.Notification);
         //serverPlayer.SendMessage(GlobalConstants.GeneralChatGroup, "Closest water found at " + closestWaterPos, EnumChatType.Notification);
         var message = new DowsingRodMessage()
         {

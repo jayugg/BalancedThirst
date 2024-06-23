@@ -29,9 +29,10 @@ public class HarmonyPatches : ModSystem
         HarmonyInstance.Patch(typeof(CollectibleObject).GetMethod(nameof(CollectibleObject.GetHeldItemInfo)),
             prefix: typeof(CollectibleObject_GetHeldItemInfo_Patch).GetMethod(
                 nameof(CollectibleObject_GetHeldItemInfo_Patch.Prefix)));
-        HarmonyInstance.Patch(typeof(CollectibleObject).GetMethod(nameof(CollectibleObject.GetTransitionRateMul)),
+        // Could use to make water expire faster in the wrong containers
+        /*HarmonyInstance.Patch(typeof(CollectibleObject).GetMethod(nameof(CollectibleObject.GetTransitionRateMul)),
             postfix: typeof(CollectibleObject_GetTransitionRateMul_Patch).GetMethod(
-                nameof(CollectibleObject_GetTransitionRateMul_Patch.Postfix)));
+                nameof(CollectibleObject_GetTransitionRateMul_Patch.Postfix)));*/
         HarmonyInstance.Patch(typeof(BlockLiquidContainerBase).GetMethod("tryEatStop", BindingFlags.NonPublic | BindingFlags.Instance),
             postfix: typeof(BlockLiquidContainerBase_tryEatStop_Patch).GetMethod(
                 nameof(BlockLiquidContainerBase_tryEatStop_Patch.Postfix)));

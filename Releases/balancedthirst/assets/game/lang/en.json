@@ -27,5 +27,6 @@
   "playerinfo-hydration": "Hydration",
   "playerinfo-hydration-boost": "Euhydration",
 
-  "Stored water perish speed: {0}" : "Stored water perish speed: {0}"
+  "Stored water perish speed: {0}" : "Stored water perish speed: {0}",
+  "cookingrecipe-boilingwater" : "Boiling water",
 }

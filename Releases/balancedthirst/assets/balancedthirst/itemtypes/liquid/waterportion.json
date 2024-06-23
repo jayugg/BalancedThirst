@@ -12,14 +12,11 @@
     "waterTightContainerProps": {
       "containable": true,
       "itemsPerLitre": 100,
-      "texture": { "base": "balancedthirst:block/waterportion-{type}" },
+      "texture": { "base": "balancedthirst:block/liquid/waterportion-{type}" },
       "tintIndex": 1,
       "whenSpilled": {
-        "action": "PlaceBlock",
-        "stack": { "type": "block", "code": "game:balancedthirst-purewater-still-3" },
-        "stackByFillLevel": {
-          "10": { "type": "block", "code": "game:balancedthirst-purewater-still-7" }
-        }
+        "action": "DropContents",
+        "stack": { "type": "item", "code": "balancedthirst:waterportion-{type}" }
       }
     }
   },
@@ -46,17 +43,26 @@
       "transitionRatio": 1
     }]
   },
+  "combustiblePropsByType": {
+    "*": {
+      "meltingPoint": 100,
+      "meltingDuration": 30,
+      "smeltedRatio": 1,
+      "smeltingType": "cook",
+      "smeltedStack": { "type": "item", "code": "game:boilingwaterportion" },
+      "requiresContainer": false
+    }
+  },
   "shape": { "base": "game:item/liquid" },
   "textureByType": {
-    "*-pure": { "base": "balancedthirst:block/waterportion-pure" },
-    "*-stagnant": { "base": "balancedthirst:block/waterportion-stagnant" },
+    "*-pure": { "base": "block/liquid/waterportion-pure" },
+    "*-stagnant": { "base": "block/liquid/waterportion-stagnant" },
+    "*-boiled": { "base": "block/liquid/waterportion-boiled" },
     "*": { "base": "game:block/liquid/waterportion" }
   },
   "creativeinventoryStacks": [ { "tabs": ["general", "liquids"],
     "stacks": [
-      { "type": "block", "code": "game:woodbucket", "attributes": { "ucontents": [ { "type":"item", "code": "balancedthirst:waterportion-pure", "makefull": true } ] } },
-      { "type": "block", "code": "game:woodbucket", "attributes": { "ucontents": [ { "type":"item", "code": "balancedthirst:waterportion-boiled", "makefull": true } ] } },
-      { "type": "block", "code": "game:woodbucket", "attributes": { "ucontents": [ { "type":"item", "code": "balancedthirst:waterportion-stagnant", "makefull": true } ] } }
+      { "type": "block", "code": "game:woodbucket", "attributes": { "ucontents": [ { "type":"item", "code": "balancedthirst:waterportion-{type}", "makefull": true } ] } }
   ]}],
   "maxstacksize": 5000,
   "materialDensity": 200,
