@@ -1,1 +1,3 @@
-- Release beta
+- Added config
+- Improved dowsing rod
+- Fixed Harmony compatibility issues
