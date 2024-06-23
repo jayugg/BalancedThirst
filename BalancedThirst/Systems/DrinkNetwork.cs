@@ -74,11 +74,7 @@ public class DrinkNetwork : ModSystem
     
     private void HandleDrinkAction(IServerPlayer player, DrinkMessage.Request request)
     {
-        BtCore.Logger.Warning("Handling drink action");
-        // Get the block at the selected position
         Block block = player.Entity.World.BlockAccessor.GetBlock(request.Position);
-
-        // Get the hydration properties of the block
         HydrationProperties hydrationProps = block.GetBlockHydrationProperties();
         if (hydrationProps == null) return;
         if (player.Entity.HasBehavior<EntityBehaviorThirst>())
@@ -113,7 +109,6 @@ public class DrinkNetwork : ModSystem
     
     private void OnDowsingRodMessage(DowsingRodMessage message)
     {
-        BtCore.Logger.Warning("Moving player towards: Position " + message.Position);
         IClientPlayer player = capi.World.Player;
         Vec3d direction = message.Position.ToVec3d().Sub(player.Entity.Pos.XYZ).Normalize();
         direction.Y = 0;

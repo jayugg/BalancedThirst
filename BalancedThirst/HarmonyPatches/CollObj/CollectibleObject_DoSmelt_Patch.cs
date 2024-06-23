@@ -38,7 +38,6 @@ public class CollectibleObject_DoSmelt_Patch
             ItemStackMergeOperation op = new ItemStackMergeOperation(world, EnumMouseButton.Left, (EnumModifierKey) 0, EnumMergePriority.ConfirmedMerge, 1);
             op.SourceSlot = new DummySlot(outStack);
             op.SinkSlot = new DummySlot(outputSlot.Itemstack);
-            BtCore.Logger.Warning("Merging {0} into {1}", outStack, outputSlot.Itemstack);
             container.TryMergeStacks(op);
             outputSlot.Itemstack = op.SinkSlot.Itemstack;
         }

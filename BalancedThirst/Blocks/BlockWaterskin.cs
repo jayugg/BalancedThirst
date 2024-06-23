@@ -13,7 +13,6 @@ public class BlockWaterskin : BlockWaterStorageContainer
   public override float GetTransitionRateMul(IWorldAccessor world, ItemSlot inSlot, EnumTransitionType transType)
   {
     var contentStack = inSlot.Itemstack;
-    BtCore.Logger.Warning("ContentStack: " + contentStack);
     if (contentStack.Collectible.IsWaterPortion()) return TransitionRateMul;
     return base.GetTransitionRateMul(world, inSlot, transType);
   }

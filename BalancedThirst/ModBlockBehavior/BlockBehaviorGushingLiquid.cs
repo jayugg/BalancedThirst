@@ -29,7 +29,7 @@ public class BlockBehaviorGushingLiquid : BlockBehaviorFiniteSpreadingLiquid
     public override void OnNeighbourBlockChange(IWorldAccessor world, BlockPos pos, BlockPos neibpos, ref EnumHandling handling)
     {
         base.OnNeighbourBlockChange(world, pos, neibpos, ref handling);
-        BtCore.Logger.Warning("Gushing water neighbour change");
+        // BtCore.Logger.Warning("Gushing water neighbour change");
         if (world is IServerWorldAccessor serverWorld)
         {
             serverWorld.RegisterCallback(DoTryRise, pos, 300);
@@ -68,7 +68,7 @@ public class BlockBehaviorGushingLiquid : BlockBehaviorFiniteSpreadingLiquid
     
     private void TryRise(IWorldAccessor world, BlockPos pos)
     {
-        BtCore.Logger.Warning("Trying to rise");
+        // BtCore.Logger.Warning("Trying to rise");
         BlockPos abovePos = pos.UpCopy();
         var blockAccessor = world.BlockAccessor;
         if (blockAccessor.GetBlock(abovePos).IsReplacableBy(this.block) &&

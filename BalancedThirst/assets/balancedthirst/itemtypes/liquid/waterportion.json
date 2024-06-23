@@ -12,14 +12,11 @@
     "waterTightContainerProps": {
       "containable": true,
       "itemsPerLitre": 100,
-      "texture": { "base": "balancedthirst:block/waterportion-{type}" },
+      "texture": { "base": "balancedthirst:block/liquid/waterportion-{type}" },
       "tintIndex": 1,
       "whenSpilled": {
-        "action": "PlaceBlock",
-        "stack": { "type": "block", "code": "game:balancedthirst-purewater-still-3" },
-        "stackByFillLevel": {
-          "10": { "type": "block", "code": "game:balancedthirst-purewater-still-7" }
-        }
+        "action": "DropContents",
+        "stack": { "type": "item", "code": "balancedthirst:waterportion-{type}" }
       }
     }
   },
@@ -58,8 +55,9 @@
   },
   "shape": { "base": "game:item/liquid" },
   "textureByType": {
-    "*-pure": { "base": "balancedthirst:block/liquid/waterportion-pure" },
-    "*-stagnant": { "base": "balancedthirst:block/liquid/waterportion-stagnant" },
+    "*-pure": { "base": "block/liquid/waterportion-pure" },
+    "*-stagnant": { "base": "block/liquid/waterportion-stagnant" },
+    "*-boiled": { "base": "block/liquid/waterportion-boiled" },
     "*": { "base": "game:block/liquid/waterportion" }
   },
   "creativeinventoryStacks": [ { "tabs": ["general", "liquids"],

@@ -22,7 +22,7 @@ public class BlockBehaviorPureWater : BlockBehavior
     public override void OnNeighbourBlockChange(IWorldAccessor world, BlockPos pos, BlockPos neibpos, ref EnumHandling handling)
     {
         base.OnNeighbourBlockChange(world, pos, neibpos, ref handling);
-        BtCore.Logger.Warning("Gushing water neighbour change");
+        // BtCore.Logger.Warning("Gushing water neighbour change");
         if (world is IServerWorldAccessor serverWorld)
         {
             serverWorld.RegisterCallback(Contaminate, pos, 100);
