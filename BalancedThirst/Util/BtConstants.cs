@@ -3,16 +3,17 @@ using BalancedThirst.ModBehavior;
 
 namespace BalancedThirst.Util;
 
-public class BtConstants
+public static class BtConstants
 {
-    public static readonly List<string> HeatableLiquidContainers = new List<string>
+    public static readonly string ConfigServerName = "balancedthirst" + ".json";
+    public static readonly List<string> HeatableLiquidContainers = new()
     {
         "game:bowl-fired",
         "game:jug-fired",
         BtCore.Modid + "kettle"
     };
 
-    public static readonly List<string> WaterPortions = new List<string>
+    public static readonly List<string> WaterPortions = new()
     {
         "game:waterportion",
         "game:boilingwaterportion",
@@ -22,7 +23,7 @@ public class BtConstants
         BtCore.Modid + ":waterportion-stagnant"
     };
     
-    public static readonly Dictionary<string, HydrationProperties> HydratingLiquids = new Dictionary<string, HydrationProperties>
+    public static readonly Dictionary<string, HydrationProperties> HydratingLiquids = new()
     {
         { "game:waterportion", new HydrationProperties { Hydration = 100, Purity = EnumPurityLevel.Okay } },
         { "game:rawjuice", new HydrationProperties { Hydration = 90 } },
@@ -41,7 +42,7 @@ public class BtConstants
         { "game:rot", new HydrationProperties { Hydration = 20, Purity = EnumPurityLevel.Yuck } }
     };
     
-    public static readonly Dictionary<string, HydrationProperties> HydratingBlocks = new Dictionary<string, HydrationProperties>
+    public static readonly Dictionary<string, HydrationProperties> HydratingBlocks = new()
     {
         { "game:water", new HydrationProperties { Hydration = 100, Purity = EnumPurityLevel.Okay } },
         { "game:" + BtCore.Modid + "-purewater", new HydrationProperties { Hydration = 100, Purity = EnumPurityLevel.Pure } },

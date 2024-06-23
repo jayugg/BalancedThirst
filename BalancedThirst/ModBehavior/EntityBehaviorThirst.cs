@@ -228,9 +228,8 @@ namespace BalancedThirst.ModBehavior
       return false;
     }
     
-    private static float _bParam = 0.3f; // Will be targetable by config
     private static float _cParam = 2f;
-    public float HungerModifier => _bParam * (float) Math.Tanh(_cParam*(1f - 2f*Hydration/MaxHydration));
+    public float HungerModifier => BtCore.ConfigServer.ThirstHungerMultiplier * (float) Math.Tanh(_cParam*(1f - 2f*Hydration/MaxHydration));
 
     private void UpdateThirstHungerBoost()
     {
@@ -292,9 +291,9 @@ namespace BalancedThirst.ModBehavior
 
     public void Vomit()
     {
-      Hydration = 0.5f * Hydration;
+      Hydration *= BtCore.ConfigServer.VomitHydrationMultiplier;
       HydrationLossDelay = 0;
-      Euhydration *= 0.8f;
+      Euhydration *= BtCore.ConfigServer.VomitEuhydrationMultiplier;
       if (entity.HasBehavior<EntityBehaviorHunger>())
       {
         var bh = entity.GetBehavior<EntityBehaviorHunger>();

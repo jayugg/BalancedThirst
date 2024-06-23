@@ -110,10 +110,9 @@ public class DrinkNetwork : ModSystem
     private void OnDowsingRodMessage(DowsingRodMessage message)
     {
         IClientPlayer player = capi.World.Player;
-        Vec3d direction = message.Position.ToVec3d().Sub(player.Entity.Pos.XYZ).Normalize();
-        direction.Y = 0;
+        Vec3d direction = message.Position.ToVec3d().Sub(player.Entity.Pos.XYZ).Normalize().ClampY();
         SpawnDowsingRodParticles(player.Entity.World, direction,
-            player.Entity.Pos.XYZ.AddCopy(player.Entity.LocalEyePos).Sub(0, 0.3, 0).Add(direction*1.5f), message.Position.ToVec3d().NoY(),
+            player.Entity.Pos.XYZ.AddCopy(player.Entity.LocalEyePos).Sub(0, 0.3, 0).Add(direction*1.5f), message.Position.ToVec3d().ClampY(),
             40, 10, 0);
     }
     
@@ -132,7 +131,7 @@ public class DrinkNetwork : ModSystem
         if (remainingCalls % 10 == 0)
         {
             AssetLocation
-                soundPath = new AssetLocation("sounds/environment/smallsplash"); // Replace with the correct sound path
+                soundPath = new AssetLocation("sounds/environment/smallsplash");
             world.PlaySoundAt(soundPath, currentPosition.X, currentPosition.Y, currentPosition.Z, capi.World.Player,
                 true, 16f, 1f);
         }

@@ -27,7 +27,7 @@ namespace BalancedThirst.Items;
         base.OnHeldInteractStart(itemslot, byEntity, blockSel, entitySel, firstEvent, ref handling);
         return;
       }
-      int radius = 8 * this.api.World.Config.GetString("propickNodeSearchRadius").ToInt();
+      int radius = BtCore.ConfigServer.DowsingRodRadius;
       if (radius <= 0) return;
       this.ProbeBlockNodeMode(byEntity.World, byEntity, itemslot, blockSel, radius);
       if (api.World.Rand.NextSingle() > 0.5f) DamageItem(byEntity.World, byEntity, itemslot);
@@ -64,7 +64,7 @@ namespace BalancedThirst.Items;
         args1.RawArgs = new CmdArgs("add blue Spring water");
         
         this.api.ChatCommands.Execute("waypoint", args1);
-        serverPlayer.SendMessage(GlobalConstants.GeneralChatGroup, "Found water nearby!", EnumChatType.Notification);
+        serverPlayer.SendMessage(GlobalConstants.InfoLogChatGroup, Lang.Get(BtCore.Modid+":Found water nearby!"), EnumChatType.Notification);
         //serverPlayer.SendMessage(GlobalConstants.GeneralChatGroup, "Closest water found at " + closestWaterPos, EnumChatType.Notification);
         var message = new DowsingRodMessage()
         {

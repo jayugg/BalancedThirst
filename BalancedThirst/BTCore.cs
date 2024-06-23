@@ -1,9 +1,11 @@
 ﻿using BalancedThirst.Blocks;
+using BalancedThirst.Config;
 using BalancedThirst.Hud;
 using BalancedThirst.Items;
 using BalancedThirst.ModBehavior;
 using BalancedThirst.ModBlockBehavior;
 using BalancedThirst.Systems;
+using BalancedThirst.Util;
 using Vintagestory.API.Client;
 using Vintagestory.API.Server;
 using Vintagestory.API.Common;
@@ -17,13 +19,24 @@ public class BtCore : ModSystem
     public static ILogger Logger;
     public static string Modid;
     
-    public IServerNetworkChannel ServerChannel;
-    public IClientNetworkChannel ClientChannel;
+    public static ConfigServer ConfigServer { get; set; }
     
-    public override void Start(ICoreAPI api)
+    public override void StartPre(ICoreAPI api)
     {
         Modid = Mod.Info.ModID;
         Logger = Mod.Logger;
+        if (api.Side.IsServer())
+        {
+            ConfigServer = ModConfig.ReadConfig<ConfigServer>(api, BtConstants.ConfigServerName);
+        }
+        if (api.ModLoader.IsModEnabled("configlib"))
+        {
+            _ = new ConfigLibCompat(api);
+        }
+    }
+    
+    public override void Start(ICoreAPI api)
+    {
         api.RegisterBlockClass(Modid + "." + nameof(BlockLiquidContainerLeaking), typeof(BlockLiquidContainerLeaking));
         api.RegisterBlockClass(Modid + "." + nameof(BlockWaterStorageContainer), typeof(BlockWaterStorageContainer));
         api.RegisterBlockClass(Modid + "." + nameof(BlockWaterskin), typeof(BlockWaterskin));

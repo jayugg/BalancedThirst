@@ -34,5 +34,29 @@
     "item-dowsingrod-silver": "Silver dowsing rod",
     "item-dowsingrod-iron": "Iron dowsing rod",
     "item-dowsingrod-meteoriciron": "Meteoric iron dowsing rod",
-    "item-dowsingrod-steel": "Steel dowsing rod"
+    "item-dowsingrod-steel": "Steel dowsing rod",
+
+    "balancedthirst": "Balanced Thirst",
+    "Config.SettingsSimple": "Balanced Thirst settings",
+    "Config.Setting.ThirstHungerMultiplier": "Hunger reduction/increase due to thirst",
+    "Config.Setting.VomitHydrationMultiplier": "Hydration reduction due to vomiting",
+    "Config.Setting.VomitEuhydrationMultiplier": "Euhydration reduction due to vomiting",
+    "Config.Setting.DowsingRodRadius": "Dowsing rod range",
+
+    "Found water nearby!" : "Found water nearby!",
+
+    "container-leaky": "Leaky",
+
+    "purity-Pure": "<font color=\"blue\">Pure</font>",
+    "purity-Filtered": "<font color=\"green\">Filtered</font>",
+    "purity-Boiled": "<font color=\"yellow\">Boiled</font>",
+    "purity-Stagnant": "<font color=\"darkgreen\">Stagnant</font>",
+    "purity-Yuck": "<font color=\"brown\">Yuck</font>",
+
+    "playerinfo-hydration": "Hydration",
+    "playerinfo-hydration-boost": "Euhydration",
+
+    "Stored water perish speed: {0}" : "Stored water perish speed: {0}",
+    "cookingrecipe-boilingwater" : "Boiling water"
+    
 }

@@ -52,6 +52,6 @@ public class BlockLiquidContainerLeaking : BlockLiquidContainerTopOpened
     public override void GetHeldItemInfo(ItemSlot inSlot, StringBuilder dsc, IWorldAccessor world, bool withDebugInfo)
     {
         base.GetHeldItemInfo(inSlot, dsc, world, withDebugInfo);
-        dsc.AppendLine(Lang.Get("container-leaky"));
+        dsc.AppendLine(Lang.Get(BtCore.Modid+":container-leaky"));
     }
 }

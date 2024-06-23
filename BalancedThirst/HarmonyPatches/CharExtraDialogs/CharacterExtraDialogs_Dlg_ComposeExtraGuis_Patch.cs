@@ -35,7 +35,7 @@ public class CharacterExtraDialogs_Dlg_ComposeExtraGuis_Patch
 
         double num1 = bounds2.InnerHeight / RuntimeEnv.GUIScale + 10.0;
         var statsHeight = bounds1.InnerHeight / RuntimeEnv.GUIScale - GuiStyle.ElementToDialogPadding - 20.0 + num1;
-        ElementBounds bounds3 = ElementBounds.Fixed(0.0, 0.0, 235.0, 0.15*statsHeight).WithFixedPadding(GuiStyle.ElementToDialogPadding);
+        ElementBounds bounds3 = ElementBounds.Fixed(0.0, 3.0, 235.0, 0.15*statsHeight).WithFixedPadding(GuiStyle.ElementToDialogPadding);
         ElementBounds bounds4 = bounds3.ForkBoundingParent().WithAlignment(EnumDialogArea.LeftMiddle).WithFixedAlignmentOffset((bounds1.renderX + bounds1.OuterWidth + 10.0) / RuntimeEnv.GUIScale, num1 / 2.0).WithFixedOffset(0, 0.42*statsHeight);
         
         float? hydration;
@@ -50,12 +50,12 @@ public class CharacterExtraDialogs_Dlg_ComposeExtraGuis_Patch
         if (hydration.HasValue)
         {
             ElementBounds refBounds;
-            composers["modstats"].AddStaticText(Lang.Get("playerinfo-hydration-boost"), CairoFont.WhiteDetailText(), elementBounds1.WithFixedWidth(90.0)).AddStatbar(refBounds = elementBounds2.WithFixedOffset(0, -5), ModGuiStyle.ThirstBarColor, "thirstHealthBar");
+            composers["modstats"].AddStaticText(Lang.Get(BtCore.Modid+":playerinfo-hydration-boost"), CairoFont.WhiteDetailText(), elementBounds1.WithFixedWidth(90.0)).AddStatbar(refBounds = elementBounds2.WithFixedOffset(0, -5), ModGuiStyle.ThirstBarColor, "thirstHealthBar");
             leftColumnBoundsW = leftColumnBoundsW.FixedUnder(refBounds, -5.0);
         }
         
         if (hydration.HasValue && maxHydration.HasValue)
-            composers["modstats"].AddStaticText(Lang.Get("playerinfo-hydration"), CairoFont.WhiteDetailText(), leftColumnBoundsW = leftColumnBoundsW.BelowCopy()).AddDynamicText(((int) hydration.Value) + " / " + ((int) maxHydration.Value), CairoFont.WhiteDetailText(), elementBounds3 = elementBounds3.FlatCopy().WithFixedPosition(elementBounds3.fixedX, leftColumnBoundsW.fixedY), "hydration");
+            composers["modstats"].AddStaticText(Lang.Get(BtCore.Modid+":playerinfo-hydration"), CairoFont.WhiteDetailText(), leftColumnBoundsW = leftColumnBoundsW.BelowCopy()).AddDynamicText(((int) hydration.Value) + " / " + ((int) maxHydration.Value), CairoFont.WhiteDetailText(), elementBounds3 = elementBounds3.FlatCopy().WithFixedPosition(elementBounds3.fixedX, leftColumnBoundsW.fixedY), "hydration");
         
         var composer = composers["modstats"].AddStaticText(Lang.Get("Thirst Rate"), CairoFont.WhiteDetailText(), leftColumnBoundsW = leftColumnBoundsW.BelowCopy()).AddDynamicText(text2, CairoFont.WhiteDetailText(), elementBounds3 = elementBounds3.FlatCopy().WithFixedPosition(elementBounds3.fixedX, leftColumnBoundsW.fixedY).WithFixedHeight(30.0), "thirstrate");
         composer.Compose();

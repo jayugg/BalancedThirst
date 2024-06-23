@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using BalancedThirst.ModBehavior;
@@ -95,15 +96,16 @@ public static class Extensions
     
     public static bool IsHeatableLiquidContainer(this CollectibleObject collectible)
     {
-        return BtConstants.HeatableLiquidContainers.Any(code => collectible.Code.ToString().Contains(code));
+        return BtCore.ConfigServer.HeatableLiquidContainers.Any(code => collectible.Code.ToString().Contains(code));
     }
 
     public static bool IsWaterPortion(this CollectibleObject collectible)
     {
-        return BtConstants.WaterPortions.Contains(collectible.Code.ToString());
+        return BtCore.ConfigServer.WaterPortions.Contains(collectible.Code.ToString());
     }
     
     public static bool IsLiquidSourceBlock(this Block b) => b.LiquidLevel == 7;
     public static bool IsSameLiquid(this Block b, Block o) => b.LiquidCode == o.LiquidCode;
     public static Vec3d NoY(this Vec3d vec) => new Vec3d(vec.X, 0, vec.Z);
+    public static Vec3d ClampY(this Vec3d vec, int value = 1) => new Vec3d(vec.X, Math.Clamp(vec.Y, -value, value), vec.Z);
 }

@@ -14,6 +14,6 @@ public class BlockWaterStorageContainer : BlockLiquidContainerTopOpened
     public override void GetHeldItemInfo(ItemSlot inSlot, StringBuilder dsc, IWorldAccessor world, bool withDebugInfo)
     {
         base.GetHeldItemInfo(inSlot, dsc, world, withDebugInfo);
-        dsc.AppendLine(Lang.Get("Stored water perish speed: {0}", TransitionRateMul.ToString(System.Globalization.CultureInfo.InvariantCulture)));
+        dsc.AppendLine(Lang.Get(BtCore.Modid+":Stored water perish speed: {0}", TransitionRateMul.ToString(System.Globalization.CultureInfo.InvariantCulture)));
     }
 }

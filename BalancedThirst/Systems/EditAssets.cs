@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using BalancedThirst.ModBehavior;
 using BalancedThirst.Util;
+using Newtonsoft.Json.Linq;
 using Vintagestory.API.Common;
 using Vintagestory.API.Util;
 using Vintagestory.GameContent;
@@ -17,7 +18,7 @@ public static class EditAssets
 
             string code = collectible.Code.ToString();
 
-            foreach (var pair in BtConstants.HydratingLiquids)
+            foreach (var pair in BtCore.ConfigServer.HydratingLiquids)
             {
                 if (code.Contains(pair.Key))
                 {
@@ -33,7 +34,7 @@ public static class EditAssets
 
         foreach (Block block in api.World.Blocks.Where(b => b?.Code != null))
         {
-            foreach (var pair in BtConstants.HydratingBlocks)
+            foreach (var pair in BtCore.ConfigServer.HydratingBlocks)
             {
                 if (block.Code.ToString().Contains(pair.Key))
                 {

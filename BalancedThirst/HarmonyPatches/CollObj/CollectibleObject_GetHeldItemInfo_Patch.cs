@@ -50,7 +50,7 @@ public class CollectibleObject_GetHeldItemInfo_Patch
             if ((hydrationProperties.Purity != EnumPurityLevel.Okay && hydrationProperties.Purity != EnumPurityLevel.Pure) ||
                 (hydrationProperties.Purity == EnumPurityLevel.Pure && itemstack.Collectible.Code.ToString().Contains("pure")))
             {
-                dsc.AppendLine(Lang.Get($"purity-{hydrationProperties.Purity}"));
+                dsc.AppendLine(Lang.Get(BtCore.Modid+$":purity-{hydrationProperties.Purity}"));
             }
             if (collObj is BlockLiquidContainerBase && hydration > 0) return false;
             if (collObj.GrindingProps?.GroundStack?.ResolvedItemstack != null)
