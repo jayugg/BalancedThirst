@@ -67,7 +67,7 @@ namespace BalancedThirst.Hud
         private void ComposeGuis()
         {
             ElementBounds thirstBarBounds = ElementStdBounds.Statbar(EnumDialogArea.RightBottom, 348.5)
-                .WithFixedAlignmentOffset(-220, -45)
+                .WithFixedAlignmentOffset(-220 + BtCore.ConfigClient.ThirstBarX, -45 + BtCore.ConfigClient.ThirstBarY)
                 .WithFixedHeight(10.0);
 
             GuiComposer compo = capi.Gui.CreateCompo("thirstBar", thirstBarBounds.FlatCopy().FixedGrow(0.0, 20.0));

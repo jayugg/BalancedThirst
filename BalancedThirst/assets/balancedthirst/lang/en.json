@@ -55,6 +55,9 @@
     "Config.Setting.NoNutritionHydrationYield": "No Nutrition Hydration Yield",
     "Config.Setting.UnknownHydrationYield": "Unknown Hydration Yield",
     "Config.Setting.DowsingRodRadius": "Dowsing rod range",
+    "balancedthirst_client": "Balanced Thirst Client",
+    "Config.Setting.ThirstBarX": "Thirst bar x offset",
+    "Config.Setting.ThirstBarY": "Thirst bar y offser",
 
     "Found water nearby!" : "Found water nearby!",
 

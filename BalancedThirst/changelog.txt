@@ -1,3 +1,1 @@
-- Extra config options
-- Added surface pure water
-- Fixed pure water generating (in v0.0.2)
+- Added Client Config for thirst bar positioning

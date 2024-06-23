@@ -20,6 +20,25 @@ public class ConfigLibCompat
     public ConfigLibCompat(ICoreAPI api)
     {
         api.ModLoader.GetModSystem<ConfigLibModSystem>().RegisterCustomConfig(Lang.Get("balancedthirst:balancedthirst"), (id, buttons) => EditConfigServer(id, buttons, api));
+        api.ModLoader.GetModSystem<ConfigLibModSystem>().RegisterCustomConfig(Lang.Get("balancedthirst:balancedthirst_client"), (id, buttons) => EditConfigClient(id, buttons, api));
+    }
+    
+    private void EditConfigClient(string id, ControlButtons buttons, ICoreAPI api)
+    {
+        if (buttons.Save) ModConfig.WriteConfig(api, BtConstants.ConfigClientName, BtCore.ConfigClient);
+        if (buttons.Restore) BtCore.ConfigClient = ModConfig.ReadConfig<ConfigClient>(api, BtConstants.ConfigClientName);
+        if (buttons.Defaults) BtCore.ConfigClient = new(api);
+
+        BuildSettingsClient(BtCore.ConfigClient, id);
+    }
+    
+    private void BuildSettingsClient(ConfigClient config, string id)
+    {
+        if (ImGui.CollapsingHeader(Lang.Get(settingsSimple) + $"##settingSimple-{id}"))
+        {
+            config.ThirstBarX = OnInputFloat(id, config.ThirstBarX, nameof(config.ThirstBarX));
+            config.ThirstBarY = OnInputFloat(id, config.ThirstBarY, nameof(config.ThirstBarY));
+        }
     }
 
     private void EditConfigServer(string id, ControlButtons buttons, ICoreAPI api)
@@ -30,7 +49,7 @@ public class ConfigLibCompat
 
         BuildSettingsServer(BtCore.ConfigServer, id);
     }
-
+    
     private void BuildSettingsServer(ConfigServer config, string id)
     {
         if (ImGui.CollapsingHeader(Lang.Get(settingsSimple) + $"##settingSimple-{id}"))

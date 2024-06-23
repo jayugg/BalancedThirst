@@ -20,6 +20,7 @@ public class BtCore : ModSystem
     public static string Modid;
     
     public static ConfigServer ConfigServer { get; set; }
+    public static ConfigClient ConfigClient { get; set; }
     
     public override void StartPre(ICoreAPI api)
     {
@@ -28,6 +29,10 @@ public class BtCore : ModSystem
         if (api.Side.IsServer())
         {
             ConfigServer = ModConfig.ReadConfig<ConfigServer>(api, BtConstants.ConfigServerName);
+        }
+        if (api.Side.IsClient())
+        {
+            ConfigClient = ModConfig.ReadConfig<ConfigClient>(api, BtConstants.ConfigClientName);
         }
         if (api.ModLoader.IsModEnabled("configlib"))
         {

@@ -13,9 +13,10 @@ public class CollectibleObject_tryEatBegin_Patch
         string eatSound = "eat",
         int eatSoundRepeats = 1)
     {
-        var collObj = slot.Itemstack.Collectible;
-        HydrationProperties hydrationProperties = collObj.GetHydrationProperties(slot.Itemstack, byEntity);
-        if (slot.Empty || hydrationProperties == null) return;
+        if (slot.Empty) return;
+        var collObj = slot.Itemstack?.Collectible;
+        HydrationProperties hydrationProperties = collObj?.GetHydrationProperties(slot.Itemstack, byEntity);
+        if (hydrationProperties == null) return;
         byEntity.World.RegisterCallback(_ => DrinkableBehavior.PlayDrinkSound(byEntity, eatSoundRepeats), 500);
         byEntity.AnimManager?.StartAnimation("eat");
         if (byEntity is EntityPlayer { Player: IClientPlayer clientPlayer })

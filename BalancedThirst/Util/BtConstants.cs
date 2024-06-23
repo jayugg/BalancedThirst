@@ -6,6 +6,7 @@ namespace BalancedThirst.Util;
 public static class BtConstants
 {
     public static readonly string ConfigServerName = "balancedthirst" + ".json";
+    public static readonly string ConfigClientName = "balancedthirst_client" + ".json";
     public static readonly List<string> HeatableLiquidContainers = new()
     {
         "game:bowl-fired",
