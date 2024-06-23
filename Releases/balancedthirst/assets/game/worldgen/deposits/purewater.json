@@ -1,7 +1,7 @@
 [
   {
     "code": "balancedthirst-purewater",
-    "triesPerChunk": 2,
+    "triesPerChunk": 1.5,
     "withOreMap": true,
     "generator": "disc-followsurface",
     "scaleWithWorldheight": false,

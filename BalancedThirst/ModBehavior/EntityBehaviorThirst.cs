@@ -113,22 +113,22 @@ namespace BalancedThirst.ModBehavior
       switch (purityLevel)
       {
         case EnumPurityLevel.Pure:
-          purity = 1.0;
+          purity = BtCore.ConfigServer.PurePurityLevel;
           break;
         case EnumPurityLevel.Filtered:
-          purity = 0.9;
+          purity = BtCore.ConfigServer.FilteredPurityLevel;
           break;
         case EnumPurityLevel.Boiled:
-          purity = 0.8;
+          purity = BtCore.ConfigServer.BoiledPurityLevel;
           break;
         case EnumPurityLevel.Okay:
-          purity = 0.6;
+          purity = BtCore.ConfigServer.OkayPurityLevel;
           break;
         case EnumPurityLevel.Stagnant:
-          purity = 0.3;
+          purity = BtCore.ConfigServer.StagnantPurityLevel;
           break;
         case EnumPurityLevel.Yuck:
-          purity = 0.1;
+          purity = BtCore.ConfigServer.RotPurityLevel;
           break;
         default:
           throw new ArgumentOutOfRangeException(nameof(purityLevel), purityLevel, null);

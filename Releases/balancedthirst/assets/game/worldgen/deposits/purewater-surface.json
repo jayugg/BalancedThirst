@@ -1,8 +1,7 @@
 [
   {
     "code": "balancedthirst-purewater",
-    "triesPerChunk": 2,
-    "withOreMap": true,
+    "triesPerChunk": 0.4,
     "generator": "disc-followsurface",
     "scaleWithWorldheight": false,
     "withBlockCallback": false,
@@ -10,9 +9,9 @@
     "attributes": {
       "inblock": { "code": "soil-*", "name": "fertcover", "allowedVariants": ["low-normal", "medium-normal", "low-sparse", "medium-sparse" ] },
       "placeblock": { "code": "balancedthirst-purewater-still-7" },
-      "surfaceBlock": { "code": "waterlily" },
-      "surfaceBlockChance": 0,
-      "radius": { "dist": "gaussian", "avg": 8, "var": 4 },
+      "surfaceBlock": { "code": "balancedthirst-purewater-still-7" },
+      "surfaceBlockChance": 1,
+      "radius": { "dist": "gaussian", "avg": 4, "var": 2 },
       "yPosRel": {"dist": "uniform", "avg": 0.965, "var": 0.03 },
       "thickness": { "dist": "stronginvexp", "avg": 1, "var": 0 }
     },

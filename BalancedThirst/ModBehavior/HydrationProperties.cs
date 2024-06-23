@@ -30,17 +30,27 @@ public class HydrationProperties
         switch (nutritionProps.FoodCategory)
         {
             case EnumFoodCategory.Fruit:
-                hydrationProps.Hydration = 0.3f * saturation;
+                hydrationProps.Hydration = BtCore.ConfigServer.FruitHydrationYield * saturation;
                 break;
             case EnumFoodCategory.Vegetable:
-                hydrationProps.Hydration = 0.2f * saturation;
+                hydrationProps.Hydration = BtCore.ConfigServer.VegetableHydrationYield * saturation;
                 break;
             case EnumFoodCategory.Dairy:
+                hydrationProps.Hydration = BtCore.ConfigServer.DairyHydrationYield * saturation;
+                break;
             case EnumFoodCategory.Protein:
-                hydrationProps.Hydration = 0.1f * saturation;
+                hydrationProps.Hydration = BtCore.ConfigServer.ProteinHydrationYield * saturation;
                 break;
             case EnumFoodCategory.Grain:
-                hydrationProps.Hydration = -0.2f * saturation;
+                hydrationProps.Hydration = BtCore.ConfigServer.GrainHydrationYield * saturation;
+                break;
+            case EnumFoodCategory.NoNutrition:
+                if (BtCore.ConfigServer.NoNutritionHydrationYield == 0) return null;
+                hydrationProps.Hydration = BtCore.ConfigServer.NoNutritionHydrationYield * saturation;
+                break;
+            case EnumFoodCategory.Unknown:
+                if (BtCore.ConfigServer.UnknownHydrationYield == 0) return null;
+                hydrationProps.Hydration = BtCore.ConfigServer.UnknownHydrationYield * saturation;
                 break;
             default:
                 return null;
