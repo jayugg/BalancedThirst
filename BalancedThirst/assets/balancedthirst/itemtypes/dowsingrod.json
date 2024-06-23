@@ -9,7 +9,7 @@
       "iron", "meteoriciron", "steel"
     ] }
   ],
-  "shape": { "base": "balancedthirst:dowsingrod" },
+  "shape": { "base": "balancedthirst:item/dowsingrod" },
   "attributes": {
     "rackable": true,
     "toolrackTransform": {

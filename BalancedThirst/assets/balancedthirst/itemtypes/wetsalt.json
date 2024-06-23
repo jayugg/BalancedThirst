@@ -20,13 +20,13 @@
       "freshHours": { "avg": 4 },
       "transitionHours": { "avg": 12 },
       "transitionedStack": { "type": "item", "code": "game:salt" },
-      "transitionRatio": 1
+      "transitionRatio": 0.01
     }]
   },
-  "shape": { "base": "item/resource/crushed/rocksalt" },
-  "texture": { "base": "game:item/wetsalt" },
+  "shape": { "base": "item/wetsalt" },
+  "texture": { "base": "item/wetsalt" },
   "creativeinventory": { "general": ["*"], "items": ["*"] },
-  "maxstacksize": 64,
+  "maxstacksize": 100,
   "materialDensity": 500,
   "guiTransform": {
     "translation": { "x": 3, "y": 1, "z": -25 },

@@ -13,20 +13,11 @@ public class CollectibleObject_DoSmelt_Patch
         ItemSlot inputSlot,
         ItemSlot outputSlot)
     {
-        world.Api.Logger.Error("Entering DoSmelt method");
-        BtCore.Logger.Error("Entering DoSmelt method");
-        BtCore.Logger.Warning("DoSmelt");
-        BtCore.Logger.Warning("Input slot: {0}", inputSlot?.Itemstack);
-        BtCore.Logger.Warning("Called cansmelt, smelting");
         if (__instance is not BlockLiquidContainerBase container) return true;
-        if (!__instance.CanSmelt(world, cookingSlotsProvider, inputSlot?.Itemstack, outputSlot.Itemstack) ||
-            inputSlot?.StackSize != 1)
-            return true;
-        var contentStack = container.GetContent(inputSlot.Itemstack);
-        BtCore.Logger.Warning("Do: Trying to smelt {0} into {1}", inputSlot.Itemstack, contentStack?.Collectible.CombustibleProps?.SmeltedStack?.ResolvedItemstack);
-        ItemStack stack = contentStack?.Collectible.CombustibleProps?.SmeltedStack?.ResolvedItemstack.Clone();
+        var contentStack = container.GetContent(inputSlot.Itemstack); ItemStack stack = contentStack?.Collectible.CombustibleProps?.SmeltedStack?.ResolvedItemstack.Clone();
         if (stack == null) return true;
         var contentSize = contentStack.StackSize;
+        
         TransitionState transitionState1 = __instance.UpdateAndGetTransitionState(world, new DummySlot(inputSlot.Itemstack), EnumTransitionType.Perish);
         if (transitionState1 != null)
         {
@@ -34,12 +25,23 @@ public class CollectibleObject_DoSmelt_Patch
             float val2 = (float) ( transitionState1.TransitionedHours / (transitionState1.TransitionHours + (double) transitionState1.FreshHours) * 0.800000011920929 * ( transitionState2.TransitionHours + (double) transitionState2.FreshHours) - 1.0);
             stack.Collectible.SetTransitionState(stack, EnumTransitionType.Perish, Math.Max(0.0f, val2));
         }
-        var smeltRatio = contentStack.Collectible.CombustibleProps.SmeltedRatio;
-        stack.StackSize = contentSize / smeltRatio;
-        if (outputSlot.Itemstack != null) return true;
-        outputSlot.Itemstack = new ItemStack(container);
-        if (outputSlot.Itemstack.Collectible is not BlockLiquidContainerBase outContainer) return true;
-        outContainer.SetContent(outputSlot.Itemstack, stack);
+        stack.StackSize = contentSize;
+        var outStack = new ItemStack(container);
+        container.SetContent(outStack, stack);
+        if (outputSlot.Itemstack == null)
+        {
+            outputSlot.Itemstack = outStack;
+        }
+        else
+        {
+            stack.StackSize = contentSize;
+            ItemStackMergeOperation op = new ItemStackMergeOperation(world, EnumMouseButton.Left, (EnumModifierKey) 0, EnumMergePriority.ConfirmedMerge, 1);
+            op.SourceSlot = new DummySlot(outStack);
+            op.SinkSlot = new DummySlot(outputSlot.Itemstack);
+            BtCore.Logger.Warning("Merging {0} into {1}", outStack, outputSlot.Itemstack);
+            container.TryMergeStacks(op);
+            outputSlot.Itemstack = op.SinkSlot.Itemstack;
+        }
         inputSlot.Itemstack.StackSize -= 1;
         if (inputSlot.Itemstack.StackSize <= 0)
             inputSlot.Itemstack = null;

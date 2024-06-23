@@ -24,6 +24,6 @@ public class CollectibleObject_CanSmelt_Patch
             __result = false;
             return;
         }
-        __result = outputStack == null && contentStack.StackSize >= 0;
+        __result = outputStack == null;
     }
 }

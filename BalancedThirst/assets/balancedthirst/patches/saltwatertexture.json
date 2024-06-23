@@ -1,0 +1,9 @@
+[
+  {
+    "op": "replace",
+    "path": "/attributes/waterTightContainerProps/texture/base",
+    "value": "balancedthirst:block/liquid/saltwaterportion",
+    "file": "game:itemtypes/liquid/saltwaterportion.json",
+    "side": "Server"
+  }
+]

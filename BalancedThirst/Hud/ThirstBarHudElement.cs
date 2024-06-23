@@ -13,7 +13,7 @@ namespace BalancedThirst.Hud
         
         public ThirstBarHudElement(ICoreClientAPI capi) : base(capi)
         {
-            capi.Event.RegisterGameTickListener(OnGameTick, 50);
+            capi.Event.RegisterGameTickListener(OnGameTick, 20);
             capi.Event.RegisterGameTickListener(this.OnFlashStatbars, 2500);
         }
 
