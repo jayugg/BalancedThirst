@@ -1,7 +1,7 @@
 {
   "code": "waterskin",
   "classByType": {
-    "*": "balancedthirst.BlockWaterskin"
+    "*": "BlockLiquidContainerTopOpened"
   },
   "variantgroups": [
     { "code": "material", "states": ["pelt", "leather"] }
@@ -28,7 +28,7 @@
     "shelvable": true,
     "liquidContainerPropsByType": {
       "*-pelt": {
-        "capacityLitres": 10,
+        "capacityLitres": 5,
         "transferSizeLitres": 0.3,
         "emptyShapeLoc": "game:shapes/block/clay/jug",
         "opaqueContentShapeLoc": "game:shapes/block/basic/nothing",
@@ -36,7 +36,7 @@
         "liquidMaxYTranslate": 0.05
       },
       "*-leather": {
-        "capacityLitres": 25,
+        "capacityLitres": 8,
         "transferSizeLitres": 0.3,
         "emptyShapeLoc": "game:shapes/block/clay/jug",
         "opaqueContentShapeLoc": "game:shapes/block/basic/nothing",
@@ -86,5 +86,6 @@
   "guiTransform": {
     "origin": { "x": 0.5, "y": 0.3, "z": 0.5 },
     "scale": 1.9
-  }
+  },
+  "enabled": true
 }

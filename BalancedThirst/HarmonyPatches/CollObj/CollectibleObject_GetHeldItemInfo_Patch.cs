@@ -95,6 +95,7 @@ public class CollectibleObject_GetHeldItemInfo_Patch
             dsc.Append(itemDescText);
             float temperature = collObj.GetTemperature(world, itemstack);
             if (temperature > 20.0) dsc.AppendLine(Lang.Get("Temperature: {0}°C", (int) temperature));
+            if (collObj.IsWaterContainer()) dsc.AppendLine(Lang.Get("Stored water perish speed: {0}", collObj.GetTransitionRateMul(world, inSlot, EnumTransitionType.Perish).ToString(System.Globalization.CultureInfo.InvariantCulture)));
             if (!(collObj.Code != null) || collObj.Code.Domain == "game") return false;
             Mod mod = world.Api.ModLoader.GetMod(collObj.Code.Domain);
             dsc.AppendLine(Lang.Get("Mod: {0}", mod?.Info.Name ?? collObj.Code.Domain));

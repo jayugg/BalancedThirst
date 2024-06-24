@@ -1,9 +1,7 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using BalancedThirst.ModBehavior;
 using BalancedThirst.ModBlockBehavior;
-using BalancedThirst.Util;
 using Newtonsoft.Json.Linq;
 using Vintagestory.API.Common;
 using Vintagestory.API.Common.Entities;
@@ -64,6 +62,7 @@ public static class Extensions
         block.EnsureAttributesNotNull();
         JToken token = block.Attributes.Token;
         HydrationProperties hydrationProperties = token["hydrationProps"]?.ToObject<HydrationProperties>();
+        BtCore.Logger.Warning($"Block {block.Code} hydration properties: {hydrationProperties}");
         return hydrationProperties;
     }
     
@@ -97,37 +96,18 @@ public static class Extensions
     
     public static bool IsHeatableLiquidContainer(this CollectibleObject collectible)
     {
-        return BtCore.ConfigServer.HeatableLiquidContainers.Any(collectible.WildCardMatchDomain);
+        return BtCore.ConfigServer.HeatableLiquidContainers.Any(collectible.MyWildCardMatch);
     }
 
-    public static bool IsWaterPortion(this CollectibleObject collectible)
-    {
-        return BtCore.ConfigServer.WaterPortions.Any(collectible.WildCardMatchDomain);
-    }
-    
+    public static bool IsWaterPortion(this CollectibleObject collectible) { return BtCore.ConfigServer.WaterPortions.Any(collectible.MyWildCardMatch); }
+    public static bool IsWaterContainer(this CollectibleObject collectible) { return BtCore.ConfigServer.WaterContainers.Keys.Any(collectible.MyWildCardMatch); }
     public static bool IsLiquidSourceBlock(this Block b) => b.LiquidLevel == 7;
     public static bool IsSameLiquid(this Block b, Block o) => b.LiquidCode == o.LiquidCode;
     public static Vec3d NoY(this Vec3d vec) => new Vec3d(vec.X, 0, vec.Z);
     public static Vec3d ClampY(this Vec3d vec, int value = 1) => new Vec3d(vec.X, Math.Clamp(vec.Y, -value, value), vec.Z);
-    
-    public static bool WildCardMatchDomain(this CollectibleObject collectible, string wildCard)
+    public static bool MyWildCardMatch(this CollectibleObject collectible, string regex)
     {
-        if (collectible.Code == null)
-        {
-            return false;
-        }
-
-        // Split the wildCard string into domain and path
-        string[] parts = wildCard.Split(':');
-        if (parts.Length != 2)
-        {
-            return false;
-        }
-
-        string domain = parts[0];
-        string path = parts[1];
-        
-        // Match the domain and path separately
-        return domain == collectible.Code.Domain && WildcardUtil.Match(path, collectible.Code.Path);
+        return WildcardUtil.Match(regex, collectible.Code.ToString());
     }
+    
 }

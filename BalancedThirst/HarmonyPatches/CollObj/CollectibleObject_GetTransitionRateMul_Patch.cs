@@ -1,3 +1,4 @@
+using System.Linq;
 using Vintagestory.API.Common;
 
 namespace BalancedThirst.HarmonyPatches.CollObj;
@@ -12,7 +13,9 @@ public class CollectibleObject_GetTransitionRateMul_Patch
         EnumTransitionType transType)
     {
         var stack = inSlot.Itemstack;
-        if (!stack.Collectible.IsWaterPortion()) return;
-        __result = __result*1f;
+        if (!stack.Collectible.IsWaterPortion() || !__instance.IsWaterContainer()) return;
+        __result = __result*GetWaterContainerTransitionMultiplier(__instance);
     }
+    
+    public static float GetWaterContainerTransitionMultiplier(CollectibleObject collectible) { return BtCore.ConfigServer.WaterContainers.FirstOrDefault(keyVal => collectible.MyWildCardMatch(keyVal.Key)).Value; }
 }

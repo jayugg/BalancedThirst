@@ -85,10 +85,24 @@ public class ConfigLibCompat
         }
         if (ImGui.CollapsingHeader(Lang.Get(settingsAdvanced) + $"##settingAdvanced-{id}"))
         {
-            config.HeatableLiquidContainers = OnInputList(id, config.HeatableLiquidContainers, nameof(config.HeatableLiquidContainers));
-            config.WaterPortions = OnInputList(id, config.WaterPortions, nameof(config.WaterPortions));
-            DictionaryEditor(config.HydratingLiquids, new HydrationProperties(), Lang.Get(textSupportsWildcard));
-            DictionaryEditor(config.HydratingBlocks, new HydrationProperties(), Lang.Get(textSupportsWildcard));
+            ImGui.Indent();
+            if (ImGui.CollapsingHeader(Lang.Get(settingPrefix + nameof(config.HeatableLiquidContainers)) + $"##settingHeatableContainers")) {
+                config.HeatableLiquidContainers = OnInputList(id, config.HeatableLiquidContainers, nameof(config.HeatableLiquidContainers));
+            }
+            if (ImGui.CollapsingHeader(Lang.Get(settingPrefix + nameof(config.WaterPortions)) + $"##settingWaterPortions")) {
+                config.WaterPortions = OnInputList(id, config.WaterPortions, nameof(config.WaterPortions));
+            }
+            if (ImGui.CollapsingHeader(Lang.Get(settingPrefix + nameof(config.WaterContainers)) + $"##settingWaterContainers")) {
+                DictionaryEditor(config.WaterContainers, 1.0f, Lang.Get(textSupportsWildcard));
+            }
+            if (ImGui.CollapsingHeader(Lang.Get(settingPrefix + nameof(config.HydratingLiquids)) + $"##settingHydratingLiquids")) {
+                DictionaryEditor(config.HydratingLiquids, new HydrationProperties(), Lang.Get(textSupportsWildcard));
+            }
+            if (ImGui.CollapsingHeader(Lang.Get(settingPrefix + nameof(config.HydratingBlocks)) + $"##settingHydratingBlocks"))
+            {
+                DictionaryEditor(config.HydratingBlocks, new HydrationProperties(), Lang.Get(textSupportsWildcard));
+            }
+            ImGui.Unindent();
         }
     }
 

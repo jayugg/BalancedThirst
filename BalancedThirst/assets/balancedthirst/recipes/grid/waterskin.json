@@ -1,0 +1,43 @@
+[
+  {
+    "ingredientPattern": "___,PRP,_P_",
+    "ingredients": {
+      "P": { "type": "item", "code": "game:hide-pelt-medium" },
+      "R": { "type": "item", "code": "game:rope" }
+    },
+    "width": 3,
+    "height": 3,
+    "output": { "type": "block", "code": "balancedthirst:waterskin-pelt", "quantity": 1  }
+  },
+  {
+    "ingredientPattern": "P_P,PRP,PPP",
+    "ingredients": {
+      "P": { "type": "item", "code": "game:hide-pelt-small" },
+      "R": { "type": "item", "code": "game:rope" }
+    },
+    "width": 3,
+    "height": 3,
+    "output": { "type": "block", "code": "balancedthirst:waterskin-pelt", "quantity": 1  }
+  },
+  {
+    "ingredientPattern": "PR",
+    "ingredients": {
+      "P": { "type": "item", "code": "game:hide-pelt-large" },
+      "R": { "type": "item", "code": "game:rope" }
+    },
+    "width": 2,
+    "height": 1,
+    "shapeless": true,
+    "output": { "type": "block", "code": "balancedthirst:waterskin-pelt", "quantity": 1  }
+  },
+  {
+    "ingredientPattern": "L_L,LRL,LLL",
+    "ingredients": {
+      "L": { "type": "item", "code": "game:leather-*", "quantity": 2 },
+      "R": { "type": "item", "code": "game:rope" }
+    },
+    "width": 3,
+    "height": 3,
+    "output": { "type": "block", "code": "balancedthirst:waterskin-leather", "quantity": 1  }
+  }
+]

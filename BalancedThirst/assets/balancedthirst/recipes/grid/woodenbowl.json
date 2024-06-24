@@ -1,21 +1,21 @@
 [
   {
-    "ingredientPattern": "K,L",
+    "ingredientPattern": "K_,_L",
     "ingredients": {
       "K": { "type": "item", "code": "game:knife-*", "isTool": true },
       "L": { "type": "block", "code": "game:log-*", "allowedVariants": ["placed-birch-ud", "placed-oak-ud", "placed-maple-ud", "placed-pine-ud", "placed-acacia-ud", "placed-redwood-ud", "placed-larch-ud", "placed-baldcypress-ud", "placed-walnut-ud"] }
     },
-    "width": 1,
+    "width": 2,
     "height": 2,
     "output": { "type": "block", "code": "balancedthirst:woodenbowl-raw"  }
   },
   {
-    "ingredientPattern": "K,L",
+    "ingredientPattern": "K_,_L",
     "ingredients": {
       "K": { "type": "item", "code": "game:knife-*", "isTool": true },
       "L": { "type": "block", "code": "game:logsection-placed-*" }
     },
-    "width": 1,
+    "width": 2,
     "height": 2,
     "output": { "type": "block", "code": "balancedthirst:woodenbowl-raw", "quantity": 4 }
   }

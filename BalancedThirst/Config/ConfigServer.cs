@@ -33,6 +33,7 @@ public class ConfigServer : IModConfig
     
     public List<string> HeatableLiquidContainers { get; set; } = BtConstants.HeatableLiquidContainers;
     public List<string> WaterPortions { get; set; } = BtConstants.WaterPortions;
+    public Dictionary<string, float> WaterContainers { get; set; } = BtConstants.WaterContainers;
     public Dictionary<string, HydrationProperties> HydratingLiquids { get; set; } = BtConstants.HydratingLiquids;
     public Dictionary<string, HydrationProperties> HydratingBlocks { get; set; } = BtConstants.HydratingBlocks;
     public ConfigServer(ICoreAPI api, ConfigServer previousConfig = null)
@@ -43,18 +44,22 @@ public class ConfigServer : IModConfig
         }
         ThirstSpeedModifier = previousConfig.ThirstSpeedModifier;
         ThirstKills = previousConfig.ThirstKills;
+        
         ThirstHungerMultiplier = previousConfig.ThirstHungerMultiplier;
         ThirstHungerMultiplierUpOrDown = previousConfig.ThirstHungerMultiplierUpOrDown;
         HungerBuffCurve = previousConfig.HungerBuffCurve;
         LowerHalfHungerBuffCurve = previousConfig.LowerHalfHungerBuffCurve;
+        
         VomitHydrationMultiplier = previousConfig.VomitHydrationMultiplier;
         VomitEuhydrationMultiplier = previousConfig.VomitEuhydrationMultiplier;
+        
         PurePurityLevel = previousConfig.PurePurityLevel;
         FilteredPurityLevel = previousConfig.FilteredPurityLevel;
         PotablePurityLevel = previousConfig.PotablePurityLevel;
         OkayPurityLevel = previousConfig.OkayPurityLevel;
         StagnantPurityLevel = previousConfig.StagnantPurityLevel;
         RotPurityLevel = previousConfig.RotPurityLevel;
+        
         FruitHydrationYield = previousConfig.FruitHydrationYield;
         VegetableHydrationYield = previousConfig.VegetableHydrationYield;
         DairyHydrationYield = previousConfig.DairyHydrationYield;
@@ -62,8 +67,11 @@ public class ConfigServer : IModConfig
         GrainHydrationYield = previousConfig.GrainHydrationYield;
         NoNutritionHydrationYield = previousConfig.NoNutritionHydrationYield;
         UnknownHydrationYield = previousConfig.UnknownHydrationYield;
+        
         DowsingRodRadius = previousConfig.DowsingRodRadius;
+        
         HeatableLiquidContainers = previousConfig.HeatableLiquidContainers;
+        WaterContainers = previousConfig.WaterContainers;
         WaterPortions = previousConfig.WaterPortions;
         HydratingLiquids = previousConfig.HydratingLiquids;
         HydratingBlocks = previousConfig.HydratingBlocks;
