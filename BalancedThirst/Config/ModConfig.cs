@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using Vintagestory.API.Common;
 
 namespace BalancedThirst.Config;
@@ -51,5 +52,10 @@ public static class ModConfig
     private static T CloneConfig<T>(ICoreAPI api, T config = null) where T : IModConfig
     {
         return (T)Activator.CreateInstance(typeof(T), new object[] { api, config });
+    }
+    
+    public static string GetConfigPath(ICoreAPI api)
+    {
+        return Path.Combine(api.GetOrCreateDataPath("ModConfig"), "hydrateordiedrate");
     }
 }

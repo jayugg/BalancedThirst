@@ -56,6 +56,8 @@ public class ConfigLibCompat
     {
         if (ImGui.CollapsingHeader(Lang.Get(settingsSimple) + $"##settingSimple-{id}"))
         {
+            config.UseHoDHydrationValues = OnCheckBox(id, config.UseHoDHydrationValues, nameof(config.UseHoDHydrationValues));
+            ImGui.Separator();
             config.ThirstKills = OnCheckBox(id, config.ThirstKills, nameof(config.ThirstKills));
             config.ThirstSpeedModifier = OnInputFloat(id, config.ThirstSpeedModifier, nameof(config.ThirstSpeedModifier));
             config.ThirstHungerMultiplier = OnInputFloat(id, config.ThirstHungerMultiplier, nameof(config.ThirstHungerMultiplier));

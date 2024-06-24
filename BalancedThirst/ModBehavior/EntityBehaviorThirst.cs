@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using BalancedThirst.Util;
 using Vintagestory.API.Common;
 using Vintagestory.API.Common.Entities;
@@ -139,6 +140,7 @@ namespace BalancedThirst.ModBehavior
     
     public void ReceiveHydration(HydrationProperties hydrationProperties)
     {
+      if (_api.Side == EnumAppSide.Client) return;
       float maxHydration = this.MaxHydration;
       bool isHydrationMaxed = this.Hydration >= maxHydration;
       this.Hydration = Math.Clamp(this.Hydration + hydrationProperties.Hydration, 0, maxHydration);

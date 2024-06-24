@@ -1,7 +1,9 @@
-{
-  "file": "blocktypes/waterskin.json",
-  "op": "replace",
-  "path": "/enabled",
-  "value": false,
-  "dependsOn": [{ "modid": "liquidcontainers", "invert": true }]
-}
+[
+  {
+    "file": "blocktypes/waterskin.json",
+    "op": "add",
+    "path": "/enabled",
+    "value": false,
+    "dependsOn": [{ "modid": "liquidcontainers", "invert": true }]
+  }
+]

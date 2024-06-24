@@ -43,7 +43,7 @@ public static class Extensions
     {
         return GetHydrationProperties(collObj, byEntity.World, itemStack, byEntity);
     }
-
+    
     public static HydrationProperties GetHydrationProperties(this Block block, IWorldAccessor world, Entity byEntity)
     {
         if (block != null && world != null)

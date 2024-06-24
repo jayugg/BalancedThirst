@@ -38,6 +38,10 @@ public class BtCore : ModSystem
         {
             _ = new ConfigLibCompat(api);
         }
+        if (api.ModLoader.IsModEnabled("hydrateordiedrate"))
+        {
+            _ = new ConfigLibCompat(api);
+        }
     }
     
     public override void Start(ICoreAPI api)

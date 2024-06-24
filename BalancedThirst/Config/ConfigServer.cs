@@ -8,6 +8,7 @@ namespace BalancedThirst.Config;
 public class ConfigServer : IModConfig
 {
 
+    public bool UseHoDHydrationValues { get; set; }
     public bool ThirstKills { get; set; }
     public float ThirstSpeedModifier { get; set; }
     public float ThirstHungerMultiplier { get; set; } = 0.3f;
@@ -42,6 +43,7 @@ public class ConfigServer : IModConfig
         {
             return;
         }
+        UseHoDHydrationValues = previousConfig.UseHoDHydrationValues;
         ThirstSpeedModifier = previousConfig.ThirstSpeedModifier;
         ThirstKills = previousConfig.ThirstKills;
         

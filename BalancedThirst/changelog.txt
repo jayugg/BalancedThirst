@@ -1,4 +1,1 @@
-More config options! Now you can edit items from configlib directly
-LiquidContainers compatibility
-Slight waterskin rework (less capacity)
-Support for other water containers
+Fixed bug that game players double hydration (or quadruple) sometimes

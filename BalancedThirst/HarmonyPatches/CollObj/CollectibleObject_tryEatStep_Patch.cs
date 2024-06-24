@@ -23,7 +23,7 @@ public class CollectibleObject_tryEatStep_Patch
         xyz.Z += byEntity.LocalEyePos.Z;
         if (secondsUsed > 0.5 && (int) (30.0 * secondsUsed) % 7 == 1)
             byEntity.World.SpawnCubeParticles(xyz, spawnParticleStack ?? slot.Itemstack, 0.3f, 4, 0.5f, byEntity is EntityPlayer entityPlayer ? entityPlayer.Player : null);
-        if (!(byEntity.World is IClientWorldAccessor))
+        if (byEntity.World is not IClientWorldAccessor)
             __result = true;
         ModelTransform modelTransform = new ModelTransform();
         modelTransform.EnsureDefaultValues();

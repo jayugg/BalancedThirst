@@ -76,6 +76,8 @@ public class BlockBehaviorDrinkable : BlockBehavior
     public override bool OnBlockInteractStep(float secondsUsed, IWorldAccessor world, IPlayer byPlayer, BlockSelection blockSel, ref EnumHandling handling)
     {
         //BtCore.Logger.Warning("Drinking continues");
+        // TODO: Something to fix here, getting double hydration sometimes
+        /*
         if (secondsUsed % 1 == 0)
         {
             var byEntity = byPlayer.Entity;
@@ -104,6 +106,7 @@ public class BlockBehaviorDrinkable : BlockBehavior
             modelTransform.Rotation.Y += Math.Min(80f, secondsUsed * 350f);
             return secondsUsed <= 1.0;
         }
+        */
         handling = EnumHandling.PreventDefault;
         return false;
     }
