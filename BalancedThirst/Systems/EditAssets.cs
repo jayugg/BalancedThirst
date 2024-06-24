@@ -1,8 +1,6 @@
-using System.Collections.Generic;
 using System.Linq;
 using BalancedThirst.ModBehavior;
 using BalancedThirst.Util;
-using Newtonsoft.Json.Linq;
 using Vintagestory.API.Common;
 using Vintagestory.API.Util;
 using Vintagestory.GameContent;
@@ -15,33 +13,20 @@ public static class EditAssets
     {
         foreach (var collectible in api.World.Collectibles.Where(c => c?.Code != null))
         {
-
-            string code = collectible.Code.ToString();
-
-            foreach (var pair in BtCore.ConfigServer.HydratingLiquids)
+            HydrationProperties hydrationProps = BtConstants.HydratingLiquids.FirstOrDefault(keyVal => collectible.WildCardMatchDomain(keyVal.Key)).Value;
+            if (hydrationProps != null)
             {
-                if (code.Contains(pair.Key))
-                {
-                    HydrationProperties hydrationProps = pair.Value;
-                    //BtCore.Logger.Warning("Adding drinkable behavior and hydration to collectible: " + collectible.Code);
-                    var behavior = new DrinkableBehavior(collectible);
-                    collectible.CollectibleBehaviors = collectible.CollectibleBehaviors.Append(behavior);
-                    collectible.SetHydrationProperties(hydrationProps);
-                    break;
-                }
+                var behavior = new DrinkableBehavior(collectible);
+                collectible.CollectibleBehaviors = collectible.CollectibleBehaviors.Append(behavior);
+                collectible.SetHydrationProperties(hydrationProps);
             }
         }
-
         foreach (Block block in api.World.Blocks.Where(b => b?.Code != null))
         {
-            foreach (var pair in BtCore.ConfigServer.HydratingBlocks)
+            HydrationProperties hydrationProps = BtCore.ConfigServer.HydratingLiquids.FirstOrDefault(keyVal => block.WildCardMatchDomain(keyVal.Key)).Value;
+            if (hydrationProps != null)
             {
-                if (block.Code.ToString().Contains(pair.Key))
-                {
-                    HydrationProperties hydrationProps = pair.Value;
-                    block.SetHydrationProperties(hydrationProps);
-                    break;
-                }
+                block.SetHydrationProperties(hydrationProps);
             }
         }
     }

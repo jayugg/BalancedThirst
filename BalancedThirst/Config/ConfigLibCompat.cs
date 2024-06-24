@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using BalancedThirst.ModBehavior;
 using BalancedThirst.Util;
 using ConfigLib;
 using ImGuiNET;
@@ -15,6 +16,8 @@ public class ConfigLibCompat
     private const string settingPrefix = "balancedthirst:Config.Setting.";
     
     private const string settingsSimple = "balancedthirst:Config.SettingsSimple";
+    private const string settingsAdvanced = "balancedthirst:Config.SettingsAdvanced";
+    private const string textSupportsWildcard = "balancedthirst:Config.Text.SupportsWildcard";
 
     public ConfigLibCompat(ICoreAPI api)
     {
@@ -53,9 +56,10 @@ public class ConfigLibCompat
     {
         if (ImGui.CollapsingHeader(Lang.Get(settingsSimple) + $"##settingSimple-{id}"))
         {
-            config.ThirstSpeedModifier = OnInputFloat(id, config.ThirstSpeedModifier, nameof(config.ThirstSpeedModifier));
             config.ThirstKills = OnCheckBox(id, config.ThirstKills, nameof(config.ThirstKills));
+            config.ThirstSpeedModifier = OnInputFloat(id, config.ThirstSpeedModifier, nameof(config.ThirstSpeedModifier));
             config.ThirstHungerMultiplier = OnInputFloat(id, config.ThirstHungerMultiplier, nameof(config.ThirstHungerMultiplier));
+            config.ThirstHungerMultiplierUpOrDown = OnInputEnum(id, config.ThirstHungerMultiplierUpOrDown, nameof(config.ThirstHungerMultiplierUpOrDown));
             config.HungerBuffCurve = OnInputEnum(id, config.HungerBuffCurve, nameof(config.HungerBuffCurve));
             config.LowerHalfHungerBuffCurve = OnInputEnum(id, config.LowerHalfHungerBuffCurve, nameof(config.LowerHalfHungerBuffCurve));
             ImGui.Separator();
@@ -64,7 +68,7 @@ public class ConfigLibCompat
             ImGui.Separator();
             config.PurePurityLevel = OnInputFloat(id, config.PurePurityLevel, nameof(config.PurePurityLevel));
             config.FilteredPurityLevel = OnInputFloat(id, config.FilteredPurityLevel, nameof(config.FilteredPurityLevel));
-            config.BoiledPurityLevel = OnInputFloat(id, config.BoiledPurityLevel, nameof(config.BoiledPurityLevel));
+            config.PotablePurityLevel = OnInputFloat(id, config.PotablePurityLevel, nameof(config.PotablePurityLevel));
             config.OkayPurityLevel = OnInputFloat(id, config.OkayPurityLevel, nameof(config.OkayPurityLevel));
             config.StagnantPurityLevel = OnInputFloat(id, config.StagnantPurityLevel, nameof(config.StagnantPurityLevel));
             config.RotPurityLevel = OnInputFloat(id, config.RotPurityLevel, nameof(config.RotPurityLevel));
@@ -78,6 +82,13 @@ public class ConfigLibCompat
             config.UnknownHydrationYield = OnInputFloat(id, config.UnknownHydrationYield, nameof(config.UnknownHydrationYield));
             ImGui.Separator();
             config.DowsingRodRadius = OnInputInt(id, config.DowsingRodRadius, nameof(config.DowsingRodRadius));
+        }
+        if (ImGui.CollapsingHeader(Lang.Get(settingsAdvanced) + $"##settingAdvanced-{id}"))
+        {
+            config.HeatableLiquidContainers = OnInputList(id, config.HeatableLiquidContainers, nameof(config.HeatableLiquidContainers));
+            config.WaterPortions = OnInputList(id, config.WaterPortions, nameof(config.WaterPortions));
+            DictionaryEditor(config.HydratingLiquids, new HydrationProperties(), Lang.Get(textSupportsWildcard));
+            DictionaryEditor(config.HydratingBlocks, new HydrationProperties(), Lang.Get(textSupportsWildcard));
         }
     }
 
@@ -134,5 +145,92 @@ public class ConfigLibCompat
         }
 
         return value;
+    }
+    
+    private List<string> OnInputList(string id, List<string> values, string name)
+    {
+        List<string> newValues = new List<string>(values);
+        for (int i = 0; i < newValues.Count; i++)
+        {
+            string newValue = newValues[i];
+            ImGui.InputText($"{name}[{i}]##{name}-{id}-{i}", ref newValue, 64);
+            newValues[i] = newValue;
+        }
+
+        if (ImGui.Button($"Add##{name}-{id}"))
+        {
+            newValues.Add("");
+        }
+
+        return newValues;
+    }
+    
+    private void DictionaryEditor<T>(Dictionary<string, T> dict, T defaultValue = default, string hint = "", string[] possibleValues = null)
+    {
+        if (ImGui.BeginTable("dict", 3, ImGuiTableFlags.BordersOuter))
+        {
+            for (int row = 0; row < dict.Count; row++)
+            {
+                ImGui.TableNextRow();
+                string key = dict.Keys.ElementAt(row);
+                string prevKey = (string)key.Clone();
+                T value = dict.Values.ElementAt(row);
+                ImGui.TableNextColumn();
+                ImGui.InputTextWithHint($"##text-{row}", hint, ref key, 300);
+                if (prevKey != key)
+                {
+                    dict.Remove(prevKey);
+                    dict.TryAdd(key, value);
+                    value = dict.Values.ElementAt(row);
+                }
+                ImGui.TableNextColumn();
+                if (typeof(T) == typeof(int))
+                {
+                    int intValue = Convert.ToInt32(value);
+                    ImGui.InputInt($"##int-{row}" + key, ref intValue);
+                    value = (T)Convert.ChangeType(intValue, typeof(T));
+                }
+                else if (typeof(T) == typeof(float))
+                {
+                    float floatValue = Convert.ToSingle(value);
+                    ImGui.InputFloat($"##float-{row}" + key, ref floatValue);
+                    value = (T)Convert.ChangeType(floatValue, typeof(T));
+                }
+                else if (typeof(T) == typeof(bool))
+                {
+                    bool boolValue = Convert.ToBoolean(value);
+                    ImGui.Checkbox($"##boolean-{row}" + key, ref boolValue);
+                    value = (T)Convert.ChangeType(boolValue, typeof(T));
+                }
+                else if (typeof(T) == typeof(HydrationProperties))
+                {
+                    if (value is not HydrationProperties customValue) continue;
+                    customValue.Hydration = OnInputFloat($"##float-{row}" + key, customValue.Hydration, nameof(HydrationProperties.Hydration));
+                    customValue.HydrationLossDelay = OnInputFloat($"##float-{row}" + key, customValue.HydrationLossDelay, nameof(HydrationProperties.HydrationLossDelay));
+                    customValue.Purity = OnInputEnum($"##purity-{row}" + key, customValue.Purity, nameof(HydrationProperties.Purity));
+                    customValue.Scalding = OnCheckBoxWithoutTranslation($"##boolean-{row}" + key, customValue.Scalding, nameof(HydrationProperties.Scalding));
+                    customValue.Salty = OnCheckBoxWithoutTranslation($"##boolean-{row}" + key, customValue.Salty, nameof(HydrationProperties.Salty));
+                    value = (T)Convert.ChangeType(customValue, typeof(HydrationProperties));
+                }
+                dict[key] = value;
+                ImGui.TableNextColumn();
+                if (ImGui.Button($"Remove##row-value-{row}"))
+                {
+                    dict.Remove(key);
+                }
+            }
+            ImGui.TableNextRow();
+            ImGui.TableNextColumn();
+            if (ImGui.Button("Add"))
+            {
+                int id = dict.Count;
+                string newKey = possibleValues?.FirstOrDefault(x => !dict.ContainsKey(x)) ?? $"row {id}";
+                while (dict.ContainsKey(newKey)) newKey = $"row {++id}";
+                dict.TryAdd(newKey, defaultValue);
+            }
+            ImGui.TableNextColumn();
+            ImGui.TableNextColumn();
+            ImGui.EndTable();
+        }
     }
 }

@@ -7,24 +7,18 @@ namespace BalancedThirst.Config;
 
 public class ConfigServer : IModConfig
 {
-    public List<string> HeatableLiquidContainers { get; set; } = BtConstants.HeatableLiquidContainers;
 
-    public List<string> WaterPortions { get; set; } = BtConstants.WaterPortions;
-    
-    public Dictionary<string, HydrationProperties> HydratingLiquids { get; set; } = BtConstants.HydratingLiquids;
-    
-    public Dictionary<string, HydrationProperties> HydratingBlocks { get; set; } = BtConstants.HydratingBlocks;
-
-    public float ThirstSpeedModifier { get; set; }
     public bool ThirstKills { get; set; }
+    public float ThirstSpeedModifier { get; set; }
     public float ThirstHungerMultiplier { get; set; } = 0.3f;
+    public EnumUpOrDown ThirstHungerMultiplierUpOrDown { get; set; } = EnumUpOrDown.Centered;
     public EnumHungerBuffCurve HungerBuffCurve { get; set; } = EnumHungerBuffCurve.Sin;
     public EnumHungerBuffCurve LowerHalfHungerBuffCurve { get; set; } = EnumHungerBuffCurve.None;
     public float VomitHydrationMultiplier { get; set; } = 0.5f;
     public float VomitEuhydrationMultiplier { get; set; } = 0.8f;
     public float PurePurityLevel { get; set; } = 1.0f;
     public float FilteredPurityLevel { get; set; } = 0.9f;
-    public float BoiledPurityLevel { get; set; } = 0.8f;
+    public float PotablePurityLevel { get; set; } = 0.8f;
     public float OkayPurityLevel { get; set; } = 0.6f;
     public float StagnantPurityLevel { get; set; } = 0.3f;
     public float RotPurityLevel { get; set; } = 0.1f;
@@ -37,6 +31,10 @@ public class ConfigServer : IModConfig
     public float UnknownHydrationYield { get; set; }
     public int DowsingRodRadius { get; set; } = 50;
     
+    public List<string> HeatableLiquidContainers { get; set; } = BtConstants.HeatableLiquidContainers;
+    public List<string> WaterPortions { get; set; } = BtConstants.WaterPortions;
+    public Dictionary<string, HydrationProperties> HydratingLiquids { get; set; } = BtConstants.HydratingLiquids;
+    public Dictionary<string, HydrationProperties> HydratingBlocks { get; set; } = BtConstants.HydratingBlocks;
     public ConfigServer(ICoreAPI api, ConfigServer previousConfig = null)
     {
         if (previousConfig == null)
@@ -46,17 +44,14 @@ public class ConfigServer : IModConfig
         ThirstSpeedModifier = previousConfig.ThirstSpeedModifier;
         ThirstKills = previousConfig.ThirstKills;
         ThirstHungerMultiplier = previousConfig.ThirstHungerMultiplier;
+        ThirstHungerMultiplierUpOrDown = previousConfig.ThirstHungerMultiplierUpOrDown;
         HungerBuffCurve = previousConfig.HungerBuffCurve;
         LowerHalfHungerBuffCurve = previousConfig.LowerHalfHungerBuffCurve;
-        HeatableLiquidContainers = previousConfig.HeatableLiquidContainers;
-        WaterPortions = previousConfig.WaterPortions;
-        HydratingLiquids = previousConfig.HydratingLiquids;
-        HydratingBlocks = previousConfig.HydratingBlocks;
         VomitHydrationMultiplier = previousConfig.VomitHydrationMultiplier;
         VomitEuhydrationMultiplier = previousConfig.VomitEuhydrationMultiplier;
         PurePurityLevel = previousConfig.PurePurityLevel;
         FilteredPurityLevel = previousConfig.FilteredPurityLevel;
-        BoiledPurityLevel = previousConfig.BoiledPurityLevel;
+        PotablePurityLevel = previousConfig.PotablePurityLevel;
         OkayPurityLevel = previousConfig.OkayPurityLevel;
         StagnantPurityLevel = previousConfig.StagnantPurityLevel;
         RotPurityLevel = previousConfig.RotPurityLevel;
@@ -68,5 +63,9 @@ public class ConfigServer : IModConfig
         NoNutritionHydrationYield = previousConfig.NoNutritionHydrationYield;
         UnknownHydrationYield = previousConfig.UnknownHydrationYield;
         DowsingRodRadius = previousConfig.DowsingRodRadius;
+        HeatableLiquidContainers = previousConfig.HeatableLiquidContainers;
+        WaterPortions = previousConfig.WaterPortions;
+        HydratingLiquids = previousConfig.HydratingLiquids;
+        HydratingBlocks = previousConfig.HydratingBlocks;
     }
 }

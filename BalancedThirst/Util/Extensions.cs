@@ -9,6 +9,7 @@ using Vintagestory.API.Common;
 using Vintagestory.API.Common.Entities;
 using Vintagestory.API.Datastructures;
 using Vintagestory.API.MathTools;
+using Vintagestory.API.Util;
 using Vintagestory.GameContent;
 
 namespace BalancedThirst;
@@ -96,16 +97,37 @@ public static class Extensions
     
     public static bool IsHeatableLiquidContainer(this CollectibleObject collectible)
     {
-        return BtCore.ConfigServer.HeatableLiquidContainers.Any(code => collectible.Code.ToString().Contains(code));
+        return BtCore.ConfigServer.HeatableLiquidContainers.Any(collectible.WildCardMatchDomain);
     }
 
     public static bool IsWaterPortion(this CollectibleObject collectible)
     {
-        return BtCore.ConfigServer.WaterPortions.Contains(collectible.Code.ToString());
+        return BtCore.ConfigServer.WaterPortions.Any(collectible.WildCardMatchDomain);
     }
     
     public static bool IsLiquidSourceBlock(this Block b) => b.LiquidLevel == 7;
     public static bool IsSameLiquid(this Block b, Block o) => b.LiquidCode == o.LiquidCode;
     public static Vec3d NoY(this Vec3d vec) => new Vec3d(vec.X, 0, vec.Z);
     public static Vec3d ClampY(this Vec3d vec, int value = 1) => new Vec3d(vec.X, Math.Clamp(vec.Y, -value, value), vec.Z);
+    
+    public static bool WildCardMatchDomain(this CollectibleObject collectible, string wildCard)
+    {
+        if (collectible.Code == null)
+        {
+            return false;
+        }
+
+        // Split the wildCard string into domain and path
+        string[] parts = wildCard.Split(':');
+        if (parts.Length != 2)
+        {
+            return false;
+        }
+
+        string domain = parts[0];
+        string path = parts[1];
+        
+        // Match the domain and path separately
+        return domain == collectible.Code.Domain && WildcardUtil.Match(path, collectible.Code.Path);
+    }
 }

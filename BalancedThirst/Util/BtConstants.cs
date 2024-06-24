@@ -7,11 +7,13 @@ public static class BtConstants
 {
     public static readonly string ConfigServerName = "balancedthirst" + ".json";
     public static readonly string ConfigClientName = "balancedthirst_client" + ".json";
+    
     public static readonly List<string> HeatableLiquidContainers = new()
     {
         "game:bowl-fired",
         "game:jug-fired",
-        BtCore.Modid + "kettle"
+        BtCore.Modid + ":kettle-*",
+        BtCore.Modid + ":kettle-clay-fired"
     };
 
     public static readonly List<string> WaterPortions = new()
@@ -19,19 +21,23 @@ public static class BtConstants
         "game:waterportion",
         "game:boilingwaterportion",
         "game:saltwaterportion",
-        BtCore.Modid + ":waterportion-pure",
-        BtCore.Modid + ":waterportion-boiled",
-        BtCore.Modid + ":waterportion-stagnant"
+        BtCore.Modid + ":waterportion-*"
+    };
+    
+    public static readonly List<string> WaterContainers = new()
+    {
+        BtCore.Modid + ":waterskin-*"
     };
     
     public static readonly Dictionary<string, HydrationProperties> HydratingLiquids = new()
     {
         { "game:waterportion", new HydrationProperties { Hydration = 100, Purity = EnumPurityLevel.Okay } },
-        { "game:rawjuice", new HydrationProperties { Hydration = 90 } },
+        { "game:rawjuice-*", new HydrationProperties { Hydration = 90 } },
         { "game:milkportion", new HydrationProperties { Hydration = 90 } },
         { "game:vinegarportion", new HydrationProperties { Hydration = 60 } },
-        { "game:cider", new HydrationProperties { Hydration = 60 } },
-        { "game:spirit", new HydrationProperties { Hydration = 20 } },
+        { "game:cider-apple", new HydrationProperties { Hydration = 60 } },
+        { "game:spirit-*", new HydrationProperties { Hydration = 20 } },
+        { "game:spiritportion-*", new HydrationProperties { Hydration = 10 } },
         { "game:honeyportion", new HydrationProperties { Hydration = 10 } },
         { "game:jamhoneyportion", new HydrationProperties { Hydration = 10 } },
         { "game:boilingwaterportion", new HydrationProperties { Hydration = 100, Scalding = true, Purity = EnumPurityLevel.Potable } },

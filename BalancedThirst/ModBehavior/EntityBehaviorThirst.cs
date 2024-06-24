@@ -1,6 +1,4 @@
 using System;
-using System.Diagnostics;
-using System.Threading;
 using BalancedThirst.Util;
 using Vintagestory.API.Common;
 using Vintagestory.API.Common.Entities;
@@ -21,7 +19,7 @@ namespace BalancedThirst.ModBehavior
     private long _lastMoveMs;
     private ICoreAPI _api;
     private float _detoxCounter;
-    private readonly AssetLocation _vomitSound = new AssetLocation("sounds/player/hurt1");
+    private readonly AssetLocation _vomitSound = new("sounds/player/hurt1");
     
     public override string PropertyName() => AttributeKey;
     private string AttributeKey => BtCore.Modid + ":thirst";
@@ -121,7 +119,7 @@ namespace BalancedThirst.ModBehavior
           purity = BtCore.ConfigServer.FilteredPurityLevel;
           break;
         case EnumPurityLevel.Potable:
-          purity = BtCore.ConfigServer.BoiledPurityLevel;
+          purity = BtCore.ConfigServer.PotablePurityLevel;
           break;
         case EnumPurityLevel.Okay:
           purity = BtCore.ConfigServer.OkayPurityLevel;
@@ -237,11 +235,14 @@ namespace BalancedThirst.ModBehavior
         var ratio = this.Hydration / this.MaxHydration;
         if (BtCore.ConfigServer.LowerHalfHungerBuffCurve != EnumHungerBuffCurve.None)
         {
-          return ratio < 0.5 
-            ? Func.CalcHungerModifier(BtCore.ConfigServer.LowerHalfHungerBuffCurve, ratio) 
-            : Func.CalcHungerModifier(BtCore.ConfigServer.HungerBuffCurve, ratio);
+          return ratio < 0.5
+            ? Func.CalcHungerModifier(ratio, BtCore.ConfigServer.ThirstHungerMultiplier,
+              BtCore.ConfigServer.LowerHalfHungerBuffCurve, BtCore.ConfigServer.ThirstHungerMultiplierUpOrDown)
+            : Func.CalcHungerModifier(ratio, BtCore.ConfigServer.ThirstHungerMultiplier,
+              BtCore.ConfigServer.HungerBuffCurve, BtCore.ConfigServer.ThirstHungerMultiplierUpOrDown);
         }
-        return Func.CalcHungerModifier(BtCore.ConfigServer.HungerBuffCurve, ratio);
+        return Func.CalcHungerModifier(ratio, BtCore.ConfigServer.ThirstHungerMultiplier,
+          BtCore.ConfigServer.HungerBuffCurve, BtCore.ConfigServer.ThirstHungerMultiplierUpOrDown);
       }
     }
 
