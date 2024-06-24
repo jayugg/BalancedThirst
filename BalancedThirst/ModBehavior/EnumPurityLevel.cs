@@ -4,7 +4,7 @@ public enum EnumPurityLevel
 {
     Pure,
     Filtered,
-    Boiled,
+    Potable,
     Okay,
     Stagnant,
     Yuck

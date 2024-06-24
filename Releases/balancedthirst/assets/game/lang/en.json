@@ -6,5 +6,7 @@
   "When eaten: {0} sat, {1} hyd, {2} hp": "When eaten: {0} sat, {1} hyd, {2} hp",
   "When eaten: {0} sat, {1} hyd": "When eaten: {0} sat, {1} hyd",
   "When drank: {0} hyd, {1} hp": "When drank: {0} hyd, {1} hp",
-  "When drank: {0} hyd": "When drank: {0} hyd"
+  "When drank: {0} hyd": "When drank: {0} hyd",
+
+  "Stored water perish speed: {0}" : "Stored water perish speed: {0}"
 }

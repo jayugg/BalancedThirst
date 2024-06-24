@@ -34,11 +34,11 @@ public static class BtConstants
         { "game:spirit", new HydrationProperties { Hydration = 20 } },
         { "game:honeyportion", new HydrationProperties { Hydration = 10 } },
         { "game:jamhoneyportion", new HydrationProperties { Hydration = 10 } },
-        { "game:boilingwaterportion", new HydrationProperties { Hydration = 100, Scalding = true, Purity = EnumPurityLevel.Boiled } },
+        { "game:boilingwaterportion", new HydrationProperties { Hydration = 100, Scalding = true, Purity = EnumPurityLevel.Potable } },
         { "game:saltwaterportion", new HydrationProperties { Hydration = 60, Salty = true, Purity = EnumPurityLevel.Okay } },
         { "game:brineportion", new HydrationProperties { Hydration = 80, Salty = true, Purity = EnumPurityLevel.Okay } },
         { BtCore.Modid + ":waterportion-pure", new HydrationProperties { Hydration = 100, Purity = EnumPurityLevel.Pure } },
-        { BtCore.Modid + ":waterportion-boiled", new HydrationProperties { Hydration = 100, Purity = EnumPurityLevel.Boiled } },
+        { BtCore.Modid + ":waterportion-boiled", new HydrationProperties { Hydration = 100, Purity = EnumPurityLevel.Potable } },
         { BtCore.Modid + ":waterportion-stagnant", new HydrationProperties { Hydration = 100, Purity = EnumPurityLevel.Stagnant } },
         { "game:rot", new HydrationProperties { Hydration = 20, Purity = EnumPurityLevel.Yuck } }
     };
@@ -47,7 +47,7 @@ public static class BtConstants
     {
         { "game:water", new HydrationProperties { Hydration = 100, Purity = EnumPurityLevel.Okay } },
         { "game:" + BtCore.Modid + "-purewater", new HydrationProperties { Hydration = 100, Purity = EnumPurityLevel.Pure } },
-        { "game:boilingwater", new HydrationProperties { Hydration = 100, Scalding = true, Purity = EnumPurityLevel.Boiled } },
+        { "game:boilingwater", new HydrationProperties { Hydration = 100, Scalding = true, Purity = EnumPurityLevel.Potable } },
         { "game:saltwater", new HydrationProperties { Hydration = 75, Purity = EnumPurityLevel.Okay, Salty = true } }
     };
 }

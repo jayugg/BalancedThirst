@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using BalancedThirst.ModBehavior;
 using BalancedThirst.Util;
 using ConfigLib;
 using ImGuiNET;
@@ -54,15 +53,22 @@ public class ConfigLibCompat
     {
         if (ImGui.CollapsingHeader(Lang.Get(settingsSimple) + $"##settingSimple-{id}"))
         {
+            config.ThirstSpeedModifier = OnInputFloat(id, config.ThirstSpeedModifier, nameof(config.ThirstSpeedModifier));
+            config.ThirstKills = OnCheckBox(id, config.ThirstKills, nameof(config.ThirstKills));
             config.ThirstHungerMultiplier = OnInputFloat(id, config.ThirstHungerMultiplier, nameof(config.ThirstHungerMultiplier));
+            config.HungerBuffCurve = OnInputEnum(id, config.HungerBuffCurve, nameof(config.HungerBuffCurve));
+            config.LowerHalfHungerBuffCurve = OnInputEnum(id, config.LowerHalfHungerBuffCurve, nameof(config.LowerHalfHungerBuffCurve));
+            ImGui.Separator();
             config.VomitHydrationMultiplier = OnInputFloat(id, config.VomitHydrationMultiplier, nameof(config.VomitHydrationMultiplier));
             config.VomitEuhydrationMultiplier = OnInputFloat(id, config.VomitEuhydrationMultiplier, nameof(config.VomitEuhydrationMultiplier));
+            ImGui.Separator();
             config.PurePurityLevel = OnInputFloat(id, config.PurePurityLevel, nameof(config.PurePurityLevel));
             config.FilteredPurityLevel = OnInputFloat(id, config.FilteredPurityLevel, nameof(config.FilteredPurityLevel));
             config.BoiledPurityLevel = OnInputFloat(id, config.BoiledPurityLevel, nameof(config.BoiledPurityLevel));
             config.OkayPurityLevel = OnInputFloat(id, config.OkayPurityLevel, nameof(config.OkayPurityLevel));
             config.StagnantPurityLevel = OnInputFloat(id, config.StagnantPurityLevel, nameof(config.StagnantPurityLevel));
             config.RotPurityLevel = OnInputFloat(id, config.RotPurityLevel, nameof(config.RotPurityLevel));
+            ImGui.Separator();
             config.FruitHydrationYield = OnInputFloat(id, config.FruitHydrationYield, nameof(config.FruitHydrationYield));
             config.VegetableHydrationYield = OnInputFloat(id, config.VegetableHydrationYield, nameof(config.VegetableHydrationYield));
             config.DairyHydrationYield = OnInputFloat(id, config.DairyHydrationYield, nameof(config.DairyHydrationYield));
@@ -70,6 +76,7 @@ public class ConfigLibCompat
             config.GrainHydrationYield = OnInputFloat(id, config.GrainHydrationYield, nameof(config.GrainHydrationYield), -1);
             config.NoNutritionHydrationYield = OnInputFloat(id, config.NoNutritionHydrationYield, nameof(config.NoNutritionHydrationYield));
             config.UnknownHydrationYield = OnInputFloat(id, config.UnknownHydrationYield, nameof(config.UnknownHydrationYield));
+            ImGui.Separator();
             config.DowsingRodRadius = OnInputInt(id, config.DowsingRodRadius, nameof(config.DowsingRodRadius));
         }
     }
@@ -114,5 +121,18 @@ public class ConfigLibCompat
         string newValue = values.Any() ? values.Aggregate((first, second) => $"{first}\n{second}") : "";
         ImGui.InputTextMultiline(Lang.Get(settingPrefix + name) + $"##{name}-{id}", ref newValue, 256, new(0, 0));
         return newValue.Split('\n', StringSplitOptions.RemoveEmptyEntries).AsEnumerable();
+    }
+    
+    private T OnInputEnum<T>(string id, T value, string name) where T : Enum
+    {
+        string[] enumNames = Enum.GetNames(typeof(T));
+        int index = Array.IndexOf(enumNames, value.ToString());
+
+        if (ImGui.Combo(Lang.Get(settingPrefix + name) + $"##{name}-{id}", ref index, enumNames, enumNames.Length))
+        {
+            value = (T)Enum.Parse(typeof(T), enumNames[index]);
+        }
+
+        return value;
     }
 }

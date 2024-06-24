@@ -1,1 +1,1 @@
-- Added Client Config for thirst bar positioning
+- More config options! Fully customise the thirst mechanic

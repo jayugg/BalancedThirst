@@ -8,7 +8,7 @@
     },
     "waterTightContainerProps": {
       "containable": true,
-      "itemsPerLitre": 100,
+      "itemsPerLitre": 1,
       "texture": { "base": "block/barrel/wetsalt" },
       "tintIndex": 2,
       "whenSpilled": {

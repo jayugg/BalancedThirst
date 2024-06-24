@@ -15,10 +15,13 @@ public class ConfigServer : IModConfig
     
     public Dictionary<string, HydrationProperties> HydratingBlocks { get; set; } = BtConstants.HydratingBlocks;
 
+    public float ThirstSpeedModifier { get; set; }
+    public bool ThirstKills { get; set; }
     public float ThirstHungerMultiplier { get; set; } = 0.3f;
+    public EnumHungerBuffCurve HungerBuffCurve { get; set; } = EnumHungerBuffCurve.Sin;
+    public EnumHungerBuffCurve LowerHalfHungerBuffCurve { get; set; } = EnumHungerBuffCurve.None;
     public float VomitHydrationMultiplier { get; set; } = 0.5f;
     public float VomitEuhydrationMultiplier { get; set; } = 0.8f;
-    
     public float PurePurityLevel { get; set; } = 1.0f;
     public float FilteredPurityLevel { get; set; } = 0.9f;
     public float BoiledPurityLevel { get; set; } = 0.8f;
@@ -30,8 +33,8 @@ public class ConfigServer : IModConfig
     public float DairyHydrationYield { get; set; } = 0.1f;
     public float ProteinHydrationYield { get; set; } = 0.1f;
     public float GrainHydrationYield { get; set; } = -0.2f;
-    public float NoNutritionHydrationYield { get; set; } = 0;
-    public float UnknownHydrationYield { get; set; } = 0;
+    public float NoNutritionHydrationYield { get; set; }
+    public float UnknownHydrationYield { get; set; }
     public int DowsingRodRadius { get; set; } = 50;
     
     public ConfigServer(ICoreAPI api, ConfigServer previousConfig = null)
@@ -40,11 +43,30 @@ public class ConfigServer : IModConfig
         {
             return;
         }
+        ThirstSpeedModifier = previousConfig.ThirstSpeedModifier;
+        ThirstKills = previousConfig.ThirstKills;
+        ThirstHungerMultiplier = previousConfig.ThirstHungerMultiplier;
+        HungerBuffCurve = previousConfig.HungerBuffCurve;
+        LowerHalfHungerBuffCurve = previousConfig.LowerHalfHungerBuffCurve;
         HeatableLiquidContainers = previousConfig.HeatableLiquidContainers;
         WaterPortions = previousConfig.WaterPortions;
         HydratingLiquids = previousConfig.HydratingLiquids;
         HydratingBlocks = previousConfig.HydratingBlocks;
-        ThirstHungerMultiplier = previousConfig.ThirstHungerMultiplier;
+        VomitHydrationMultiplier = previousConfig.VomitHydrationMultiplier;
+        VomitEuhydrationMultiplier = previousConfig.VomitEuhydrationMultiplier;
+        PurePurityLevel = previousConfig.PurePurityLevel;
+        FilteredPurityLevel = previousConfig.FilteredPurityLevel;
+        BoiledPurityLevel = previousConfig.BoiledPurityLevel;
+        OkayPurityLevel = previousConfig.OkayPurityLevel;
+        StagnantPurityLevel = previousConfig.StagnantPurityLevel;
+        RotPurityLevel = previousConfig.RotPurityLevel;
+        FruitHydrationYield = previousConfig.FruitHydrationYield;
+        VegetableHydrationYield = previousConfig.VegetableHydrationYield;
+        DairyHydrationYield = previousConfig.DairyHydrationYield;
+        ProteinHydrationYield = previousConfig.ProteinHydrationYield;
+        GrainHydrationYield = previousConfig.GrainHydrationYield;
+        NoNutritionHydrationYield = previousConfig.NoNutritionHydrationYield;
+        UnknownHydrationYield = previousConfig.UnknownHydrationYield;
         DowsingRodRadius = previousConfig.DowsingRodRadius;
     }
 }

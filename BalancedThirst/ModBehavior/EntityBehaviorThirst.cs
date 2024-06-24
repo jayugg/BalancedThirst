@@ -1,5 +1,7 @@
 using System;
+using System.Diagnostics;
 using System.Threading;
+using BalancedThirst.Util;
 using Vintagestory.API.Common;
 using Vintagestory.API.Common.Entities;
 using Vintagestory.API.Config;
@@ -19,7 +21,7 @@ namespace BalancedThirst.ModBehavior
     private long _lastMoveMs;
     private ICoreAPI _api;
     private float _detoxCounter;
-    private AssetLocation vomitSound = new AssetLocation("sounds/player/hurt1");
+    private readonly AssetLocation _vomitSound = new AssetLocation("sounds/player/hurt1");
     
     public override string PropertyName() => AttributeKey;
     private string AttributeKey => BtCore.Modid + ":thirst";
@@ -118,7 +120,7 @@ namespace BalancedThirst.ModBehavior
         case EnumPurityLevel.Filtered:
           purity = BtCore.ConfigServer.FilteredPurityLevel;
           break;
-        case EnumPurityLevel.Boiled:
+        case EnumPurityLevel.Potable:
           purity = BtCore.ConfigServer.BoiledPurityLevel;
           break;
         case EnumPurityLevel.Okay:
@@ -204,7 +206,7 @@ namespace BalancedThirst.ModBehavior
     private bool ReduceHydration(float satLossMultiplier)
     {
       bool flag = false;
-      satLossMultiplier *= GlobalConstants.HungerSpeedModifier;
+      satLossMultiplier *= BtCore.ConfigServer.ThirstSpeedModifier == 0 ? GlobalConstants.HungerSpeedModifier : BtCore.ConfigServer.ThirstSpeedModifier;
       if (this.HydrationLossDelay > 0.0)
       {
         this.HydrationLossDelay -= 10f * satLossMultiplier;
@@ -227,9 +229,21 @@ namespace BalancedThirst.ModBehavior
       }
       return false;
     }
-    
-    private static float _cParam = 2f;
-    public float HungerModifier => BtCore.ConfigServer.ThirstHungerMultiplier * (float) Math.Tanh(_cParam*(1f - 2f*Hydration/MaxHydration));
+
+    public float HungerModifier
+    {
+      get
+      {
+        var ratio = this.Hydration / this.MaxHydration;
+        if (BtCore.ConfigServer.LowerHalfHungerBuffCurve != EnumHungerBuffCurve.None)
+        {
+          return ratio < 0.5 
+            ? Func.CalcHungerModifier(BtCore.ConfigServer.LowerHalfHungerBuffCurve, ratio) 
+            : Func.CalcHungerModifier(BtCore.ConfigServer.HungerBuffCurve, ratio);
+        }
+        return Func.CalcHungerModifier(BtCore.ConfigServer.HungerBuffCurve, ratio);
+      }
+    }
 
     private void UpdateThirstHungerBoost()
     {
@@ -251,7 +265,7 @@ namespace BalancedThirst.ModBehavior
       {
         EnumPurityLevel.Pure => 1.5f,
         EnumPurityLevel.Filtered => 1.3f,
-        EnumPurityLevel.Boiled => 1.2f,
+        EnumPurityLevel.Potable => 1.2f,
         EnumPurityLevel.Okay => 1,
         EnumPurityLevel.Stagnant => 0.5f,
         EnumPurityLevel.Yuck => 0,
@@ -276,6 +290,16 @@ namespace BalancedThirst.ModBehavior
         float num = GameMath.Clamp(temperature - 30, 0.0f, 40f);
         this.entity.Stats.Set(BtCore.Modid+":thirstrate", "resistheat", this.entity.World.Api.ModLoader.GetModSystem<RoomRegistry>().GetRoomForPosition(this.entity.Pos.AsBlockPos).ExitCount == 0 ? 0.0f : num / 40f, true);
       }
+
+      if ((double) this.Hydration > 0.0)
+        return;
+      if (BtCore.ConfigServer.ThirstKills) 
+      {
+        this.entity.ReceiveDamage(new DamageSource()
+        { Source = EnumDamageSource.Internal,
+          Type = EnumDamageType.Hunger }, 0.125f);
+      }
+      this._sprintCounter = 0;
       UpdateThirstHungerBoost();
       UpdateThirstHealthBoost();
     }
@@ -299,7 +323,7 @@ namespace BalancedThirst.ModBehavior
         var bh = entity.GetBehavior<EntityBehaviorHunger>();
         bh.Saturation = 0.5f * bh.Saturation;
       }
-      entity.World.PlaySoundAt(this.vomitSound, entity.Pos.X, entity.Pos.Y, entity.Pos.Z, range: 10f);
+      entity.World.PlaySoundAt(this._vomitSound, entity.Pos.X, entity.Pos.Y, entity.Pos.Z, range: 10f);
       entity.World.RegisterCallback(dt => entity.WatchedAttributes.SetFloat("intoxication", 0.0f), 5000);
     }
   }

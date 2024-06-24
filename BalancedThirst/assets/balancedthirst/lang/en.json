@@ -38,9 +38,13 @@
 
     "balancedthirst": "Balanced Thirst",
     "Config.SettingsSimple": "Balanced Thirst settings",
-    "Config.Setting.ThirstHungerMultiplier": "Hunger reduction/increase due to thirst",
-    "Config.Setting.VomitHydrationMultiplier": "Hydration reduction due to vomiting",
-    "Config.Setting.VomitEuhydrationMultiplier": "Euhydration reduction due to vomiting",
+    "Config.Setting.ThirstSpeedModifier": "Thirst speed modifier",
+    "Config.Setting.ThirstKills": "Can you die of thirst?",
+    "Config.Setting.ThirstHungerMultiplier": "Hunger rate buff/debuff due to thirst",
+    "Config.Setting.HungerBuffCurve": "Curve that calulates hunger buff/debuff",
+    "Config.Setting.LowerHalfHungerBuffCurve": "Set to override the half of the curve below half hydration",
+    "Config.Setting.VomitHydrationMultiplier": "Hydration reduction when vomiting",
+    "Config.Setting.VomitEuhydrationMultiplier": "Euhydration reduction when vomiting",
     "Config.Setting.PurePurityLevel": "Pure Purity Level",
     "Config.Setting.FilteredPurityLevel": "Filtered Purity Level",
     "Config.Setting.BoiledPurityLevel": "Boiled Purity Level",
@@ -65,14 +69,13 @@
 
     "purity-Pure": "<font color=\"blue\">Pure</font>",
     "purity-Filtered": "<font color=\"green\">Filtered</font>",
-    "purity-Boiled": "<font color=\"yellow\">Boiled</font>",
+    "purity-Potable": "<font color=\"yellow\">Potable</font>",
     "purity-Stagnant": "<font color=\"darkgreen\">Stagnant</font>",
     "purity-Yuck": "<font color=\"brown\">Yuck</font>",
 
     "playerinfo-hydration": "Hydration",
     "playerinfo-hydration-boost": "Euhydration",
-
-    "Stored water perish speed: {0}" : "Stored water perish speed: {0}",
+    
     "cookingrecipe-boilingwater" : "Boiling water"
     
 }

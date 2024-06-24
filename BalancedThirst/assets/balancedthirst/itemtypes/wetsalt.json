@@ -20,7 +20,7 @@
       "freshHours": { "avg": 4 },
       "transitionHours": { "avg": 12 },
       "transitionedStack": { "type": "item", "code": "game:salt" },
-      "transitionRatio": 0.01
+      "transitionRatio": 1
     }]
   },
   "shape": { "base": "item/wetsalt" },
