@@ -10,73 +10,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e6b49e4b-520d-4578-b261-331cc4832028" name="Changes" comment="Changed dowsing rod mode">
-      <change afterPath="$PROJECT_DIR$/BalancedThirst/Blocks/BlockWaterStorageContainer.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BalancedThirst/HarmonyPatches/CollectibleObject_GetTransitionRateMul_Patch.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BalancedThirst/HarmonyPatches/CookingRecipe_Matches_Patch.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/blocktypes/waterskin.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/patches/boiledwatercools.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/patches/waterinsoup.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/recipes/barrel/preservewater.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/recipes/smithing/dowsingrod.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/shapes/dowsingrod.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/textures/block/waterportion-boiled.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/textures/block/waterportion-pure.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/textures/block/waterportion-stagnant.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BalancedThirst/assets/game/recipes/cooking/boiledwater.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Releases/balancedthirst/assets/balancedthirst/blocktypes/waterskin.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Releases/balancedthirst/assets/balancedthirst/blocktypes/woodenbowl.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Releases/balancedthirst/assets/balancedthirst/itemtypes/dowsingrod.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Releases/balancedthirst/assets/balancedthirst/itemtypes/liquid/waterportion.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Releases/balancedthirst/assets/balancedthirst/patches/boiledwatercools.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Releases/balancedthirst/assets/balancedthirst/patches/waterexpires.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Releases/balancedthirst/assets/balancedthirst/patches/waterinsoup.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Releases/balancedthirst/assets/balancedthirst/recipes/barrel/preservewater.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Releases/balancedthirst/assets/balancedthirst/recipes/grid/woodenbowl-waxed.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Releases/balancedthirst/assets/balancedthirst/recipes/grid/woodenbowl.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Releases/balancedthirst/assets/balancedthirst/recipes/smithing/dowsingrod.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Releases/balancedthirst/assets/balancedthirst/shapes/dowsingrod.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Releases/balancedthirst/assets/balancedthirst/textures/block/waterportion-boiled.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Releases/balancedthirst/assets/balancedthirst/textures/block/waterportion-pure.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Releases/balancedthirst/assets/balancedthirst/textures/block/waterportion-stagnant.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Releases/balancedthirst/assets/game/blocktypes/purewater.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Releases/balancedthirst/assets/game/recipes/cooking/boiledwater.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Releases/balancedthirst/assets/game/textures/block/purewater.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Releases/balancedthirst/assets/game/textures/block/purewater2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Releases/balancedthirst/assets/game/worldgen/deposits/purewater-deep.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Releases/balancedthirst/assets/game/worldgen/deposits/purewater.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Releases/balancedthirst_0.0.12.zip" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.BalancedThirst/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.BalancedThirst/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BalancedThirst.sln.DotSettings.user" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst.sln.DotSettings.user" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BalancedThirst/BTCore.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/BTCore.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BalancedThirst/BalancedThirst.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/BalancedThirst.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BalancedThirst/Blocks/BlockLiquidContainerLeaking.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/Blocks/BlockLiquidContainerLeaking.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BalancedThirst/Blocks/BlockWaterskin.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/Blocks/BlockWaterskin.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BalancedThirst/Extensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/Extensions.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BalancedThirst/HarmonyPatches/CollectibleObject_GetHeldItemInfo_Patch.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/HarmonyPatches/CollectibleObject_GetHeldItemInfo_Patch.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BalancedThirst/HarmonyPatches/CollectibleObject_tryEatBegin_Patch.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/HarmonyPatches/CollectibleObject_tryEatBegin_Patch.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BalancedThirst/Items/ItemDowsingRod.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/Items/ItemDowsingRod.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BalancedThirst/ModBehavior/DrinkableBehavior.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/ModBehavior/DrinkableBehavior.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BalancedThirst/Systems/EditAssets.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/Systems/EditAssets.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BalancedThirst/Systems/HarmonyPatches.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/Systems/HarmonyPatches.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/blocktypes/woodenbowl.json" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/blocktypes/woodenbowl.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/itemtypes/dowsingrod.json" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/itemtypes/dowsingrod.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/itemtypes/drinkitem.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/itemtypes/liquid/waterportion.json" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/itemtypes/liquid/waterportion.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/lang/en.json" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/lang/en.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/patches/waterexpires.json" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/patches/waterexpires.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/recipes/grid/dowsingrod.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/textures/purewater.png" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/assets/game/textures/block/purewater.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/textures/purewater2.png" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/assets/game/textures/block/purewater2.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BalancedThirst/assets/game/blocktypes/purewater.json" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/assets/game/blocktypes/purewater.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BalancedThirst/assets/game/lang/en.json" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/assets/game/lang/en.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BalancedThirst/assets/game/worldgen/deposits/purewater.json" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/assets/game/worldgen/deposits/purewater.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CakeBuild/CakeBuild.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/CakeBuild/CakeBuild.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BalancedThirst/Config/ConfigLibCompat.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/Config/ConfigLibCompat.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BalancedThirst/changelog.txt" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/changelog.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BalancedThirst/modinfo.json" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/modinfo.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Releases/balancedthirst/BalancedThirst.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Releases/balancedthirst/BalancedThirst.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Releases/balancedthirst/BalancedThirst.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Releases/balancedthirst/BalancedThirst.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Releases/balancedthirst/assets/balancedthirst/itemtypes/drinkitem.json" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Releases/balancedthirst/assets/balancedthirst/lang/en.json" beforeDir="false" afterPath="$PROJECT_DIR$/Releases/balancedthirst/assets/balancedthirst/lang/en.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Releases/balancedthirst/assets/game/lang/en.json" beforeDir="false" afterPath="$PROJECT_DIR$/Releases/balancedthirst/assets/game/lang/en.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Releases/balancedthirst/modinfo.json" beforeDir="false" afterPath="$PROJECT_DIR$/Releases/balancedthirst/modinfo.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Releases/balancedthirst_1.0.0.zip" beforeDir="false" afterPath="$PROJECT_DIR$/Releases/balancedthirst_1.0.0.zip" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Releases/balancedthirst_0.0.11.zip" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -256,7 +199,7 @@
     "ASKED_ADD_EXTERNAL_FILES": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "ToolWindowGitHub Copilot Chat.ShowToolbar": "false",
-    "git-widget-placeholder": "working-for-containers",
+    "git-widget-placeholder": "master",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -273,7 +216,7 @@
     ]
   }
 }]]></component>
-  <component name="RunManager" selected=".NET Launch Settings Profile.BalancedThirst: Client">
+  <component name="RunManager" selected=".NET Project.CakeBuild">
     <configuration name="CakeBuild" type="DotNetProject" factoryName=".NET Project">
       <option name="EXE_PATH" value="" />
       <option name="PROGRAM_PARAMETERS" value="" />

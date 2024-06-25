@@ -1,1 +1,2 @@
-More config settings
+Config option for different stat multipliers
+Fixed client config offset not allowing negative values
