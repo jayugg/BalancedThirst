@@ -1,6 +1,7 @@
 using System;
 using BalancedThirst.Config;
 using BalancedThirst.ModBehavior;
+using BalancedThirst.Thirst;
 using Vintagestory.API.Common;
 using Vintagestory.API.Server;
 

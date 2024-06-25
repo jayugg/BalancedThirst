@@ -1,4 +1,5 @@
 using BalancedThirst.ModBehavior;
+using BalancedThirst.Thirst;
 using Vintagestory.API.Common;
 using Vintagestory.API.Config;
 using Vintagestory.API.Server;

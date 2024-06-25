@@ -1,5 +1,4 @@
 using System;
-using System.Diagnostics;
 using BalancedThirst.Util;
 using Vintagestory.API.Common;
 using Vintagestory.API.Common.Entities;
@@ -8,7 +7,7 @@ using Vintagestory.API.Datastructures;
 using Vintagestory.API.MathTools;
 using Vintagestory.GameContent;
 
-namespace BalancedThirst.ModBehavior
+namespace BalancedThirst.Thirst
 {
   public class EntityBehaviorThirst : EntityBehavior
   {
@@ -85,8 +84,7 @@ namespace BalancedThirst.ModBehavior
       }
       this._listenerId = this.entity.World.RegisterGameTickListener(this.SlowTick, 6000);
       entity.Stats.Register(BtCore.Modid+":thirstrate");
-      this.UpdateThirstHungerBoost();
-      this.UpdateThirstHealthBoost();
+      this.UpdateThirstBoosts();
     }
 
     public override void OnEntityDespawn(EntityDespawnData despawn)
@@ -156,7 +154,7 @@ namespace BalancedThirst.ModBehavior
         entity.World.RegisterCallback(dt => entity.Stats.Remove(BtCore.Modid+":thirstrate", "dranksaltwater"), 10000);
       }
       if (hydrationProperties.Scalding) entity.ReceiveDamage(new DamageSource() {Type = EnumDamageType.Heat, Source = EnumDamageSource.Internal}, 3);
-      this.UpdateThirstHungerBoost();
+      this.UpdateThirstStatBoosts();
       if (!isHydrationMaxed) this.UpdateThirstHealthBoost(hydrationProperties);
     }
 
@@ -214,8 +212,7 @@ namespace BalancedThirst.ModBehavior
       }
       else if (this.Hydration < 0.6*this.MaxHydration)
         this.Euhydration = Math.Max(0.0f, this.Euhydration - satLossMultiplier); // 10 times less
-      this.UpdateThirstHungerBoost();
-      this.UpdateThirstHealthBoost();
+      this.UpdateThirstBoosts();
       if (flag)
       {
         this._thirstCounter -= 10f;
@@ -229,35 +226,23 @@ namespace BalancedThirst.ModBehavior
       }
       return false;
     }
-
-    public float HungerModifier
-    {
-      get
-      {
-        var ratio = this.Hydration / this.MaxHydration;
-        if (BtCore.ConfigServer.LowerHalfHungerBuffCurve != EnumHungerBuffCurve.None)
-        {
-          return ratio < 0.5
-            ? Func.CalcHungerModifier(ratio, BtCore.ConfigServer.ThirstHungerMultiplier,
-              BtCore.ConfigServer.LowerHalfHungerBuffCurve, BtCore.ConfigServer.ThirstHungerMultiplierUpOrDown)
-            : Func.CalcHungerModifier(ratio, BtCore.ConfigServer.ThirstHungerMultiplier,
-              BtCore.ConfigServer.HungerBuffCurve, BtCore.ConfigServer.ThirstHungerMultiplierUpOrDown);
-        }
-        return Func.CalcHungerModifier(ratio, BtCore.ConfigServer.ThirstHungerMultiplier,
-          BtCore.ConfigServer.HungerBuffCurve, BtCore.ConfigServer.ThirstHungerMultiplierUpOrDown);
-      }
-    }
     
     public void UpdateThirstBoosts()
     {
-      this.UpdateThirstHungerBoost();
+      this.UpdateThirstStatBoosts();
       this.UpdateThirstHealthBoost();
     }
 
-    private void UpdateThirstHungerBoost()
+    private void UpdateThirstStatBoosts()
     {
-      this.entity.Stats.Set("hungerrate", BtCore.Modid + ":thirsty", HungerModifier);
-      entity.WatchedAttributes.MarkPathDirty("stats");
+      foreach (var stat in BtCore.ConfigServer.ThirstStatMultipliers.Keys)
+      {
+        ThirstStatMultiplier multiplier = BtCore.ConfigServer.ThirstStatMultipliers[stat];
+        if (multiplier.Multiplier == 0) continue;
+        var multiplierVal = BtCore.ConfigServer.ThirstStatMultipliers[stat].CalcModifier(Hydration/MaxHydration);
+        this.entity.Stats.Set(stat, BtCore.Modid + ":thirsty", multiplierVal);
+      }
+      this.entity.WatchedAttributes.MarkPathDirty("stats");
     }
     
     public void UpdateThirstHealthBoost()
@@ -300,7 +285,7 @@ namespace BalancedThirst.ModBehavior
         this.entity.Stats.Set(BtCore.Modid+":thirstrate", "resistheat", this.entity.World.Api.ModLoader.GetModSystem<RoomRegistry>().GetRoomForPosition(this.entity.Pos.AsBlockPos).ExitCount == 0 ? 0.0f : num / 40f, true);
       }
 
-      if ((double) this.Hydration > 0.0)
+      if (this.Hydration > 0.0)
         return;
       if (BtCore.ConfigServer.ThirstKills) 
       {
@@ -309,8 +294,7 @@ namespace BalancedThirst.ModBehavior
           Type = EnumDamageType.Hunger }, 0.125f);
       }
       this._sprintCounter = 0;
-      UpdateThirstHungerBoost();
-      UpdateThirstHealthBoost();
+      UpdateThirstBoosts();
     }
 
     public override void OnEntityReceiveDamage(DamageSource damageSource, ref float damage)

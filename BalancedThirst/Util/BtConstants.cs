@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using BalancedThirst.ModBehavior;
+using BalancedThirst.Thirst;
 
 namespace BalancedThirst.Util;
 

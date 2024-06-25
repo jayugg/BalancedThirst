@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using BalancedThirst.ModBehavior;
+using BalancedThirst.Thirst;
 using BalancedThirst.Util;
 using ConfigLib;
 using ImGuiNET;
@@ -16,6 +17,7 @@ public class ConfigLibCompat
     private const string settingPrefix = "balancedthirst:Config.Setting.";
     
     private const string settingsSimple = "balancedthirst:Config.SettingsSimple";
+    private const string settingsStatMultipliers = "balancedthirst:Config.SettingsStatMultipliers";
     private const string settingsAdvanced = "balancedthirst:Config.SettingsAdvanced";
     private const string settingsCompat = "balancedthirst:Config.SettingsCompat";
     private const string textSupportsWildcard = "balancedthirst:Config.Text.SupportsWildcard";
@@ -60,13 +62,10 @@ public class ConfigLibCompat
             config.MaxHydration = OnInputFloat(id, config.MaxHydration, nameof(config.MaxHydration));
             config.ThirstKills = OnCheckBox(id, config.ThirstKills, nameof(config.ThirstKills));
             config.ThirstSpeedModifier = OnInputFloat(id, config.ThirstSpeedModifier, nameof(config.ThirstSpeedModifier));
-            config.ThirstHungerMultiplier = OnInputFloat(id, config.ThirstHungerMultiplier, nameof(config.ThirstHungerMultiplier));
-            config.ThirstHungerMultiplierUpOrDown = OnInputEnum(id, config.ThirstHungerMultiplierUpOrDown, nameof(config.ThirstHungerMultiplierUpOrDown));
-            config.HungerBuffCurve = OnInputEnum(id, config.HungerBuffCurve, nameof(config.HungerBuffCurve));
-            config.LowerHalfHungerBuffCurve = OnInputEnum(id, config.LowerHalfHungerBuffCurve, nameof(config.LowerHalfHungerBuffCurve));
-            ImGui.Separator();
             config.VomitHydrationMultiplier = OnInputFloat(id, config.VomitHydrationMultiplier, nameof(config.VomitHydrationMultiplier));
             config.VomitEuhydrationMultiplier = OnInputFloat(id, config.VomitEuhydrationMultiplier, nameof(config.VomitEuhydrationMultiplier));
+            if (ImGui.CollapsingHeader(Lang.Get(settingsStatMultipliers) + $"##settingStatMultipliers-{id}"))
+                DictionaryEditor(config.ThirstStatMultipliers, new ThirstStatMultiplier());
             ImGui.Separator();
             config.PurePurityLevel = OnInputFloat(id, config.PurePurityLevel, nameof(config.PurePurityLevel));
             config.FilteredPurityLevel = OnInputFloat(id, config.FilteredPurityLevel, nameof(config.FilteredPurityLevel));
@@ -205,7 +204,7 @@ public class ConfigLibCompat
     
     private void DictionaryEditor<T>(Dictionary<string, T> dict, T defaultValue = default, string hint = "", string[] possibleValues = null)
     {
-        if (ImGui.BeginTable("dict", 3, ImGuiTableFlags.BordersOuter))
+        if (ImGui.BeginTable("dict", 2, ImGuiTableFlags.BordersOuter))
         {
             for (int row = 0; row < dict.Count; row++)
             {
@@ -250,8 +249,17 @@ public class ConfigLibCompat
                     customValue.Salty = OnCheckBoxWithoutTranslation($"##boolean-{row}" + key, customValue.Salty, nameof(HydrationProperties.Salty));
                     value = (T)Convert.ChangeType(customValue, typeof(HydrationProperties));
                 }
+                else if (typeof(T) == typeof(ThirstStatMultiplier))
+                {
+                    if (value is not ThirstStatMultiplier customValue) continue;
+                    customValue.Multiplier = OnInputFloat($"##float-{row}" + key, customValue.Multiplier, nameof(ThirstStatMultiplier.Multiplier));
+                    customValue.Centering = OnInputEnum($"##centering-{row}" + key, customValue.Centering, nameof(ThirstStatMultiplier.Centering));
+                    customValue.Curve = OnInputEnum($"##curve-{row}" + key, customValue.Curve, nameof(ThirstStatMultiplier.Curve));
+                    customValue.LowerHalfCurve = OnInputEnum($"##lowerhalf-{row}" + key, customValue.LowerHalfCurve, nameof(ThirstStatMultiplier.LowerHalfCurve));
+                    customValue.Inverted = OnCheckBoxWithoutTranslation($"##boolean-{row}" + key, customValue.Inverted, nameof(ThirstStatMultiplier.Inverted));
+                    value = (T)Convert.ChangeType(customValue, typeof(ThirstStatMultiplier));
+                }
                 dict[key] = value;
-                ImGui.TableNextColumn();
                 if (ImGui.Button($"Remove##row-value-{row}"))
                 {
                     dict.Remove(key);
@@ -266,7 +274,6 @@ public class ConfigLibCompat
                 while (dict.ContainsKey(newKey)) newKey = $"row {++id}";
                 dict.TryAdd(newKey, defaultValue);
             }
-            ImGui.TableNextColumn();
             ImGui.TableNextColumn();
             ImGui.EndTable();
         }

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using BalancedThirst.ModBehavior;
+using BalancedThirst.Thirst;
 using BalancedThirst.Util;
 using Vintagestory.API.Common;
 
@@ -10,12 +11,15 @@ public class ConfigServer : IModConfig
     public float MaxHydration { get; set; } = 1500f;
     public bool ThirstKills { get; set; }
     public float ThirstSpeedModifier { get; set; }
-    public float ThirstHungerMultiplier { get; set; } = 0.3f;
-    public EnumUpOrDown ThirstHungerMultiplierUpOrDown { get; set; } = EnumUpOrDown.Centered;
-    public EnumHungerBuffCurve HungerBuffCurve { get; set; } = EnumHungerBuffCurve.Sin;
-    public EnumHungerBuffCurve LowerHalfHungerBuffCurve { get; set; } = EnumHungerBuffCurve.None;
     public float VomitHydrationMultiplier { get; set; } = 0.5f;
     public float VomitEuhydrationMultiplier { get; set; } = 0.8f;
+    
+    public Dictionary<string, ThirstStatMultiplier> ThirstStatMultipliers { get; set; } = new()
+    {
+        { "hungerrate", new ThirstStatMultiplier() { Multiplier = 0.3f } },
+        { "walkspeed", new ThirstStatMultiplier() { Multiplier = 0f, Inverted = true} }
+    };
+
     public float PurePurityLevel { get; set; } = 1.0f;
     public float FilteredPurityLevel { get; set; } = 0.9f;
     public float PotablePurityLevel { get; set; } = 0.8f;
@@ -60,13 +64,10 @@ public class ConfigServer : IModConfig
         ThirstSpeedModifier = previousConfig.ThirstSpeedModifier;
         ThirstKills = previousConfig.ThirstKills;
         
-        ThirstHungerMultiplier = previousConfig.ThirstHungerMultiplier;
-        ThirstHungerMultiplierUpOrDown = previousConfig.ThirstHungerMultiplierUpOrDown;
-        HungerBuffCurve = previousConfig.HungerBuffCurve;
-        LowerHalfHungerBuffCurve = previousConfig.LowerHalfHungerBuffCurve;
-        
         VomitHydrationMultiplier = previousConfig.VomitHydrationMultiplier;
         VomitEuhydrationMultiplier = previousConfig.VomitEuhydrationMultiplier;
+        
+        ThirstStatMultipliers = previousConfig.ThirstStatMultipliers;
         
         PurePurityLevel = previousConfig.PurePurityLevel;
         FilteredPurityLevel = previousConfig.FilteredPurityLevel;

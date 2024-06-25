@@ -1,6 +1,7 @@
+using BalancedThirst.Util;
 using Vintagestory.API.Common;
 
-namespace BalancedThirst.ModBehavior;
+namespace BalancedThirst.Thirst;
 
 public class HydrationProperties
 {

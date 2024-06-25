@@ -42,12 +42,16 @@
     "Config.Setting.MaxHydration": "Max hydration",
     "Config.Setting.ThirstKills": "Can you die of thirst?",
     "Config.Setting.ThirstSpeedModifier": "Thirst speed modifier",
-    "Config.Setting.ThirstHungerMultiplier": "Hunger rate buff/debuff due to thirst",
-    "Config.Setting.ThirstHungerMultiplierUpOrDown": "Should the hunger buff curve be from -1 to 1, from 0 to 1, or from -1 to 0?",
-    "Config.Setting.HungerBuffCurve": "Curve that calulates hunger buff/debuff",
-    "Config.Setting.LowerHalfHungerBuffCurve": "Set to override the half of the curve below half hydration",
     "Config.Setting.VomitHydrationMultiplier": "Hydration reduction when vomiting",
     "Config.Setting.VomitEuhydrationMultiplier": "Euhydration reduction when vomiting",
+    
+    "Config.SettingsStatMultipliers": "Hydration modifiers to player stats",
+
+    "Config.Setting.Multiplier": "Max value of buff/debuff due to thirst",
+    "Config.Setting.Centering": "Should the buff curve be in ranges [-1, 1], [0, 1], or [-1, 0]?",
+    "Config.Setting.Curve": "Curve that calulates buff/debuff",
+    "Config.Setting.LowerHalfCurve": "Set to override the curve type below 0.5 hydration",
+    
     "Config.Setting.PurePurityLevel": "Pure Purity Level",
     "Config.Setting.FilteredPurityLevel": "Filtered Purity Level",
     "Config.Setting.PotablePurityLevel": "Boiled Purity Level",

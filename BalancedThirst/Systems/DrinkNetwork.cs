@@ -2,6 +2,7 @@ using System;
 using BalancedThirst.Items;
 using BalancedThirst.ModBehavior;
 using BalancedThirst.Network;
+using BalancedThirst.Thirst;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
 using Vintagestory.API.Common.Entities;

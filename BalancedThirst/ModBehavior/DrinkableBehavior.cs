@@ -1,5 +1,6 @@
 using System;
 using System.Text;
+using BalancedThirst.Thirst;
 using Vintagestory.API.Common;
 using Vintagestory.API.Datastructures;
 using Vintagestory.GameContent;

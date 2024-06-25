@@ -2,7 +2,7 @@ using Cairo;
 
 namespace BalancedThirst.Util;
 
-public enum EnumHungerBuffCurve
+public enum EnumBuffCurve
 {
     None,
     Linear,

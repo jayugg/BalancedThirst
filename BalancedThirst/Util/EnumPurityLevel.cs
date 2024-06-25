@@ -1,4 +1,4 @@
-namespace BalancedThirst.ModBehavior;
+namespace BalancedThirst.Util;
 
 public enum EnumPurityLevel
 {

@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using BalancedThirst.ModBehavior;
 using BalancedThirst.ModBlockBehavior;
+using BalancedThirst.Thirst;
 using Newtonsoft.Json.Linq;
 using Vintagestory.API.Common;
 using Vintagestory.API.Common.Entities;
