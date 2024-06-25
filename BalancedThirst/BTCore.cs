@@ -58,6 +58,7 @@ public class BtCore : ModSystem
         api.RegisterBlockBehaviorClass(Modid + ":PureWater", typeof(BlockBehaviorPureWater));
         if (ConfigServer.YieldThirstManagementToHoD) return;
         api.RegisterEntityBehaviorClass(Modid + ":thirst", typeof(EntityBehaviorThirst));
+        api.RegisterEntityBehaviorClass(Modid + ":bladder", typeof(EntityBehaviorBladder));
         api.RegisterCollectibleBehaviorClass(Modid + ":Drinkable", typeof(DrinkableBehavior));
     }
 
@@ -84,6 +85,7 @@ public class BtCore : ModSystem
         if (entity is EntityPlayer)
         {
             entity.AddBehavior(new EntityBehaviorThirst(entity));
+            entity.AddBehavior(new EntityBehaviorBladder(entity));
         }
     }
     

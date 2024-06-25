@@ -1,5 +1,4 @@
 using System;
-using BalancedThirst.Items;
 using BalancedThirst.ModBehavior;
 using BalancedThirst.Network;
 using BalancedThirst.Thirst;
@@ -8,7 +7,6 @@ using Vintagestory.API.Common;
 using Vintagestory.API.Common.Entities;
 using Vintagestory.API.MathTools;
 using Vintagestory.API.Server;
-using Vintagestory.API.Util;
 
 namespace BalancedThirst.Systems;
 
@@ -46,6 +44,20 @@ public class DrinkNetwork : ModSystem
             var waterPos = selPos?.AddCopy(selFace);
             if (waterPos == null) return;
             clientChannel.SendPacket(new DrinkMessage.Request() {Position = waterPos});
+        }
+
+        if (player.Controls.CtrlKey &&
+            player.Controls.RightMouseDown &&
+            player.RightHandItemSlot.Empty &&
+            player.HasBehavior<EntityBehaviorBladder>()
+            )
+        {
+            var selPos = player.BlockSelection?.Position;
+            var bh = player.GetBehavior<EntityBehaviorBladder>();
+            if (bh.CurrentLevel <= 0) return;
+            bh.Drain(0.1f);
+            player.World.RegisterCallback(bh.After350ms, 350);
+            player.World.SpawnParticles(EntityBehaviorBladder.WaterParticles, player.Player);
         }
     }
     
