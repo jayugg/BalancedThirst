@@ -7,8 +7,7 @@ namespace BalancedThirst.Config;
 
 public class ConfigServer : IModConfig
 {
-
-    public bool UseHoDHydrationValues { get; set; }
+    public float MaxHydration { get; set; } = 1500f;
     public bool ThirstKills { get; set; }
     public float ThirstSpeedModifier { get; set; }
     public float ThirstHungerMultiplier { get; set; } = 0.3f;
@@ -32,18 +31,28 @@ public class ConfigServer : IModConfig
     public float UnknownHydrationYield { get; set; }
     public int DowsingRodRadius { get; set; } = 50;
     
+    // Advanced Settings
     public List<string> HeatableLiquidContainers { get; set; } = BtConstants.HeatableLiquidContainers;
     public List<string> WaterPortions { get; set; } = BtConstants.WaterPortions;
     public Dictionary<string, float> WaterContainers { get; set; } = BtConstants.WaterContainers;
     public Dictionary<string, HydrationProperties> HydratingLiquids { get; set; } = BtConstants.HydratingLiquids;
     public Dictionary<string, HydrationProperties> HydratingBlocks { get; set; } = BtConstants.HydratingBlocks;
+    
+    // Compatibility
+    public bool UseHoDHydrationValues { get; set; }
+    private bool _yieldThirstManagementToHoD;
+    public bool YieldThirstManagementToHoD
+    {
+        get => _yieldThirstManagementToHoD;
+        set => _yieldThirstManagementToHoD = BtCore.IsHoDLoaded && value;
+    }
     public ConfigServer(ICoreAPI api, ConfigServer previousConfig = null)
     {
         if (previousConfig == null)
         {
             return;
         }
-        UseHoDHydrationValues = previousConfig.UseHoDHydrationValues;
+        MaxHydration = previousConfig.MaxHydration;
         ThirstSpeedModifier = previousConfig.ThirstSpeedModifier;
         ThirstKills = previousConfig.ThirstKills;
         
@@ -77,5 +86,8 @@ public class ConfigServer : IModConfig
         WaterPortions = previousConfig.WaterPortions;
         HydratingLiquids = previousConfig.HydratingLiquids;
         HydratingBlocks = previousConfig.HydratingBlocks;
+        
+        UseHoDHydrationValues = previousConfig.UseHoDHydrationValues;
+        YieldThirstManagementToHoD = previousConfig.YieldThirstManagementToHoD;
     }
 }

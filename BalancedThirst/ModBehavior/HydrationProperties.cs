@@ -22,6 +22,14 @@ public class HydrationProperties
         };
     }
     
+    public static HydrationProperties FromFloat(float hydration)
+    {
+        return new HydrationProperties()
+        {
+            Hydration = hydration
+        };
+    }
+    
     public static HydrationProperties FromNutrition(FoodNutritionProperties nutritionProps)
     {
         var hydrationProps = new HydrationProperties();

@@ -72,6 +72,12 @@ public static class Extensions
         entity.GetBehavior<EntityBehaviorThirst>().ReceiveHydration(hydrationProperties);
     }
     
+    public static void AddDrinkableBehavior(this CollectibleObject collectible)
+    {
+        var behavior = new DrinkableBehavior(collectible);
+        collectible.CollectibleBehaviors = collectible.CollectibleBehaviors.Append(behavior);
+    }
+    
     public static void SetAttribute(this CollectibleObject collectible, string name, object obj)
     {
         collectible.EnsureAttributesNotNull();

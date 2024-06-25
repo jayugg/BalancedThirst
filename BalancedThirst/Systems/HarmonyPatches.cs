@@ -13,10 +13,24 @@ public class HarmonyPatches : ModSystem
     private ICoreAPI _api;
     private Harmony HarmonyInstance;
 
+    public override double ExecuteOrder() => 1.04;
     public override void Start(ICoreAPI api)
     {
         this._api = api;
         HarmonyInstance = new Harmony(Mod.Info.ModID);
+        HarmonyInstance.Patch(typeof(CollectibleObject).GetMethod(nameof(CollectibleObject.CanSmelt)),
+            postfix: typeof(CollectibleObject_CanSmelt_Patch).GetMethod(
+                nameof(CollectibleObject_CanSmelt_Patch.Postfix)));
+        HarmonyInstance.Patch(typeof(CollectibleObject).GetMethod(nameof(CollectibleObject.DoSmelt)),
+            prefix: typeof(CollectibleObject_DoSmelt_Patch).GetMethod(
+                nameof(CollectibleObject_DoSmelt_Patch.Prefix)));
+        HarmonyInstance.Patch(typeof(CollectibleObject).GetMethod(nameof(CollectibleObject.GetMeltingDuration)),
+            postfix: typeof(CollectibleObject_GetMeltingDuration_Patch).GetMethod(
+                nameof(CollectibleObject_GetMeltingDuration_Patch.Postfix)));
+        HarmonyInstance.Patch(typeof(CollectibleObject).GetMethod(nameof(CollectibleObject.GetMeltingPoint)),
+            postfix: typeof(CollectibleObject_GetMeltingPoint_Patch).GetMethod(
+                nameof(CollectibleObject_GetMeltingPoint_Patch.Postfix)));
+        if (BtCore.ConfigServer.YieldThirstManagementToHoD) return;
         HarmonyInstance.Patch(typeof(CollectibleObject).GetMethod("tryEatBegin", BindingFlags.NonPublic | BindingFlags.Instance),
             postfix: typeof(CollectibleObject_tryEatBegin_Patch).GetMethod(
                 nameof(CollectibleObject_tryEatBegin_Patch.Postfix)));
@@ -44,18 +58,6 @@ public class HarmonyPatches : ModSystem
         HarmonyInstance.Patch(typeof(CharacterExtraDialogs).GetMethod("UpdateStats",  BindingFlags.NonPublic | BindingFlags.Instance),
             postfix: typeof(CharacterExtraDialogs_UpdateStatBars_Patch).GetMethod(
                 nameof(CharacterExtraDialogs_UpdateStatBars_Patch.Postfix)));
-        HarmonyInstance.Patch(typeof(CollectibleObject).GetMethod(nameof(CollectibleObject.CanSmelt)),
-            postfix: typeof(CollectibleObject_CanSmelt_Patch).GetMethod(
-                nameof(CollectibleObject_CanSmelt_Patch.Postfix)));
-        HarmonyInstance.Patch(typeof(CollectibleObject).GetMethod(nameof(CollectibleObject.DoSmelt)),
-            prefix: typeof(CollectibleObject_DoSmelt_Patch).GetMethod(
-                nameof(CollectibleObject_DoSmelt_Patch.Prefix)));
-        HarmonyInstance.Patch(typeof(CollectibleObject).GetMethod(nameof(CollectibleObject.GetMeltingDuration)),
-            postfix: typeof(CollectibleObject_GetMeltingDuration_Patch).GetMethod(
-                nameof(CollectibleObject_GetMeltingDuration_Patch.Postfix)));
-        HarmonyInstance.Patch(typeof(CollectibleObject).GetMethod(nameof(CollectibleObject.GetMeltingPoint)),
-            postfix: typeof(CollectibleObject_GetMeltingPoint_Patch).GetMethod(
-                nameof(CollectibleObject_GetMeltingPoint_Patch.Postfix)));
     }
 
     public override void Dispose() {

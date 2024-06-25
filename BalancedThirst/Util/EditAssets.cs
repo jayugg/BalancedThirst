@@ -1,10 +1,9 @@
 using System.Linq;
 using BalancedThirst.ModBehavior;
 using Vintagestory.API.Common;
-using Vintagestory.API.Util;
 using Vintagestory.GameContent;
 
-namespace BalancedThirst.Systems;
+namespace BalancedThirst.Util;
 
 public static class EditAssets
 {
@@ -15,12 +14,11 @@ public static class EditAssets
             HydrationProperties hydrationProps = BtCore.ConfigServer.HydratingLiquids.FirstOrDefault(keyVal => collectible.MyWildCardMatch(keyVal.Key)).Value;
             if (hydrationProps != null)
             {
-                var behavior = new DrinkableBehavior(collectible);
-                collectible.CollectibleBehaviors = collectible.CollectibleBehaviors.Append(behavior);
+                collectible.AddDrinkableBehavior();
                 collectible.SetHydrationProperties(hydrationProps);
             }
         }
-        foreach (Block block in api.World.Blocks.Where(b => b?.Code != null))
+        foreach (var block in api.World.Blocks.Where(b => b?.Code != null))
         {
             HydrationProperties hydrationProps = BtCore.ConfigServer.HydratingBlocks.FirstOrDefault(keyVal => block.MyWildCardMatch(keyVal.Key)).Value;
             if (hydrationProps != null)

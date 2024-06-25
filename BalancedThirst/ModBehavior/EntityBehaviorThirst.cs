@@ -37,7 +37,7 @@ namespace BalancedThirst.ModBehavior
 
     public float Hydration
     {
-      get => this._thirstTree?.GetFloat("currenthydration") ?? 1500f;
+      get => this._thirstTree?.GetFloat("currenthydration") ?? BtCore.ConfigServer.MaxHydration;
       set
       {
         this._thirstTree?.SetFloat("currenthydration", value);
@@ -47,7 +47,7 @@ namespace BalancedThirst.ModBehavior
 
     public float MaxHydration
     {
-      get => this._thirstTree?.GetFloat("maxhydration") ?? 1500f;
+      get => this._thirstTree?.GetFloat("maxhydration") ?? BtCore.ConfigServer.MaxHydration;
       set
       {
         this._thirstTree?.SetFloat("maxhydration", value);
@@ -78,8 +78,8 @@ namespace BalancedThirst.ModBehavior
       if (this._thirstTree == null || this._thirstTree.GetFloat("maxhydration") == 0)
       {
         this.entity.WatchedAttributes.SetAttribute(AttributeKey, _thirstTree = new TreeAttribute());
-        this.Hydration = typeAttributes["currenthydration"].AsFloat(1500f);
-        this.MaxHydration = typeAttributes["maxhydration"].AsFloat(1500f);
+        this.Hydration = typeAttributes["currenthydration"].AsFloat(BtCore.ConfigServer.MaxHydration);
+        this.MaxHydration = typeAttributes["maxhydration"].AsFloat(BtCore.ConfigServer.MaxHydration);
         this.HydrationLossDelay = 180.0f;
         this.Euhydration = 0f;
       }
@@ -246,6 +246,12 @@ namespace BalancedThirst.ModBehavior
         return Func.CalcHungerModifier(ratio, BtCore.ConfigServer.ThirstHungerMultiplier,
           BtCore.ConfigServer.HungerBuffCurve, BtCore.ConfigServer.ThirstHungerMultiplierUpOrDown);
       }
+    }
+    
+    public void UpdateThirstBoosts()
+    {
+      this.UpdateThirstHungerBoost();
+      this.UpdateThirstHealthBoost();
     }
 
     private void UpdateThirstHungerBoost()

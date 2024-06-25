@@ -1,5 +1,6 @@
 ﻿using BalancedThirst.Blocks;
 using BalancedThirst.Config;
+using BalancedThirst.HoDCompat;
 using BalancedThirst.Hud;
 using BalancedThirst.Items;
 using BalancedThirst.ModBehavior;
@@ -18,12 +19,16 @@ public class BtCore : ModSystem
 {
     public static ILogger Logger;
     public static string Modid;
+    private static ICoreAPI _api;
+
+    public static bool IsHoDLoaded => _api.ModLoader.IsModEnabled("hydrateordiedrate");
     
     public static ConfigServer ConfigServer { get; set; }
     public static ConfigClient ConfigClient { get; set; }
     
     public override void StartPre(ICoreAPI api)
     {
+        _api = api;
         Modid = Mod.Info.ModID;
         Logger = Mod.Logger;
         if (api.Side.IsServer())
@@ -38,9 +43,9 @@ public class BtCore : ModSystem
         {
             _ = new ConfigLibCompat(api);
         }
-        if (api.ModLoader.IsModEnabled("hydrateordiedrate"))
+        if (IsHoDLoaded)
         {
-            _ = new ConfigLibCompat(api);
+            HydrationConfigLoader.GenerateBTHydrationConfig(api);
         }
     }
     
@@ -50,18 +55,23 @@ public class BtCore : ModSystem
         api.RegisterItemClass(Modid + "." + nameof(ItemDowsingRod), typeof(ItemDowsingRod));
         api.RegisterBlockBehaviorClass(Modid + ":GushingLiquid", typeof(BlockBehaviorGushingLiquid));
         api.RegisterBlockBehaviorClass(Modid + ":PureWater", typeof(BlockBehaviorPureWater));
+        if (ConfigServer.YieldThirstManagementToHoD) return;
         api.RegisterEntityBehaviorClass(Modid + ":thirst", typeof(EntityBehaviorThirst));
         api.RegisterCollectibleBehaviorClass(Modid + ":Drinkable", typeof(DrinkableBehavior));
     }
 
     public override void StartServerSide(ICoreServerAPI api)
     {
+        if (ConfigServer.YieldThirstManagementToHoD) return;
         api.Event.OnEntitySpawn += AddEntityBehaviors;
         api.Event.OnEntityLoaded += AddEntityBehaviors;
+        
+        BtCommands.Register(api, ConfigServer);
     }
 
     public override void StartClientSide(ICoreClientAPI capi)
     {
+        if (ConfigServer.YieldThirstManagementToHoD) return;
         capi.Gui.RegisterDialog(new GuiDialog[]
         {
             new ThirstBarHudElement(capi)
@@ -78,8 +88,10 @@ public class BtCore : ModSystem
     
     public override void AssetsFinalize(ICoreAPI api)
     {
+
         if (!api.Side.IsServer()) return;
-        EditAssets.AddHydrationToCollectibles(api);
         EditAssets.AddContainerProps(api);
+        if (ConfigServer.YieldThirstManagementToHoD) return;
+        EditAssets.AddHydrationToCollectibles(api);
     }
 }

@@ -1,1 +1,1 @@
-Fixed bug that game players double hydration (or quadruple) sometimes
+Added some HoD compatibility settings!

@@ -17,6 +17,7 @@ public class ConfigLibCompat
     
     private const string settingsSimple = "balancedthirst:Config.SettingsSimple";
     private const string settingsAdvanced = "balancedthirst:Config.SettingsAdvanced";
+    private const string settingsCompat = "balancedthirst:Config.SettingsCompat";
     private const string textSupportsWildcard = "balancedthirst:Config.Text.SupportsWildcard";
 
     public ConfigLibCompat(ICoreAPI api)
@@ -56,8 +57,7 @@ public class ConfigLibCompat
     {
         if (ImGui.CollapsingHeader(Lang.Get(settingsSimple) + $"##settingSimple-{id}"))
         {
-            config.UseHoDHydrationValues = OnCheckBox(id, config.UseHoDHydrationValues, nameof(config.UseHoDHydrationValues));
-            ImGui.Separator();
+            config.MaxHydration = OnInputFloat(id, config.MaxHydration, nameof(config.MaxHydration));
             config.ThirstKills = OnCheckBox(id, config.ThirstKills, nameof(config.ThirstKills));
             config.ThirstSpeedModifier = OnInputFloat(id, config.ThirstSpeedModifier, nameof(config.ThirstSpeedModifier));
             config.ThirstHungerMultiplier = OnInputFloat(id, config.ThirstHungerMultiplier, nameof(config.ThirstHungerMultiplier));
@@ -106,12 +106,32 @@ public class ConfigLibCompat
             }
             ImGui.Unindent();
         }
+        if (ImGui.CollapsingHeader(Lang.Get(settingsCompat) + $"##settingCompat-{id}"))
+        {
+            config.YieldThirstManagementToHoD = OnCheckBox(id, config.YieldThirstManagementToHoD,
+                    nameof(config.YieldThirstManagementToHoD), !BtCore.IsHoDLoaded);
+            config.UseHoDHydrationValues = OnCheckBox(id, config.UseHoDHydrationValues, nameof(config.UseHoDHydrationValues), config.YieldThirstManagementToHoD);
+        }
     }
 
-    private bool OnCheckBox(string id, bool value, string name)
+    private bool OnCheckBox(string id, bool value, string name, bool isDisabled = false)
     {
-        bool newValue = value;
-        ImGui.Checkbox(Lang.Get(settingPrefix + name) + $"##{name}-{id}", ref newValue);
+        bool newValue = value && !isDisabled;
+        if (isDisabled)
+        {
+            ImGui.PushStyleVar(ImGuiStyleVar.Alpha, ImGui.GetStyle().Alpha * 0.5f);
+        }
+        if (ImGui.Checkbox(Lang.Get(settingPrefix + name) + $"##{name}-{id}", ref newValue))
+        {
+            if (isDisabled)
+            {
+                newValue = value;
+            }
+        }
+        if (isDisabled)
+        {
+            ImGui.PopStyleVar();
+        }
         return newValue;
     }
 

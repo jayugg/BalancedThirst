@@ -39,8 +39,9 @@
     "balancedthirst": "Balanced Thirst (Server)",
     "Config.Text.SupportsWildcard": "Supports wildcard",
     "Config.SettingsSimple": "Simple Settings",
-    "Config.Setting.ThirstSpeedModifier": "Thirst speed modifier",
+    "Config.Setting.MaxHydration": "Max hydration",
     "Config.Setting.ThirstKills": "Can you die of thirst?",
+    "Config.Setting.ThirstSpeedModifier": "Thirst speed modifier",
     "Config.Setting.ThirstHungerMultiplier": "Hunger rate buff/debuff due to thirst",
     "Config.Setting.ThirstHungerMultiplierUpOrDown": "Should the hunger buff curve be from -1 to 1, from 0 to 1, or from -1 to 0?",
     "Config.Setting.HungerBuffCurve": "Curve that calulates hunger buff/debuff",
@@ -75,6 +76,10 @@
     "balancedthirst_client": "Balanced Thirst (Client)",
     "Config.Setting.ThirstBarX": "Thirst bar x offset",
     "Config.Setting.ThirstBarY": "Thirst bar y offser",
+    
+    "Config.SettingsCompat": "Compatibility Settings (Require reload)",
+    "Config.Setting.YieldThirstManagementToHoD": "Yield thirst management to HoD",
+    "Config.Setting.UseHoDHydrationValues": "Use HoD hydration values",
 
     "Found water nearby!" : "Found water nearby!",
 
