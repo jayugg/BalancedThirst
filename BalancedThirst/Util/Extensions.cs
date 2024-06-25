@@ -117,4 +117,9 @@ public static class Extensions
         return WildcardUtil.Match(regex, collectible.Code.ToString());
     }
     
+    public static void ReceiveCapacity(this Entity entity, float capacity)
+    {
+        if (!entity.HasBehavior<EntityBehaviorBladder>()) return;
+        entity.GetBehavior<EntityBehaviorBladder>().ReceiveCapacity(capacity);
+    }
 }

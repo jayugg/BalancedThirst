@@ -224,6 +224,7 @@ namespace BalancedThirst.Thirst
         this.Hydration = Math.Max(0.0f, hydration - satLossMultiplier * 10f);
         this._sprintCounter = 0;
       }
+      entity.ReceiveCapacity(hydration - this.Hydration);
       return false;
     }
     
