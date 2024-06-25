@@ -30,6 +30,10 @@ public class ConfigServer : IModConfig
     public float NoNutritionHydrationYield { get; set; }
     public float UnknownHydrationYield { get; set; }
     public int DowsingRodRadius { get; set; } = 50;
+
+    public bool BoilWaterInFirepits { get; set; } = true;
+
+    public bool GushingSpringWater { get; set; } = true;
     
     // Advanced Settings
     public List<string> HeatableLiquidContainers { get; set; } = BtConstants.HeatableLiquidContainers;
@@ -80,6 +84,9 @@ public class ConfigServer : IModConfig
         UnknownHydrationYield = previousConfig.UnknownHydrationYield;
         
         DowsingRodRadius = previousConfig.DowsingRodRadius;
+        
+        BoilWaterInFirepits = previousConfig.BoilWaterInFirepits;
+        GushingSpringWater = previousConfig.GushingSpringWater;
         
         HeatableLiquidContainers = previousConfig.HeatableLiquidContainers;
         WaterContainers = previousConfig.WaterContainers;

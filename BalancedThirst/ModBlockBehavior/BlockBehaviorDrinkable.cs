@@ -10,6 +10,7 @@ using Vintagestory.API.MathTools;
 
 namespace BalancedThirst.ModBlockBehavior;
 
+[Obsolete]
 public class BlockBehaviorDrinkable : BlockBehavior
 {
     public BlockBehaviorDrinkable(Block block) : base(block)

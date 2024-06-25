@@ -62,6 +62,8 @@
     "Config.Setting.NoNutritionHydrationYield": "No Nutrition Hydration Yield",
     "Config.Setting.UnknownHydrationYield": "Unknown Hydration Yield",
     "Config.Setting.DowsingRodRadius": "Dowsing rod range",
+    "Config.Setting.BoilWaterInFirepits": "Boil water in firepits",
+    "Config.Setting.GushingSpringWater": "Gushing spring water",
     "Config.SettingsAdvanced": "Advanced Settings",
     "Config.Setting.HeatableLiquidContainers": "Heatable Liquid Containers",
     "Config.Setting.WaterPortions": "Water Portions",

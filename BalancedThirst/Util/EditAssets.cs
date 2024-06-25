@@ -1,6 +1,8 @@
 using System.Linq;
 using BalancedThirst.ModBehavior;
+using BalancedThirst.ModBlockBehavior;
 using Vintagestory.API.Common;
+using Vintagestory.API.Util;
 using Vintagestory.GameContent;
 
 namespace BalancedThirst.Util;
@@ -37,4 +39,5 @@ public static class EditAssets
             container.SetAttribute("allowHeating", true);
         }
     }
+    
 }

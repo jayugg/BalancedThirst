@@ -84,6 +84,8 @@ public class ConfigLibCompat
             config.UnknownHydrationYield = OnInputFloat(id, config.UnknownHydrationYield, nameof(config.UnknownHydrationYield));
             ImGui.Separator();
             config.DowsingRodRadius = OnInputInt(id, config.DowsingRodRadius, nameof(config.DowsingRodRadius));
+            config.BoilWaterInFirepits = OnCheckBox(id, config.BoilWaterInFirepits, nameof(config.BoilWaterInFirepits));
+            config.GushingSpringWater = OnCheckBox(id, config.GushingSpringWater, nameof(config.GushingSpringWater));
         }
         if (ImGui.CollapsingHeader(Lang.Get(settingsAdvanced) + $"##settingAdvanced-{id}"))
         {

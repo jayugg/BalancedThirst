@@ -1,0 +1,35 @@
+[
+  {
+    "op": "add",
+    "path": "/attributesByType",
+    "value": {
+      "*-pure": {
+        "waterTightContainerProps": {
+          "nutritionPropsPerLitre": {
+            "satiety": -800,
+            "foodcategory": "NoNutrition"
+          }
+        }
+      },
+      "*-stagnant": {
+        "waterTightContainerProps": {
+          "nutritionPropsPerLitre": {
+            "satiety": -300,
+            "foodcategory": "NoNutrition"
+          }
+        }
+      },
+      "*-boiled": {
+        "waterTightContainerProps": {
+          "nutritionPropsPerLitre": {
+            "satiety": -700,
+            "foodcategory": "NoNutrition"
+          }
+        }
+      }
+    },
+    "dependsOn": [{ "modid": "hydrateordiedrate" }],
+    "file": "balancedthirst:itemtypes/liquid/waterportion.json",
+    "side": "Server"
+  }
+]

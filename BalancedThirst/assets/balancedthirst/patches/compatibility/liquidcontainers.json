@@ -1,6 +1,6 @@
 [
   {
-    "file": "blocktypes/waterskin.json",
+    "file": "balancedthirst:blocktypes/waterskin.json",
     "op": "add",
     "path": "/enabled",
     "value": false,

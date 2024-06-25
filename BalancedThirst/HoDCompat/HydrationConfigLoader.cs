@@ -70,9 +70,9 @@ namespace BalancedThirst.HoDCompat
                             ["itemname"] = "balancedthirst:waterportion-*",
                             ["hydrationByType"] = new JObject
                             {
+                                ["balancedthirst:waterportion-pure"] = 1000,
                                 ["balancedthirst:waterportion-boiled"] = 800,
-                                ["balancedthirst:waterportion-pure"] = 1200,
-                                ["balancedthirst:waterportion-stagnant"] = 400,
+                                ["balancedthirst:waterportion-stagnant"] = 200,
                                 ["*"] = 600
                             },
                             ["IsLiquid"] = true
