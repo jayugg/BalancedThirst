@@ -41,8 +41,8 @@ public class ConfigLibCompat
     {
         if (ImGui.CollapsingHeader(Lang.Get(settingsSimple) + $"##settingSimple-{id}"))
         {
-            config.ThirstBarX = OnInputFloat(id, config.ThirstBarX, nameof(config.ThirstBarX));
-            config.ThirstBarY = OnInputFloat(id, config.ThirstBarY, nameof(config.ThirstBarY));
+            config.ThirstBarX = OnInputFloat(id, config.ThirstBarX, nameof(config.ThirstBarX), -float.MaxValue);
+            config.ThirstBarY = OnInputFloat(id, config.ThirstBarY, nameof(config.ThirstBarY), -float.MaxValue);
             config.PeeMode = OnInputEnum(id, config.PeeMode, nameof(config.PeeMode));
         }
     }
