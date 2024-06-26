@@ -1,4 +1,5 @@
 using System;
+using BalancedThirst.ModBehavior;
 using BalancedThirst.Util;
 using Vintagestory.API.Common;
 using Vintagestory.API.Common.Entities;
@@ -224,6 +225,10 @@ namespace BalancedThirst.Thirst
         this.Hydration = Math.Max(0.0f, hydration - satLossMultiplier * 10f);
         this._sprintCounter = 0;
       }
+      BtCore.Logger.Warning("Hydration: " + this.Hydration);
+      entity.ReceiveCapacity(hydration - this.Hydration);
+      BtCore.Logger.Warning("Capacity: " + (hydration - this.Hydration));
+      BtCore.Logger.Warning("Capacity: " + entity.GetBehavior<EntityBehaviorBladder>().CurrentLevel);
       return false;
     }
     

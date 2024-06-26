@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using BalancedThirst.ModBehavior;
 using BalancedThirst.Thirst;
+using Vintagestory.API.Common;
 
 namespace BalancedThirst.Util;
 
@@ -61,5 +62,12 @@ public static class BtConstants
         { "@(game):" + BtCore.Modid + "-purewater-.*", new HydrationProperties { Hydration = 100, Purity = EnumPurityLevel.Pure } },
         { "@(game):boilingwater-.*", new HydrationProperties { Hydration = 100, Scalding = true, Purity = EnumPurityLevel.Potable } },
         { "@(game):saltwater-.*", new HydrationProperties { Hydration = 75, Purity = EnumPurityLevel.Okay, Salty = true } }
+    };
+    
+    public static readonly Dictionary<EnumSoilNutrient, float> UrineNutrientLevels = new()
+    {
+        { EnumSoilNutrient.N, 0.1f },
+        { EnumSoilNutrient.P, 0.0f },
+        { EnumSoilNutrient.K, 0.1f }
     };
 }

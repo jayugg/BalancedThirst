@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using BalancedThirst.ModBehavior;
 using BalancedThirst.ModBlockBehavior;
 using BalancedThirst.Thirst;
@@ -11,7 +13,7 @@ using Vintagestory.API.MathTools;
 using Vintagestory.API.Util;
 using Vintagestory.GameContent;
 
-namespace BalancedThirst;
+namespace BalancedThirst.Util;
 
 public static class Extensions
 {
@@ -117,4 +119,34 @@ public static class Extensions
         return WildcardUtil.Match(regex, collectible.Code.ToString());
     }
     
+    public static void ReceiveCapacity(this Entity entity, float capacity)
+    {
+        if (!entity.HasBehavior<EntityBehaviorBladder>()) return;
+        entity.GetBehavior<EntityBehaviorBladder>().ReceiveCapacity(capacity);
+    }
+    
+    public static void IncreaseNutrients(this BlockEntityFarmland be, Dictionary<EnumSoilNutrient, float> addNutrients)
+    {
+        var nutrientInfo = typeof(BlockEntityFarmland).GetField("nutrients",
+            BindingFlags.NonPublic | BindingFlags.Instance);
+        if (nutrientInfo?.GetValue(be) is float[] nutrients)
+        {
+            foreach (var pair in addNutrients)
+            {
+                switch (pair.Key)
+                {
+                    case EnumSoilNutrient.N:
+                        nutrients[0] += pair.Value;
+                        break;
+                    case EnumSoilNutrient.P:
+                        nutrients[1] += pair.Value;
+                        break;
+                    case EnumSoilNutrient.K:
+                        nutrients[2] += pair.Value;
+                        break;
+                }
+            }
+            be.MarkDirty(true);
+        }
+    }
 }

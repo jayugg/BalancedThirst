@@ -7,19 +7,19 @@ using BalancedThirst.Config;
 
 namespace BalancedThirst.HoDCompat
 {
-    public static class HydrationConfigLoader
+    public static class ItemHydrationConfigLoader
     {
         public static List<JObject> LoadHydrationPatches(ICoreAPI api)
         {
             List<JObject> allPatches = new List<JObject>();
             string configFolder = ModConfig.GetConfigPath(api);
-            List<string> configFiles = Directory.GetFiles(configFolder, "HoD.AddHydration*.json").ToList();
-            string defaultConfigPath = Path.Combine(configFolder, "HoD.AddHydration.json");
+            List<string> configFiles = Directory.GetFiles(configFolder, "*AddItemHydration*.json").ToList();
+            string defaultConfigPath = Path.Combine(configFolder, "HoD.AddItemHydration.json");
             if (!File.Exists(defaultConfigPath))
             {
                 GenerateDefaultHydrationConfig(api);
             }
-            string btConfigPath = Path.Combine(configFolder, "HoD.AddHydration.BT.json");
+            string btConfigPath = Path.Combine(configFolder, "BT.AddItemHydration.json");
             if (!File.Exists(btConfigPath))
             {
                 GenerateBTHydrationConfig(api);
@@ -57,7 +57,7 @@ namespace BalancedThirst.HoDCompat
 
         public static void GenerateBTHydrationConfig(ICoreAPI api)
         {
-            string configPath = Path.Combine(ModConfig.GetConfigPath(api), "HoD.AddHydration.BT.json");
+            string configPath = Path.Combine(ModConfig.GetConfigPath(api), "Bt.AddItemHydration.json");
             if (!File.Exists(configPath))
             {
                 var defaultConfig = new JObject

@@ -14,6 +14,11 @@ public class ConfigServer : IModConfig
     public float VomitHydrationMultiplier { get; set; } = 0.5f;
     public float VomitEuhydrationMultiplier { get; set; } = 0.8f;
     
+    public float UrineNutrientChance { get; set; } = 0.4f;
+    public float UrineDrainRate { get; set; } = 3f;
+    
+    public Dictionary<EnumSoilNutrient, float> UrineNutrientLevels { get; set; } = BtConstants.UrineNutrientLevels;
+    
     public Dictionary<string, ThirstStatMultiplier> ThirstStatMultipliers { get; set; } = new()
     {
         { "hungerrate", new ThirstStatMultiplier() { Multiplier = 0.3f } },
@@ -34,9 +39,7 @@ public class ConfigServer : IModConfig
     public float NoNutritionHydrationYield { get; set; }
     public float UnknownHydrationYield { get; set; }
     public int DowsingRodRadius { get; set; } = 50;
-
     public bool BoilWaterInFirepits { get; set; } = true;
-
     public bool GushingSpringWater { get; set; } = true;
     
     // Advanced Settings
@@ -66,6 +69,10 @@ public class ConfigServer : IModConfig
         
         VomitHydrationMultiplier = previousConfig.VomitHydrationMultiplier;
         VomitEuhydrationMultiplier = previousConfig.VomitEuhydrationMultiplier;
+        
+        UrineNutrientChance = previousConfig.UrineNutrientChance;
+        UrineDrainRate = previousConfig.UrineDrainRate;
+        UrineNutrientLevels = previousConfig.UrineNutrientLevels;
         
         ThirstStatMultipliers = previousConfig.ThirstStatMultipliers;
         
