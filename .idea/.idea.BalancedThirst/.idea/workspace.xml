@@ -9,39 +9,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e6b49e4b-520d-4578-b261-331cc4832028" name="Changes" comment="Add bladder">
-      <change afterPath="$PROJECT_DIR$/BalancedThirst/HoDCompat/BlockHydrationConfigLoader.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BalancedThirst/Network/PeeMessage.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BalancedThirst/Util/EnumPeeMode.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/patches/playerhasabladder.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.BalancedThirst/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.BalancedThirst/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BalancedThirst/BTCore.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/BTCore.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BalancedThirst/Config/ConfigClient.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/Config/ConfigClient.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BalancedThirst/Config/ConfigLibCompat.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/Config/ConfigLibCompat.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BalancedThirst/Config/ConfigServer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/Config/ConfigServer.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BalancedThirst/HarmonyPatches/BlockLiquidContainer/BlockLiquidContainerBase_tryEatStop_Patch.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/HarmonyPatches/BlockLiquidContainer/BlockLiquidContainerBase_tryEatStop_Patch.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BalancedThirst/HarmonyPatches/CollObj/CollectibleObject_CanSmelt_Patch.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/HarmonyPatches/CollObj/CollectibleObject_CanSmelt_Patch.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BalancedThirst/HarmonyPatches/CollObj/CollectibleObject_GetTransitionRateMul_Patch.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/HarmonyPatches/CollObj/CollectibleObject_GetTransitionRateMul_Patch.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BalancedThirst/HarmonyPatches/CollObj/CollectibleObject_tryEatBegin_Patch.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/HarmonyPatches/CollObj/CollectibleObject_tryEatBegin_Patch.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BalancedThirst/HarmonyPatches/CollObj/CollectibleObject_tryEatStep_Patch.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/HarmonyPatches/CollObj/CollectibleObject_tryEatStep_Patch.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BalancedThirst/HarmonyPatches/CollObj/CollectibleObject_tryEatStop_Patch.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/HarmonyPatches/CollObj/CollectibleObject_tryEatStop_Patch.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BalancedThirst/HoDCompat/HoDCompat.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/HoDCompat/HoDCompat.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BalancedThirst/HoDCompat/HoDManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/HoDCompat/HoDManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BalancedThirst/HoDCompat/HydrationConfigLoader.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/HoDCompat/ItemHydrationConfigLoader.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BalancedThirst/ModBehavior/EntityBehaviorBladder.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/ModBehavior/EntityBehaviorBladder.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BalancedThirst/ModBlockBehavior/BlockBehaviorDrinkable.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/ModBlockBehavior/BlockBehaviorDrinkable.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BalancedThirst/ModBlockBehavior/BlockBehaviorGushingLiquid.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/ModBlockBehavior/BlockBehaviorGushingLiquid.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BalancedThirst/ModBlockBehavior/BlockBehaviorPureWater.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/ModBlockBehavior/BlockBehaviorPureWater.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BalancedThirst/Systems/DrinkNetwork.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/Systems/DrinkNetwork.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BalancedThirst/Thirst/EntityBehaviorThirst.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/Thirst/EntityBehaviorThirst.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BalancedThirst/Util/BtConstants.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/Util/BtConstants.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BalancedThirst/Util/Extensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/Util/Extensions.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/lang/en.json" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/lang/en.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Releases/balancedthirst/BalancedThirst.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Releases/balancedthirst/BalancedThirst.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Releases/balancedthirst/BalancedThirst.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Releases/balancedthirst/BalancedThirst.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Releases/balancedthirst/assets/balancedthirst/lang/en.json" beforeDir="false" afterPath="$PROJECT_DIR$/Releases/balancedthirst/assets/balancedthirst/lang/en.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Releases/balancedthirst_0.0.11.zip" beforeDir="false" afterPath="$PROJECT_DIR$/Releases/balancedthirst_0.0.11.zip" afterDir="false" />
-    </list>
+    <list default="true" id="e6b49e4b-520d-4578-b261-331cc4832028" name="Changes" comment="Up to date with master" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -729,7 +697,15 @@
       <option name="project" value="LOCAL" />
       <updated>1719336573027</updated>
     </task>
-    <option name="localTasksCounter" value="49" />
+    <task id="LOCAL-00049" summary="Up to date with master">
+      <option name="closed" value="true" />
+      <created>1719370359189</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1719370359189</updated>
+    </task>
+    <option name="localTasksCounter" value="50" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -751,7 +727,6 @@
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-    <MESSAGE value="Added worldgen and different dowsing rod" />
     <MESSAGE value="Working + GUI" />
     <MESSAGE value="Network attempt" />
     <MESSAGE value="Dynamic stat updating in character menu" />
@@ -776,6 +751,7 @@
     <MESSAGE value="More config settings" />
     <MESSAGE value="Added config option for many stat modifiers" />
     <MESSAGE value="Add bladder" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add bladder" />
+    <MESSAGE value="Up to date with master" />
+    <option name="LAST_COMMIT_MESSAGE" value="Up to date with master" />
   </component>
 </project>
