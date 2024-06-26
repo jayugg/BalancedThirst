@@ -17,7 +17,7 @@ public class HoDCompat : ModSystem
     public override void StartPre(ICoreAPI api)
     {
         base.StartPre(api);
-        HydrationConfigLoader.GenerateDefaultHydrationConfig(api);
+        ItemHydrationConfigLoader.GenerateDefaultHydrationConfig(api);
     }
     
     public override void AssetsFinalize(ICoreAPI api)
@@ -28,7 +28,7 @@ public class HoDCompat : ModSystem
     
     private void LoadAndApplyHydrationPatches(ICoreAPI api)
     {
-        List<JObject> hydrationPatches = HydrationConfigLoader.LoadHydrationPatches(api);
+        List<JObject> hydrationPatches = ItemHydrationConfigLoader.LoadHydrationPatches(api);
         HoDManager.ApplyHydrationPatches(api, hydrationPatches);
     }
 }

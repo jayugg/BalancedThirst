@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using BalancedThirst.ModBehavior;
 using BalancedThirst.Thirst;
+using BalancedThirst.Util;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
 using Vintagestory.API.Common.Entities;

@@ -43,6 +43,7 @@ public class ConfigLibCompat
         {
             config.ThirstBarX = OnInputFloat(id, config.ThirstBarX, nameof(config.ThirstBarX));
             config.ThirstBarY = OnInputFloat(id, config.ThirstBarY, nameof(config.ThirstBarY));
+            config.PeeMode = OnInputEnum(id, config.PeeMode, nameof(config.PeeMode));
         }
     }
 
@@ -64,8 +65,17 @@ public class ConfigLibCompat
             config.ThirstSpeedModifier = OnInputFloat(id, config.ThirstSpeedModifier, nameof(config.ThirstSpeedModifier));
             config.VomitHydrationMultiplier = OnInputFloat(id, config.VomitHydrationMultiplier, nameof(config.VomitHydrationMultiplier));
             config.VomitEuhydrationMultiplier = OnInputFloat(id, config.VomitEuhydrationMultiplier, nameof(config.VomitEuhydrationMultiplier));
+            ImGui.Separator();
+            config.UrineNutrientChance = OnInputFloat(id, config.UrineNutrientChance, nameof(config.UrineNutrientChance));
+            config.UrineDrainRate = OnInputFloat(id, config.UrineDrainRate, nameof(config.UrineDrainRate));
+            DisplayEnumFloatDictionary(config.UrineNutrientLevels, nameof(config.UrineNutrientLevels), id);
+            ImGui.Separator();
             if (ImGui.CollapsingHeader(Lang.Get(settingsStatMultipliers) + $"##settingStatMultipliers-{id}"))
+            {
+                ImGui.Indent();
                 DictionaryEditor(config.ThirstStatMultipliers, new ThirstStatMultiplier());
+                ImGui.Unindent();
+            }
             ImGui.Separator();
             config.PurePurityLevel = OnInputFloat(id, config.PurePurityLevel, nameof(config.PurePurityLevel));
             config.FilteredPurityLevel = OnInputFloat(id, config.FilteredPurityLevel, nameof(config.FilteredPurityLevel));
@@ -276,6 +286,26 @@ public class ConfigLibCompat
             }
             ImGui.TableNextColumn();
             ImGui.EndTable();
+        }
+    }
+    
+    private void DisplayEnumFloatDictionary<T>(Dictionary<T, float> dictionary, string name, string id) where T : Enum
+    {
+        if (ImGui.CollapsingHeader(Lang.Get(settingPrefix + name) + $"##dictEnumFloat-{id}"))
+        {
+            ImGui.Indent();
+            foreach (var pair in dictionary)
+            {
+                T key = pair.Key;
+                float value = pair.Value;
+
+                ImGui.Text(key.ToString());
+                ImGui.SameLine();
+                ImGui.InputFloat($"##{key}", ref value);
+                
+                dictionary[key] = value;
+            }
+            ImGui.Unindent();
         }
     }
 }

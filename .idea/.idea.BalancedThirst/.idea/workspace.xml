@@ -10,9 +10,37 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e6b49e4b-520d-4578-b261-331cc4832028" name="Changes" comment="Add bladder">
+      <change afterPath="$PROJECT_DIR$/BalancedThirst/HoDCompat/BlockHydrationConfigLoader.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BalancedThirst/Network/PeeMessage.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BalancedThirst/Util/EnumPeeMode.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/patches/playerhasabladder.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.BalancedThirst/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.BalancedThirst/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BalancedThirst/BTCore.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/BTCore.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BalancedThirst/Config/ConfigClient.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/Config/ConfigClient.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BalancedThirst/Config/ConfigLibCompat.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/Config/ConfigLibCompat.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BalancedThirst/Config/ConfigServer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/Config/ConfigServer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BalancedThirst/HarmonyPatches/BlockLiquidContainer/BlockLiquidContainerBase_tryEatStop_Patch.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/HarmonyPatches/BlockLiquidContainer/BlockLiquidContainerBase_tryEatStop_Patch.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BalancedThirst/HarmonyPatches/CollObj/CollectibleObject_CanSmelt_Patch.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/HarmonyPatches/CollObj/CollectibleObject_CanSmelt_Patch.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BalancedThirst/HarmonyPatches/CollObj/CollectibleObject_GetTransitionRateMul_Patch.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/HarmonyPatches/CollObj/CollectibleObject_GetTransitionRateMul_Patch.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BalancedThirst/HarmonyPatches/CollObj/CollectibleObject_tryEatBegin_Patch.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/HarmonyPatches/CollObj/CollectibleObject_tryEatBegin_Patch.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BalancedThirst/HarmonyPatches/CollObj/CollectibleObject_tryEatStep_Patch.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/HarmonyPatches/CollObj/CollectibleObject_tryEatStep_Patch.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BalancedThirst/HarmonyPatches/CollObj/CollectibleObject_tryEatStop_Patch.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/HarmonyPatches/CollObj/CollectibleObject_tryEatStop_Patch.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BalancedThirst/HoDCompat/HoDCompat.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/HoDCompat/HoDCompat.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BalancedThirst/HoDCompat/HoDManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/HoDCompat/HoDManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BalancedThirst/HoDCompat/HydrationConfigLoader.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/HoDCompat/ItemHydrationConfigLoader.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BalancedThirst/ModBehavior/EntityBehaviorBladder.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/ModBehavior/EntityBehaviorBladder.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BalancedThirst/ModBlockBehavior/BlockBehaviorDrinkable.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/ModBlockBehavior/BlockBehaviorDrinkable.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BalancedThirst/ModBlockBehavior/BlockBehaviorGushingLiquid.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/ModBlockBehavior/BlockBehaviorGushingLiquid.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BalancedThirst/ModBlockBehavior/BlockBehaviorPureWater.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/ModBlockBehavior/BlockBehaviorPureWater.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BalancedThirst/Systems/DrinkNetwork.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/Systems/DrinkNetwork.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BalancedThirst/Thirst/EntityBehaviorThirst.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/Thirst/EntityBehaviorThirst.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BalancedThirst/Util/BtConstants.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/Util/BtConstants.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BalancedThirst/Util/Extensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/Util/Extensions.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/lang/en.json" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/lang/en.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Releases/balancedthirst/BalancedThirst.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Releases/balancedthirst/BalancedThirst.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Releases/balancedthirst/BalancedThirst.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Releases/balancedthirst/BalancedThirst.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Releases/balancedthirst/assets/balancedthirst/lang/en.json" beforeDir="false" afterPath="$PROJECT_DIR$/Releases/balancedthirst/assets/balancedthirst/lang/en.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Releases/balancedthirst_0.0.11.zip" beforeDir="false" afterPath="$PROJECT_DIR$/Releases/balancedthirst_0.0.11.zip" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -94,6 +122,7 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/542ba26bb8aa4ea49b5afc99fb8541f2246200/7d/419155b4/TreeGen.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/542ba26bb8aa4ea49b5afc99fb8541f2246200/81/0e30afec/BlockBerryBush.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/542ba26bb8aa4ea49b5afc99fb8541f2246200/92/db029b1a/EntityBehaviorConversable.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/542ba26bb8aa4ea49b5afc99fb8541f2246200/96/3cc97765/BlockFarmland.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/542ba26bb8aa4ea49b5afc99fb8541f2246200/97/ddb27eb9/EntityTrader.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/542ba26bb8aa4ea49b5afc99fb8541f2246200/9a/71acd34e/RecipeRegistrySystem.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/542ba26bb8aa4ea49b5afc99fb8541f2246200/9b/07fc2989/ModTemperature.cs" root0="SKIP_HIGHLIGHTING" />
@@ -123,6 +152,7 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/b4dd82ebff7a472d87d85df3653210b290200/2c/48e75757/CharacterExtraDialogs.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/b4dd82ebff7a472d87d85df3653210b290200/44/57a11699/ErrorReporter.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/b4dd82ebff7a472d87d85df3653210b290200/47/3ac9c5d6/EntityMapLayer.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/b4dd82ebff7a472d87d85df3653210b290200/53/e5a03f1e/EntityBehaviorTiredness.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/b4dd82ebff7a472d87d85df3653210b290200/57/84e14d38/WaypointMapLayer.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/b4dd82ebff7a472d87d85df3653210b290200/5a/2f933349/EntityBehaviorHealth.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/b4dd82ebff7a472d87d85df3653210b290200/ab/97afd59b/WorldMapManager.cs" root0="SKIP_HIGHLIGHTING" />
@@ -134,6 +164,7 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/c1f9f1d656394ee5bb78c49d93c5e56f1c2400/0a/dbc2a280/IMapRegion.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/c1f9f1d656394ee5bb78c49d93c5e56f1c2400/12/47eaeaa0/BlockPos.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/c1f9f1d656394ee5bb78c49d93c5e56f1c2400/14/9ce1ee23/Lang.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/c1f9f1d656394ee5bb78c49d93c5e56f1c2400/17/fac5dca2/BlockSelection.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/c1f9f1d656394ee5bb78c49d93c5e56f1c2400/1b/53b411e3/HotkeyComponent.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/c1f9f1d656394ee5bb78c49d93c5e56f1c2400/20/1dc88f6d/EntityAgent.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/c1f9f1d656394ee5bb78c49d93c5e56f1c2400/22/70679d5e/CompositeTexture.cs" root0="SKIP_HIGHLIGHTING" />
@@ -151,6 +182,7 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/c1f9f1d656394ee5bb78c49d93c5e56f1c2400/54/89de1868/RegistryObject.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/c1f9f1d656394ee5bb78c49d93c5e56f1c2400/56/7a053ae9/DamageSource.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/c1f9f1d656394ee5bb78c49d93c5e56f1c2400/58/dc563859/EntityPlayer.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/c1f9f1d656394ee5bb78c49d93c5e56f1c2400/5a/d73ad9f6/FertilizerProps.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/c1f9f1d656394ee5bb78c49d93c5e56f1c2400/5d/ff41dc82/IClientWorldAccessor.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/c1f9f1d656394ee5bb78c49d93c5e56f1c2400/5f/ac20bb76/PlayerAnimationManager.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/c1f9f1d656394ee5bb78c49d93c5e56f1c2400/60/0f5692b2/WildcardUtil.cs" root0="SKIP_HIGHLIGHTING" />
@@ -196,6 +228,8 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/f4f0f8dbf5044cc9b54d09261e66625987e00/d6/5694afb6/Enumerable.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/58b0b7706a8be4f7160749424eb996a3f845a1682c3c7ac5e405a346a8c20f1/JToken.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/cb2420db748f7fd88d1ab6c5e0f9ff39f769eb6f7372b38df2188dfee6a86e3/Traverse.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Users/jacopouggeri/workspace/VintageModding/BalancedThirst/BalancedThirst/BTCore.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Users/jacopouggeri/workspace/VintageModding/BalancedThirst/BalancedThirst/BTCore.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/BalancedThirst/Config/ConfigServer.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/BalancedThirst/ModBehavior/DrinkableBehavior.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/itemtypes/dowsingrod.json" root0="FORCE_HIGHLIGHTING" />
@@ -221,31 +255,31 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    ".NET Launch Settings Profile.BalancedThirst: Client.executor": "Run",
-    ".NET Launch Settings Profile.BalancedThirst: Server.executor": "Run",
-    ".NET Project.CakeBuild.executor": "Run",
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "ToolWindowGitHub Copilot Chat.ShowToolbar": "false",
-    "git-widget-placeholder": "add-bladder",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;.NET Launch Settings Profile.BalancedThirst: Client.executor&quot;: &quot;Run&quot;,
+    &quot;.NET Launch Settings Profile.BalancedThirst: Server.executor&quot;: &quot;Run&quot;,
+    &quot;.NET Project.CakeBuild.executor&quot;: &quot;Run&quot;,
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;ToolWindowGitHub Copilot Chat.ShowToolbar&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;add-bladder&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "rider.external.source.directories": [
-      "/Users/jacopouggeri/Library/Application Support/JetBrains/Rider2024.1/resharper-host/DecompilerCache",
-      "/Users/jacopouggeri/Library/Application Support/JetBrains/Rider2024.1/resharper-host/SourcesCache",
-      "/Users/jacopouggeri/Library/Application Support/Symbols/src"
+  &quot;keyToStringList&quot;: {
+    &quot;rider.external.source.directories&quot;: [
+      &quot;/Users/jacopouggeri/Library/Application Support/JetBrains/Rider2024.1/resharper-host/DecompilerCache&quot;,
+      &quot;/Users/jacopouggeri/Library/Application Support/JetBrains/Rider2024.1/resharper-host/SourcesCache&quot;,
+      &quot;/Users/jacopouggeri/Library/Application Support/Symbols/src&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected=".NET Launch Settings Profile.BalancedThirst: Client">
     <configuration name="CakeBuild" type="DotNetProject" factoryName=".NET Project">
       <option name="EXE_PATH" value="" />

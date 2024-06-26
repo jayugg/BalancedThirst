@@ -46,7 +46,7 @@ public class BtCore : ModSystem
         }
         if (IsHoDLoaded)
         {
-            HydrationConfigLoader.GenerateBTHydrationConfig(api);
+            ItemHydrationConfigLoader.GenerateBTHydrationConfig(api);
         }
     }
     
@@ -65,6 +65,7 @@ public class BtCore : ModSystem
     public override void StartServerSide(ICoreServerAPI api)
     {
         if (ConfigServer.YieldThirstManagementToHoD) return;
+        // Not sure if this is working... adding with json patch instead
         api.Event.OnEntitySpawn += AddEntityBehaviors;
         api.Event.OnEntityLoaded += AddEntityBehaviors;
         

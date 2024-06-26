@@ -45,6 +45,10 @@
     "Config.Setting.VomitHydrationMultiplier": "Hydration reduction when vomiting",
     "Config.Setting.VomitEuhydrationMultiplier": "Euhydration reduction when vomiting",
     
+    "Config.Setting.UrineNutrientChance": "Chance of urine giving nutrients to farmland (0 to disable)",
+    "Config.Setting.UrineDrainRate": "Rate of urine drain",
+    "Config.Setting.UrineNutrientLevels": "Amount of nutrients given by urine",
+    
     "Config.SettingsStatMultipliers": "Hydration modifiers to player stats",
 
     "Config.Setting.Multiplier": "Max value of buff/debuff due to thirst",
@@ -79,9 +83,11 @@
     "Config.Setting.Purity": "Purity",
     "Config.Setting.Salty": "Salty",
     "Config.Setting.Scalding": "Scalding",
+    
     "balancedthirst_client": "Balanced Thirst (Client)",
     "Config.Setting.ThirstBarX": "Thirst bar x offset",
     "Config.Setting.ThirstBarY": "Thirst bar y offser",
+    "Config.Setting.PeeMode": "Sitting or Standing?",
     
     "Config.SettingsCompat": "Compatibility Settings (Require reload)",
     "Config.Setting.YieldThirstManagementToHoD": "Yield thirst management to HoD",
