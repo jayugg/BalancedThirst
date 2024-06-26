@@ -1,0 +1,14 @@
+[
+  {
+    "op": "add",
+    "path": "/server/behaviors/6",
+    "value": {
+      "code": "balancedthirst:bladder",
+      "currenthydration": 1500.0,
+      "maxhydration": 1500.0,
+      "hydrationlossdelay": 180.0
+    },
+    "file": "game:entities/humanoid/player.json",
+    "side": "Server"
+  }
+]
