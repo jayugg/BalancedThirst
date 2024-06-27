@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using BalancedThirst.ModBehavior;
 using BalancedThirst.Thirst;
 using BalancedThirst.Util;
 using Newtonsoft.Json.Linq;
@@ -35,7 +34,7 @@ public class HoDManager
                     }
                     else if (patch.ContainsKey("hydrationByType"))
                     {
-                        var hydrationByType = patch["hydrationByType"].ToObject<Dictionary<string, float>>();
+                        var hydrationByType = patch["hydrationByType"]?.ToObject<Dictionary<string, float>>();
                         foreach (var entry in hydrationByType)
                         {
                             string key = entry.Key;
@@ -61,5 +60,77 @@ public class HoDManager
             return System.Text.RegularExpressions.Regex.IsMatch(itemName, pattern);
         }
         return itemName == patchItemName;
+    }
+    
+    /* ------------------------------------------Block---------------------------------------- */
+
+    public static void SetBlockHydration(Block block, BlockHydrationConfig config)
+    {
+        HydrationProperties hydrationProperties = config.ToHydrationProperties(block.Code.ToString());
+        if (hydrationProperties != null)
+        {
+            block.SetHydrationProperties(hydrationProperties);
+        }
+    }
+
+    public static void ApplyBlockHydrationPatches(ICoreAPI api, List<JObject> patches)
+    {
+        foreach (var block in api.World.Blocks)
+        {
+            foreach (var patch in patches)
+            {
+                string blockCode = patch["blockCode"].ToString();
+                if (IsWildcardMatch(block.Code.ToString(), blockCode))
+                {
+                    var config = patch.ToObject<BlockHydrationConfig>();
+                    SetBlockHydration(block, config);
+                }
+            }
+        }
+    }
+    
+    private static bool IsWildcardMatch(string text, string pattern)
+    {
+        var regexPattern = "^" + System.Text.RegularExpressions.Regex.Escape(pattern).Replace("\\*", ".*") + "$";
+        return System.Text.RegularExpressions.Regex.IsMatch(text, regexPattern);
+    }
+    
+    public static float? GetBlockHydration(string blockCode, Dictionary<string, float> hydrationByType)
+    {
+        // Exact match
+        if (hydrationByType.TryGetValue(blockCode, out var hydration))
+        {
+            return hydration;
+        }
+
+        // Wildcard match
+        foreach (var key in hydrationByType.Keys)
+        {
+            if (IsWildcardMatch(blockCode, key))
+            {
+                return hydrationByType[key];
+            }
+        }
+        return null;
+    }
+
+    public class BlockHydrationConfig
+    {
+        public Dictionary<string, float> HydrationByType { get; set; }
+        public bool IsBoiling { get; set; }
+        public int HungerReduction { get; set; }
+    
+        public HydrationProperties ToHydrationProperties(string blockCode)
+        {
+            if (HydrationByType != null && GetBlockHydration(blockCode, HydrationByType) is { } hydration)
+            {
+                return new HydrationProperties
+                {
+                    Hydration = hydration,
+                    Scalding = IsBoiling,
+                };
+            }
+            return null;
+        }
     }
 }

@@ -1,2 +1,3 @@
-Finished HoD compatibility
-Added bladder and relevant config (client and server)
+More HoD Compatibility
+Urination in container
+Thirst bar adapts to screen size

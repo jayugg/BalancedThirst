@@ -1,3 +1,4 @@
+using System;
 using BalancedThirst.Util;
 using Vintagestory.API.Common;
 
@@ -8,7 +9,9 @@ public class HydrationProperties
     public float Hydration;
     public float HydrationLossDelay = 10f;
     public EnumPurityLevel Purity;
+    public float EuhydrationWeight = 1/10f;
     public bool Scalding;
+    [Obsolete ("Use EuhydrationWeight instead")]
     public bool Salty;
     
     public HydrationProperties Clone()
@@ -18,8 +21,8 @@ public class HydrationProperties
             Hydration = this.Hydration,
             HydrationLossDelay = this.HydrationLossDelay,
             Purity = this.Purity,
+            EuhydrationWeight = this.EuhydrationWeight + (this.Salty ? -0.6f : 0),
             Scalding = this.Scalding,
-            Salty = this.Salty
         };
     }
     
@@ -66,18 +69,6 @@ public class HydrationProperties
         }
         return hydrationProps;
     }
-    
-    public static HydrationProperties operator /(HydrationProperties a, HydrationProperties b)
-    {
-        return new HydrationProperties()
-        {
-            Hydration = a.Hydration / b.Hydration,
-            HydrationLossDelay = a.HydrationLossDelay / b.HydrationLossDelay,
-            Purity = a.Purity,
-            Scalding = a.Scalding,
-            Salty = a.Salty
-        };
-    }
 
     public static HydrationProperties operator /(HydrationProperties a, float b)
     {
@@ -86,8 +77,8 @@ public class HydrationProperties
             Hydration = a.Hydration / b,
             HydrationLossDelay = a.HydrationLossDelay / b,
             Purity = a.Purity,
+            EuhydrationWeight = a.EuhydrationWeight,
             Scalding = a.Scalding,
-            Salty = a.Salty
         };
     }
 }

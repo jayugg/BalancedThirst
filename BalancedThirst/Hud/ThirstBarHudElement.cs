@@ -66,18 +66,30 @@ namespace BalancedThirst.Hud
 
         private void ComposeGuis()
         {
-            ElementBounds thirstBarBounds = ElementStdBounds.Statbar(EnumDialogArea.RightBottom, 348.5)
-                .WithFixedAlignmentOffset(-220 + BtCore.ConfigClient.ThirstBarX, -45 + BtCore.ConfigClient.ThirstBarY)
-                .WithFixedHeight(10.0);
+            float num = 850f;
+            ElementBounds parentBounds = new ElementBounds()
+            {
+                Alignment = EnumDialogArea.CenterBottom,
+                BothSizing = ElementSizing.Fixed,
+                fixedWidth = num,
+                fixedHeight = 40.0
+            }.WithFixedAlignmentOffset(0.0, -45.0);
+            
+            ElementBounds thirstBarBounds = ElementStdBounds.Statbar(EnumDialogArea.RightBottom, num * 0.41)
+                .WithFixedAlignmentOffset(-2.0 + BtCore.ConfigClient.ThirstBarX, BtCore.ConfigClient.ThirstBarY);
+            thirstBarBounds.WithFixedHeight(10.0);
 
-            GuiComposer compo = capi.Gui.CreateCompo("thirstBar", thirstBarBounds.FlatCopy().FixedGrow(0.0, 20.0));
+            var compo = capi.Gui.CreateCompo("thirstbar", parentBounds.FlatCopy().FixedGrow(0.0, 20.0));
+            
+            _thirstBar = new GuiElementStatbar(capi, thirstBarBounds, ModGuiStyle.ThirstBarColor, true, false);
 
-            _thirstBar = new GuiElementStatbar(compo.Api, thirstBarBounds, ModGuiStyle.ThirstBarColor, true, true);
-
-            compo.AddInteractiveElement(_thirstBar, "thirstBar");
-            compo.Compose();
-
-            Composers["thirstBar"] = compo;
+            compo.BeginChildElements(parentBounds)
+                .AddInteractiveElement(_thirstBar, "thirstbar")
+                .EndChildElements()
+                .Compose();
+            
+            this.Composers["thirstbar"] = compo;
+            
             TryOpen();
         }
         

@@ -1,4 +1,6 @@
 using System;
+using BalancedThirst.Thirst;
+using BalancedThirst.Util;
 using Vintagestory.API.Common;
 using Vintagestory.API.Common.Entities;
 using Vintagestory.API.Datastructures;
@@ -48,6 +50,7 @@ public class EntityBehaviorBladder : EntityBehavior
             this.CurrentLevel = typeAttributes["currentlevel"].AsFloat(BtCore.ConfigServer.MaxHydration);
             this.Capacity = typeAttributes["capacity"].AsFloat(BtCore.ConfigServer.MaxHydration);
         }
+        this._listenerId = this.entity.World.RegisterGameTickListener(this.SlowTick, 6000);
     }
     
     public void ReceiveCapacity(float capacity)
@@ -74,6 +77,30 @@ public class EntityBehaviorBladder : EntityBehavior
         if (soundRepeats <= 0)
             return;
         byEntity.World.RegisterCallback(_ => PlayPeeSound(byEntity, soundRepeats), 300);
+    }
+    
+    private void SlowTick(float dt)
+    { 
+        if (this.entity is EntityPlayer &&
+            this.entity.World.PlayerByUid(((EntityPlayer)this.entity).PlayerUID).WorldData.CurrentGameMode ==
+            EnumGameMode.Creative)
+            return;
+        if (CurrentLevel <= Capacity*0.8f)
+        {
+            this.entity.Stats.Remove("movespeed", "bladderfull");
+        }
+        else
+        {
+            var multiplier = new ThirstStatMultiplier()
+            {
+                Multiplier = 0.5f,
+                Centering = EnumUpOrDown.Down,
+                Curve = EnumBuffCurve.InverseQuintic,
+                LowerHalfCurve = EnumBuffCurve.None,
+                Inverted = true
+            };
+            this.entity.Stats.Set("movespeed", "bladderfull", multiplier.CalcModifier(CurrentLevel/Capacity), true);
+        }
     }
     
 }

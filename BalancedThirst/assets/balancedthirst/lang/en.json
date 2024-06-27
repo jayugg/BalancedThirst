@@ -23,6 +23,8 @@
     "incontainer-item-waterportion-stagnant": "Stagnant water",
     "item-wetsaltportion": "Wet salt",
     "incontainer-item-wetsaltportion": "Wet salt",
+    "item-urineportion": "Urine",
+    "incontainer-item-urineportion": "Urine",
 
     "item-wetsalt": "Wet salt crystals",
 
@@ -41,6 +43,7 @@
     "Config.SettingsSimple": "Simple Settings",
     "Config.Setting.MaxHydration": "Max hydration",
     "Config.Setting.ThirstKills": "Can you die of thirst?",
+    "Config.Setting.HotTemperatureThreshold": "At which temperature do you get thirsty faster?",
     "Config.Setting.ThirstSpeedModifier": "Thirst speed modifier",
     "Config.Setting.VomitHydrationMultiplier": "Hydration reduction when vomiting",
     "Config.Setting.VomitEuhydrationMultiplier": "Euhydration reduction when vomiting",
@@ -92,6 +95,7 @@
     "Config.SettingsCompat": "Compatibility Settings (Require reload)",
     "Config.Setting.YieldThirstManagementToHoD": "Yield thirst management to HoD",
     "Config.Setting.UseHoDHydrationValues": "Use HoD hydration values",
+    "Config.Setting.HoDClothingCoolingMultiplier": "Clothing cooling multiplier",
 
     "Found water nearby!" : "Found water nearby!",
 

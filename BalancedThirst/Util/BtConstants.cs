@@ -48,11 +48,12 @@ public static class BtConstants
         { "@(game):honeyportion", new HydrationProperties { Hydration = 10 } },
         { "@(game):jamhoneyportion", new HydrationProperties { Hydration = 10 } },
         { "@(game):boilingwaterportion", new HydrationProperties { Hydration = 100, Scalding = true, Purity = EnumPurityLevel.Potable } },
-        { "@(game):saltwaterportion", new HydrationProperties { Hydration = 60, Salty = true, Purity = EnumPurityLevel.Okay } },
-        { "@(game):brineportion", new HydrationProperties { Hydration = 80, Salty = true, Purity = EnumPurityLevel.Okay } },
+        { "@(game):saltwaterportion", new HydrationProperties { Hydration = 60, Purity = EnumPurityLevel.Okay, EuhydrationWeight = -0.5f } },
+        { "@(game):brineportion", new HydrationProperties { Hydration = 80, Purity = EnumPurityLevel.Okay } },
         { "@(" + BtCore.Modid + "):waterportion-pure", new HydrationProperties { Hydration = 100, Purity = EnumPurityLevel.Pure } },
         { "@(" + BtCore.Modid + "):waterportion-boiled", new HydrationProperties { Hydration = 100, Purity = EnumPurityLevel.Potable } },
         { "@(" + BtCore.Modid + "):waterportion-stagnant", new HydrationProperties { Hydration = 100, Purity = EnumPurityLevel.Stagnant } },
+        { "@(" + BtCore.Modid + "):urineportion", new HydrationProperties { Hydration = 80, Purity = EnumPurityLevel.Pure, EuhydrationWeight = -0.5f } },
         { "@(game):rot", new HydrationProperties { Hydration = 20, Purity = EnumPurityLevel.Yuck } }
     };
     

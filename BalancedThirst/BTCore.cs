@@ -47,6 +47,7 @@ public class BtCore : ModSystem
         if (IsHoDLoaded)
         {
             ItemHydrationConfigLoader.GenerateBTHydrationConfig(api);
+            BlockHydrationConfigLoader.GenerateBTHydrationConfig(api);
         }
     }
     

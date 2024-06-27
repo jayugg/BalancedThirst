@@ -1,5 +1,4 @@
 using System;
-using BalancedThirst.ModBehavior;
 using BalancedThirst.Util;
 using Vintagestory.API.Common;
 using Vintagestory.API.Common.Entities;
@@ -149,11 +148,6 @@ namespace BalancedThirst.Thirst
         entity.WatchedAttributes.SetFloat("intoxication", 1.0f);
         entity.World.RegisterCallback(dt => Vomit(), 2000);
       }
-      if (hydrationProperties.Salty)
-      {
-        this.entity.Stats.Set(BtCore.Modid+":thirstrate", "dranksaltwater", 3);
-        entity.World.RegisterCallback(dt => entity.Stats.Remove(BtCore.Modid+":thirstrate", "dranksaltwater"), 10000);
-      }
       if (hydrationProperties.Scalding) entity.ReceiveDamage(new DamageSource() {Type = EnumDamageType.Heat, Source = EnumDamageSource.Internal}, 3);
       this.UpdateThirstStatBoosts();
       if (!isHydrationMaxed) this.UpdateThirstHealthBoost(hydrationProperties);
@@ -225,10 +219,10 @@ namespace BalancedThirst.Thirst
         this.Hydration = Math.Max(0.0f, hydration - satLossMultiplier * 10f);
         this._sprintCounter = 0;
       }
-      BtCore.Logger.Warning("Hydration: " + this.Hydration);
+      //BtCore.Logger.Warning("Hydration: " + this.Hydration);
       entity.ReceiveCapacity(hydration - this.Hydration);
-      BtCore.Logger.Warning("Capacity: " + (hydration - this.Hydration));
-      BtCore.Logger.Warning("Capacity: " + entity.GetBehavior<EntityBehaviorBladder>().CurrentLevel);
+      //BtCore.Logger.Warning("Capacity: " + (hydration - this.Hydration));
+      //BtCore.Logger.Warning("Capacity: " + entity.GetBehavior<EntityBehaviorBladder>().CurrentLevel);
       return false;
     }
     
@@ -270,24 +264,47 @@ namespace BalancedThirst.Thirst
         EnumPurityLevel.Yuck => 0,
         _ => 1
       };
-      mul /= 10f; // 10 times less
+      mul *= hydrationProperties.EuhydrationWeight; // 10 times less by default
       this.Euhydration = Math.Clamp(this.Euhydration + mul * Math.Max(hydrationProperties.Hydration, 0), 0, this.MaxHydration);
       this.UpdateThirstHealthBoost();
     }
 
     private void SlowTick(float dt)
     {
-      if (this.entity is EntityPlayer && this.entity.World.PlayerByUid(((EntityPlayer) this.entity).PlayerUID).WorldData.CurrentGameMode == EnumGameMode.Creative)
-        return;
-      float temperature = this.entity.World.BlockAccessor.GetClimateAt(this.entity.Pos.AsBlockPos, EnumGetClimateMode.ForSuppliedDate_TemperatureOnly, this.entity.World.Calendar.TotalDays).Temperature;
-      if (temperature <= 30.0)
+      if (BtCore.IsHoDLoaded)
       {
-        this.entity.Stats.Remove(BtCore.Modid+":thirstrate", "resistheat");
+        float coolingFactor = entity.WatchedAttributes.GetFloat("currentCoolingHot", 0f);
+        BtCore.Logger.Warning("Cooling factor: " + coolingFactor);
+        var climate = this.entity.World.BlockAccessor.GetClimateAt(this.entity.Pos.AsBlockPos,
+          EnumGetClimateMode.ForSuppliedDate_TemperatureOnly, this.entity.World.Calendar.TotalDays);
+        float coolingEffect = coolingFactor * (1f / (1f + (float)Math.Exp(-0.5f * (climate.Temperature - BtCore.ConfigServer.HotTemperatureThreshold))));
+        BtCore.Logger.Warning("Cooling effect: " + coolingEffect);
+        var thirstRate = this.entity.Stats.GetBlended(BtCore.Modid + ":thirstrate");
+        this.entity.Stats.Set(BtCore.Modid + ":thirstrate", "HoD:cooling", -Math.Min(BtCore.ConfigServer.HoDClothingCoolingMultiplier*coolingEffect, thirstRate - 1));
+      }
+      else
+      {
+        this.entity.Stats.Remove(BtCore.Modid + ":thirstrate", "HoD:cooling");
+      }
+
+      if (this.entity is EntityPlayer &&
+          this.entity.World.PlayerByUid(((EntityPlayer)this.entity).PlayerUID).WorldData.CurrentGameMode ==
+          EnumGameMode.Creative)
+        return;
+      float temperature = this.entity.World.BlockAccessor.GetClimateAt(this.entity.Pos.AsBlockPos,
+        EnumGetClimateMode.ForSuppliedDate_TemperatureOnly, this.entity.World.Calendar.TotalDays).Temperature;
+      if (temperature <= BtCore.ConfigServer.HotTemperatureThreshold)
+      {
+        this.entity.Stats.Remove(BtCore.Modid + ":thirstrate", "resistheat");
       }
       else
       {
         float num = GameMath.Clamp(temperature - 30, 0.0f, 40f);
-        this.entity.Stats.Set(BtCore.Modid+":thirstrate", "resistheat", this.entity.World.Api.ModLoader.GetModSystem<RoomRegistry>().GetRoomForPosition(this.entity.Pos.AsBlockPos).ExitCount == 0 ? 0.0f : num / 40f, true);
+        this.entity.Stats.Set(BtCore.Modid + ":thirstrate", "resistheat",
+          this.entity.World.Api.ModLoader.GetModSystem<RoomRegistry>().GetRoomForPosition(this.entity.Pos.AsBlockPos)
+            .ExitCount == 0
+            ? 0.0f
+            : num / 40f, true);
       }
 
       if (this.Hydration > 0.0)

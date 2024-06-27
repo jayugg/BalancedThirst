@@ -13,7 +13,6 @@ public class CharacterExtraDialogs_Dlg_ComposeExtraGuis_Patch
 {
     public static void Postfix(CharacterExtraDialogs __instance)
     {
-        BtCore.Logger.Warning("CharacterExtraDialogs.Dlg_ComposeExtraGuis postfix");
         Traverse traverse = Traverse.Create(__instance);
         var api = traverse.Field("capi").GetValue();
         if (api is not ICoreClientAPI capi) return;

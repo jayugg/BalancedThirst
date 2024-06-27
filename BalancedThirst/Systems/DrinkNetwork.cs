@@ -1,6 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Reflection;
 using BalancedThirst.ModBehavior;
 using BalancedThirst.Network;
 using BalancedThirst.Thirst;
@@ -49,7 +47,6 @@ public class DrinkNetwork : ModSystem
             var selPos = player.BlockSelection?.Position;
             var selFace = player.BlockSelection?.Face;
             var waterPos = selPos?.AddCopy(selFace);
-            if (waterPos == null) return;
             clientChannel.SendPacket(new DrinkMessage.Request() {Position = waterPos});
         }
 
@@ -72,7 +69,7 @@ public class DrinkNetwork : ModSystem
         var entity = capi.World.Player.Entity;
         IPlayer dualCallByPlayer = entity.World.PlayerByUid(entity.PlayerUID);
         entity?.PlayEntitySound("drink", dualCallByPlayer);
-        SpawnDrinkParticles(capi.World.Player.Entity, response.Position);
+        SpawnDrinkParticles(capi.World.Player.Entity, response.Position.ToVec3d());
     }
     
     private void OnServerPeeMessage(PeeMessage.Response response)
@@ -104,16 +101,44 @@ public class DrinkNetwork : ModSystem
     
     private void HandleDrinkAction(IServerPlayer player, DrinkMessage.Request request)
     {
-        Block block = player.Entity.World.BlockAccessor.GetBlock(request.Position);
+        BlockSelection blockSel = RayCastForFluidBlocks(player);
+        var pos = blockSel != null ? blockSel.Position : request.Position;
+        Block block = player.Entity.World.BlockAccessor.GetBlock(pos);
         HydrationProperties hydrationProps = block.GetBlockHydrationProperties();
         if (hydrationProps == null) return;
         if (player.Entity.HasBehavior<EntityBehaviorThirst>())
         {
             player.Entity.GetBehavior<EntityBehaviorThirst>().ReceiveHydration(hydrationProps/5);
             DrinkableBehavior.PlayDrinkSound(player.Entity, 2);
-            SpawnDrinkParticles(player.Entity, request.Position);
-            serverChannel.SendPacket(new DrinkMessage.Response() { Position = request.Position }, player);
+            SpawnDrinkParticles(player.Entity, blockSel != null? blockSel.HitPosition : request.Position.ToVec3d());
+            serverChannel.SendPacket(new DrinkMessage.Response() { Position = pos }, player);
         }
+    }
+    
+    private BlockSelection RayCastForFluidBlocks(IServerPlayer player, float range = 5)
+    {
+        var fromPos = player.Entity.ServerPos.XYZ.Add(0, player.Entity.LocalEyePos.Y, 0);
+        var toPos = fromPos.AheadCopy(range, player.Entity.ServerPos.Pitch, player.Entity.ServerPos.Yaw);
+        var step = toPos.Sub(fromPos).Normalize().Mul(0.1);
+        var currentPos = fromPos.Clone();
+        int dimensionId = (int)(player.Entity.ServerPos.Y / BlockPos.DimensionBoundary);
+
+        while (currentPos.SquareDistanceTo(fromPos) <= range * range)
+        {
+            var blockPos = new BlockPos((int)currentPos.X, (int)currentPos.Y, (int)currentPos.Z, dimensionId);
+            var block = player.Entity.World.BlockAccessor.GetBlock(blockPos);
+
+            if (block.BlockMaterial == EnumBlockMaterial.Liquid)
+            {
+                return new BlockSelection { Position = blockPos, HitPosition = currentPos.Clone() };
+            }
+            else if (block.BlockMaterial != EnumBlockMaterial.Air)
+            {
+                return null;
+            }
+            currentPos.Add(step);
+        }
+        return null;
     }
 
     private void HandlePeeAction(IServerPlayer player, PeeMessage.Request request)
@@ -131,14 +156,18 @@ public class DrinkNetwork : ModSystem
         {
             var be = world.BlockAccessor.GetBlockEntity(request.Position) as BlockEntityFarmland; 
             be.IncreaseNutrients(BtCore.ConfigServer.UrineNutrientLevels);
+        } else if (block is BlockLiquidContainerBase container )
+        {
+            var waterStack = new ItemStack(world.GetItem(new AssetLocation(BtCore.Modid+":urineportion")));
+            container.TryPutLiquid(request.Position, waterStack, 0.1f);
         }
     }
     
     #endregion
 
-    public static void SpawnDrinkParticles(Entity byEntity, BlockPos pos)
+    public static void SpawnDrinkParticles(Entity byEntity, Vec3d pos)
     {
-        Vec3d posVec = pos.ToVec3d().AddCopy(0.5, 0.3, 0.5);
+        Vec3d posVec = pos.AddCopy(0.5, 0.3, 0.5);
         Vec3d entityPos = byEntity.Pos.XYZ.AddCopy(byEntity.LocalEyePos);
         Vec3d dist = (posVec - entityPos);
         Vec3d xyz = entityPos + 1.5*dist.Normalize();

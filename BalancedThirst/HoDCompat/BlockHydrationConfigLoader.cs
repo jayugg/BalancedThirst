@@ -14,18 +14,13 @@ namespace BalancedThirst.HoDCompat
             List<JObject> allPatches = new List<JObject>();
             string configFolder = ModConfig.GetConfigPath(api);
             List<string> configFiles = Directory.GetFiles(configFolder, "*AddBlockHydration*.json").ToList();
-            string defaultConfigPath = Path.Combine(configFolder, "HoD.AddBlockHydration.json");
-            if (!File.Exists(defaultConfigPath))
-            {
-                GenerateDefaultBlockHydrationConfig(api);
-            }
             string btConfigPath = Path.Combine(configFolder, "BT.AddBlockHydration.json");
             if (!File.Exists(btConfigPath))
             {
                 GenerateBTHydrationConfig(api);
             }
 
-            configFiles.Insert(0, defaultConfigPath);
+            configFiles.Insert(0, btConfigPath);
             var sortedPatches = new SortedDictionary<int, List<JObject>>();
 
             foreach (string file in configFiles)
@@ -39,7 +34,7 @@ namespace BalancedThirst.HoDCompat
                     sortedPatches[priority] = new List<JObject>();
                 }
 
-                var patches = parsedFile["patches"]?.ToObject<List<JObject>>();
+                var patches = parsedFile["patches"].ToObject<List<JObject>>();
                 sortedPatches[priority].AddRange(patches);
             }
 
@@ -49,14 +44,14 @@ namespace BalancedThirst.HoDCompat
             {
                 foreach (var patch in sortedPatches[priorityLevel])
                 {
-                    string blockCode = patch["blockCode"]?.ToString();
+                    string blockCode = patch["blockCode"].ToString();
                     mergedPatches[blockCode] = patch;
                 }
             }
 
             return mergedPatches.Values.ToList();
         }
-        
+
         public static void GenerateBTHydrationConfig(ICoreAPI api)
         {
             string configPath = Path.Combine(ModConfig.GetConfigPath(api), "BT.AddBlockHydration.json");
@@ -69,65 +64,16 @@ namespace BalancedThirst.HoDCompat
                     {
                         new JObject
                         {
-                            ["itemname"] = "game:balancedthirst-purewater*",
+                            ["blockCode"] = "balancedthirst-purewater*",
                             ["hydrationByType"] = new JObject
                             {
-                                ["*"] = 1000
+                                ["*"] = 600
                             },
-                            ["IsLiquid"] = true
+                            ["isBoiling"] = false,
+                            ["hungerReduction"] = 50
                         },
                     }
                 };
-                File.WriteAllText(configPath, defaultConfig.ToString());
-            }
-        }
-
-        public static void GenerateDefaultBlockHydrationConfig(ICoreAPI api)
-        {
-            string configPath = Path.Combine(ModConfig.GetConfigPath(api), "HoD.AddBlockHydration.json");
-            if (!File.Exists(configPath))
-            {
-                var defaultConfig = new JObject
-                {
-                    ["priority"] = 5,
-                    ["patches"] = new JArray
-                    {
-                        new JObject
-                        {
-                            ["blockCode"] = "boilingwater*",
-                            ["hydrationByType"] = new JObject
-                            {
-                                ["boilingwater-*"] = 100,
-                                ["*"] = 100 // Ensure default wildcard entry
-                            },
-                            ["isBoiling"] = true,
-                            ["hungerReduction"] = 0
-                        },
-                        new JObject
-                        {
-                            ["blockCode"] = "water*",
-                            ["hydrationByType"] = new JObject
-                            {
-                                ["water-*"] = 100,
-                                ["*"] = 100
-                            },
-                            ["isBoiling"] = false,
-                            ["hungerReduction"] = 100
-                        },
-                        new JObject
-                        {
-                            ["blockCode"] = "saltwater*",
-                            ["hydrationByType"] = new JObject
-                            {
-                                ["saltwater-*"] = -600,
-                                ["*"] = -600 
-                            },
-                            ["isBoiling"] = false,
-                            ["hungerReduction"] = 100
-                        }
-                    }
-                };
-
                 File.WriteAllText(configPath, defaultConfig.ToString());
             }
         }

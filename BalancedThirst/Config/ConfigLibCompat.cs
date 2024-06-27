@@ -63,6 +63,7 @@ public class ConfigLibCompat
             config.MaxHydration = OnInputFloat(id, config.MaxHydration, nameof(config.MaxHydration));
             config.ThirstKills = OnCheckBox(id, config.ThirstKills, nameof(config.ThirstKills));
             config.ThirstSpeedModifier = OnInputFloat(id, config.ThirstSpeedModifier, nameof(config.ThirstSpeedModifier));
+            config.HotTemperatureThreshold = OnInputFloat(id, config.HotTemperatureThreshold, nameof(config.HotTemperatureThreshold));
             config.VomitHydrationMultiplier = OnInputFloat(id, config.VomitHydrationMultiplier, nameof(config.VomitHydrationMultiplier));
             config.VomitEuhydrationMultiplier = OnInputFloat(id, config.VomitEuhydrationMultiplier, nameof(config.VomitEuhydrationMultiplier));
             ImGui.Separator();
@@ -119,9 +120,12 @@ public class ConfigLibCompat
         }
         if (ImGui.CollapsingHeader(Lang.Get(settingsCompat) + $"##settingCompat-{id}"))
         {
+            ImGui.Indent();
             config.YieldThirstManagementToHoD = OnCheckBox(id, config.YieldThirstManagementToHoD,
                     nameof(config.YieldThirstManagementToHoD), !BtCore.IsHoDLoaded);
             config.UseHoDHydrationValues = OnCheckBox(id, config.UseHoDHydrationValues, nameof(config.UseHoDHydrationValues), config.YieldThirstManagementToHoD);
+            config.HoDClothingCoolingMultiplier = OnInputFloat(id, config.HoDClothingCoolingMultiplier, nameof(config.HoDClothingCoolingMultiplier));
+            ImGui.Unindent();
         }
     }
 

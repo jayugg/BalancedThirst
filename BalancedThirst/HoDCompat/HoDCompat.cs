@@ -17,13 +17,15 @@ public class HoDCompat : ModSystem
     public override void StartPre(ICoreAPI api)
     {
         base.StartPre(api);
-        ItemHydrationConfigLoader.GenerateDefaultHydrationConfig(api);
+        ItemHydrationConfigLoader.GenerateBTHydrationConfig(api);
+        BlockHydrationConfigLoader.GenerateBTHydrationConfig(api);
     }
     
     public override void AssetsFinalize(ICoreAPI api)
     {
         base.AssetsFinalize(api);
         LoadAndApplyHydrationPatches(api);
+        LoadAndApplyBlockHydrationPatches(api);
     }
     
     private void LoadAndApplyHydrationPatches(ICoreAPI api)
@@ -31,4 +33,11 @@ public class HoDCompat : ModSystem
         List<JObject> hydrationPatches = ItemHydrationConfigLoader.LoadHydrationPatches(api);
         HoDManager.ApplyHydrationPatches(api, hydrationPatches);
     }
+    
+    private void LoadAndApplyBlockHydrationPatches(ICoreAPI api)
+    {
+        List<JObject> blockHydrationPatches = BlockHydrationConfigLoader.LoadBlockHydrationConfig(api);
+        HoDManager.ApplyBlockHydrationPatches(api, blockHydrationPatches);
+    }
+
 }

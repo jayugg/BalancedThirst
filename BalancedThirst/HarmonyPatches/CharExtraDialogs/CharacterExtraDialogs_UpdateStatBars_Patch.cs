@@ -25,7 +25,6 @@ public class CharacterExtraDialogs_UpdateStatBars_Patch
         float hydration = treeAttribute.GetFloat("currenthydration");
         float max = treeAttribute.GetFloat("maxhydration");
         float euhydration = treeAttribute.GetFloat("euhydration");
-        BtCore.Logger.Warning(euhydration.ToString());
         composer.GetDynamicText("hydration").SetNewText((int) hydration + " / " + max);
         composer.GetStatbar("thirstHealthBar").SetLineInterval(max / 10f);
         composer.GetStatbar("thirstHealthBar").SetValues(euhydration, 0.0f, max);

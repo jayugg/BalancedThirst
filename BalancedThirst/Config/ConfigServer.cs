@@ -11,6 +11,8 @@ public class ConfigServer : IModConfig
     public float MaxHydration { get; set; } = 1500f;
     public bool ThirstKills { get; set; }
     public float ThirstSpeedModifier { get; set; }
+    
+    public float HotTemperatureThreshold { get; set; } = 27.0f;
     public float VomitHydrationMultiplier { get; set; } = 0.5f;
     public float VomitEuhydrationMultiplier { get; set; } = 0.8f;
     
@@ -57,6 +59,8 @@ public class ConfigServer : IModConfig
         get => _yieldThirstManagementToHoD;
         set => _yieldThirstManagementToHoD = BtCore.IsHoDLoaded && value;
     }
+    
+    public float HoDClothingCoolingMultiplier { get; set; } = 1f; 
     public ConfigServer(ICoreAPI api, ConfigServer previousConfig = null)
     {
         if (previousConfig == null)
@@ -66,6 +70,7 @@ public class ConfigServer : IModConfig
         MaxHydration = previousConfig.MaxHydration;
         ThirstSpeedModifier = previousConfig.ThirstSpeedModifier;
         ThirstKills = previousConfig.ThirstKills;
+        HotTemperatureThreshold = previousConfig.HotTemperatureThreshold;
         
         VomitHydrationMultiplier = previousConfig.VomitHydrationMultiplier;
         VomitEuhydrationMultiplier = previousConfig.VomitEuhydrationMultiplier;
@@ -104,5 +109,6 @@ public class ConfigServer : IModConfig
         
         UseHoDHydrationValues = previousConfig.UseHoDHydrationValues;
         YieldThirstManagementToHoD = previousConfig.YieldThirstManagementToHoD;
+        HoDClothingCoolingMultiplier = previousConfig.HoDClothingCoolingMultiplier;
     }
 }
