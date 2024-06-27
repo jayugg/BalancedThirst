@@ -72,11 +72,11 @@ namespace BalancedThirst.Hud
                 Alignment = EnumDialogArea.CenterBottom,
                 BothSizing = ElementSizing.Fixed,
                 fixedWidth = num,
-                fixedHeight = 40.0
-            }.WithFixedAlignmentOffset(0.0, -45.0);
+                fixedHeight = 25.0
+            }.WithFixedAlignmentOffset(0.0, -55.0);
             
             ElementBounds thirstBarBounds = ElementStdBounds.Statbar(EnumDialogArea.RightBottom, num * 0.41)
-                .WithFixedAlignmentOffset(-2.0 + BtCore.ConfigClient.ThirstBarX, BtCore.ConfigClient.ThirstBarY);
+                .WithFixedAlignmentOffset(-2.0 + BtCore.ConfigClient.ThirstBarX, 21 + BtCore.ConfigClient.ThirstBarY);
             thirstBarBounds.WithFixedHeight(10.0);
 
             var compo = capi.Gui.CreateCompo("thirstbar", parentBounds.FlatCopy().FixedGrow(0.0, 20.0));

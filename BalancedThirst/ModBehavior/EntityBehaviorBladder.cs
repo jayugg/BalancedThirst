@@ -85,7 +85,7 @@ public class EntityBehaviorBladder : EntityBehavior
             this.entity.World.PlayerByUid(((EntityPlayer)this.entity).PlayerUID).WorldData.CurrentGameMode ==
             EnumGameMode.Creative)
             return;
-        if (CurrentLevel <= Capacity*0.8f)
+        if (CurrentLevel <= Capacity*0.5f)
         {
             this.entity.Stats.Remove("movespeed", "bladderfull");
         }
