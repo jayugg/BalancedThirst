@@ -15,8 +15,9 @@ public class ConfigServer : IModConfig
     public float HotTemperatureThreshold { get; set; } = 27.0f;
     public float VomitHydrationMultiplier { get; set; } = 0.5f;
     public float VomitEuhydrationMultiplier { get; set; } = 0.8f;
-    
-    public float UrineNutrientChance { get; set; } = 0.4f;
+
+    public bool EnableBladder { get; set; } = true;
+    public float UrineNutrientChance { get; set; } = 0.1f;
     public float UrineDrainRate { get; set; } = 3f;
     
     public Dictionary<EnumSoilNutrient, float> UrineNutrientLevels { get; set; } = BtConstants.UrineNutrientLevels;
@@ -74,7 +75,8 @@ public class ConfigServer : IModConfig
         
         VomitHydrationMultiplier = previousConfig.VomitHydrationMultiplier;
         VomitEuhydrationMultiplier = previousConfig.VomitEuhydrationMultiplier;
-        
+
+        EnableBladder = EnableBladder;
         UrineNutrientChance = previousConfig.UrineNutrientChance;
         UrineDrainRate = previousConfig.UrineDrainRate;
         UrineNutrientLevels = previousConfig.UrineNutrientLevels;

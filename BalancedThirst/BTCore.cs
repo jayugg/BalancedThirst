@@ -57,10 +57,9 @@ public class BtCore : ModSystem
         api.RegisterItemClass(Modid + "." + nameof(ItemDowsingRod), typeof(ItemDowsingRod));
         api.RegisterBlockBehaviorClass(Modid + ":GushingLiquid", typeof(BlockBehaviorGushingLiquid));
         api.RegisterBlockBehaviorClass(Modid + ":PureWater", typeof(BlockBehaviorPureWater));
-        if (ConfigServer.YieldThirstManagementToHoD) return;
         api.RegisterEntityBehaviorClass(Modid + ":thirst", typeof(EntityBehaviorThirst));
-        api.RegisterEntityBehaviorClass(Modid + ":bladder", typeof(EntityBehaviorBladder));
         api.RegisterCollectibleBehaviorClass(Modid + ":Drinkable", typeof(DrinkableBehavior));
+        api.RegisterEntityBehaviorClass(Modid + ":bladder", typeof(EntityBehaviorBladder));
     }
 
     public override void StartServerSide(ICoreServerAPI api)
@@ -86,8 +85,10 @@ public class BtCore : ModSystem
     {
         if (entity is EntityPlayer)
         {
-            entity.AddBehavior(new EntityBehaviorThirst(entity));
-            entity.AddBehavior(new EntityBehaviorBladder(entity));
+            if (ConfigServer.YieldThirstManagementToHoD)
+                entity.AddBehavior(new EntityBehaviorThirst(entity));
+            if (ConfigServer.EnableBladder)
+                entity.AddBehavior(new EntityBehaviorBladder(entity));
         }
     }
     

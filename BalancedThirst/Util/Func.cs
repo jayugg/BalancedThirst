@@ -26,7 +26,7 @@ public static class Func
 
     public static float StatModifierICubic(float ratio, float param)
     {
-        return param * (float) Math.Pow(1f - 2f*ratio, 1.0/3);
+        return - param * (float) Math.Pow(Math.Abs(1f - 2f*ratio), 1.0/3);
     }
 
     public static float StatModifierQuintic(float ratio, float param)
@@ -36,7 +36,7 @@ public static class Func
 
     public static float StatModifierIQuintic(float ratio, float param)
     {
-        return param * (float) Math.Pow(1f - 2f*ratio, 1.0/5);
+        return -param * (float) Math.Pow(Math.Abs(1f - 2f*ratio), 1.0/5);
     }
 
     public static float CalcStatModifier(float ratio, float param, EnumBuffCurve curveType, EnumUpOrDown centering = EnumUpOrDown.Centered)

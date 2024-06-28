@@ -53,7 +53,7 @@ public class DrinkNetwork : ModSystem
         if (
             (player.Controls.Sprint &&
             player.Controls.RightMouseDown &&
-            player.RightHandItemSlot.Empty &&
+            (player.RightHandItemSlot.Empty || player.LeftHandItemSlot.Empty) &&
             BtCore.ConfigClient.PeeMode.IsStanding()) ||
             (player.Controls.RightMouseDown && 
             player.Controls.FloorSitting &&
@@ -152,14 +152,28 @@ public class DrinkNetwork : ModSystem
         var world = player.Entity.World;
         var block = world.BlockAccessor.GetBlock(request.Position);
         serverChannel.SendPacket(new PeeMessage.Response() { Position = request.Position }, player);
-        if (block is BlockFarmland && BtCore.ConfigServer.UrineNutrientChance > world.Rand.NextDouble())
+        if (block is BlockFarmland)
         {
-            var be = world.BlockAccessor.GetBlockEntity(request.Position) as BlockEntityFarmland; 
-            be.IncreaseNutrients(BtCore.ConfigServer.UrineNutrientLevels);
-        } else if (block is BlockLiquidContainerBase container )
+            FertiliseFarmland(world, request.Position);
+        } 
+        else if (world.BlockAccessor.GetBlock(request.Position.DownCopy()) is BlockFarmland)
+        {
+            FertiliseFarmland(world, request.Position.DownCopy());
+        }
+        else if (block is BlockLiquidContainerBase container )
         {
             var waterStack = new ItemStack(world.GetItem(new AssetLocation(BtCore.Modid+":urineportion")));
             container.TryPutLiquid(request.Position, waterStack, 0.1f);
+        }
+    }
+    
+    private void FertiliseFarmland(IWorldAccessor world, BlockPos position)
+    {
+        var be = world.BlockAccessor.GetBlockEntity(position) as BlockEntityFarmland; 
+        be.WaterFarmland(0.05f);
+        if (BtCore.ConfigServer.UrineNutrientChance > world.Rand.NextDouble())
+        {
+            be.IncreaseNutrients(BtCore.ConfigServer.UrineNutrientLevels);
         }
     }
     

@@ -14,6 +14,15 @@ public class EntityBehaviorBladder : EntityBehavior
     public override string PropertyName() => AttributeKey;
     private long _listenerId;
     private string AttributeKey => BtCore.Modid + ":bladder";
+    
+    public ThirstStatMultiplier WalkSpeedMultiplier = new ThirstStatMultiplier()
+    {
+        Multiplier = 0.5f,
+        Centering = EnumUpOrDown.Centered,
+        Curve = EnumBuffCurve.Flat0,
+        LowerHalfCurve = EnumBuffCurve.Quintic,
+        Inverted = true
+    }; 
 
     public float Capacity
     {
@@ -50,12 +59,12 @@ public class EntityBehaviorBladder : EntityBehavior
             this.CurrentLevel = typeAttributes["currentlevel"].AsFloat(BtCore.ConfigServer.MaxHydration);
             this.Capacity = typeAttributes["capacity"].AsFloat(BtCore.ConfigServer.MaxHydration);
         }
-        this._listenerId = this.entity.World.RegisterGameTickListener(this.SlowTick, 6000);
+        this._listenerId = this.entity.World.RegisterGameTickListener(this.SlowTick, 500);
     }
     
     public void ReceiveCapacity(float capacity)
     {
-        this.CurrentLevel = Math.Max(0.0f, this.CurrentLevel + capacity);
+        this.CurrentLevel = Math.Clamp(this.CurrentLevel + capacity, 0.0f, Capacity);
     }
     
     public bool Drain(float multiplier = 1)
@@ -85,21 +94,13 @@ public class EntityBehaviorBladder : EntityBehavior
             this.entity.World.PlayerByUid(((EntityPlayer)this.entity).PlayerUID).WorldData.CurrentGameMode ==
             EnumGameMode.Creative)
             return;
-        if (CurrentLevel <= Capacity*0.5f)
+        if (CurrentLevel <= Capacity*0.5f || !BtCore.ConfigServer.EnableBladder)
         {
-            this.entity.Stats.Remove("movespeed", "bladderfull");
+            this.entity.Stats.Remove("walkspeed", "bladderfull");
         }
         else
         {
-            var multiplier = new ThirstStatMultiplier()
-            {
-                Multiplier = 0.5f,
-                Centering = EnumUpOrDown.Down,
-                Curve = EnumBuffCurve.InverseQuintic,
-                LowerHalfCurve = EnumBuffCurve.None,
-                Inverted = true
-            };
-            this.entity.Stats.Set("movespeed", "bladderfull", multiplier.CalcModifier(CurrentLevel/Capacity), true);
+            this.entity.Stats.Set("walkspeed", "bladderfull", -WalkSpeedMultiplier.CalcModifier(CurrentLevel/Capacity));
         }
     }
     

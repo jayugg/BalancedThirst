@@ -51,10 +51,22 @@ namespace BalancedThirst.Hud
             {
                 float? nullable2 = thirstTree.TryGetFloat("currenthydration");
                 float? nullable1 = thirstTree.TryGetFloat("maxhydration");
-                double? nullable8 = nullable2.HasValue & nullable1.HasValue ? nullable2.GetValueOrDefault() / (double) nullable1.GetValueOrDefault() : new double?();
+                double? nullable3 = nullable2.HasValue & nullable1.HasValue ? nullable2.GetValueOrDefault() / (double) nullable1.GetValueOrDefault() : new double?();
                 double num = 0.2;
-                if (nullable8.GetValueOrDefault() < num & nullable8.HasValue) 
-                    this._thirstBar.ShouldFlash = true; 
+                if (nullable3.GetValueOrDefault() < num & nullable3.HasValue) 
+                    this._thirstBar.ShouldFlash = true;
+                var bladderTree  = this.capi.World.Player.Entity.WatchedAttributes.GetTreeAttribute(BtCore.Modid+":bladder");
+                if (bladderTree != null && BtCore.ConfigServer.EnableBladder)
+                {
+                    float? currentlevel = bladderTree.TryGetFloat("currentlevel");
+                    float? capacity = bladderTree.TryGetFloat("capacity");
+                    double? ratio = currentlevel.HasValue & capacity.HasValue
+                        ? currentlevel.GetValueOrDefault() / (double)capacity.GetValueOrDefault()
+                        : new double?();
+                    double num2 = 0.8;
+                    if (ratio.GetValueOrDefault() > num2 & ratio.HasValue)
+                        this._thirstBar.ShouldFlash = true;
+                }
             }
         }
 

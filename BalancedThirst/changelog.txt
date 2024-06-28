@@ -1,3 +1,4 @@
-More HoD Compatibility
-Urination in container
-Thirst bar adapts to screen size
+Can urinate with left hand too
+Bladder walk speed debuff will be removed when disabling bladder
+Urine can be fermented to make lant, which can be used to soak hides
+Possibly fixed client crashing on server

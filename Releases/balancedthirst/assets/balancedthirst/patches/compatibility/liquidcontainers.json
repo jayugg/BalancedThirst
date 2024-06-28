@@ -4,6 +4,6 @@
     "op": "add",
     "path": "/enabled",
     "value": false,
-    "dependsOn": [{ "modid": "liquidcontainers", "invert": true }]
+    "dependsOn": [{ "modid": "liquidcontainers" }]
   }
 ]

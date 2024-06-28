@@ -25,6 +25,8 @@
     "incontainer-item-wetsaltportion": "Wet salt",
     "item-urineportion": "Urine",
     "incontainer-item-urineportion": "Urine",
+    "item-lantportion": "Lant",
+    "incontainer-item-lantportion": "Lant",
 
     "item-wetsalt": "Wet salt crystals",
 
@@ -47,7 +49,8 @@
     "Config.Setting.ThirstSpeedModifier": "Thirst speed modifier",
     "Config.Setting.VomitHydrationMultiplier": "Hydration reduction when vomiting",
     "Config.Setting.VomitEuhydrationMultiplier": "Euhydration reduction when vomiting",
-    
+
+    "Config.Setting.EnableBladder": "Enable bladder",
     "Config.Setting.UrineNutrientChance": "Chance of urine giving nutrients to farmland (0 to disable)",
     "Config.Setting.UrineDrainRate": "Rate of urine drain",
     "Config.Setting.UrineNutrientLevels": "Amount of nutrients given by urine",

@@ -45,7 +45,6 @@ public class DrinkableBehavior : CollectibleBehavior
       if (content == null) return null;
       if (!content.Collectible.HasBehavior<DrinkableBehavior>()) return null;
       var behavior = content.Collectible.GetBehavior<DrinkableBehavior>();
-      //BtCore.Logger.Warning("Getting hydration properties for " + content.Collectible.Code.Path);
       HydrationProperties hydrationProperties = behavior.GetHydrationProperties(new ItemStack(content.Item));
       if (hydrationProperties == null)
         return null;
