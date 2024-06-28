@@ -18,7 +18,7 @@ public class HarmonyPatches : ModSystem
     {
         this._api = api;
         HarmonyInstance = new Harmony(Mod.Info.ModID);
-        if (BtCore.ConfigServer.BoilWaterInFirepits)
+        if (BtCore.ConfigServer?.BoilWaterInFirepits ?? true)
         {
             HarmonyInstance.Patch(typeof(CollectibleObject).GetMethod(nameof(CollectibleObject.CanSmelt)),
                 postfix: typeof(CollectibleObject_CanSmelt_Patch).GetMethod(
@@ -33,7 +33,7 @@ public class HarmonyPatches : ModSystem
                 postfix: typeof(CollectibleObject_GetMeltingPoint_Patch).GetMethod(
                     nameof(CollectibleObject_GetMeltingPoint_Patch.Postfix)));
         }
-        if (BtCore.ConfigServer.YieldThirstManagementToHoD) return;
+        if (BtCore.ConfigServer?.YieldThirstManagementToHoD ?? true) return;
         HarmonyInstance.Patch(typeof(CollectibleObject).GetMethod("tryEatBegin", BindingFlags.NonPublic | BindingFlags.Instance),
             postfix: typeof(CollectibleObject_tryEatBegin_Patch).GetMethod(
                 nameof(CollectibleObject_tryEatBegin_Patch.Postfix)));

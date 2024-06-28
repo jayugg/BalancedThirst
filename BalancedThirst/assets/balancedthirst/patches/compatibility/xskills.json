@@ -1,0 +1,46 @@
+[
+  {
+    "file": "xskills:skills/survival.json",
+    "op": "add",
+    "path": "/",
+    "value": {
+      "camelhump": {
+        "requirements": [
+          {
+            "code": "or",
+            "minimumTier": 2,
+            "requirements": [
+              {
+                "code": "skill",
+                "skill": "farming",
+                "requiredLevel": 3
+              },
+              {
+                "code": "skill",
+                "skill": "cooking",
+                "requiredLevel": 3
+              }
+            ]
+          },
+          {
+            "code": "or",
+            "minimumTier": 3,
+            "requirements": [
+              {
+                "code": "skill",
+                "skill": "farming",
+                "requiredLevel": 5
+              },
+              {
+                "code": "skill",
+                "skill": "cooking",
+                "requiredLevel": 5
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "dependsOn": [{ "modid": "xskills" }]
+  }
+]
