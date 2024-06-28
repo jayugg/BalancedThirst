@@ -105,8 +105,6 @@ namespace BalancedThirst.Hud
             TryOpen();
         }
         
-        
-
         public override bool TryClose() => false;
 
         public override bool ShouldReceiveKeyboardEvents() => false;

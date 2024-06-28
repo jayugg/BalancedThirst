@@ -33,7 +33,8 @@ public class HarmonyPatches : ModSystem
                 postfix: typeof(CollectibleObject_GetMeltingPoint_Patch).GetMethod(
                     nameof(CollectibleObject_GetMeltingPoint_Patch.Postfix)));
         }
-        if (BtCore.ConfigServer.YieldThirstManagementToHoD) return;
+        // Careful with this, it can technically only run on the server
+        if (BtCore.ConfigServer?.YieldThirstManagementToHoD ?? true) return;
         HarmonyInstance.Patch(typeof(CollectibleObject).GetMethod("tryEatBegin", BindingFlags.NonPublic | BindingFlags.Instance),
             postfix: typeof(CollectibleObject_tryEatBegin_Patch).GetMethod(
                 nameof(CollectibleObject_tryEatBegin_Patch.Postfix)));

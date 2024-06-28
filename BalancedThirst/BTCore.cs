@@ -5,6 +5,7 @@ using BalancedThirst.Hud;
 using BalancedThirst.Items;
 using BalancedThirst.ModBehavior;
 using BalancedThirst.ModBlockBehavior;
+using BalancedThirst.Network;
 using BalancedThirst.Systems;
 using BalancedThirst.Thirst;
 using BalancedThirst.Util;
@@ -38,6 +39,7 @@ public class BtCore : ModSystem
         }
         if (api.Side.IsClient())
         {
+            ConfigServer = ModConfig.ReadConfig<ConfigServer>(api, BtConstants.ConfigServerName);
             ConfigClient = ModConfig.ReadConfig<ConfigClient>(api, BtConstants.ConfigClientName);
         }
         if (api.ModLoader.IsModEnabled("configlib"))
@@ -62,16 +64,13 @@ public class BtCore : ModSystem
         api.RegisterEntityBehaviorClass(Modid + ":bladder", typeof(EntityBehaviorBladder));
     }
 
-    public override void StartServerSide(ICoreServerAPI api)
+    public override void StartServerSide(ICoreServerAPI sapi)
     {
-        if (ConfigServer.YieldThirstManagementToHoD) return;
-        // Not sure if this is working... adding with json patch instead
-        api.Event.OnEntitySpawn += AddEntityBehaviors;
-        api.Event.OnEntityLoaded += AddEntityBehaviors;
-        
-        BtCommands.Register(api, ConfigServer);
-    }
+        sapi.Event.OnEntitySpawn += AddEntityBehaviors;
+        sapi.Event.OnEntityLoaded += AddEntityBehaviors;
 
+        BtCommands.Register(sapi, ConfigServer);
+    }
     public override void StartClientSide(ICoreClientAPI capi)
     {
         if (ConfigServer.YieldThirstManagementToHoD) return;
@@ -85,9 +84,10 @@ public class BtCore : ModSystem
     {
         if (entity is EntityPlayer)
         {
-            if (ConfigServer.YieldThirstManagementToHoD)
+            // Careful with this, it can only run on the server
+            if (ConfigServer?.YieldThirstManagementToHoD ?? false)
                 entity.AddBehavior(new EntityBehaviorThirst(entity));
-            if (ConfigServer.EnableBladder)
+            if (ConfigServer?.EnableBladder ?? false)
                 entity.AddBehavior(new EntityBehaviorBladder(entity));
         }
     }
@@ -97,6 +97,7 @@ public class BtCore : ModSystem
 
         if (!api.Side.IsServer()) return;
         EditAssets.AddContainerProps(api);
+        // Careful, can only run on server side
         if (ConfigServer.YieldThirstManagementToHoD) return;
         EditAssets.AddHydrationToCollectibles(api);
     }

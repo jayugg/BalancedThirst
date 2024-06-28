@@ -14,8 +14,13 @@ namespace BalancedThirst.Systems;
 
 public class DrinkNetwork : ModSystem
 {
-    public override double ExecuteOrder() => 1.02;
-    
+    public override double ExecuteOrder() => 2.02;
+
+    public override bool ShouldLoad(EnumAppSide forSide)
+    {
+        return !BtCore.ConfigServer.YieldThirstManagementToHoD;
+    }
+
     #region Client
     IClientNetworkChannel clientChannel;
     ICoreClientAPI capi;
@@ -170,7 +175,7 @@ public class DrinkNetwork : ModSystem
     private void FertiliseFarmland(IWorldAccessor world, BlockPos position)
     {
         var be = world.BlockAccessor.GetBlockEntity(position) as BlockEntityFarmland; 
-        be.WaterFarmland(0.05f);
+        be?.WaterFarmland(0.05f);
         if (BtCore.ConfigServer.UrineNutrientChance > world.Rand.NextDouble())
         {
             be.IncreaseNutrients(BtCore.ConfigServer.UrineNutrientLevels);
