@@ -2,44 +2,68 @@
   {
     "file": "xskills:skills/survival.json",
     "op": "add",
-    "path": "/",
+    "path": "/camelhump",
     "value": {
-      "camelhump": {
-        "requirements": [
-          {
-            "code": "or",
-            "minimumTier": 2,
-            "requirements": [
-              {
-                "code": "skill",
-                "skill": "farming",
-                "requiredLevel": 3
-              },
-              {
-                "code": "skill",
-                "skill": "cooking",
-                "requiredLevel": 3
-              }
-            ]
-          },
-          {
-            "code": "or",
-            "minimumTier": 3,
-            "requirements": [
-              {
-                "code": "skill",
-                "skill": "farming",
-                "requiredLevel": 5
-              },
-              {
-                "code": "skill",
-                "skill": "cooking",
-                "requiredLevel": 5
-              }
-            ]
-          }
-        ]
-      }
+      "requirements": [
+        {
+          "code": "or",
+          "minimumTier": 2,
+          "requirements": [
+            {
+              "code": "skill",
+              "skill": "farming",
+              "requiredLevel": 3
+            },
+            {
+              "code": "skill",
+              "skill": "cooking",
+              "requiredLevel": 3
+            }
+          ]
+        },
+        {
+          "code": "or",
+          "minimumTier": 3,
+          "requirements": [
+            {
+              "code": "skill",
+              "skill": "farming",
+              "requiredLevel": 5
+            },
+            {
+              "code": "skill",
+              "skill": "cooking",
+              "requiredLevel": 5
+            }
+          ]
+        }
+      ]
+    },
+    "dependsOn": [{ "modid": "xskills" }]
+  },
+  {
+    "file": "xskills:skills/survival.json",
+    "op": "add",
+    "path": "/elephantbladder",
+    "value": {
+      "requirements": [
+        {
+          "code": "or",
+          "minimumTier": 2,
+          "requirements": [
+            {
+              "code": "skill",
+              "skill": "farming",
+              "requiredLevel": 3
+            },
+            {
+              "code": "skill",
+              "skill": "cooking",
+              "requiredLevel": 3
+            }
+          ]
+        }
+      ]
     },
     "dependsOn": [{ "modid": "xskills" }]
   }

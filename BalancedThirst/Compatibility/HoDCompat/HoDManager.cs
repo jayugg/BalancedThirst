@@ -4,7 +4,7 @@ using BalancedThirst.Util;
 using Newtonsoft.Json.Linq;
 using Vintagestory.API.Common;
 
-namespace BalancedThirst.HoDCompat;
+namespace BalancedThirst.Compatibility.HoDCompat;
 
 public class HoDManager
 {

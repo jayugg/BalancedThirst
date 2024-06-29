@@ -1,6 +1,6 @@
 ﻿using BalancedThirst.Blocks;
+using BalancedThirst.Compatibility.HoDCompat;
 using BalancedThirst.Config;
-using BalancedThirst.HoDCompat;
 using BalancedThirst.Hud;
 using BalancedThirst.Items;
 using BalancedThirst.ModBehavior;

@@ -1,11 +1,11 @@
-using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Vintagestory.API.Common;
 using BalancedThirst.Config;
+using Newtonsoft.Json.Linq;
+using Vintagestory.API.Common;
 
-namespace BalancedThirst.HoDCompat
+namespace BalancedThirst.Compatibility.HoDCompat
 {
     public static class ItemHydrationConfigLoader
     {

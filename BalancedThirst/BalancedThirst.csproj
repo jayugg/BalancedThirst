@@ -63,10 +63,6 @@
             <HintPath>..\xlib.dll</HintPath>
             <Private>False</Private>
         </Reference>
-        <Reference Include="xskills">
-            <HintPath>..\xskills.dll</HintPath>
-            <Private>False</Private>
-        </Reference>
     </ItemGroup>
 
     <ItemGroup>
