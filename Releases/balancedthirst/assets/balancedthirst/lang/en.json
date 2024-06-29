@@ -51,6 +51,7 @@
     "Config.Setting.VomitEuhydrationMultiplier": "Euhydration reduction when vomiting",
 
     "Config.Setting.EnableBladder": "Enable bladder",
+    "Config.Setting.BladderWalkSpeedDebuff": "Walk speed debuff at full bladder",
     "Config.Setting.UrineNutrientChance": "Chance of urine giving nutrients to farmland (0 to disable)",
     "Config.Setting.UrineDrainRate": "Rate of urine drain",
     "Config.Setting.UrineNutrientLevels": "Amount of nutrients given by urine",
@@ -94,6 +95,8 @@
     "Config.Setting.ThirstBarX": "Thirst bar x offset",
     "Config.Setting.ThirstBarY": "Thirst bar y offser",
     "Config.Setting.PeeMode": "Sitting or Standing?",
+    "Config.Setting.BladderBarVisible": "Enable bladder bar",
+    "Config.Setting.HideBladderBarAt": "Hide bladder bar when below this percentage",
     
     "Config.SettingsCompat": "Compatibility Settings (Require reload)",
     "Config.Setting.YieldThirstManagementToHoD": "Yield thirst management to HoD",

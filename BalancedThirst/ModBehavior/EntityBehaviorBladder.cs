@@ -100,6 +100,7 @@ public class EntityBehaviorBladder : EntityBehavior
         }
         else
         {
+            WalkSpeedMultiplier.Multiplier = BtCore.ConfigServer.BladderWalkSpeedDebuff;
             this.entity.Stats.Set("walkspeed", "bladderfull", -WalkSpeedMultiplier.CalcModifier(CurrentLevel/Capacity));
         }
     }

@@ -44,6 +44,8 @@ public class ConfigLibCompat
             config.ThirstBarX = OnInputFloat(id, config.ThirstBarX, nameof(config.ThirstBarX), -float.MaxValue);
             config.ThirstBarY = OnInputFloat(id, config.ThirstBarY, nameof(config.ThirstBarY), -float.MaxValue);
             config.PeeMode = OnInputEnum(id, config.PeeMode, nameof(config.PeeMode));
+            config.BladderBarVisible = OnCheckBox(id, config.BladderBarVisible, nameof(config.BladderBarVisible));
+            config.HideBladderBarAt = OnInputFloat(id, config.HideBladderBarAt, nameof(config.HideBladderBarAt));
         }
     }
 
@@ -68,6 +70,7 @@ public class ConfigLibCompat
             config.VomitEuhydrationMultiplier = OnInputFloat(id, config.VomitEuhydrationMultiplier, nameof(config.VomitEuhydrationMultiplier));
             ImGui.Separator();
             config.EnableBladder = OnCheckBox(id, config.EnableBladder, nameof(config.EnableBladder));
+            config.BladderWalkSpeedDebuff = OnInputFloat(id, config.BladderWalkSpeedDebuff, nameof(config.BladderWalkSpeedDebuff));
             config.UrineNutrientChance = OnInputFloat(id, config.UrineNutrientChance, nameof(config.UrineNutrientChance));
             config.UrineDrainRate = OnInputFloat(id, config.UrineDrainRate, nameof(config.UrineDrainRate));
             DisplayEnumFloatDictionary(config.UrineNutrientLevels, nameof(config.UrineNutrientLevels), id);

@@ -68,9 +68,11 @@ public class BtCore : ModSystem
     {
         sapi.Event.OnEntitySpawn += AddEntityBehaviors;
         sapi.Event.OnEntityLoaded += AddEntityBehaviors;
+        sapi.Event.PlayerJoin += (player) => OnPlayerJoin(player.Entity);
 
         BtCommands.Register(sapi, ConfigServer);
     }
+    
     public override void StartClientSide(ICoreClientAPI capi)
     {
         if (ConfigServer.YieldThirstManagementToHoD) return;
@@ -80,6 +82,11 @@ public class BtCore : ModSystem
         });
     }
     
+    private void OnPlayerJoin(EntityPlayer player)
+    {
+        if (ConfigServer.EnableBladder) return;
+        player.Stats.Remove("walkspeed", "bladderfull");
+    }
     private void AddEntityBehaviors(Entity entity)
     {
         if (entity is EntityPlayer)

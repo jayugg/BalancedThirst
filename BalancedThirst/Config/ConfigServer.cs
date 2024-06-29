@@ -17,6 +17,7 @@ public class ConfigServer : IModConfig
     public float VomitEuhydrationMultiplier { get; set; } = 0.8f;
 
     public bool EnableBladder { get; set; } = true;
+    public float BladderWalkSpeedDebuff { get; set; } = 0.5f;
     public float UrineNutrientChance { get; set; } = 0.1f;
     public float UrineDrainRate { get; set; } = 3f;
     
@@ -77,6 +78,7 @@ public class ConfigServer : IModConfig
         VomitEuhydrationMultiplier = previousConfig.VomitEuhydrationMultiplier;
 
         EnableBladder = EnableBladder;
+        BladderWalkSpeedDebuff = previousConfig.BladderWalkSpeedDebuff;
         UrineNutrientChance = previousConfig.UrineNutrientChance;
         UrineDrainRate = previousConfig.UrineDrainRate;
         UrineNutrientLevels = previousConfig.UrineNutrientLevels;
