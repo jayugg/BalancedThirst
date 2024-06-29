@@ -6,7 +6,7 @@
         "jayugg"
     ],
     "description": "Adds a thirst mechanic to the game.",
-    "version": "0.0.17",
+    "version": "0.0.18",
     "dependencies": {
         "game": "1.19.8"
     }

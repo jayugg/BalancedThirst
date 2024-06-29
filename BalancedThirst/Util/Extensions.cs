@@ -65,7 +65,6 @@ public static class Extensions
         block.EnsureAttributesNotNull();
         JToken token = block.Attributes.Token;
         HydrationProperties hydrationProperties = token["hydrationProps"]?.ToObject<HydrationProperties>();
-        // BtCore.Logger.Warning($"Block {block.Code} hydration properties: {hydrationProperties}");
         return hydrationProperties;
     }
     

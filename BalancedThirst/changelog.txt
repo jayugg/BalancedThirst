@@ -1,1 +1,1 @@
-Small fix to start players with zero bladder in a new world.
+Some multiplier null checks that hopefully fix crashes

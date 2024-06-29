@@ -107,11 +107,11 @@ public class DrinkNetwork : ModSystem
     private void HandleDrinkAction(IServerPlayer player, DrinkMessage.Request request)
     {
         BlockSelection blockSel = RayCastForFluidBlocks(player);
-        var pos = blockSel != null ? blockSel.Position : request.Position;
-        Block block = player.Entity.World.BlockAccessor.GetBlock(pos);
-        HydrationProperties hydrationProps = block.GetBlockHydrationProperties();
+        var pos = blockSel != null ? blockSel.Position : request?.Position;
+        Block block = player?.Entity?.World?.BlockAccessor?.GetBlock(pos);
+        HydrationProperties hydrationProps = block?.GetBlockHydrationProperties();
         if (hydrationProps == null) return;
-        if (player.Entity.HasBehavior<EntityBehaviorThirst>())
+        if (player.Entity?.HasBehavior<EntityBehaviorThirst>() ?? false)
         {
             player.Entity.GetBehavior<EntityBehaviorThirst>().ReceiveHydration(hydrationProps/5);
             DrinkableBehavior.PlayDrinkSound(player.Entity, 2);
@@ -152,28 +152,29 @@ public class DrinkNetwork : ModSystem
         var bh = player.Entity.GetBehavior<EntityBehaviorBladder>();
         if (!bh.Drain(BtCore.ConfigServer.UrineDrainRate)) return;
         EntityBehaviorBladder.PlayPeeSound(player.Entity);
-        SpawnPeeParticles(player.Entity, request.Position, player.CurrentBlockSelection.HitPosition);
+        SpawnPeeParticles(player.Entity, request?.Position, player.CurrentBlockSelection?.HitPosition);
         
         var world = player.Entity.World;
-        var block = world.BlockAccessor.GetBlock(request.Position);
-        serverChannel.SendPacket(new PeeMessage.Response() { Position = request.Position }, player);
+        var block = world.BlockAccessor.GetBlock(request?.Position);
+        serverChannel.SendPacket(new PeeMessage.Response() { Position = request?.Position }, player);
         if (block is BlockFarmland)
         {
-            FertiliseFarmland(world, request.Position);
+            FertiliseFarmland(world, request?.Position);
         } 
-        else if (world.BlockAccessor.GetBlock(request.Position.DownCopy()) is BlockFarmland)
+        else if (world.BlockAccessor.GetBlock(request?.Position.DownCopy()) is BlockFarmland)
         {
-            FertiliseFarmland(world, request.Position.DownCopy());
+            FertiliseFarmland(world, request?.Position.DownCopy());
         }
         else if (block is BlockLiquidContainerBase container )
         {
             var waterStack = new ItemStack(world.GetItem(new AssetLocation(BtCore.Modid+":urineportion")));
-            container.TryPutLiquid(request.Position, waterStack, 0.1f);
+            container.TryPutLiquid(request?.Position, waterStack, 0.1f);
         }
     }
     
     private void FertiliseFarmland(IWorldAccessor world, BlockPos position)
     {
+        if (position == null) return;
         var be = world.BlockAccessor.GetBlockEntity(position) as BlockEntityFarmland; 
         be?.WaterFarmland(0.05f);
         if (BtCore.ConfigServer.UrineNutrientChance > world.Rand.NextDouble())
@@ -206,7 +207,7 @@ public class DrinkNetwork : ModSystem
 
     public static void SpawnPeeParticles(Entity byEntity, BlockPos pos, Vec3d hitPos)
     {
-        if (hitPos == null) return;
+        if (hitPos == null || pos == null) return;
         Vec3d entityPos = byEntity.Pos.XYZ.AddCopy(byEntity.LocalEyePos.SubCopy(0, 0.2, 0));
         Vec3d posVec = pos.ToVec3d().AddCopy(hitPos);
         Vec3d dist = (posVec - entityPos);
