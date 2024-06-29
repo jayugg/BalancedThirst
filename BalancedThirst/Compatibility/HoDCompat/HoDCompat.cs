@@ -5,7 +5,7 @@ using Vintagestory.API.Client;
 using Vintagestory.API.Common;
 using Vintagestory.API.Server;
 
-namespace BalancedThirst.HoDCompat;
+namespace BalancedThirst.Compatibility.HoDCompat;
 
 public class HoDCompat : ModSystem
 {

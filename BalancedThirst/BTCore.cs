@@ -1,6 +1,6 @@
 ﻿using BalancedThirst.Blocks;
+using BalancedThirst.Compatibility.HoDCompat;
 using BalancedThirst.Config;
-using BalancedThirst.HoDCompat;
 using BalancedThirst.Hud;
 using BalancedThirst.Items;
 using BalancedThirst.ModBehavior;
@@ -24,6 +24,7 @@ public class BtCore : ModSystem
     private static ICoreAPI _api;
 
     public static bool IsHoDLoaded => _api.ModLoader.IsModEnabled("hydrateordiedrate");
+    public static bool IsXskillsLoaded => _api.ModLoader.IsModEnabled("xskills");
     
     public static ConfigServer ConfigServer { get; set; }
     public static ConfigClient ConfigClient { get; set; }

@@ -116,6 +116,12 @@
     "playerinfo-hydration": "Hydration",
     "playerinfo-hydration-boost": "Euhydration",
     
-    "cookingrecipe-boilingwater" : "Boiling water"
+    "cookingrecipe-boilingwater" : "Boiling water",
+
+    "ability-camelhump": "Camel Hump",
+    "abilitydesc-camelhump": "Increases your maximum hydration by {0}.",
+    
+    "ability-elephantbladder": "Elephant Bladder",
+    "abilitydesc-elephantbladder": "Increases your bladder capacity by {0}."
     
 }
