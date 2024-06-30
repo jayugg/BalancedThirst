@@ -13,7 +13,7 @@ public class CollectibleObject_tryEatStop_Patch
     static EntityPlayer playerCalled; 
     public static void Postfix(float secondsUsed, ItemSlot slot, EntityAgent byEntity)
     {
-        var collObj = slot.Itemstack.Collectible;
+        var collObj = slot?.Itemstack?.Collectible;
         HydrationProperties hydrationProperties = collObj.GetHydrationProperties(slot.Itemstack, byEntity);
         if (byEntity.World is not IServerWorldAccessor ||
             !byEntity.HasBehavior<EntityBehaviorThirst>() ||

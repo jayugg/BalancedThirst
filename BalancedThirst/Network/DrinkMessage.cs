@@ -16,6 +16,6 @@ public class DrinkMessage
     public class Response
     {
         [ProtoMember(1)]
-        public BlockPos Position;
+        public Vec3d Position;
     }
 }

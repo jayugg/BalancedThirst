@@ -1,12 +1,14 @@
 using System.Collections.Generic;
-using BalancedThirst.ModBehavior;
 using BalancedThirst.Thirst;
+using Vintagestory.API.Client;
 using Vintagestory.API.Common;
 
 namespace BalancedThirst.Util;
 
 public static class BtConstants
 {
+    public const string modDomain = "balancedthirst";
+    
     public static readonly string ConfigServerName = "balancedthirst" + ".json";
     public static readonly string ConfigClientName = "balancedthirst_client" + ".json";
     
@@ -70,5 +72,47 @@ public static class BtConstants
         { EnumSoilNutrient.N, 0.1f },
         { EnumSoilNutrient.P, 0.0f },
         { EnumSoilNutrient.K, 0.1f }
+    };
+    
+    public static readonly string InteractionEventId = BtCore.Modid + ":interaction";
+    
+    public struct InteractionIds {
+        public const string Drink = "drink";
+        public const string PeeStand = "pee-stand";
+        public const string PeeSit = "pee-sit";
+        public const string Pee = "pee";
+    }
+    
+    public static readonly Dictionary<string, WorldInteraction> Interactions = new()
+    {
+        {"drink", new WorldInteraction()
+            {
+                ActionLangCode = BtCore.Modid + ":interaction-drink",
+                MouseButton = EnumMouseButton.Right,
+                RequireFreeHand = true
+            }
+        },
+        { "pee-stand", new WorldInteraction()
+            {
+                RequireFreeHand = true,
+                ActionLangCode = BtCore.Modid+":interaction-pee",
+                MouseButton = EnumMouseButton.Right,
+                HotKeyCode = "sneak"
+            }
+        },
+        { "pee-sit", new WorldInteraction()
+            {
+                ActionLangCode = BtCore.Modid+":interaction-pee",
+                MouseButton = EnumMouseButton.Right,
+                HotKeyCode = "sitdown"
+            }
+        },
+        { "pee", new WorldInteraction()
+            {
+                RequireFreeHand = true,
+                ActionLangCode = BtCore.Modid+":interaction-pee",
+                MouseButton = EnumMouseButton.Right
+            }
+        }
     };
 }

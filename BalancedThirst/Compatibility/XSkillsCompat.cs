@@ -12,7 +12,7 @@ public class XSkillsCompat : ModSystem
     public override double ExecuteOrder() => 1.05;
     public override bool ShouldLoad(EnumAppSide forSide)
     {
-        return BtCore.IsXskillsLoaded;
+        return BtCore.IsXSkillsLoaded && !BtCore.IsHoDLoaded;
     }
 
     public override void Start(ICoreAPI api)
@@ -23,7 +23,7 @@ public class XSkillsCompat : ModSystem
         Ability camelHump = new Ability("camelhump", BtCore.Modid+":ability-camelhump", BtCore.Modid+":abilitydesc-camelhump", 1, 3, new int[] { 500, 1000, 1500 });
         camelHump.OnPlayerAbilityTierChanged += OnCamelHump;
         survival?.AddAbility(camelHump);
-        Ability elephantBladder = new Ability("elephantbladder", BtCore.Modid+":ability-elephantbladder", BtCore.Modid+":abilitydesc-elephantbladder", 1, 3, new int[] { 750, 1500 });
+        Ability elephantBladder = new Ability("elephantbladder", BtCore.Modid+":ability-elephantbladder", BtCore.Modid+":abilitydesc-elephantbladder", 1, 2, new int[] { 750, 1500 });
         elephantBladder.OnPlayerAbilityTierChanged += OnElephantBladder;
         survival?.AddAbility(elephantBladder);
     }

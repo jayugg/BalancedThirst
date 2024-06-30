@@ -5,5 +5,12 @@
     "path": "/enabled",
     "value": false,
     "dependsOn": [{ "modid": "liquidcontainers" }]
+  },
+  {
+    "file": "balancedthirst:recipes/grid/waterskin.json",
+    "op": "add",
+    "path": "/enabled",
+    "value": false,
+    "dependsOn": [{ "modid": "liquidcontainers" }]
   }
 ]

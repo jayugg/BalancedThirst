@@ -90,16 +90,18 @@ public class EntityBehaviorBladder : EntityBehavior
     
     private void SlowTick(float dt)
     { 
-        if (this.entity is EntityPlayer &&
-            this.entity.World.PlayerByUid(((EntityPlayer)this.entity).PlayerUID).WorldData.CurrentGameMode ==
+        if (this.entity is EntityPlayer player &&
+            player.World.PlayerByUid(player.PlayerUID).WorldData.CurrentGameMode ==
             EnumGameMode.Creative)
             return;
         if (CurrentLevel <= Capacity*0.5f || !BtCore.ConfigServer.EnableBladder)
         {
+            BtCore.Logger.Warning("LessCapacity!");
             this.entity.Stats.Remove("walkspeed", "bladderfull");
         }
         else
         {
+            BtCore.Logger.Warning("MoreCapacity!");
             WalkSpeedMultiplier.Multiplier = BtCore.ConfigServer.BladderWalkSpeedDebuff;
             this.entity.Stats.Set("walkspeed", "bladderfull", -WalkSpeedMultiplier.CalcModifier(CurrentLevel/Capacity));
         }

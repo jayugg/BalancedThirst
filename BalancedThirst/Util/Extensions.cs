@@ -6,11 +6,14 @@ using BalancedThirst.ModBehavior;
 using BalancedThirst.ModBlockBehavior;
 using BalancedThirst.Thirst;
 using Newtonsoft.Json.Linq;
+using Vintagestory.API.Client;
 using Vintagestory.API.Common;
 using Vintagestory.API.Common.Entities;
+using Vintagestory.API.Config;
 using Vintagestory.API.Datastructures;
 using Vintagestory.API.MathTools;
 using Vintagestory.API.Util;
+using Vintagestory.Client.NoObf;
 using Vintagestory.GameContent;
 
 namespace BalancedThirst.Util;
@@ -148,4 +151,42 @@ public static class Extensions
             be.MarkDirty(true);
         }
     }
+
+    public static bool IsLookingAtDrinkableBlock(this IClientPlayer clientPlayer)
+    {
+        var player = clientPlayer.Entity;
+        var world = player.World;
+        var blockSel = player.BlockSelection;
+        var selPos = blockSel?.Position;
+        var selFace = player.BlockSelection?.Face;
+        var waterPos = selPos?.AddCopy(selFace);
+        if (blockSel == null)
+        {
+            blockSel = Raycast.RayCastForFluidBlocks(player.Player);
+            waterPos = blockSel?.Position;
+            if (waterPos == null)
+            {
+                return false;
+            }
+        }
+        return world.BlockAccessor?.GetBlock(waterPos)?.GetBlockHydrationProperties() != null;
+    }
+
+    public static bool IsBladderAlmostFull(this IClientPlayer clientPlayer)
+    {
+        var bladderTree = clientPlayer.Entity.WatchedAttributes.GetTreeAttribute(BtCore.Modid+":bladder");
+        if (bladderTree == null) return false;
+
+        float? currentLevel = bladderTree.TryGetFloat("currentlevel");
+        float? capacity = bladderTree.TryGetFloat("capacity");
+
+        if (!currentLevel.HasValue || !capacity.HasValue) return false;
+        return currentLevel > capacity * 0.8;
+    }
+    
+    public static string Localize(this string input, params object[] args)
+    {
+        return Lang.Get(input, args);
+    }
+    
 }

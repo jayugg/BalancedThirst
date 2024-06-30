@@ -1,4 +1,5 @@
 using BalancedThirst.Util;
+using Vintagestory.API.Client;
 using Vintagestory.API.Common;
 
 namespace BalancedThirst.Config;

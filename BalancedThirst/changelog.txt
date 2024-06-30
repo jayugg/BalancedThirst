@@ -1,1 +1,3 @@
-Some multiplier null checks that hopefully fix crashes
+Changed keys controls again: now can pee only when not walking by sneak-right-click for standing, sit controls are g-right-click
+New interaction info to showcase the keybinds
+Reworked player right-click detection to hopefully fix some issues with it

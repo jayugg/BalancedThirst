@@ -1,6 +1,5 @@
 using System;
 using Vintagestory.API.Client;
-
 namespace BalancedThirst.Hud
 {
     public class ThirstBarHudElement : HudElement
@@ -132,8 +131,8 @@ namespace BalancedThirst.Hud
             {
                 ElementBounds bladderBarBounds = ElementStdBounds.Statbar(EnumDialogArea.RightBottom, num * 0.41)
                     .WithFixedAlignmentOffset(-2.0 + BtCore.ConfigClient.ThirstBarX,
-                        11 + BtCore.ConfigClient.ThirstBarY);
-                bladderBarBounds.WithFixedHeight(5.0);
+                        10 + BtCore.ConfigClient.ThirstBarY);
+                bladderBarBounds.WithFixedHeight(6.0);
 
                 var compo2 = capi.Gui.CreateCompo("bladderbar", parentBounds.FlatCopy().FixedGrow(0.0, 20.0));
 
