@@ -50,6 +50,8 @@ public class BlockLiquidContainerBase_tryEatStop_Patch
         _capturedProperties[player.PlayerUID] = hydrationProps;
         float num3 = Math.Min(val1, val2);
         __instance.TryTakeLiquid(slot.Itemstack, num3 / (float) slot.Itemstack.StackSize);
+        slot.MarkDirty();
+        player.Player?.InventoryManager.BroadcastHotbarSlot();
         BtCore.Logger.Warning("Prefix" + hydrationProps.Hydration);
     }
     

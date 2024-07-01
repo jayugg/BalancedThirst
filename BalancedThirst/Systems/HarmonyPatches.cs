@@ -35,12 +35,13 @@ public class HarmonyPatches : ModSystem
         }
         // Careful with this, it can technically only run on the server
         if (BtCore.ConfigServer?.YieldThirstManagementToHoD ?? true) return;
+        /*
         HarmonyInstance.Patch(typeof(CollectibleObject).GetMethod("tryEatBegin", BindingFlags.NonPublic | BindingFlags.Instance),
             postfix: typeof(CollectibleObject_tryEatBegin_Patch).GetMethod(
-                nameof(CollectibleObject_tryEatBegin_Patch.Postfix)));
-        HarmonyInstance.Patch(typeof(CollectibleObject).GetMethod("tryEatStep", BindingFlags.NonPublic | BindingFlags.Instance),
+                nameof(CollectibleObject_tryEatBegin_Patch.Postfix)));*/
+        /*HarmonyInstance.Patch(typeof(CollectibleObject).GetMethod("tryEatStep", BindingFlags.NonPublic | BindingFlags.Instance),
             postfix: typeof(CollectibleObject_tryEatStep_Patch).GetMethod(
-                nameof(CollectibleObject_tryEatStep_Patch.Postfix)));
+                nameof(CollectibleObject_tryEatStep_Patch.Postfix)));*/
         HarmonyInstance.Patch(typeof(CollectibleObject).GetMethod("tryEatStop", BindingFlags.NonPublic | BindingFlags.Instance),
             prefix: typeof(CollectibleObject_tryEatStop_Patch).GetMethod(
                 nameof(CollectibleObject_tryEatStop_Patch.Prefix)),
