@@ -125,5 +125,7 @@
     "abilitydesc-elephantbladder": "Increases your bladder capacity by {0}.",
     
     "interaction-pee": "Urinate",
-    "interaction-drink": "Drink"
+    "interaction-drink": "Drink",
+    
+    "peemodenotset": "Pee mode is not set. Please set it in the client config."
 }

@@ -3,10 +3,7 @@
     "op": "add",
     "path": "/server/behaviors/6",
     "value": {
-      "code": "balancedthirst:thirst",
-      "currenthydration": 1500.0,
-      "maxhydration": 1500.0,
-      "hydrationlossdelay": 180.0
+      "code": "balancedthirst:thirst"
     },
     "file": "game:entities/humanoid/player.json",
     "side": "Server"

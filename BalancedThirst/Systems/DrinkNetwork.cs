@@ -7,6 +7,7 @@ using BalancedThirst.Util;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
 using Vintagestory.API.Common.Entities;
+using Vintagestory.API.Config;
 using Vintagestory.API.Datastructures;
 using Vintagestory.API.MathTools;
 using Vintagestory.API.Server;
@@ -44,27 +45,33 @@ public class DrinkNetwork : ModSystem
                 .SetMessageHandler<PeeMessage.Response>(OnServerPeeMessage);
 
         api.Input.InWorldAction += OnEntityAction;
+        api.Event.AfterActiveSlotChanged += (slot) => this.OnClientTick(0);
         api.World.RegisterGameTickListener(OnClientTick, 200);
         api.Gui.RegisterDialog(new HudInteractionHelp(api));
     }
-    
+
     private void OnClientTick(float dt)
     {
         var player = _capi.World.Player;
-        if (player.IsLookingAtDrinkableBlock())
-            _capi.Event.PushEvent(BtConstants.InteractionEventId,
+        if (player.IsLookingAtDrinkableBlock() && player.Entity.RightHandItemSlot.Empty)
+            _capi.Event.PushEvent(EventIds.Interaction,
                 new StringAttribute(BtConstants.InteractionIds.Drink));
 
-        if (!player.IsBladderAlmostFull()) return;
+        if (!player.IsBladderOverloaded() || !player.Entity.RightHandItemSlot.Empty) return;
         if (BtCore.ConfigClient.PeeMode.IsSitting())
-            _capi.Event.PushEvent(BtConstants.InteractionEventId,
+            _capi.Event.PushEvent(EventIds.Interaction,
                 new StringAttribute(player.Entity.Controls.FloorSitting ?
                     BtConstants.InteractionIds.Pee : BtConstants.InteractionIds.PeeSit));
 
         if (BtCore.ConfigClient.PeeMode.IsStanding())
-            _capi.Event.PushEvent(BtConstants.InteractionEventId,
-                new StringAttribute((!player.Entity.Controls.TriesToMove && player.Entity.Controls.Sneak) ?
+            _capi.Event.PushEvent(EventIds.Interaction,
+                new StringAttribute(!player.Entity.Controls.TriesToMove && player.Entity.Controls.CtrlKey ?
                     BtConstants.InteractionIds.Pee : BtConstants.InteractionIds.PeeStand));
+
+        if (BtCore.ConfigClient.PeeMode == EnumPeeMode.None)
+        {
+            player.IngameError(player, "peemodenotset", Lang.Get(BtCore.Modid+":peemodenotset") );
+        }
     }
     public void OnEntityAction(EnumEntityAction action, bool on, ref EnumHandling handled)
     {
@@ -94,19 +101,19 @@ public class DrinkNetwork : ModSystem
             if (world.BlockAccessor?.GetBlock(waterPos)?.GetBlockHydrationProperties() != null)
             {
                 _clientChannel.SendPacket(new DrinkMessage.Request() {Position = waterPos});
-                handled = EnumHandling.PreventDefault;
+                handled = EnumHandling.Handled;
                 return;
             }
         }
         
-        if ((!player.Controls.TriesToMove && player.Controls.Sneak &&
+        if ((!player.Controls.TriesToMove && player.Controls.CtrlKey &&
             (player.RightHandItemSlot.Empty || player.LeftHandItemSlot.Empty) && 
             BtCore.ConfigClient.PeeMode.IsStanding()) ||
             (player.Controls.FloorSitting &&
             BtCore.ConfigClient.PeeMode.IsSitting()))
         {
             _clientChannel.SendPacket(new PeeMessage.Request() {Position = player.BlockSelection?.Position});
-            handled = EnumHandling.PreventDefault;
+            handled = EnumHandling.Handled;
         }
     }
     

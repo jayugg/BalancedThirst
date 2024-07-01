@@ -74,8 +74,6 @@ public static class BtConstants
         { EnumSoilNutrient.K, 0.1f }
     };
     
-    public static readonly string InteractionEventId = BtCore.Modid + ":interaction";
-    
     public struct InteractionIds {
         public const string Drink = "drink";
         public const string PeeStand = "pee-stand";
@@ -97,7 +95,7 @@ public static class BtConstants
                 RequireFreeHand = true,
                 ActionLangCode = BtCore.Modid+":interaction-pee",
                 MouseButton = EnumMouseButton.Right,
-                HotKeyCode = "sneak"
+                HotKeyCode = "ctrl"
             }
         },
         { "pee-sit", new WorldInteraction()

@@ -30,10 +30,11 @@ public class HudInteractionHelp : HudElement
     public HudInteractionHelp(ICoreClientAPI capi)
       : base(capi)
     {
-      this.wiUtil = new DrawWorldInteractionUtil(capi, this.Composers, "-heldItem");
+      this.wiUtil = new DrawWorldInteractionUtil(capi, this.Composers, "-interactHelper");
       this.wiUtil.UnscaledLineHeight = 25.0;
       this.wiUtil.FontSize = 16f;
       capi.Event.RegisterEventBusListener(OnEvent, 0.5);
+      capi.Event.AfterActiveSlotChanged += this.OnSlotFilled;
       capi.Event.RegisterGameTickListener(new Action<float>(this.OnGameTick), 20);
     }
     
@@ -41,11 +42,18 @@ public class HudInteractionHelp : HudElement
     
     private void OnEvent(string eventName, ref EnumHandling handling, IAttribute data)
     {
-      if (eventName != BtConstants.InteractionEventId) return;
+      if (eventName != EventIds.Interaction) return;
       this.errorTextActiveMs = this.capi.InWorldEllapsedMilliseconds;
       if (data?.GetValue() is string interactionId) {
         this.wiUtil.ComposeBlockWorldInteractionHelp(new[] { BtConstants.Interactions[interactionId] });
       }
+    }
+    
+    private void OnSlotFilled(ActiveSlotChangeEventArgs slot)
+    {
+      var player = this.capi.World.Player;
+      if (player.InventoryManager.ActiveHotbarSlot == null) return;
+      this.wiUtil.ComposeBlockWorldInteractionHelp(Array.Empty<WorldInteraction>());
     }
 
     private void OnGameTick(float dt)

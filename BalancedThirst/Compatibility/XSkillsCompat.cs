@@ -60,6 +60,7 @@ public class XSkillsCompat : ModSystem
         if (behavior == null)
             return;
         behavior.Capacity = (BtCore.ConfigServer.MaxHydration + playerAbility.Value(0));
+        behavior.CapacityOverload = BtCore.ConfigServer.BladderCapacityOverload*(BtCore.ConfigServer.MaxHydration + playerAbility.Value(0));
     }
     
 }

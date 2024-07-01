@@ -6,7 +6,7 @@
       {
         "type": "Perish",
         "freshHours": {
-          "avg": 1
+          "avg": 3
         },
         "transitionHours": {
           "avg": 0

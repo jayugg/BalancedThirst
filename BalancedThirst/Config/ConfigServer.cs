@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using BalancedThirst.ModBehavior;
 using BalancedThirst.Thirst;
 using BalancedThirst.Util;
 using Vintagestory.API.Common;
@@ -18,15 +17,16 @@ public class ConfigServer : IModConfig
 
     public bool EnableBladder { get; set; } = true;
     public float BladderWalkSpeedDebuff { get; set; } = 0.5f;
+    public float BladderCapacityOverload { get; set; } = 0.25f;
     public float UrineNutrientChance { get; set; } = 0.1f;
     public float UrineDrainRate { get; set; } = 3f;
     
     public Dictionary<EnumSoilNutrient, float> UrineNutrientLevels { get; set; } = BtConstants.UrineNutrientLevels;
     
-    public Dictionary<string, ThirstStatMultiplier> ThirstStatMultipliers { get; set; } = new()
+    public Dictionary<string, StatMultiplier> ThirstStatMultipliers { get; set; } = new()
     {
-        { "hungerrate", new ThirstStatMultiplier() { Multiplier = 0.3f } },
-        { "walkspeed", new ThirstStatMultiplier() { Multiplier = 0f, Inverted = true} }
+        { "hungerrate", new StatMultiplier() { Multiplier = 0.3f } },
+        { "walkspeed", new StatMultiplier() { Multiplier = 0f, Inverted = true} }
     };
 
     public float PurePurityLevel { get; set; } = 1.0f;
@@ -79,6 +79,7 @@ public class ConfigServer : IModConfig
 
         EnableBladder = EnableBladder;
         BladderWalkSpeedDebuff = previousConfig.BladderWalkSpeedDebuff;
+        BladderCapacityOverload = previousConfig.BladderCapacityOverload;
         UrineNutrientChance = previousConfig.UrineNutrientChance;
         UrineDrainRate = previousConfig.UrineDrainRate;
         UrineNutrientLevels = previousConfig.UrineNutrientLevels;

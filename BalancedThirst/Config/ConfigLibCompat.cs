@@ -78,7 +78,7 @@ public class ConfigLibCompat
             if (ImGui.CollapsingHeader(Lang.Get(settingsStatMultipliers) + $"##settingStatMultipliers-{id}"))
             {
                 ImGui.Indent();
-                DictionaryEditor(config.ThirstStatMultipliers, new ThirstStatMultiplier());
+                DictionaryEditor(config.ThirstStatMultipliers, new StatMultiplier());
                 ImGui.Unindent();
             }
             ImGui.Separator();
@@ -267,15 +267,15 @@ public class ConfigLibCompat
                     customValue.Salty = OnCheckBoxWithoutTranslation($"##boolean-{row}" + key, customValue.Salty, nameof(HydrationProperties.Salty));
                     value = (T)Convert.ChangeType(customValue, typeof(HydrationProperties));
                 }
-                else if (typeof(T) == typeof(ThirstStatMultiplier))
+                else if (typeof(T) == typeof(StatMultiplier))
                 {
-                    if (value is not ThirstStatMultiplier customValue) continue;
-                    customValue.Multiplier = OnInputFloat($"##float-{row}" + key, customValue.Multiplier, nameof(ThirstStatMultiplier.Multiplier));
-                    customValue.Centering = OnInputEnum($"##centering-{row}" + key, customValue.Centering, nameof(ThirstStatMultiplier.Centering));
-                    customValue.Curve = OnInputEnum($"##curve-{row}" + key, customValue.Curve, nameof(ThirstStatMultiplier.Curve));
-                    customValue.LowerHalfCurve = OnInputEnum($"##lowerhalf-{row}" + key, customValue.LowerHalfCurve, nameof(ThirstStatMultiplier.LowerHalfCurve));
-                    customValue.Inverted = OnCheckBoxWithoutTranslation($"##boolean-{row}" + key, customValue.Inverted, nameof(ThirstStatMultiplier.Inverted));
-                    value = (T)Convert.ChangeType(customValue, typeof(ThirstStatMultiplier));
+                    if (value is not StatMultiplier customValue) continue;
+                    customValue.Multiplier = OnInputFloat($"##float-{row}" + key, customValue.Multiplier, nameof(StatMultiplier.Multiplier));
+                    customValue.Centering = OnInputEnum($"##centering-{row}" + key, customValue.Centering, nameof(StatMultiplier.Centering));
+                    customValue.Curve = OnInputEnum($"##curve-{row}" + key, customValue.Curve, nameof(StatMultiplier.Curve));
+                    customValue.LowerHalfCurve = OnInputEnum($"##lowerhalf-{row}" + key, customValue.LowerHalfCurve, nameof(StatMultiplier.LowerHalfCurve));
+                    customValue.Inverted = OnCheckBoxWithoutTranslation($"##boolean-{row}" + key, customValue.Inverted, nameof(StatMultiplier.Inverted));
+                    value = (T)Convert.ChangeType(customValue, typeof(StatMultiplier));
                 }
                 dict[key] = value;
                 if (ImGui.Button($"Remove##row-value-{row}"))

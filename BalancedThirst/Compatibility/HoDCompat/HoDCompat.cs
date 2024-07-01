@@ -49,7 +49,7 @@ public class HoDCompat : ModSystem
             if (currentThirst < previousThirst)
             {
                 float difference = previousThirst - currentThirst;
-                player.Entity.GetBehavior<EntityBehaviorBladder>()?.ReceiveCapacity(difference);
+                player.Entity.GetBehavior<EntityBehaviorBladder>()?.ReceiveFluid(difference);
             }
             PlayerThirstLevels[player.PlayerUID] = currentThirst;
         }

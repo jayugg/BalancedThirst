@@ -15,15 +15,25 @@ public class EntityBehaviorBladder : EntityBehavior
     private long _listenerId;
     private string AttributeKey => BtCore.Modid + ":bladder";
     
-    public ThirstStatMultiplier WalkSpeedMultiplier = new ThirstStatMultiplier()
+    public StatMultiplier WalkSpeedMultiplier = new StatMultiplier()
     {
-        Multiplier = 0.5f,
-        Centering = EnumUpOrDown.Centered,
-        Curve = EnumBuffCurve.Flat0,
-        LowerHalfCurve = EnumBuffCurve.Quintic,
-        Inverted = true
+        Multiplier = BtCore.ConfigServer.BladderWalkSpeedDebuff,
+        Centering = EnumUpOrDown.Down,
+        Curve = EnumBuffCurve.Linear,
+        LowerHalfCurve = EnumBuffCurve.Linear,
+        Inverted = false
     }; 
 
+    public float CapacityOverload
+    {
+        get => this._bladderTree?.GetFloat("capacityoverload") ?? BtCore.ConfigServer.BladderCapacityOverload*BtCore.ConfigServer.MaxHydration;
+        set
+        {
+            this._bladderTree?.SetFloat("capacityoverload", value);
+            this.entity.WatchedAttributes.MarkPathDirty(AttributeKey);
+        }
+    }
+    
     public float Capacity
     {
         get => this._bladderTree?.GetFloat("capacity") ?? BtCore.ConfigServer.MaxHydration;
@@ -44,6 +54,8 @@ public class EntityBehaviorBladder : EntityBehavior
         }
     }
     
+    public float EffectiveCapacity => Capacity + CapacityOverload;
+    
     public EntityBehaviorBladder(Entity entity) : base(entity)
     {
     }
@@ -53,25 +65,31 @@ public class EntityBehaviorBladder : EntityBehavior
         this._bladderTree = this.entity.WatchedAttributes.GetTreeAttribute(AttributeKey);
         this._api = this.entity.World.Api;
 
-        if (this._bladderTree == null || this._bladderTree.GetFloat("capacity") == 0)
+        if (this._bladderTree == null || this._bladderTree.GetFloat("capacity") == 0 || this._bladderTree.GetFloat("capacityoverload") == 0)
         {
             this.entity.WatchedAttributes.SetAttribute(AttributeKey, _bladderTree = new TreeAttribute());
-            this.CurrentLevel = typeAttributes["currentlevel"].AsFloat(BtCore.ConfigServer.MaxHydration);
+            this.CurrentLevel = typeAttributes["currentlevel"].AsFloat(0);
             this.Capacity = typeAttributes["capacity"].AsFloat(BtCore.ConfigServer.MaxHydration);
+            this.CapacityOverload = typeAttributes["capacityoverload"].AsFloat(BtCore.ConfigServer.BladderCapacityOverload*BtCore.ConfigServer.MaxHydration);
         }
         this._listenerId = this.entity.World.RegisterGameTickListener(this.SlowTick, 500);
     }
     
-    public void ReceiveCapacity(float capacity)
+    public void ReceiveFluid(float fluidAmount)
     {
-        this.CurrentLevel = Math.Clamp(this.CurrentLevel + capacity, 0.0f, Capacity);
+        BtCore.Logger.Warning("ReceiveFluid");
+        this._api.Event.PushEvent(EventIds.BladderReceiveFluid, new FloatAttribute(fluidAmount));
+        BtCore.Logger.Warning(EffectiveCapacity.ToString());
+        BtCore.Logger.Warning(CapacityOverload.ToString());
+        this.CurrentLevel = Math.Clamp(this.CurrentLevel + fluidAmount, 0.0f, EffectiveCapacity);
     }
     
     public bool Drain(float multiplier = 1)
     {
+        BtCore.Logger.Warning("Drain");
         float currentLevel = this.CurrentLevel;
         if (currentLevel < 0.0) return false;
-        float newLevel = Math.Clamp(currentLevel - multiplier * 10f, 0.0f, this.Capacity);
+        float newLevel = Math.Clamp(currentLevel - multiplier * 10f, 0.0f, EffectiveCapacity);
         this.CurrentLevel = newLevel;
         return newLevel < currentLevel;
     }
@@ -94,17 +112,20 @@ public class EntityBehaviorBladder : EntityBehavior
             player.World.PlayerByUid(player.PlayerUID).WorldData.CurrentGameMode ==
             EnumGameMode.Creative)
             return;
-        if (CurrentLevel <= Capacity*0.5f || !BtCore.ConfigServer.EnableBladder)
+        if (!IsOverloaded() || !BtCore.ConfigServer.EnableBladder)
         {
-            BtCore.Logger.Warning("LessCapacity!");
             this.entity.Stats.Remove("walkspeed", "bladderfull");
         }
         else
         {
-            BtCore.Logger.Warning("MoreCapacity!");
             WalkSpeedMultiplier.Multiplier = BtCore.ConfigServer.BladderWalkSpeedDebuff;
-            this.entity.Stats.Set("walkspeed", "bladderfull", -WalkSpeedMultiplier.CalcModifier(CurrentLevel/Capacity));
+            this.entity.Stats.Set("walkspeed", "bladderfull", WalkSpeedMultiplier.CalcModifier((CurrentLevel - Capacity)/CapacityOverload));
         }
+    }
+    
+    private bool IsOverloaded()
+    {
+        return CurrentLevel > Capacity;
     }
     
 }

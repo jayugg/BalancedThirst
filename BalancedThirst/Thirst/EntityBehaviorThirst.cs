@@ -234,7 +234,7 @@ namespace BalancedThirst.Thirst
     {
       foreach (var stat in BtCore.ConfigServer.ThirstStatMultipliers.Keys)
       {
-        ThirstStatMultiplier multiplier = BtCore.ConfigServer.ThirstStatMultipliers[stat];
+        StatMultiplier multiplier = BtCore.ConfigServer.ThirstStatMultipliers[stat];
         if (multiplier.Multiplier == 0) continue;
         var multiplierVal = BtCore.ConfigServer.ThirstStatMultipliers[stat].CalcModifier(Hydration/MaxHydration);
         this.entity.Stats.Set(stat, BtCore.Modid + ":thirsty", multiplierVal);

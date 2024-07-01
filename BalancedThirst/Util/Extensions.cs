@@ -124,7 +124,7 @@ public static class Extensions
     public static void ReceiveCapacity(this Entity entity, float capacity)
     {
         if (!entity.HasBehavior<EntityBehaviorBladder>()) return;
-        entity.GetBehavior<EntityBehaviorBladder>().ReceiveCapacity(capacity);
+        entity.GetBehavior<EntityBehaviorBladder>().ReceiveFluid(capacity);
     }
     
     public static void IncreaseNutrients(this BlockEntityFarmland be, Dictionary<EnumSoilNutrient, float> addNutrients)
@@ -171,22 +171,26 @@ public static class Extensions
         }
         return world.BlockAccessor?.GetBlock(waterPos)?.GetBlockHydrationProperties() != null;
     }
-
-    public static bool IsBladderAlmostFull(this IClientPlayer clientPlayer)
-    {
-        var bladderTree = clientPlayer.Entity.WatchedAttributes.GetTreeAttribute(BtCore.Modid+":bladder");
-        if (bladderTree == null) return false;
-
-        float? currentLevel = bladderTree.TryGetFloat("currentlevel");
-        float? capacity = bladderTree.TryGetFloat("capacity");
-
-        if (!currentLevel.HasValue || !capacity.HasValue) return false;
-        return currentLevel > capacity * 0.8;
-    }
     
     public static string Localize(this string input, params object[] args)
     {
         return Lang.Get(input, args);
     }
     
+    public static void IngameError(this IPlayer byPlayer, object sender, string errorCode, string text)
+    {
+        (byPlayer.Entity.World.Api as ICoreClientAPI)?.TriggerIngameError(sender, errorCode, text);
+    }
+
+    public static bool IsBladderOverloaded(this IClientPlayer player)
+    {
+        var bladderTree = player.Entity.WatchedAttributes.GetTreeAttribute(BtCore.Modid+":bladder");
+        if (bladderTree == null) return false;
+
+        float? currentLevel = bladderTree.TryGetFloat("currentlevel");
+        float? capacity = bladderTree.TryGetFloat("capacity");
+
+        if (!currentLevel.HasValue || !capacity.HasValue) return false;
+        return currentLevel > capacity;
+    }
 }

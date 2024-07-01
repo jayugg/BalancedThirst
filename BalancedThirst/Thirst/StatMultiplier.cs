@@ -2,7 +2,7 @@ using BalancedThirst.Util;
 
 namespace BalancedThirst.Thirst;
 
-public class ThirstStatMultiplier
+public class StatMultiplier
 {
     public float Multiplier { get; set; } 
     public EnumUpOrDown Centering { get; set; } = EnumUpOrDown.Centered;

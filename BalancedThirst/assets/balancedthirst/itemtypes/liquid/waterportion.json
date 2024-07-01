@@ -44,13 +44,21 @@
     }]
   },
   "combustiblePropsByType": {
-    "*": {
+    "*-pure": {
       "meltingPoint": 100,
       "meltingDuration": 30,
       "smeltedRatio": 1,
-      "smeltingType": "cook",
+      "smeltingType": "convert",
       "smeltedStack": { "type": "item", "code": "game:boilingwaterportion" },
-      "requiresContainer": false
+      "requiresContainer": true
+    },
+    "*-stagnant": {
+      "meltingPoint": 100,
+      "meltingDuration": 30,
+      "smeltedRatio": 1,
+      "smeltingType": "convert",
+      "smeltedStack": { "type": "item", "code": "game:boilingwaterportion" },
+      "requiresContainer": true
     }
   },
   "shape": { "base": "game:item/liquid" },

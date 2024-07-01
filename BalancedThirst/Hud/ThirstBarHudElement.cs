@@ -72,6 +72,7 @@ namespace BalancedThirst.Hud
         private void OnFlashStatbars(float dt)
         {
             var thirstTree = this.capi.World.Player.Entity.WatchedAttributes.GetTreeAttribute(BtCore.Modid+":thirst");
+            var bladderTree  = this.capi.World.Player.Entity.WatchedAttributes.GetTreeAttribute(BtCore.Modid+":bladder");
             if (thirstTree != null && this._thirstBar != null) 
             {
                 float? nullable2 = thirstTree.TryGetFloat("currenthydration");
@@ -80,7 +81,6 @@ namespace BalancedThirst.Hud
                 double num = 0.2;
                 if (nullable3.GetValueOrDefault() < num & nullable3.HasValue) 
                     this._thirstBar.ShouldFlash = true;
-                var bladderTree  = this.capi.World.Player.Entity.WatchedAttributes.GetTreeAttribute(BtCore.Modid+":bladder");
                 if (bladderTree != null && BtCore.ConfigServer.EnableBladder && !BtCore.ConfigClient.BladderBarVisible)
                 {
                     float? currentlevel = bladderTree.TryGetFloat("currentlevel");
@@ -88,10 +88,19 @@ namespace BalancedThirst.Hud
                     double? ratio = currentlevel.HasValue & capacity.HasValue
                         ? currentlevel.GetValueOrDefault() / (double)capacity.GetValueOrDefault()
                         : new double?();
-                    double num2 = BtCore.ConfigClient.HideBladderBarAt;
-                    if (ratio.GetValueOrDefault() > num2 & ratio.HasValue)
+                    if (ratio.GetValueOrDefault() > 1 & ratio.HasValue)
                         this._thirstBar.ShouldFlash = true;
                 }
+            }
+            if (bladderTree != null && BtCore.ConfigServer.EnableBladder && BtCore.ConfigClient.BladderBarVisible)
+            {
+                float? currentlevel = bladderTree.TryGetFloat("currentlevel");
+                float? capacity = bladderTree.TryGetFloat("capacity");
+                double? ratio = currentlevel.HasValue & capacity.HasValue
+                    ? currentlevel.GetValueOrDefault() / (double)capacity.GetValueOrDefault()
+                    : new double?();
+                if (ratio.GetValueOrDefault() > 1 & ratio.HasValue)
+                    this._bladderBar.ShouldFlash = true;
             }
         }
 

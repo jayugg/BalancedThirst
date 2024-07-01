@@ -22,7 +22,7 @@ public class CollectibleObject_DoSmelt_Patch
         if (transitionState1 != null)
         {
             TransitionState transitionState2 = stack.Collectible.UpdateAndGetTransitionState(world, new DummySlot(stack), EnumTransitionType.Perish);
-            float val2 = (float) ( transitionState1.TransitionedHours / (transitionState1.TransitionHours + (double) transitionState1.FreshHours) * 0.800000011920929 * ( transitionState2.TransitionHours + (double) transitionState2.FreshHours) - 1.0);
+            float val2 = (float) ( transitionState1.TransitionedHours / (transitionState1.TransitionHours + (double) transitionState1.FreshHours) * 0.8 * ( transitionState2.TransitionHours + (double) transitionState2.FreshHours) - 1.0);
             stack.Collectible.SetTransitionState(stack, EnumTransitionType.Perish, Math.Max(0.0f, val2));
         }
         stack.StackSize = contentSize;
