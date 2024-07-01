@@ -42,6 +42,8 @@ public class HarmonyPatches : ModSystem
             postfix: typeof(CollectibleObject_tryEatStep_Patch).GetMethod(
                 nameof(CollectibleObject_tryEatStep_Patch.Postfix)));
         HarmonyInstance.Patch(typeof(CollectibleObject).GetMethod("tryEatStop", BindingFlags.NonPublic | BindingFlags.Instance),
+            prefix: typeof(CollectibleObject_tryEatStop_Patch).GetMethod(
+                nameof(CollectibleObject_tryEatStop_Patch.Prefix)),
             postfix: typeof(CollectibleObject_tryEatStop_Patch).GetMethod(
                 nameof(CollectibleObject_tryEatStop_Patch.Postfix)));
         HarmonyInstance.Patch(typeof(CollectibleObject).GetMethod(nameof(CollectibleObject.GetHeldItemInfo)),
@@ -51,6 +53,8 @@ public class HarmonyPatches : ModSystem
             postfix: typeof(CollectibleObject_GetTransitionRateMul_Patch).GetMethod(
                 nameof(CollectibleObject_GetTransitionRateMul_Patch.Postfix)));
         HarmonyInstance.Patch(typeof(BlockLiquidContainerBase).GetMethod("tryEatStop", BindingFlags.NonPublic | BindingFlags.Instance),
+            prefix: typeof(BlockLiquidContainerBase_tryEatStop_Patch).GetMethod(
+                nameof(BlockLiquidContainerBase_tryEatStop_Patch.Prefix)),
             postfix: typeof(BlockLiquidContainerBase_tryEatStop_Patch).GetMethod(
                 nameof(BlockLiquidContainerBase_tryEatStop_Patch.Postfix)));
         HarmonyInstance.Patch(typeof(CharacterExtraDialogs).GetMethod("Dlg_ComposeExtraGuis",  BindingFlags.NonPublic | BindingFlags.Instance),
