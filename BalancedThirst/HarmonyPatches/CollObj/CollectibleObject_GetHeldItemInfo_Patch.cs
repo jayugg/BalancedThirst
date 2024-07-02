@@ -196,10 +196,12 @@ public class CollectibleObject_GetHeldItemInfo_Patch
                 }
             }
             if ((hydrationProperties.Purity != EnumPurityLevel.Okay && hydrationProperties.Purity != EnumPurityLevel.Pure) ||
-                (hydrationProperties.Purity == EnumPurityLevel.Pure && itemstack.Collectible.Code.ToString().Contains("pure")))
+                (hydrationProperties.Purity == EnumPurityLevel.Pure && !itemstack.Collectible.Code.ToString().Contains("pure")))
             {
                 if (existingText.Contains(Lang.Get(BtCore.Modid+$":purity-{hydrationProperties.Purity}"))) return;
-                dsc.AppendLine(Lang.Get(BtCore.Modid+$":purity-{hydrationProperties.Purity}"));
+                string purityTranslation = Lang.Get(BtCore.Modid+":purity{0}");
+                BtCore.Logger.Warning(purityTranslation);
+                dsc.AppendLine(String.Format(purityTranslation, Lang.Get(BtCore.Modid+$":purity-{hydrationProperties.Purity}")));
             }
         }
 }

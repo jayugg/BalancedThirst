@@ -30,7 +30,6 @@ public class BlockLiquidContainerBase_tryEatStop_Patch
         var collObj = slot.Itemstack.Collectible;
 
         HydrationProperties hydrationProps = collObj.GetHydrationProperties(slot.Itemstack, byEntity);
-        BtCore.Logger.Warning("HydrProps:" + hydrationProps?.Hydration.ToString() ?? "null");
         if (hydrationProps == null || byEntity is not EntityPlayer player) return;
         float val1 = 1f;
         float currentLitres = __instance.GetCurrentLitres(slot.Itemstack);
@@ -52,23 +51,19 @@ public class BlockLiquidContainerBase_tryEatStop_Patch
         __instance.TryTakeLiquid(slot.Itemstack, num3 / (float) slot.Itemstack.StackSize);
         slot.MarkDirty();
         player.Player?.InventoryManager.BroadcastHotbarSlot();
-        BtCore.Logger.Warning("Prefix" + hydrationProps.Hydration);
     }
     
     public static void Postfix(float secondsUsed, ItemSlot slot, EntityAgent byEntity)
     {
-        BtCore.Logger.Warning("Postfix");
         if (ShouldSkipPatch())
         {
             return;
         }
         if (_alreadyCalled) return;
         _alreadyCalled = true;
-        BtCore.Logger.Warning("Postfix2");
         if (byEntity is not EntityPlayer player || !_capturedProperties.ContainsKey(player.PlayerUID)) return;
 
         var api = byEntity.World?.Api;
-        BtCore.Logger.Warning("Postfix3");
         if (api is not { Side: EnumAppSide.Server }) return;
 
         byEntity.ReceiveHydration(_capturedProperties[player.PlayerUID]);

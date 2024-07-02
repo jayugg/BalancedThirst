@@ -191,7 +191,7 @@ public static class Extensions
         (byPlayer.Entity.World.Api as ICoreClientAPI)?.TriggerIngameError(sender, errorCode, text);
     }
 
-    public static bool IsBladderOverloaded(this IClientPlayer player)
+    public static bool IsBladderOverloaded(this IPlayer player)
     {
         var bladderTree = player.Entity.WatchedAttributes.GetTreeAttribute(BtCore.Modid+":bladder");
         if (bladderTree == null) return false;

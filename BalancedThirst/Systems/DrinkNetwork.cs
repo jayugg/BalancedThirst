@@ -29,7 +29,9 @@ public class DrinkNetwork : ModSystem
     ICoreClientAPI _capi;
     
     static SimpleParticleProperties _waterParticles;
-
+    
+    long _lastPeeTime = 0;
+    
     public override void StartClientSide(ICoreClientAPI api)
     {
         _capi = api;
@@ -57,7 +59,7 @@ public class DrinkNetwork : ModSystem
             _capi.Event.PushEvent(EventIds.Interaction,
                 new StringAttribute(BtConstants.InteractionIds.Drink));
 
-        if (!player.IsBladderOverloaded() || !player.Entity.RightHandItemSlot.Empty) return;
+        if (!(player.IsBladderOverloaded() || _capi.World.ElapsedMilliseconds - _lastPeeTime < 2000) || !player.Entity.RightHandItemSlot.Empty) return;
         if (BtCore.ConfigClient.PeeMode.IsSitting())
             _capi.Event.PushEvent(EventIds.Interaction,
                 new StringAttribute(player.Entity.Controls.FloorSitting ?
@@ -106,12 +108,14 @@ public class DrinkNetwork : ModSystem
             }
         }
         
-        if ((!player.Controls.TriesToMove && player.Controls.CtrlKey &&
+        if ((player.Player.IsBladderOverloaded() || world.ElapsedMilliseconds - _lastPeeTime < 2000) && 
+            (!player.Controls.TriesToMove && player.Controls.CtrlKey &&
             player.RightHandItemSlot.Empty && 
-            BtCore.ConfigClient.PeeMode.IsStanding()) ||
+            BtCore.ConfigClient.PeeMode.IsStanding() ||
             (player.Controls.FloorSitting &&
-            BtCore.ConfigClient.PeeMode.IsSitting()))
+            BtCore.ConfigClient.PeeMode.IsSitting())))
         {
+            _lastPeeTime = world.ElapsedMilliseconds;
             _clientChannel.SendPacket(new PeeMessage.Request() {Position = player.BlockSelection?.Position});
             handled = EnumHandling.Handled;
         }

@@ -2,7 +2,7 @@
   "code": "waterportion",
   "class": "ItemLiquidPortion",
   "variantgroups": [
-    { "code": "type", "states": ["pure", "boiled", "stagnant"] }
+    { "code": "type", "states": ["pure", "boiled", "stagnant", "distilled"] }
   ],
   "matterState": "liquid",
   "attributes": {
@@ -18,6 +18,10 @@
         "action": "DropContents",
         "stack": { "type": "item", "code": "balancedthirst:waterportion-{type}" }
       }
+    },
+    "distillationProps": {
+      "distilledStack": { "type": "item", "code": "balancedthirst:waterportion-distilled" },
+      "ratio": 1
     }
   },
   "transitionablePropsByType": {
@@ -35,7 +39,7 @@
       "transitionedStack": { "type": "item", "code": "game:rot" },
       "transitionRatio": 0.002
     }],
-    "*": [{
+    "*-boiled": [{
       "type": "Perish",
       "freshHours": { "avg": 84 },
       "transitionHours": { "avg": 0 },

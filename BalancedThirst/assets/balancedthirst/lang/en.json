@@ -21,6 +21,8 @@
     "incontainer-item-waterportion-boiled": "Boiled water",
     "item-waterportion-stagnant": "Stagnant water",
     "incontainer-item-waterportion-stagnant": "Stagnant water",
+    "item-waterportion-distilled": "Distilled water",
+    "incontainer-item-waterportion-distilled": "Distilled water",
     "item-wetsaltportion": "Wet salt",
     "incontainer-item-wetsaltportion": "Wet salt",
     "item-urineportion": "Urine",
@@ -107,11 +109,12 @@
 
     "container-leaky": "Leaky",
 
-    "purity-Pure": "<font color=\"blue\">Pure</font>",
-    "purity-Filtered": "<font color=\"green\">Filtered</font>",
-    "purity-Potable": "<font color=\"yellow\">Potable</font>",
-    "purity-Stagnant": "<font color=\"darkgreen\">Stagnant</font>",
-    "purity-Yuck": "<font color=\"brown\">Yuck</font>",
+    "purity{0}": "Purity: {0}",
+    "purity-Pure": "Pure",
+    "purity-Filtered": "Filtered",
+    "purity-Potable": "Potable",
+    "purity-Stagnant": "Stagnant",
+    "purity-Yuck": "Yuck",
 
     "playerinfo-hydration": "Hydration",
     "playerinfo-hydration-boost": "Euhydration",
@@ -127,5 +130,5 @@
     "interaction-pee": "Urinate",
     "interaction-drink": "Drink",
     
-    "peemodenotset": "Pee mode is not set. Please set it in the client config."
+    "peemodenotset": "Urination mode is not set. Please set it in the client config."
 }

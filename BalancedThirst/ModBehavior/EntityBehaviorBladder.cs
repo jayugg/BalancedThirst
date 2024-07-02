@@ -77,16 +77,12 @@ public class EntityBehaviorBladder : EntityBehavior
     
     public void ReceiveFluid(float fluidAmount)
     {
-        BtCore.Logger.Warning("ReceiveFluid");
         this._api.Event.PushEvent(EventIds.BladderReceiveFluid, new FloatAttribute(fluidAmount));
-        BtCore.Logger.Warning(EffectiveCapacity.ToString());
-        BtCore.Logger.Warning(CapacityOverload.ToString());
         this.CurrentLevel = Math.Clamp(this.CurrentLevel + fluidAmount, 0.0f, EffectiveCapacity);
     }
     
     public bool Drain(float multiplier = 1)
     {
-        BtCore.Logger.Warning("Drain");
         float currentLevel = this.CurrentLevel;
         if (currentLevel < 0.0) return false;
         float newLevel = Math.Clamp(currentLevel - multiplier * 10f, 0.0f, EffectiveCapacity);
