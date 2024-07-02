@@ -107,7 +107,7 @@ public class DrinkNetwork : ModSystem
         }
         
         if ((!player.Controls.TriesToMove && player.Controls.CtrlKey &&
-            (player.RightHandItemSlot.Empty || player.LeftHandItemSlot.Empty) && 
+            player.RightHandItemSlot.Empty && 
             BtCore.ConfigClient.PeeMode.IsStanding()) ||
             (player.Controls.FloorSitting &&
             BtCore.ConfigClient.PeeMode.IsSitting()))

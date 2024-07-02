@@ -56,7 +56,8 @@ public static class BtConstants
         { "@(" + BtCore.Modid + "):waterportion-boiled", new HydrationProperties { Hydration = 100, Purity = EnumPurityLevel.Potable } },
         { "@(" + BtCore.Modid + "):waterportion-stagnant", new HydrationProperties { Hydration = 100, Purity = EnumPurityLevel.Stagnant } },
         { "@(" + BtCore.Modid + "):urineportion", new HydrationProperties { Hydration = 80, Purity = EnumPurityLevel.Pure, EuhydrationWeight = -0.5f } },
-        { "@(game):rot", new HydrationProperties { Hydration = 20, Purity = EnumPurityLevel.Yuck } }
+        { "@(game):rot", new HydrationProperties { Hydration = 20, Purity = EnumPurityLevel.Yuck } },
+        { "@(game):honeycomb", new HydrationProperties { Hydration = 10 } },
     };
     
     public static readonly Dictionary<string, HydrationProperties> HydratingBlocks = new()

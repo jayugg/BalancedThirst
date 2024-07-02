@@ -99,6 +99,15 @@ public static class Extensions
         collectible.EnsureAttributesNotNull();
         JToken token = collectible.Attributes.Token;
         token["hydrationProps"] = JToken.FromObject(hydrationProperties);
+        FoodNutritionProperties nutritionProperties = new() { Satiety = 0, FoodCategory = EnumFoodCategory.NoNutrition };
+        if (token["waterTightContainerProps"] == null)
+        {
+            token["nutritionProps"] ??= JToken.FromObject(nutritionProperties);
+        }
+        else
+        {
+            token["waterTightContainerProps"]["nutritionPropsPerLitre"] ??= JToken.FromObject(nutritionProperties);
+        }
         // Convert the JToken back to a JsonObject
         JsonObject newAttributes = new JsonObject(token);
         // Assign the new JsonObject back to the collectible
