@@ -3,9 +3,7 @@
     "op": "add",
     "path": "/server/behaviors/6",
     "value": {
-      "code": "balancedthirst:bladder",
-      "currentlevel": 0,
-      "capacity": 1500.0
+      "code": "balancedthirst:bladder"
     },
     "file": "game:entities/humanoid/player.json",
     "side": "Server"

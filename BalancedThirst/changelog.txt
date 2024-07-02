@@ -1,3 +1,8 @@
 Smoother interaction help
-Now bladder can overload, debuff will start at that moment, urinating will be possible only then.
-Fixed soups not being possible to cook
+Now bladder can overload, debuff will start at that moment, urinating will be possible only then
+Changed standing bladder keybind (again -.-) to the control key (might be the same as sprint for you, depending on your mappings)
+Soup can be cooked with boiling water
+Fixed small issue with hydration display in item tooltips not updating with the food spoilage state
+Massively simplified drinking code, should be more compatible with other mods and more lightweight
+(As a consequence) Fixed honey squeezing not working
+Fixed stagnant water transitioning to massive quantities of rot

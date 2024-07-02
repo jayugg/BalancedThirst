@@ -1,0 +1,9 @@
+[
+  {
+    "op": "replace",
+    "path": "/ingredients/0/validStacks/0/code",
+    "value": "boilingwaterportion",
+    "file": "game:recipes/cooking/soup.json",
+    "side": "Server"
+  }
+]
