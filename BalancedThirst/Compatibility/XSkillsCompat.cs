@@ -1,4 +1,5 @@
 using BalancedThirst.ModBehavior;
+using BalancedThirst.Systems;
 using BalancedThirst.Thirst;
 using Vintagestory.API.Common;
 using XLib.XLeveling;
@@ -40,8 +41,8 @@ public class XSkillsCompat : ModSystem
         EntityBehaviorThirst behavior = player.Entity.GetBehavior<EntityBehaviorThirst>();
         if (behavior == null)
             return;
-        float num = (BtCore.ConfigServer.MaxHydration + playerAbility.Value(0)) / behavior.MaxHydration;
-        behavior.MaxHydration = (BtCore.ConfigServer.MaxHydration + playerAbility.Value(0));
+        float num = (ConfigSystem.ConfigServer.MaxHydration + playerAbility.Value(0)) / behavior.MaxHydration;
+        behavior.MaxHydration = (ConfigSystem.ConfigServer.MaxHydration + playerAbility.Value(0));
         behavior.Euhydration *= num;
         behavior.Hydration *= num;
         behavior.UpdateThirstBoosts();
@@ -59,8 +60,8 @@ public class XSkillsCompat : ModSystem
         EntityBehaviorBladder behavior = player.Entity.GetBehavior<EntityBehaviorBladder>();
         if (behavior == null)
             return;
-        behavior.Capacity = (BtCore.ConfigServer.MaxHydration + playerAbility.Value(0));
-        behavior.CapacityOverload = BtCore.ConfigServer.BladderCapacityOverload*(BtCore.ConfigServer.MaxHydration + playerAbility.Value(0));
+        behavior.Capacity = (ConfigSystem.ConfigServer.MaxHydration + playerAbility.Value(0));
+        behavior.CapacityOverload = ConfigSystem.ConfigServer.BladderCapacityOverload*(ConfigSystem.ConfigServer.MaxHydration + playerAbility.Value(0));
     }
     
 }

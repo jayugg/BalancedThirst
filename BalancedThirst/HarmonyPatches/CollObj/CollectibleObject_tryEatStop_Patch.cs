@@ -1,30 +1,22 @@
 using System.Collections.Generic;
-using BalancedThirst.ModBehavior;
+using BalancedThirst.Systems;
 using BalancedThirst.Thirst;
 using BalancedThirst.Util;
-using HarmonyLib;
 using Vintagestory.API.Common;
 using Vintagestory.API.Config;
-using Vintagestory.API.Server;
 
 namespace BalancedThirst.HarmonyPatches.CollObj;
 
 public class CollectibleObject_tryEatStop_Patch
 {
-    private static bool ShouldSkipPatch()
-    {
-        return BtCore.ConfigServer.YieldThirstManagementToHoD;
-    }
+    private static bool ShouldSkipPatch => !ConfigSystem.SyncedConfigData.EnableThirst;
     
     static bool _alreadyCalled = false;
     private static Dictionary<string, HydrationProperties> _capturedProperties = new();
     
     public static void Prefix(float secondsUsed, ItemSlot slot, EntityAgent byEntity)
     {
-        if (ShouldSkipPatch())
-        {
-            return;
-        }   
+        if (ShouldSkipPatch) return;
         _alreadyCalled = false;
         var api = byEntity?.World?.Api;
         if (api is not { Side: EnumAppSide.Server } || slot?.Itemstack == null) return;
@@ -42,10 +34,7 @@ public class CollectibleObject_tryEatStop_Patch
     }
     public static void Postfix(float secondsUsed, ItemSlot slot, EntityAgent byEntity)
     {
-        if (ShouldSkipPatch())
-        {
-            return;
-        }
+        if (ShouldSkipPatch) return;
         if (_alreadyCalled) return;
         _alreadyCalled = true;
         if (byEntity is not EntityPlayer player || !_capturedProperties.ContainsKey(player.PlayerUID)) return;

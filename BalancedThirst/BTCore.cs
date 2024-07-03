@@ -5,7 +5,6 @@ using BalancedThirst.Hud;
 using BalancedThirst.Items;
 using BalancedThirst.ModBehavior;
 using BalancedThirst.ModBlockBehavior;
-using BalancedThirst.Network;
 using BalancedThirst.Systems;
 using BalancedThirst.Thirst;
 using BalancedThirst.Util;
@@ -13,7 +12,7 @@ using Vintagestory.API.Client;
 using Vintagestory.API.Server;
 using Vintagestory.API.Common;
 using Vintagestory.API.Common.Entities;
-
+using Vintagestory.API.Datastructures;
 
 namespace BalancedThirst;
 
@@ -25,24 +24,13 @@ public class BtCore : ModSystem
 
     public static bool IsHoDLoaded => _api.ModLoader.IsModEnabled("hydrateordiedrate");
     public static bool IsXSkillsLoaded => _api.ModLoader.IsModEnabled("xskills");
-    
-    public static ConfigServer ConfigServer { get; set; }
-    public static ConfigClient ConfigClient { get; set; }
+    public override double ExecuteOrder() => 0.02;
     
     public override void StartPre(ICoreAPI api)
     {
         _api = api;
         Modid = Mod.Info.ModID;
         Logger = Mod.Logger;
-        if (api.Side.IsServer())
-        {
-            ConfigServer = ModConfig.ReadConfig<ConfigServer>(api, BtConstants.ConfigServerName);
-        }
-        if (api.Side.IsClient())
-        {
-            ConfigServer = ModConfig.ReadConfig<ConfigServer>(api, BtConstants.ConfigServerName);
-            ConfigClient = ModConfig.ReadConfig<ConfigClient>(api, BtConstants.ConfigClientName);
-        }
         if (api.ModLoader.IsModEnabled("configlib"))
         {
             _ = new ConfigLibCompat(api);
@@ -52,8 +40,9 @@ public class BtCore : ModSystem
             ItemHydrationConfigLoader.GenerateBTHydrationConfig(api);
             BlockHydrationConfigLoader.GenerateBTHydrationConfig(api);
         }
+        ConfigSystem.OnConfigLoaded += ConfigSystem_OnConfigLoaded;
     }
-    
+
     public override void Start(ICoreAPI api)
     {
         api.RegisterBlockClass(Modid + "." + nameof(BlockLiquidContainerLeaking), typeof(BlockLiquidContainerLeaking));
@@ -70,13 +59,12 @@ public class BtCore : ModSystem
         sapi.Event.OnEntitySpawn += AddEntityBehaviors;
         sapi.Event.OnEntityLoaded += AddEntityBehaviors;
         sapi.Event.PlayerJoin += (player) => OnPlayerJoin(player.Entity);
-
-        BtCommands.Register(sapi, ConfigServer);
+        sapi.Event.RegisterEventBusListener(OnConfigReloaded, filterByEventName:EventIds.ConfigReloaded);
+        BtCommands.Register(sapi);
     }
-    
+
     public override void StartClientSide(ICoreClientAPI capi)
     {
-        if (ConfigServer.YieldThirstManagementToHoD) return;
         capi.Gui.RegisterDialog(new GuiDialog[]
         {
             new ThirstBarHudElement(capi)
@@ -85,28 +73,56 @@ public class BtCore : ModSystem
     
     private void OnPlayerJoin(EntityPlayer player)
     {
-        if (ConfigServer.EnableBladder) return;
+        if (ConfigSystem.ConfigServer.EnableBladder) return;
         player.Stats.Remove("walkspeed", "bladderfull");
     }
     private void AddEntityBehaviors(Entity entity)
     {
         if (entity is EntityPlayer)
         {
-            // Careful with this, it can only run on the server
-            if (ConfigServer?.YieldThirstManagementToHoD ?? false)
+            if (ConfigSystem.ConfigServer.EnableThirst)
                 entity.AddBehavior(new EntityBehaviorThirst(entity));
-            if (ConfigServer?.EnableBladder ?? false)
+            if (ConfigSystem.ConfigServer.EnableBladder)
                 entity.AddBehavior(new EntityBehaviorBladder(entity));
         }
     }
     
+    private void RemoveEntityBehaviors(Entity entity)
+    {
+        if (entity is EntityPlayer)
+        {
+            if (!ConfigSystem.ConfigServer.EnableThirst && entity.HasBehavior<EntityBehaviorThirst>())
+                entity.RemoveBehavior(entity.GetBehavior<EntityBehaviorThirst>());
+            if (!ConfigSystem.ConfigServer.EnableBladder && entity.HasBehavior<EntityBehaviorBladder>())
+                entity.RemoveBehavior(entity.GetBehavior<EntityBehaviorBladder>());
+        }
+    }
+    
+    private void OnConfigReloaded(string eventname, ref EnumHandling handling, IAttribute data)
+    {
+        foreach (IPlayer player in _api.World.AllPlayers)
+        {
+            if (player.Entity == null) continue;
+            RemoveEntityBehaviors(player.Entity);
+            AddEntityBehaviors(player.Entity);
+        }
+    }
+    
+    private void ConfigSystem_OnConfigLoaded()
+    {
+        if (!_api.Side.IsServer() || EditAssets.Completed) return;
+        EditAssets.Completed = true;
+        EditAssets.AddContainerProps(_api);
+        if (!ConfigSystem.ConfigServer.EnableThirst) return;
+        EditAssets.AddHydrationToCollectibles(_api);
+    }
+    
     public override void AssetsFinalize(ICoreAPI api)
     {
-
-        if (!api.Side.IsServer()) return;
+        if (!api.Side.IsServer() || !ConfigSystem.IsLoaded || EditAssets.Completed) return;
+        EditAssets.Completed = true;
         EditAssets.AddContainerProps(api);
-        // Careful, can only run on server side
-        if (ConfigServer.YieldThirstManagementToHoD) return;
+        if (ConfigSystem.ConfigServer.EnableThirst) return;
         EditAssets.AddHydrationToCollectibles(api);
     }
 }

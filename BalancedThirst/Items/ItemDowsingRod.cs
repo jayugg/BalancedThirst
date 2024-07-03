@@ -1,14 +1,12 @@
 using System.Collections.Generic;
 using BalancedThirst.Network;
+using BalancedThirst.Systems;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
 using Vintagestory.API.Common.Entities;
 using Vintagestory.API.Config;
 using Vintagestory.API.MathTools;
 using Vintagestory.API.Server;
-using Vintagestory.API.Util;
-using Vintagestory.GameContent;
-
 namespace BalancedThirst.Items;
 
   public class ItemDowsingRod : Item
@@ -27,7 +25,7 @@ namespace BalancedThirst.Items;
         base.OnHeldInteractStart(itemslot, byEntity, blockSel, entitySel, firstEvent, ref handling);
         return;
       }
-      int radius = BtCore.ConfigServer.DowsingRodRadius;
+      float radius = ConfigSystem.SyncedConfigData.DowsingRodRadius;
       if (radius <= 0) return;
       this.ProbeBlockNodeMode(byEntity.World, byEntity, itemslot, blockSel, radius);
       if (api.World.Rand.NextSingle() > 0.5f) DamageItem(byEntity.World, byEntity, itemslot);
@@ -39,7 +37,7 @@ namespace BalancedThirst.Items;
       Entity byEntity,
       ItemSlot itemslot,
       BlockSelection blockSel,
-      int radius)
+      float radius)
     {
       IPlayer byPlayer = null;
       if (byEntity is EntityPlayer player)
@@ -76,7 +74,7 @@ namespace BalancedThirst.Items;
       }
     }
     
-    public BlockPos FindClosestWaterBlock(IWorldAccessor world, Entity byEntity, BlockPos startPos, int radius)
+    public BlockPos FindClosestWaterBlock(IWorldAccessor world, Entity byEntity, BlockPos startPos, float radius)
     {
       Queue<BlockPos> queue = new Queue<BlockPos>();
       HashSet<BlockPos> visited = new HashSet<BlockPos>();

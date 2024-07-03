@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using BalancedThirst.Systems;
 using BalancedThirst.Thirst;
 using BalancedThirst.Util;
 using Vintagestory.API.Common;
@@ -11,19 +12,14 @@ namespace BalancedThirst.HarmonyPatches.BlockLiquidContainer;
 
 public class BlockLiquidContainerBase_tryEatStop_Patch
 {
-    private static bool ShouldSkipPatch()
-    {
-        return BtCore.ConfigServer.YieldThirstManagementToHoD;
-    }
+    private static bool ShouldSkipPatch => !ConfigSystem.SyncedConfigData.EnableThirst;
+    
     static bool _alreadyCalled = false;
     private static Dictionary<string, HydrationProperties> _capturedProperties = new();
     
     public static void Prefix(BlockLiquidContainerBase __instance, float secondsUsed, ItemSlot slot, EntityAgent byEntity)
     {
-        if (ShouldSkipPatch())
-        {
-            return;
-        }
+        if (ShouldSkipPatch) return;
         _alreadyCalled = false;
         if (!(byEntity.World is IServerWorldAccessor) || (double) secondsUsed < 0.95)
             return;
@@ -55,7 +51,7 @@ public class BlockLiquidContainerBase_tryEatStop_Patch
     
     public static void Postfix(float secondsUsed, ItemSlot slot, EntityAgent byEntity)
     {
-        if (ShouldSkipPatch())
+        if (ShouldSkipPatch)
         {
             return;
         }

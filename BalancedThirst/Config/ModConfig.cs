@@ -1,5 +1,7 @@
 using System;
 using System.IO;
+using BalancedThirst.Systems;
+using BalancedThirst.Util;
 using Vintagestory.API.Common;
 
 namespace BalancedThirst.Config;
@@ -56,6 +58,6 @@ public static class ModConfig
     
     public static string GetConfigPath(ICoreAPI api)
     {
-        return Path.Combine(api.GetOrCreateDataPath("ModConfig"), "hydrateordiedrate");
+        return Path.Combine(api.GetOrCreateDataPath("ModConfig"), "BalancedThirst");
     }
 }

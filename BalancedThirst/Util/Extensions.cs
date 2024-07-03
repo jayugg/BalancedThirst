@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using BalancedThirst.ModBehavior;
 using BalancedThirst.ModBlockBehavior;
+using BalancedThirst.Systems;
 using BalancedThirst.Thirst;
 using Newtonsoft.Json.Linq;
 using Vintagestory.API.Client;
@@ -114,13 +115,35 @@ public static class Extensions
         collectible.Attributes = newAttributes;
     }
     
-    public static bool IsHeatableLiquidContainer(this CollectibleObject collectible)
+    public static bool IsHeatableLiquidContainer(this CollectibleObject collectible, EnumAppSide side)
     {
-        return BtCore.ConfigServer.HeatableLiquidContainers.Any(collectible.MyWildCardMatch);
+        if ((side & EnumAppSide.Client) != 0) throw new NullReferenceException();
+        return ConfigSystem.ConfigServer.HeatableLiquidContainers.Any(collectible.MyWildCardMatch);
+    }
+    
+    // Should only be used on the server side!
+    public static bool IsWaterPortion(this CollectibleObject collectible, EnumAppSide side)
+    {
+        if ((side & EnumAppSide.Client) != 0) throw new NullReferenceException();
+        return ConfigSystem.ConfigServer.WaterPortions.Any(collectible.MyWildCardMatch);
     }
 
-    public static bool IsWaterPortion(this CollectibleObject collectible) { return BtCore.ConfigServer.WaterPortions.Any(collectible.MyWildCardMatch); }
-    public static bool IsWaterContainer(this CollectibleObject collectible) { return BtCore.ConfigServer.WaterContainers.Keys.Any(collectible.MyWildCardMatch); }
+    public static bool IsWaterPortion(this CollectibleObject collectible)
+    {
+        return collectible.Attributes?["waterportion"]?.AsBool() ?? false;
+    }
+    
+    // Should only be used on the server side!
+    public static bool IsWaterContainer(this CollectibleObject collectible, EnumAppSide side)
+    {
+        if ((side & EnumAppSide.Client) != 0) throw new NullReferenceException();
+        return ConfigSystem.ConfigServer.WaterContainers.Keys.Any(collectible.MyWildCardMatch);
+    }
+
+    public static bool IsWaterContainer(this CollectibleObject collectible)
+    {
+        return collectible.Attributes?["waterTransitionMul"]?.AsFloat() != 0;
+    }
     public static bool IsLiquidSourceBlock(this Block b) => b.LiquidLevel == 7;
     public static bool IsSameLiquid(this Block b, Block o) => b.LiquidCode == o.LiquidCode;
     public static Vec3d NoY(this Vec3d vec) => new Vec3d(vec.X, 0, vec.Z);

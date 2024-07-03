@@ -1,5 +1,7 @@
+using BalancedThirst.Systems;
 using HarmonyLib;
 using Vintagestory.API.Client;
+using Vintagestory.API.Common;
 using Vintagestory.API.Datastructures;
 using Vintagestory.GameContent;
 
@@ -7,8 +9,10 @@ namespace BalancedThirst.HarmonyPatches.CharExtraDialogs;
 
 public class CharacterExtraDialogs_UpdateStatBars_Patch
 {
+    public static bool ShouldSkipPatch() => !ConfigSystem.SyncedConfigData.EnableThirst;
     public static void Postfix(CharacterExtraDialogs __instance)
     {
+        if (ShouldSkipPatch()) return;
         Traverse traverse = Traverse.Create(__instance);
         var api = traverse.Field("capi").GetValue();
         if (api is not ICoreClientAPI capi) return;

@@ -10,7 +10,7 @@ namespace BalancedThirst.Systems
     // From HydrateOrDiedrate by Chronolegionnaire: https://github.com/Chronolegionnaire/HydrateOrDiedrate/tree/master
     public static class BtCommands
     {
-        public static void Register(ICoreServerAPI api, ConfigServer loadedConfig)
+        public static void Register(ICoreServerAPI api)
         {
             api.ChatCommands
                 .Create("setHydration")
@@ -18,7 +18,7 @@ namespace BalancedThirst.Systems
                 .RequiresPrivilege("controlserver")
                 .WithArgs(api.ChatCommands.Parsers.OptionalWord("playerName"),
                     api.ChatCommands.Parsers.Float("hydrationValue"))
-                .HandleWith((args) => OnSetThirstCommand(api, loadedConfig, args));
+                .HandleWith((args) => OnSetThirstCommand(api, args));
 
             api.ChatCommands
                 .Create("setBladder")
@@ -26,10 +26,10 @@ namespace BalancedThirst.Systems
                 .RequiresPrivilege("controlserver")
                 .WithArgs(api.ChatCommands.Parsers.OptionalWord("playerName"),
                     api.ChatCommands.Parsers.Float("bladderValue"))
-                .HandleWith((args) => OnSetBladderCommand(api, loadedConfig, args));
+                .HandleWith((args) => OnSetBladderCommand(api, args));
         }
 
-        private static TextCommandResult OnSetThirstCommand(ICoreServerAPI api, ConfigServer loadedConfig,
+        private static TextCommandResult OnSetThirstCommand(ICoreServerAPI api,
             TextCommandCallingArgs args)
         {
             string playerName = args[0] as string;
@@ -73,7 +73,7 @@ namespace BalancedThirst.Systems
             return null;
         }
 
-        private static TextCommandResult OnSetBladderCommand(ICoreServerAPI api, ConfigServer loadedConfig,
+        private static TextCommandResult OnSetBladderCommand(ICoreServerAPI api,
             TextCommandCallingArgs args)
         {
             string playerName = args[0] as string;

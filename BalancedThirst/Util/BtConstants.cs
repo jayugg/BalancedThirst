@@ -7,10 +7,10 @@ namespace BalancedThirst.Util;
 
 public static class BtConstants
 {
-    public const string modDomain = "balancedthirst";
-    
-    public static readonly string ConfigServerName = "balancedthirst" + ".json";
-    public static readonly string ConfigClientName = "balancedthirst_client" + ".json";
+    public static readonly float DowsingRodRadius = 50f;
+    public static readonly string ConfigServerName = "BalancedThirst/balancedthirst" + ".json";
+    public static readonly string ConfigClientName = "BalancedThirst/balancedthirst_client" + ".json";
+    public static readonly string SyncedConfigName = "BalancedThirst/balancedthirst_sync" + ".json";
     
     public static readonly List<string> HeatableLiquidContainers = new()
     {
@@ -55,6 +55,7 @@ public static class BtConstants
         { "@(" + BtCore.Modid + "):waterportion-pure", new HydrationProperties { Hydration = 100, Purity = EnumPurityLevel.Pure } },
         { "@(" + BtCore.Modid + "):waterportion-boiled", new HydrationProperties { Hydration = 100, Purity = EnumPurityLevel.Potable } },
         { "@(" + BtCore.Modid + "):waterportion-stagnant", new HydrationProperties { Hydration = 100, Purity = EnumPurityLevel.Stagnant } },
+        { "@(" + BtCore.Modid + "):waterportion-distilled", new HydrationProperties { Hydration = 100, Purity = EnumPurityLevel.Pure, EuhydrationWeight = 0f} },
         { "@(" + BtCore.Modid + "):urineportion", new HydrationProperties { Hydration = 80, Purity = EnumPurityLevel.Pure, EuhydrationWeight = -0.5f } },
         { "@(game):rot", new HydrationProperties { Hydration = 20, Purity = EnumPurityLevel.Yuck } },
         { "@(game):honeycomb", new HydrationProperties { Hydration = 10 } },

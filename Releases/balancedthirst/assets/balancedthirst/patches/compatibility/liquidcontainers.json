@@ -4,13 +4,13 @@
     "op": "add",
     "path": "/enabled",
     "value": false,
-    "dependsOn": [{ "modid": "liquidcontainers" }]
+    "dependsOn": [{ "modid": "liquidcontainers", "invert": true }]
   },
   {
     "file": "balancedthirst:recipes/grid/waterskin.json",
     "op": "add",
     "path": "/enabled",
     "value": false,
-    "dependsOn": [{ "modid": "liquidcontainers" }]
+    "dependsOn": [{ "modid": "liquidcontainers", "invert": true }]
   }
 ]

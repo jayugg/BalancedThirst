@@ -1,11 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using BalancedThirst.ModBehavior;
+using BalancedThirst.Systems;
 using BalancedThirst.Thirst;
 using BalancedThirst.Util;
 using ConfigLib;
 using ImGuiNET;
+using Vintagestory.API.Client;
 using Vintagestory.API.Common;
 using Vintagestory.API.Config;
 
@@ -21,20 +22,36 @@ public class ConfigLibCompat
     private const string settingsAdvanced = "balancedthirst:Config.SettingsAdvanced";
     private const string settingsCompat = "balancedthirst:Config.SettingsCompat";
     private const string textSupportsWildcard = "balancedthirst:Config.Text.SupportsWildcard";
+    private const string textSupportsHex = "balancedthirst:Config.Text.SupportsHex";
 
     public ConfigLibCompat(ICoreAPI api)
     {
-        api.ModLoader.GetModSystem<ConfigLibModSystem>().RegisterCustomConfig(Lang.Get("balancedthirst:balancedthirst"), (id, buttons) => EditConfigServer(id, buttons, api));
-        api.ModLoader.GetModSystem<ConfigLibModSystem>().RegisterCustomConfig(Lang.Get("balancedthirst:balancedthirst_client"), (id, buttons) => EditConfigClient(id, buttons, api));
+        if (api.Side == EnumAppSide.Server || api is ICoreClientAPI { IsSinglePlayer: true })
+            api.ModLoader.GetModSystem<ConfigLibModSystem>().RegisterCustomConfig(Lang.Get("balancedthirst:balancedthirst"), (id, buttons) => EditConfigServer(id, buttons, api));
+        else api.ModLoader.GetModSystem<ConfigLibModSystem>().RegisterCustomConfig(Lang.Get("balancedthirst:balancedthirst_sync"), (id, buttons) => EditConfigSync(id, buttons, api));
+        if (api.Side == EnumAppSide.Client)
+            api.ModLoader.GetModSystem<ConfigLibModSystem>().RegisterCustomConfig(Lang.Get("balancedthirst:balancedthirst_client"), (id, buttons) => EditConfigClient(id, buttons, api));
+    }
+    
+    private static void SyncConfig(ICoreAPI api)
+    {
+        api.Event.PushEvent(EventIds.ConfigReloaded);
+    }
+    
+    private static void SyncConfigAdmin(ICoreAPI api)
+    {
+        BtCore.Logger.Warning("Reloading synced config from admin");
+        api.Event.PushEvent(EventIds.AdminSetConfig);
     }
     
     private void EditConfigClient(string id, ControlButtons buttons, ICoreAPI api)
     {
-        if (buttons.Save) ModConfig.WriteConfig(api, BtConstants.ConfigClientName, BtCore.ConfigClient);
-        if (buttons.Restore) BtCore.ConfigClient = ModConfig.ReadConfig<ConfigClient>(api, BtConstants.ConfigClientName);
-        if (buttons.Defaults) BtCore.ConfigClient = new(api);
+        if (buttons.Save) ModConfig.WriteConfig(api, BtConstants.ConfigClientName, ConfigSystem.ConfigClient);
+        if (buttons.Restore) ConfigSystem.ConfigClient = ModConfig.ReadConfig<ConfigClient>(api, BtConstants.ConfigClientName);
+        if (buttons.Defaults) ConfigSystem.ConfigClient = new(api);
 
-        BuildSettingsClient(BtCore.ConfigClient, id);
+        if (buttons.Save || buttons.Restore || buttons.Defaults) SyncConfig(api); 
+        BuildSettingsClient(ConfigSystem.ConfigClient, id);
     }
     
     private void BuildSettingsClient(ConfigClient config, string id)
@@ -43,25 +60,61 @@ public class ConfigLibCompat
         {
             config.ThirstBarX = OnInputFloat(id, config.ThirstBarX, nameof(config.ThirstBarX), -float.MaxValue);
             config.ThirstBarY = OnInputFloat(id, config.ThirstBarY, nameof(config.ThirstBarY), -float.MaxValue);
+            ImGui.Separator();
             config.PeeMode = OnInputEnum(id, config.PeeMode, nameof(config.PeeMode));
             config.BladderBarVisible = OnCheckBox(id, config.BladderBarVisible, nameof(config.BladderBarVisible));
             config.HideBladderBarAt = OnInputFloat(id, config.HideBladderBarAt, nameof(config.HideBladderBarAt));
+            ImGui.Separator();
+            config.ThirstBarColor = OnInputHex(id, config.ThirstBarColor, nameof(config.ThirstBarColor));
+            config.BladderBarColor = OnInputHex(id, config.BladderBarColor, nameof(config.BladderBarColor));
+        }
+    }
+
+    private void EditConfigSync(string id, ControlButtons buttons, ICoreAPI api)
+    {
+        if (buttons.Save) ModConfig.WriteConfig(api, BtConstants.SyncedConfigName, ConfigSystem.SyncedConfig);
+        if (buttons.Restore) ConfigSystem.SyncedConfig = ModConfig.ReadConfig<SyncedConfig>(api, BtConstants.SyncedConfigName);
+        if (buttons.Defaults) ConfigSystem.SyncedConfig = new(api);
+        
+        if (buttons.Save || buttons.Restore || buttons.Defaults) SyncConfigAdmin(api); 
+        BuildSettingsSync(ConfigSystem.SyncedConfig, id);
+    }
+    
+    private void BuildSettingsSync(SyncedConfig config, string id)
+    {
+        if (ImGui.CollapsingHeader(Lang.Get(settingsSimple) + $"##settingSimple-{id}"))
+        {
+            config.EnableThirst = OnCheckBox(id, config.EnableThirst, nameof(config.EnableThirst));
+            config.EnableBladder = OnCheckBox(id, config.EnableBladder, nameof(config.EnableBladder));
+            ImGui.Separator();
+            config.FruitHydrationYield = OnInputFloat(id, config.FruitHydrationYield, nameof(config.FruitHydrationYield));
+            config.VegetableHydrationYield = OnInputFloat(id, config.VegetableHydrationYield, nameof(config.VegetableHydrationYield));
+            config.DairyHydrationYield = OnInputFloat(id, config.DairyHydrationYield, nameof(config.DairyHydrationYield));
+            config.ProteinHydrationYield = OnInputFloat(id, config.ProteinHydrationYield, nameof(config.ProteinHydrationYield));
+            config.GrainHydrationYield = OnInputFloat(id, config.GrainHydrationYield, nameof(config.GrainHydrationYield), -1);
+            config.NoNutritionHydrationYield = OnInputFloat(id, config.NoNutritionHydrationYield, nameof(config.NoNutritionHydrationYield));
+            config.UnknownHydrationYield = OnInputFloat(id, config.UnknownHydrationYield, nameof(config.UnknownHydrationYield));
+            ImGui.Separator();
+            config.DowsingRodRadius = OnInputFloat(id, config.DowsingRodRadius, nameof(config.DowsingRodRadius));
+            config.BoilWaterInFirepits = OnCheckBox(id, config.BoilWaterInFirepits, nameof(config.BoilWaterInFirepits));
         }
     }
 
     private void EditConfigServer(string id, ControlButtons buttons, ICoreAPI api)
     {
-        if (buttons.Save) ModConfig.WriteConfig(api, BtConstants.ConfigServerName, BtCore.ConfigServer);
-        if (buttons.Restore) BtCore.ConfigServer = ModConfig.ReadConfig<ConfigServer>(api, BtConstants.ConfigServerName);
-        if (buttons.Defaults) BtCore.ConfigServer = new(api);
-
-        BuildSettingsServer(BtCore.ConfigServer, id);
+        if (buttons.Save) ModConfig.WriteConfig(api, BtConstants.ConfigServerName, ConfigSystem.ConfigServer);
+        if (buttons.Restore) ConfigSystem.ConfigServer = ModConfig.ReadConfig<ConfigServer>(api, BtConstants.ConfigServerName);
+        if (buttons.Defaults) ConfigSystem.ConfigServer = new(api);
+        
+        if (buttons.Save || buttons.Restore || buttons.Defaults) SyncConfig(api); 
+        BuildSettingsServer(ConfigSystem.ConfigServer, id);
     }
     
     private void BuildSettingsServer(ConfigServer config, string id)
     {
         if (ImGui.CollapsingHeader(Lang.Get(settingsSimple) + $"##settingSimple-{id}"))
         {
+            config.EnableThirst = OnCheckBox(id, config.EnableThirst, nameof(config.EnableThirst));
             config.MaxHydration = OnInputFloat(id, config.MaxHydration, nameof(config.MaxHydration));
             config.ThirstKills = OnCheckBox(id, config.ThirstKills, nameof(config.ThirstKills));
             config.ThirstSpeedModifier = OnInputFloat(id, config.ThirstSpeedModifier, nameof(config.ThirstSpeedModifier));
@@ -97,7 +150,7 @@ public class ConfigLibCompat
             config.NoNutritionHydrationYield = OnInputFloat(id, config.NoNutritionHydrationYield, nameof(config.NoNutritionHydrationYield));
             config.UnknownHydrationYield = OnInputFloat(id, config.UnknownHydrationYield, nameof(config.UnknownHydrationYield));
             ImGui.Separator();
-            config.DowsingRodRadius = OnInputInt(id, config.DowsingRodRadius, nameof(config.DowsingRodRadius));
+            config.DowsingRodRadius = OnInputFloat(id, config.DowsingRodRadius, nameof(config.DowsingRodRadius));
             config.BoilWaterInFirepits = OnCheckBox(id, config.BoilWaterInFirepits, nameof(config.BoilWaterInFirepits));
             config.GushingSpringWater = OnCheckBox(id, config.GushingSpringWater, nameof(config.GushingSpringWater));
         }
@@ -125,9 +178,7 @@ public class ConfigLibCompat
         if (ImGui.CollapsingHeader(Lang.Get(settingsCompat) + $"##settingCompat-{id}"))
         {
             ImGui.Indent();
-            config.YieldThirstManagementToHoD = OnCheckBox(id, config.YieldThirstManagementToHoD,
-                    nameof(config.YieldThirstManagementToHoD), !BtCore.IsHoDLoaded);
-            config.UseHoDHydrationValues = OnCheckBox(id, config.UseHoDHydrationValues, nameof(config.UseHoDHydrationValues), config.YieldThirstManagementToHoD);
+            config.UseHoDHydrationValues = OnCheckBox(id, config.UseHoDHydrationValues, nameof(config.UseHoDHydrationValues), BtCore.IsHoDLoaded);
             config.HoDClothingCoolingMultiplier = OnInputFloat(id, config.HoDClothingCoolingMultiplier, nameof(config.HoDClothingCoolingMultiplier));
             ImGui.Unindent();
         }
@@ -174,11 +225,27 @@ public class ConfigLibCompat
         ImGui.InputFloat(Lang.Get(settingPrefix + name) + $"##{name}-{id}", ref newValue, step: 0.01f, step_fast: 1.0f);
         return newValue < minValue ? minValue : newValue;
     }
+    
+    private double OnInputDouble(string id, double value, string name, double minValue = default)
+    {
+        double newValue = value;
+        ImGui.InputDouble(Lang.Get(settingPrefix + name) + $"##{name}-{id}", ref newValue, step: 0.01f, step_fast: 1.0f);
+        return newValue < minValue ? minValue : newValue;
+    }
 
     private string OnInputText(string id, string value, string name)
     {
         string newValue = value;
         ImGui.InputText(Lang.Get(settingPrefix + name) + $"##{name}-{id}", ref newValue, 64);
+        return newValue;
+    }
+    
+    private string OnInputHex(string id, string value, string name)
+    {
+        string newValue = value;
+        ImGui.InputTextWithHint(Lang.Get(settingPrefix + name) + $"##{name}-{id}", textSupportsHex,ref newValue, 64);
+        if (string.IsNullOrEmpty(newValue) || !value.StartsWith("#") ||
+            (newValue.Length != 7 && newValue.Length != 9)) return value;
         return newValue;
     }
     
@@ -264,7 +331,7 @@ public class ConfigLibCompat
                     customValue.HydrationLossDelay = OnInputFloat($"##float-{row}" + key, customValue.HydrationLossDelay, nameof(HydrationProperties.HydrationLossDelay));
                     customValue.Purity = OnInputEnum($"##purity-{row}" + key, customValue.Purity, nameof(HydrationProperties.Purity));
                     customValue.Scalding = OnCheckBoxWithoutTranslation($"##boolean-{row}" + key, customValue.Scalding, nameof(HydrationProperties.Scalding));
-                    customValue.Salty = OnCheckBoxWithoutTranslation($"##boolean-{row}" + key, customValue.Salty, nameof(HydrationProperties.Salty));
+                    customValue.EuhydrationWeight = OnInputFloat($"##float-{row}" + key, customValue.EuhydrationWeight, nameof(HydrationProperties.EuhydrationWeight));
                     value = (T)Convert.ChangeType(customValue, typeof(HydrationProperties));
                 }
                 else if (typeof(T) == typeof(StatMultiplier))

@@ -43,8 +43,11 @@
     "item-dowsingrod-steel": "Steel dowsing rod",
 
     "balancedthirst": "Balanced Thirst (Server)",
+    "balancedthirst_sync": "Balanced Thirst (Synced)",
     "Config.Text.SupportsWildcard": "Supports wildcard",
+    "Config.Text.SupportsHex": "Input hex value",
     "Config.SettingsSimple": "Simple Settings",
+    "Config.Setting.EnableThirst": "Enable thirst",
     "Config.Setting.MaxHydration": "Max hydration",
     "Config.Setting.ThirstKills": "Can you die of thirst?",
     "Config.Setting.HotTemperatureThreshold": "At which temperature do you get thirsty faster?",
@@ -90,6 +93,7 @@
     "Config.Setting.Hydration": "Hydration",
     "Config.Setting.HydrationLossDelay": "HydLossDelay",
     "Config.Setting.Purity": "Purity",
+    "Config.Setting.EuhydrationWeight": "EuhydrationWeight",
     "Config.Setting.Salty": "Salty",
     "Config.Setting.Scalding": "Scalding",
     
@@ -99,6 +103,8 @@
     "Config.Setting.PeeMode": "Sitting or Standing?",
     "Config.Setting.BladderBarVisible": "Enable bladder bar",
     "Config.Setting.HideBladderBarAt": "Hide bladder bar when below this percentage",
+    "Config.Setting.ThirstBarColor": "Thirst bar color",
+    "Config.Setting.BladderBarColor": "Bladder bar color",
     
     "Config.SettingsCompat": "Compatibility Settings (Require reload)",
     "Config.Setting.YieldThirstManagementToHoD": "Yield thirst management to HoD",

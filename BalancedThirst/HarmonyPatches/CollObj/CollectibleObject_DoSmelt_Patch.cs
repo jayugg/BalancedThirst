@@ -1,4 +1,5 @@
 using System;
+using BalancedThirst.Systems;
 using Vintagestory.API.Common;
 using Vintagestory.GameContent;
 
@@ -6,6 +7,7 @@ namespace BalancedThirst.HarmonyPatches.CollObj;
 
 public class CollectibleObject_DoSmelt_Patch
 {
+    public static bool ShouldSkipPatch => !ConfigSystem.SyncedConfigData.BoilWaterInFirepits;
     public static bool Prefix(
         CollectibleObject __instance,
         IWorldAccessor world,
@@ -13,6 +15,7 @@ public class CollectibleObject_DoSmelt_Patch
         ItemSlot inputSlot,
         ItemSlot outputSlot)
     {
+        if (ShouldSkipPatch) return true;
         if (__instance is not BlockLiquidContainerBase container) return true;
         var contentStack = container.GetContent(inputSlot.Itemstack); ItemStack stack = contentStack?.Collectible.CombustibleProps?.SmeltedStack?.ResolvedItemstack.Clone();
         if (stack == null) return true;

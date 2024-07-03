@@ -1,4 +1,6 @@
 using System;
+using System.ComponentModel;
+using BalancedThirst.Systems;
 using BalancedThirst.Util;
 using Vintagestory.API.Common;
 
@@ -42,27 +44,27 @@ public class HydrationProperties
         switch (nutritionProps.FoodCategory)
         {
             case EnumFoodCategory.Fruit:
-                hydrationProps.Hydration = BtCore.ConfigServer.FruitHydrationYield * saturation;
+                hydrationProps.Hydration = ConfigSystem.SyncedConfigData.FruitHydrationYield * saturation;
                 break;
             case EnumFoodCategory.Vegetable:
-                hydrationProps.Hydration = BtCore.ConfigServer.VegetableHydrationYield * saturation;
+                hydrationProps.Hydration = ConfigSystem.SyncedConfigData.VegetableHydrationYield * saturation;
                 break;
             case EnumFoodCategory.Dairy:
-                hydrationProps.Hydration = BtCore.ConfigServer.DairyHydrationYield * saturation;
+                hydrationProps.Hydration = ConfigSystem.SyncedConfigData.DairyHydrationYield * saturation;
                 break;
             case EnumFoodCategory.Protein:
-                hydrationProps.Hydration = BtCore.ConfigServer.ProteinHydrationYield * saturation;
+                hydrationProps.Hydration = ConfigSystem.SyncedConfigData.ProteinHydrationYield * saturation;
                 break;
             case EnumFoodCategory.Grain:
-                hydrationProps.Hydration = BtCore.ConfigServer.GrainHydrationYield * saturation;
+                hydrationProps.Hydration = ConfigSystem.SyncedConfigData.GrainHydrationYield * saturation;
                 break;
             case EnumFoodCategory.NoNutrition:
-                if (BtCore.ConfigServer.NoNutritionHydrationYield == 0) return null;
-                hydrationProps.Hydration = BtCore.ConfigServer.NoNutritionHydrationYield * saturation;
+                if (ConfigSystem.SyncedConfigData.NoNutritionHydrationYield == 0) return null;
+                hydrationProps.Hydration = ConfigSystem.SyncedConfigData.NoNutritionHydrationYield * saturation;
                 break;
             case EnumFoodCategory.Unknown:
-                if (BtCore.ConfigServer.UnknownHydrationYield == 0) return null;
-                hydrationProps.Hydration = BtCore.ConfigServer.UnknownHydrationYield * saturation;
+                if (ConfigSystem.SyncedConfigData.UnknownHydrationYield == 0) return null;
+                hydrationProps.Hydration = ConfigSystem.SyncedConfigData.UnknownHydrationYield * saturation;
                 break;
             default:
                 return null;

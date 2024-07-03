@@ -5,17 +5,14 @@ using Vintagestory.API.Common;
 
 namespace BalancedThirst.Config;
 
-public class ConfigServer : IModConfig
+public class ConfigServer : SyncedConfig
 {
     public float MaxHydration { get; set; } = 1500f;
     public bool ThirstKills { get; set; }
     public float ThirstSpeedModifier { get; set; }
-    
     public float HotTemperatureThreshold { get; set; } = 27.0f;
     public float VomitHydrationMultiplier { get; set; } = 0.5f;
     public float VomitEuhydrationMultiplier { get; set; } = 0.8f;
-
-    public bool EnableBladder { get; set; } = true;
     public float BladderWalkSpeedDebuff { get; set; } = 0.5f;
     public float BladderCapacityOverload { get; set; } = 0.25f;
     public float UrineNutrientChance { get; set; } = 0.1f;
@@ -35,15 +32,6 @@ public class ConfigServer : IModConfig
     public float OkayPurityLevel { get; set; } = 0.6f;
     public float StagnantPurityLevel { get; set; } = 0.3f;
     public float RotPurityLevel { get; set; } = 0.1f;
-    public float FruitHydrationYield { get; set; } = 0.3f;
-    public float VegetableHydrationYield { get; set; } = 0.2f;
-    public float DairyHydrationYield { get; set; } = 0.1f;
-    public float ProteinHydrationYield { get; set; } = 0.1f;
-    public float GrainHydrationYield { get; set; } = -0.2f;
-    public float NoNutritionHydrationYield { get; set; }
-    public float UnknownHydrationYield { get; set; }
-    public int DowsingRodRadius { get; set; } = 50;
-    public bool BoilWaterInFirepits { get; set; } = true;
     public bool GushingSpringWater { get; set; } = true;
     
     // Advanced Settings
@@ -55,13 +43,6 @@ public class ConfigServer : IModConfig
     
     // Compatibility
     public bool UseHoDHydrationValues { get; set; }
-    private bool _yieldThirstManagementToHoD;
-    public bool YieldThirstManagementToHoD
-    {
-        get => _yieldThirstManagementToHoD;
-        set => _yieldThirstManagementToHoD = BtCore.IsHoDLoaded && value;
-    }
-    
     public float HoDClothingCoolingMultiplier { get; set; } = 1f; 
     public ConfigServer(ICoreAPI api, ConfigServer previousConfig = null)
     {
@@ -69,6 +50,7 @@ public class ConfigServer : IModConfig
         {
             return;
         }
+        EnableThirst = previousConfig.EnableThirst;
         MaxHydration = previousConfig.MaxHydration;
         ThirstSpeedModifier = previousConfig.ThirstSpeedModifier;
         ThirstKills = previousConfig.ThirstKills;
@@ -113,7 +95,21 @@ public class ConfigServer : IModConfig
         HydratingBlocks = previousConfig.HydratingBlocks;
         
         UseHoDHydrationValues = previousConfig.UseHoDHydrationValues;
-        YieldThirstManagementToHoD = previousConfig.YieldThirstManagementToHoD;
         HoDClothingCoolingMultiplier = previousConfig.HoDClothingCoolingMultiplier;
+    }
+
+    public void UpdateFromSyncedConfig(SyncedConfig config)
+    {
+        EnableThirst = config.EnableThirst;
+        EnableBladder = config.EnableBladder;
+        BoilWaterInFirepits = config.BoilWaterInFirepits;
+        DowsingRodRadius = config.DowsingRodRadius;
+        FruitHydrationYield = config.FruitHydrationYield;
+        VegetableHydrationYield = config.VegetableHydrationYield;
+        DairyHydrationYield = config.DairyHydrationYield;
+        ProteinHydrationYield = config.ProteinHydrationYield;
+        GrainHydrationYield = config.GrainHydrationYield;
+        NoNutritionHydrationYield = config.NoNutritionHydrationYield;
+        UnknownHydrationYield = config.UnknownHydrationYield;
     }
 }

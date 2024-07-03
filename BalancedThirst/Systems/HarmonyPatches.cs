@@ -13,12 +13,13 @@ public class HarmonyPatches : ModSystem
     private ICoreAPI _api;
     private Harmony HarmonyInstance;
 
-    public override double ExecuteOrder() => 1.04;
+    public override double ExecuteOrder() => 0.03;
     public override void Start(ICoreAPI api)
     {
         this._api = api;
         HarmonyInstance = new Harmony(Mod.Info.ModID);
-        if (BtCore.ConfigServer.BoilWaterInFirepits)
+        var configData = ConfigSystem.SyncedConfigData;
+        if (configData?.BoilWaterInFirepits ?? true)
         {
             HarmonyInstance.Patch(typeof(CollectibleObject).GetMethod(nameof(CollectibleObject.CanSmelt)),
                 postfix: typeof(CollectibleObject_CanSmelt_Patch).GetMethod(
@@ -33,8 +34,7 @@ public class HarmonyPatches : ModSystem
                 postfix: typeof(CollectibleObject_GetMeltingPoint_Patch).GetMethod(
                     nameof(CollectibleObject_GetMeltingPoint_Patch.Postfix)));
         }
-        // Careful with this, it can technically only run on the server
-        if (BtCore.ConfigServer?.YieldThirstManagementToHoD ?? true) return;
+        if (!configData?.EnableThirst ?? false) return;
         HarmonyInstance.Patch(typeof(CollectibleObject).GetMethod("tryEatStop", BindingFlags.NonPublic | BindingFlags.Instance),
             prefix: typeof(CollectibleObject_tryEatStop_Patch).GetMethod(
                 nameof(CollectibleObject_tryEatStop_Patch.Prefix)),

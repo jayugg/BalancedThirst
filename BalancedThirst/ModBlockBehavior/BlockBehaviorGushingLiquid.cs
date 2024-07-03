@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Reflection;
+using BalancedThirst.Systems;
 using BalancedThirst.Util;
 using Vintagestory.API.Common;
 using Vintagestory.API.MathTools;
@@ -20,7 +21,7 @@ public class BlockBehaviorGushingLiquid : BlockBehaviorFiniteSpreadingLiquid
     public override void OnBlockPlaced(IWorldAccessor world, BlockPos blockPos, ref EnumHandling handling)
     {
         base.OnBlockPlaced(world, blockPos, ref handling);
-        if (!BtCore.ConfigServer.GushingSpringWater) return;
+        if (!ConfigSystem.ConfigServer.GushingSpringWater) return;
         if (world is IServerWorldAccessor serverWorld)
         {
             serverWorld.RegisterCallback(DoTryRise, blockPos, 300);
@@ -31,7 +32,7 @@ public class BlockBehaviorGushingLiquid : BlockBehaviorFiniteSpreadingLiquid
     public override void OnNeighbourBlockChange(IWorldAccessor world, BlockPos pos, BlockPos neibpos, ref EnumHandling handling)
     {
         base.OnNeighbourBlockChange(world, pos, neibpos, ref handling);
-        if (!BtCore.ConfigServer.GushingSpringWater) return;
+        if (!ConfigSystem.ConfigServer.GushingSpringWater) return;
         if (world is IServerWorldAccessor serverWorld)
         {
             serverWorld.RegisterCallback(DoTryRise, pos, 300);

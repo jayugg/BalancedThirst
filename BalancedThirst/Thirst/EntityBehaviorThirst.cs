@@ -1,5 +1,6 @@
 using System;
 using BalancedThirst.Config;
+using BalancedThirst.Systems;
 using BalancedThirst.Util;
 using Vintagestory.API.Common;
 using Vintagestory.API.Common.Entities;
@@ -37,7 +38,7 @@ namespace BalancedThirst.Thirst
 
     public float Hydration
     {
-      get => this._thirstTree?.GetFloat("currenthydration") ?? BtCore.ConfigServer.MaxHydration;
+      get => this._thirstTree?.GetFloat("currenthydration") ?? ConfigSystem.ConfigServer.MaxHydration;
       set
       {
         this._thirstTree?.SetFloat("currenthydration", value);
@@ -47,7 +48,7 @@ namespace BalancedThirst.Thirst
 
     public float MaxHydration
     {
-      get => this._thirstTree?.GetFloat("maxhydration") ?? BtCore.ConfigServer.MaxHydration;
+      get => this._thirstTree?.GetFloat("maxhydration") ?? ConfigSystem.ConfigServer.MaxHydration;
       set
       {
         this._thirstTree?.SetFloat("maxhydration", value);
@@ -78,8 +79,8 @@ namespace BalancedThirst.Thirst
       if (this._thirstTree == null || this._thirstTree.GetFloat("maxhydration") == 0)
       {
         this.entity.WatchedAttributes.SetAttribute(AttributeKey, _thirstTree = new TreeAttribute());
-        this.Hydration = typeAttributes["currenthydration"].AsFloat(BtCore.ConfigServer.MaxHydration);
-        this.MaxHydration = typeAttributes["maxhydration"].AsFloat(BtCore.ConfigServer.MaxHydration);
+        this.Hydration = typeAttributes["currenthydration"].AsFloat(ConfigSystem.ConfigServer.MaxHydration);
+        this.MaxHydration = typeAttributes["maxhydration"].AsFloat(ConfigSystem.ConfigServer.MaxHydration);
         this.HydrationLossDelay = 180.0f;
         this.Euhydration = 0f;
       }
@@ -113,22 +114,22 @@ namespace BalancedThirst.Thirst
       switch (purityLevel)
       {
         case EnumPurityLevel.Pure:
-          purity = BtCore.ConfigServer.PurePurityLevel;
+          purity = ConfigSystem.ConfigServer.PurePurityLevel;
           break;
         case EnumPurityLevel.Filtered:
-          purity = BtCore.ConfigServer.FilteredPurityLevel;
+          purity = ConfigSystem.ConfigServer.FilteredPurityLevel;
           break;
         case EnumPurityLevel.Potable:
-          purity = BtCore.ConfigServer.PotablePurityLevel;
+          purity = ConfigSystem.ConfigServer.PotablePurityLevel;
           break;
         case EnumPurityLevel.Okay:
-          purity = BtCore.ConfigServer.OkayPurityLevel;
+          purity = ConfigSystem.ConfigServer.OkayPurityLevel;
           break;
         case EnumPurityLevel.Stagnant:
-          purity = BtCore.ConfigServer.StagnantPurityLevel;
+          purity = ConfigSystem.ConfigServer.StagnantPurityLevel;
           break;
         case EnumPurityLevel.Yuck:
-          purity = BtCore.ConfigServer.RotPurityLevel;
+          purity = ConfigSystem.ConfigServer.RotPurityLevel;
           break;
         default:
           throw new ArgumentOutOfRangeException(nameof(purityLevel), purityLevel, null);
@@ -200,7 +201,7 @@ namespace BalancedThirst.Thirst
     private bool ReduceHydration(float satLossMultiplier)
     {
       bool flag = false;
-      satLossMultiplier *= BtCore.ConfigServer.ThirstSpeedModifier == 0 ? GlobalConstants.HungerSpeedModifier : BtCore.ConfigServer.ThirstSpeedModifier;
+      satLossMultiplier *= ConfigSystem.ConfigServer.ThirstSpeedModifier == 0 ? GlobalConstants.HungerSpeedModifier : ConfigSystem.ConfigServer.ThirstSpeedModifier;
       if (this.HydrationLossDelay > 0.0)
       {
         this.HydrationLossDelay -= 10f * satLossMultiplier;
@@ -232,11 +233,11 @@ namespace BalancedThirst.Thirst
 
     private void UpdateThirstStatBoosts()
     {
-      foreach (var stat in BtCore.ConfigServer.ThirstStatMultipliers.Keys)
+      foreach (var stat in ConfigSystem.ConfigServer.ThirstStatMultipliers.Keys)
       {
-        StatMultiplier multiplier = BtCore.ConfigServer.ThirstStatMultipliers[stat];
+        StatMultiplier multiplier = ConfigSystem.ConfigServer.ThirstStatMultipliers[stat];
         if (multiplier.Multiplier == 0) continue;
-        var multiplierVal = BtCore.ConfigServer.ThirstStatMultipliers[stat].CalcModifier(Hydration/MaxHydration);
+        var multiplierVal = ConfigSystem.ConfigServer.ThirstStatMultipliers[stat].CalcModifier(Hydration/MaxHydration);
         this.entity.Stats.Set(stat, BtCore.Modid + ":thirsty", multiplierVal);
       }
       this.entity.WatchedAttributes.MarkPathDirty("stats");
@@ -275,10 +276,10 @@ namespace BalancedThirst.Thirst
         //BtCore.Logger.Warning("Cooling factor: " + coolingFactor);
         var climate = this.entity.World.BlockAccessor.GetClimateAt(this.entity.Pos.AsBlockPos,
           EnumGetClimateMode.ForSuppliedDate_TemperatureOnly, this.entity.World.Calendar.TotalDays);
-        float coolingEffect = coolingFactor * (1f / (1f + (float)Math.Exp(-0.5f * (climate.Temperature - BtCore.ConfigServer.HotTemperatureThreshold))));
+        float coolingEffect = coolingFactor * (1f / (1f + (float)Math.Exp(-0.5f * (climate.Temperature - ConfigSystem.ConfigServer.HotTemperatureThreshold))));
         //BtCore.Logger.Warning("Cooling effect: " + coolingEffect);
         var thirstRate = this.entity.Stats.GetBlended(BtCore.Modid + ":thirstrate");
-        this.entity.Stats.Set(BtCore.Modid + ":thirstrate", "HoD:cooling", -Math.Min(BtCore.ConfigServer.HoDClothingCoolingMultiplier*coolingEffect, thirstRate - 1));
+        this.entity.Stats.Set(BtCore.Modid + ":thirstrate", "HoD:cooling", -Math.Min(ConfigSystem.ConfigServer.HoDClothingCoolingMultiplier*coolingEffect, thirstRate - 1));
       }
       else
       {
@@ -291,7 +292,7 @@ namespace BalancedThirst.Thirst
         return;
       float temperature = this.entity.World.BlockAccessor.GetClimateAt(this.entity.Pos.AsBlockPos,
         EnumGetClimateMode.ForSuppliedDate_TemperatureOnly, this.entity.World.Calendar.TotalDays).Temperature;
-      if (temperature <= BtCore.ConfigServer.HotTemperatureThreshold)
+      if (temperature <= ConfigSystem.ConfigServer.HotTemperatureThreshold)
       {
         this.entity.Stats.Remove(BtCore.Modid + ":thirstrate", "resistheat");
       }
@@ -307,7 +308,7 @@ namespace BalancedThirst.Thirst
 
       if (this.Hydration > 0.0)
         return;
-      if (BtCore.ConfigServer.ThirstKills) 
+      if (ConfigSystem.ConfigServer.ThirstKills) 
       {
         this.entity.ReceiveDamage(new DamageSource()
         { Source = EnumDamageSource.Internal,
@@ -328,9 +329,9 @@ namespace BalancedThirst.Thirst
 
     public void Vomit()
     {
-      Hydration *= BtCore.ConfigServer.VomitHydrationMultiplier;
+      Hydration *= ConfigSystem.ConfigServer.VomitHydrationMultiplier;
       HydrationLossDelay = 0;
-      Euhydration *= BtCore.ConfigServer.VomitEuhydrationMultiplier;
+      Euhydration *= ConfigSystem.ConfigServer.VomitEuhydrationMultiplier;
       if (entity.HasBehavior<EntityBehaviorHunger>())
       {
         var bh = entity.GetBehavior<EntityBehaviorHunger>();

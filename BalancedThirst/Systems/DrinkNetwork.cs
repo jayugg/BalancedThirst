@@ -19,18 +19,13 @@ public class DrinkNetwork : ModSystem
 {
     public override double ExecuteOrder() => 2.02;
 
-    public override bool ShouldLoad(EnumAppSide forSide)
-    {
-        return !BtCore.ConfigServer.YieldThirstManagementToHoD;
-    }
-
     #region Client
     IClientNetworkChannel _clientChannel;
     ICoreClientAPI _capi;
     
     static SimpleParticleProperties _waterParticles;
     
-    long _lastPeeTime = 0;
+    long _lastPeeTime;
     
     public override void StartClientSide(ICoreClientAPI api)
     {
@@ -55,22 +50,23 @@ public class DrinkNetwork : ModSystem
     private void OnClientTick(float dt)
     {
         var player = _capi.World.Player;
-        if (player.IsLookingAtDrinkableBlock() && player.Entity.RightHandItemSlot.Empty)
+        if (ConfigSystem.SyncedConfigData.EnableThirst && player.IsLookingAtDrinkableBlock() && player.Entity.RightHandItemSlot.Empty)
             _capi.Event.PushEvent(EventIds.Interaction,
                 new StringAttribute(BtConstants.InteractionIds.Drink));
-
+        
+        if (!ConfigSystem.SyncedConfigData.EnableBladder) return;
         if (!(player.IsBladderOverloaded() || _capi.World.ElapsedMilliseconds - _lastPeeTime < 2000) || !player.Entity.RightHandItemSlot.Empty) return;
-        if (BtCore.ConfigClient.PeeMode.IsSitting())
+        if (ConfigSystem.ConfigClient.PeeMode.IsSitting())
             _capi.Event.PushEvent(EventIds.Interaction,
                 new StringAttribute(player.Entity.Controls.FloorSitting ?
                     BtConstants.InteractionIds.Pee : BtConstants.InteractionIds.PeeSit));
 
-        if (BtCore.ConfigClient.PeeMode.IsStanding())
+        if (ConfigSystem.ConfigClient.PeeMode.IsStanding())
             _capi.Event.PushEvent(EventIds.Interaction,
                 new StringAttribute(!player.Entity.Controls.TriesToMove && player.Entity.Controls.CtrlKey ?
                     BtConstants.InteractionIds.Pee : BtConstants.InteractionIds.PeeStand));
 
-        if (BtCore.ConfigClient.PeeMode == EnumPeeMode.None)
+        if (ConfigSystem.ConfigClient.PeeMode == EnumPeeMode.None)
         {
             player.IngameError(player, "peemodenotset", Lang.Get(BtCore.Modid+":peemodenotset") );
         }
@@ -84,7 +80,9 @@ public class DrinkNetwork : ModSystem
         }
         var world = _capi.World;
         EntityPlayer player = world.Player.Entity;
-        if (player.RightHandItemSlot.Empty)
+        //BtCore.Logger.Warning(ConfigSystem.SyncedConfigData(EnumAppSide.Client, "fromdrinknetwork").EnableThirst.ToString());
+        if (ConfigSystem.SyncedConfigData.EnableThirst
+            && player.RightHandItemSlot.Empty)
         {
             var blockSel = player.BlockSelection;
             var selPos = blockSel?.Position;
@@ -108,12 +106,13 @@ public class DrinkNetwork : ModSystem
             }
         }
         
-        if ((player.Player.IsBladderOverloaded() || world.ElapsedMilliseconds - _lastPeeTime < 2000) && 
+        if (ConfigSystem.SyncedConfigData.EnableBladder &&
+            (player.Player.IsBladderOverloaded() || world.ElapsedMilliseconds - _lastPeeTime < 2000) && 
             (!player.Controls.TriesToMove && player.Controls.CtrlKey &&
             player.RightHandItemSlot.Empty && 
-            BtCore.ConfigClient.PeeMode.IsStanding() ||
+            ConfigSystem.ConfigClient.PeeMode.IsStanding() ||
             (player.Controls.FloorSitting &&
-            BtCore.ConfigClient.PeeMode.IsSitting())))
+            ConfigSystem.ConfigClient.PeeMode.IsSitting())))
         {
             _lastPeeTime = world.ElapsedMilliseconds;
             _clientChannel.SendPacket(new PeeMessage.Request() {Position = player.BlockSelection?.Position});
@@ -178,7 +177,7 @@ public class DrinkNetwork : ModSystem
         if (!player.Entity.HasBehavior<EntityBehaviorBladder>()) return;
         if (request.Position == null) return;
         var bh = player.Entity.GetBehavior<EntityBehaviorBladder>();
-        if (!bh.Drain(BtCore.ConfigServer.UrineDrainRate)) return;
+        if (!bh.Drain(ConfigSystem.ConfigServer.UrineDrainRate)) return;
         EntityBehaviorBladder.PlayPeeSound(player.Entity);
         SpawnPeeParticles(player.Entity, request.Position, player.CurrentBlockSelection?.HitPosition);
         
@@ -205,9 +204,9 @@ public class DrinkNetwork : ModSystem
         if (position == null) return;
         var be = world.BlockAccessor.GetBlockEntity(position) as BlockEntityFarmland; 
         be?.WaterFarmland(0.05f);
-        if (BtCore.ConfigServer.UrineNutrientChance > world.Rand.NextDouble())
+        if (ConfigSystem.ConfigServer.UrineNutrientChance > world.Rand.NextDouble())
         {
-            be.IncreaseNutrients(BtCore.ConfigServer.UrineNutrientLevels);
+            be.IncreaseNutrients(ConfigSystem.ConfigServer.UrineNutrientLevels);
         }
     }
     

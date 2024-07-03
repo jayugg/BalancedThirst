@@ -15,6 +15,10 @@
         "action": "DropContents",
         "stack": { "type": "item", "code": "balancedthirst:urineportion" }
       }
+    },
+    "distillationProps": {
+      "distilledStack": { "type": "item", "code": "balancedthirst:waterportion-distilled" },
+      "ratio": 0.9
     }
   },
   "transitionablePropsByType": {
