@@ -71,6 +71,17 @@ public static class Extensions
         HydrationProperties hydrationProperties = token["hydrationProps"]?.ToObject<HydrationProperties>();
         return hydrationProperties;
     }
+
+    public static bool IsRiverBlock(this Block block, IWorldAccessor world, BlockPos pos)
+    {
+        IWorldChunk chunk = world.BlockAccessor.GetChunk(pos.X / 32, 0, pos.Z / 32);
+        if (chunk == null) return false;
+        float[] moddata = chunk.GetModdata<float[]>("flowVectors");
+        if (moddata == null) return false;
+        var localX = pos.X % 32;
+        var localZ = pos.Z % 32;
+        return moddata[localZ * 32 + localX] != 0;
+    }
     
     public static void ReceiveHydration(this Entity entity, HydrationProperties hydrationProperties)
     {
@@ -124,7 +135,6 @@ public static class Extensions
     // Should only be used on the server side!
     public static bool IsWaterPortion(this CollectibleObject collectible, EnumAppSide side)
     {
-        if ((side & EnumAppSide.Client) != 0) throw new NullReferenceException();
         return ConfigSystem.ConfigServer.WaterPortions.Any(collectible.MyWildCardMatch);
     }
 
@@ -136,7 +146,6 @@ public static class Extensions
     // Should only be used on the server side!
     public static bool IsWaterContainer(this CollectibleObject collectible, EnumAppSide side)
     {
-        if ((side & EnumAppSide.Client) != 0) throw new NullReferenceException();
         return ConfigSystem.ConfigServer.WaterContainers.Keys.Any(collectible.MyWildCardMatch);
     }
 
@@ -225,4 +234,43 @@ public static class Extensions
         if (!currentLevel.HasValue || !capacity.HasValue) return false;
         return currentLevel > capacity;
     }
+    
+    // From DanaTweaks
+    public static void CoolWithWater(this BlockEntityToolMold mold)
+    {
+        ItemStack stack = mold?.metalContent;
+        if (stack != null)
+        {
+            // No clue why this doesn't work either
+            //BtCore.Logger.Warning("Temperature: " + stack.Collectible.GetTemperature(mold.Api.World, stack));
+            float temperature = stack.Collectible.GetTemperature(mold.Api.World, stack);
+            stack.Collectible.SetTemperature(mold.Api.World, stack, Math.Max(20f, temperature - ConfigSystem.ConfigServer.UrineDrainRate));
+            //BtCore.Logger.Warning("Temperature: " + stack.Collectible.GetTemperature(mold.Api.World, stack));
+            mold.Api.World.PlaySoundAt(new AssetLocation("sounds/effect/extinguish2"), mold.Pos.X, mold.Pos.Y, mold.Pos.Z);
+        }
+    }
+    
+    // From DanaTweaks
+    public static void CoolWithWater(this BlockEntityIngotMold mold)
+    {
+        ItemStack rightStack = mold.contentsRight;
+        ItemStack leftStack = mold.contentsLeft;
+        if (rightStack != null)
+        {
+            //BtCore.Logger.Warning("Temperature: " + rightStack.Collectible.GetTemperature(mold.Api.World, rightStack));
+            float temperature = rightStack.Collectible.GetTemperature(mold.Api.World, rightStack);
+            rightStack.Collectible.SetTemperature(mold.Api.World, rightStack, Math.Max(20f, temperature - ConfigSystem.ConfigServer.UrineDrainRate));
+            mold.Api.World.PlaySoundAt(new AssetLocation("sounds/effect/extinguish1"), mold.Pos.X, mold.Pos.Y, mold.Pos.Z);
+            //BtCore.Logger.Warning("Temperature: " + rightStack.Collectible.GetTemperature(mold.Api.World, rightStack));
+        }
+        if (leftStack != null)
+        {
+            //BtCore.Logger.Warning("Temperature: " + leftStack.Collectible.GetTemperature(mold.Api.World, rightStack));
+            float temperature = leftStack.Collectible.GetTemperature(mold.Api.World, leftStack);
+            leftStack.Collectible.SetTemperature(mold.Api.World, leftStack, Math.Max(20f, temperature - ConfigSystem.ConfigServer.UrineDrainRate));
+            mold.Api.World.PlaySoundAt(new AssetLocation("sounds/effect/extinguish1"), mold.Pos.X, mold.Pos.Y, mold.Pos.Z);
+            //BtCore.Logger.Warning("Temperature: " + leftStack.Collectible.GetTemperature(mold.Api.World, rightStack));
+        }
+    }
+
 }

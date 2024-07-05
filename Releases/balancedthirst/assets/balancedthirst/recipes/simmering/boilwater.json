@@ -1,0 +1,42 @@
+[
+  {
+    "Ingredients": [
+      {
+        "type": "item",
+        "code": "waterportion",
+        "quantity": 50
+      }
+    ],
+    "Simmering": {
+      "meltingPoint": 100,
+      "meltingDuration": 30,
+      "smeltedRatio": 1,
+      "smeltingType": "convert",
+      "smeltedStack": {
+        "type": "item",
+        "code": "boilingwaterportion"
+      },
+      "requiresContainer": false
+    }
+  },
+  {
+    "Ingredients": [
+      {
+        "type": "item",
+        "code": "balancedthirst:waterportion-*",
+        "quantity": 50
+      }
+    ],
+    "Simmering": {
+      "meltingPoint": 100,
+      "meltingDuration": 30,
+      "smeltedRatio": 1,
+      "smeltingType": "convert",
+      "smeltedStack": {
+        "type": "item",
+        "code": "boilingwaterportion"
+      },
+      "requiresContainer": false
+    }
+  }
+]

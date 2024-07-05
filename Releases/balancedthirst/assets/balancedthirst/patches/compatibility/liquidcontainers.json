@@ -4,13 +4,34 @@
     "op": "add",
     "path": "/enabled",
     "value": false,
-    "dependsOn": [{ "modid": "liquidcontainers", "invert": true }]
+    "dependsOn": [{ "modid": "liquidcontainers" }]
   },
   {
     "file": "balancedthirst:recipes/grid/waterskin.json",
     "op": "add",
-    "path": "/enabled",
+    "path": "/0/enabled",
     "value": false,
-    "dependsOn": [{ "modid": "liquidcontainers", "invert": true }]
+    "dependsOn": [{ "modid": "liquidcontainers" }]
+  },
+  {
+    "file": "balancedthirst:recipes/grid/waterskin.json",
+    "op": "add",
+    "path": "/1/enabled",
+    "value": false,
+    "dependsOn": [{ "modid": "liquidcontainers" }]
+  },
+  {
+    "file": "balancedthirst:recipes/grid/waterskin.json",
+    "op": "add",
+    "path": "/2/enabled",
+    "value": false,
+    "dependsOn": [{ "modid": "liquidcontainers" }]
+  },
+  {
+    "file": "balancedthirst:recipes/grid/waterskin.json",
+    "op": "add",
+    "path": "/3/enabled",
+    "value": false,
+    "dependsOn": [{ "modid": "liquidcontainers" }]
   }
 ]

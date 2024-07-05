@@ -53,7 +53,6 @@ public class DrinkNetwork : ModSystem
         if (ConfigSystem.SyncedConfigData.EnableThirst && player.IsLookingAtDrinkableBlock() && player.Entity.RightHandItemSlot.Empty)
             _capi.Event.PushEvent(EventIds.Interaction,
                 new StringAttribute(BtConstants.InteractionIds.Drink));
-        
         if (!ConfigSystem.SyncedConfigData.EnableBladder) return;
         if (!(player.IsBladderOverloaded() || _capi.World.ElapsedMilliseconds - _lastPeeTime < 2000) || !player.Entity.RightHandItemSlot.Empty) return;
         if (ConfigSystem.ConfigClient.PeeMode.IsSitting())
@@ -163,6 +162,7 @@ public class DrinkNetwork : ModSystem
         Block block = player?.Entity?.World?.BlockAccessor?.GetBlock(pos);
         HydrationProperties hydrationProps = block?.GetBlockHydrationProperties();
         if (hydrationProps == null) return;
+        if (block.IsRiverBlock(player.Entity.World, pos)) hydrationProps.Purity = EnumPurityLevel.Potable;
         if (player.Entity?.HasBehavior<EntityBehaviorThirst>() ?? false)
         {
             player.Entity.GetBehavior<EntityBehaviorThirst>().ReceiveHydration(hydrationProps/5);
@@ -196,6 +196,16 @@ public class DrinkNetwork : ModSystem
         {
             var waterStack = new ItemStack(world.GetItem(new AssetLocation(BtCore.Modid+":urineportion")));
             container.TryPutLiquid(request.Position, waterStack, 0.1f);
+        }
+        else if (block is BlockToolMold)
+        {
+            var be = world.BlockAccessor.GetBlockEntity(request.Position) as BlockEntityToolMold; 
+            be.CoolWithWater();
+        }
+        else if (block is BlockIngotMold)
+        {
+            var be = world.BlockAccessor.GetBlockEntity(request.Position) as BlockEntityIngotMold; 
+            be.CoolWithWater();
         }
     }
     

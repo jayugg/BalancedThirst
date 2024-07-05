@@ -78,24 +78,20 @@ public class BtCore : ModSystem
     }
     private void AddEntityBehaviors(Entity entity)
     {
-        if (entity is EntityPlayer)
-        {
-            if (ConfigSystem.ConfigServer.EnableThirst)
-                entity.AddBehavior(new EntityBehaviorThirst(entity));
-            if (ConfigSystem.ConfigServer.EnableBladder)
-                entity.AddBehavior(new EntityBehaviorBladder(entity));
-        }
+        if (entity is not EntityPlayer) return;
+        if (ConfigSystem.ConfigServer.EnableThirst)
+            entity.AddBehavior(new EntityBehaviorThirst(entity));
+        if (ConfigSystem.ConfigServer.EnableBladder)
+            entity.AddBehavior(new EntityBehaviorBladder(entity));
     }
     
     private void RemoveEntityBehaviors(Entity entity)
     {
-        if (entity is EntityPlayer)
-        {
-            if (!ConfigSystem.ConfigServer.EnableThirst && entity.HasBehavior<EntityBehaviorThirst>())
-                entity.RemoveBehavior(entity.GetBehavior<EntityBehaviorThirst>());
-            if (!ConfigSystem.ConfigServer.EnableBladder && entity.HasBehavior<EntityBehaviorBladder>())
-                entity.RemoveBehavior(entity.GetBehavior<EntityBehaviorBladder>());
-        }
+        if (entity is not EntityPlayer) return;
+        if (!ConfigSystem.ConfigServer.EnableThirst && entity.HasBehavior<EntityBehaviorThirst>())
+            entity.RemoveBehavior(entity.GetBehavior<EntityBehaviorThirst>());
+        if (!ConfigSystem.ConfigServer.EnableBladder && entity.HasBehavior<EntityBehaviorBladder>())
+            entity.RemoveBehavior(entity.GetBehavior<EntityBehaviorBladder>());
     }
     
     private void OnConfigReloaded(string eventname, ref EnumHandling handling, IAttribute data)

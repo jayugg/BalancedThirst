@@ -35,7 +35,9 @@ public static class BtConstants
         { "@(liquidcontainers):watercontainer-leather.*", 0.45f },
         { "@(liquidcontainers):watercontainer-bamboo.*", 0.6f },
         { "@(liquidcontainers):watercontainer-wood.*", 0.6f },
-        { "@(liquidcontainers):watercontainermetal-.*", 0.35f}
+        { "@(liquidcontainers):watercontainermetal-.*", 0.35f },
+        { "@(aculinaryartillery):bottle-.*-burned", 0.4f },
+        { "@(aculinaryartillery):bottle-clay-burned", 0.5f }
     };
     
     public static readonly Dictionary<string, HydrationProperties> HydratingLiquids = new()
@@ -59,6 +61,12 @@ public static class BtConstants
         { "@(" + BtCore.Modid + "):urineportion", new HydrationProperties { Hydration = 80, Purity = EnumPurityLevel.Pure, EuhydrationWeight = -0.5f } },
         { "@(game):rot", new HydrationProperties { Hydration = 20, Purity = EnumPurityLevel.Yuck } },
         { "@(game):honeycomb", new HydrationProperties { Hydration = 10 } },
+        { "@(expandedfoods):dryfruit-.*", new HydrationProperties { Hydration = 5 } },
+        { "@(warriordrink):ciderportion-milk", new HydrationProperties { Hydration = 15 } },
+        { "@(wildcraftherb):root-burnet", new HydrationProperties { Hydration = 5 } },
+        { "@(wildcraftfruit):juiceportion-.*", new HydrationProperties { Hydration = 90 } },
+        { "@(wildcraftfruit):ciderportion-.*", new HydrationProperties { Hydration = 60 } },
+        { "@(wildcraftfruit):spiritporton-.*", new HydrationProperties { Hydration = 10 } }
     };
     
     public static readonly Dictionary<string, HydrationProperties> HydratingBlocks = new()

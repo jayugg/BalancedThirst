@@ -21,13 +21,11 @@ public static class EditAssets
             }
             if (collectible.IsWaterPortion(api.Side))
                 collectible.SetAttribute("waterportion", true);
-        }
-        foreach (var block in api.World.Blocks.Where(b => b?.Code != null))
-        {
-            HydrationProperties hydrationProps = ConfigSystem.ConfigServer.HydratingBlocks.FirstOrDefault(keyVal => block.MyWildCardMatch(keyVal.Key)).Value;
+            
+            hydrationProps = ConfigSystem.ConfigServer.HydratingBlocks.FirstOrDefault(keyVal => collectible.MyWildCardMatch(keyVal.Key)).Value;
             if (hydrationProps != null)
             {
-                block.SetHydrationProperties(hydrationProps);
+                collectible.SetHydrationProperties(hydrationProps);
             }
         }
     }

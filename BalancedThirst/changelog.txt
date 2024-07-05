@@ -1,5 +1,7 @@
-Changed config directiory to BalancedThirst to avoid clutter
-Added distilled water, obtailed with a boiler like distilled alcohol
-Now config settings update in real time, server admins can change synced settings without restarting the server
-Added bar color option to client config
-Fixed liquidcontainers compatibility patch not working and disabling waterskins even when the mod was disabled
+Added compatibility:
+- ACA: bottles extend water shelf life, can boil water in cauldron
+- Expanded Foods
+- Wildcraft: Fruits and Nuts
+- Wildcraft: Herbs and Spices
+- A Warrior's Drink!
+- Rivers: now river water is potable!

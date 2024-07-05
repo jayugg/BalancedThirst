@@ -159,14 +159,10 @@ namespace BalancedThirst.Thirst
     {
       if (this.entity is EntityPlayer player)
       {
-        if (entity.World.Side == EnumAppSide.Server)
-        {
-        }
         var tree = player.WatchedAttributes.GetTreeAttribute(AttributeKey);
-        
         EnumGameMode currentGameMode = player.World.PlayerByUid(player.PlayerUID).WorldData.CurrentGameMode;
         this.Detox(deltaTime);
-        if (currentGameMode == EnumGameMode.Creative || currentGameMode == EnumGameMode.Spectator)
+        if (currentGameMode is EnumGameMode.Creative or EnumGameMode.Spectator)
           return;
         if (player.Controls.TriesToMove || player.Controls.Jump || player.Controls.LeftMouseDown || player.Controls.RightMouseDown)
           this._lastMoveMs = this.entity.World.ElapsedMilliseconds;
@@ -322,7 +318,7 @@ namespace BalancedThirst.Thirst
     {
       if (damageSource.Type != EnumDamageType.Heal || damageSource.Source != EnumDamageSource.Revive)
         return;
-      this.HydrationLossDelay = this.MaxHydration / 2f;
+      this.HydrationLossDelay = 60f;
       this.Hydration = this.MaxHydration / 2f;
       this.Euhydration /= 2f;
     }
