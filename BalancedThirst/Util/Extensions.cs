@@ -125,6 +125,32 @@ public static class Extensions
         // Assign the new JsonObject back to the collectible
         collectible.Attributes = newAttributes;
     }
+
+    public static float GetLitres(this ItemStack stack)
+    {
+        var collectible = stack?.Collectible;
+        collectible?.EnsureAttributesNotNull();
+        JToken token = collectible?.Attributes.Token;
+        if (token == null) return 0;
+        if (token["waterTightContainerProps"] == null)
+        {
+            BtCore.Logger.Warning("[GetLitres] Cannot get litres for collectible without waterTightContainerProps");
+            return 0;
+        }
+
+        var itemsPerLitre = 1f;
+        if (token["waterTightContainerProps"]["itemsPerLitre"] == null)
+        {
+            BtCore.Logger.Warning(
+                "[GetLitres] Cannot get litres for collectible without itemsPerLitre, defaulting to 1");
+        }
+        else
+        {
+            itemsPerLitre = token["waterTightContainerProps"]["itemsPerLitre"].Value<float>();
+        }
+
+        return stack.StackSize / itemsPerLitre ;
+    }
     
     public static bool IsHeatableLiquidContainer(this CollectibleObject collectible, EnumAppSide side)
     {
