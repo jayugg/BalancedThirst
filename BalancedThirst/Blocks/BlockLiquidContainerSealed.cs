@@ -433,7 +433,7 @@ public class BlockLiquidContainerSealed : BlockLiquidContainerBase
         return s.GetHashCode();
     }
     
-    // Works only if the shape hierarchy has been flattened, it need not have any element with children
+    // Works only if the shape hierarchy has been flattened, it must not have any element with children
     private Shape SliceFlattenedShape(Shape fullShape, float fullness)
     {
         var minY = MinFillY;
@@ -456,11 +456,6 @@ public class BlockLiquidContainerSealed : BlockLiquidContainerBase
             newElement.From[1] = adjustedFromY;
             newElement.To[1] = adjustedToY;
             
-            // Calculate the proportion of the adjustment
-            double originalHeight = elementMaxY - elementMinY;
-            double newHeight = adjustedToY - adjustedFromY;
-            double heightProportion = originalHeight > 0 ? newHeight / originalHeight : 0;
-            
             for (int i = 0; i < 4; i++)
             {
                 var face = newElement.FacesResolved[i];
@@ -470,8 +465,8 @@ public class BlockLiquidContainerSealed : BlockLiquidContainerBase
                     double vMax = face.Uv[3];
                     double vRange = vMax - vMin;
                 
-                    // Adjust the V values based on the height proportion
-                    face.Uv[1] = (float)(vMin + vRange * (1 - heightProportion));
+                    // Adjust the V values based on the fill ratio
+                    face.Uv[1] = (float)(vMin + vRange * (1 - fullness));
                     face.Uv[3] = (float)vMax;
                 }
             }
