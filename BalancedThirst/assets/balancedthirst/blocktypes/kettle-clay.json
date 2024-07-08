@@ -24,7 +24,8 @@
       "lidPerishRate": 0.75,
       "maxTemperature": 110,
       "allowHeating": true,
-      "maxFillLevel": 8,
+      "minFillY": 1.01,
+      "maxFillY": 4.91,
       "storageType": 1,
       "maxContainerSlotStackSize": 3,
       "cookingSlotCapacityLitres": 3,
@@ -104,8 +105,10 @@
     { "x1": 0.28, "y1": 0, "z1": 0.28, "x2": 0.72, "y2": 0.35, "z2": 0.72 }
   ],
   "guiTransform": {
+    "translation": { "x": -2, "y": 0, "z": 0 },
+    "rotation": { "x": -31, "y": -54, "z": 0 },
     "origin": { "x": 0.5, "y": 0.2, "z": 0.5 },
-    "scale": 2
+    "scale": 2.6
   },
   "groundTransform": {
     "scale": 3

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using BalancedThirst.Util;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
 using Vintagestory.API.Common.Entities;
@@ -13,6 +14,11 @@ namespace BalancedThirst.Blocks;
 
 public class BlockLiquidContainerSealed : BlockLiquidContainerBase
 {
+
+    public virtual float MinFillY => Attributes["minFillY"].AsFloat();
+
+    public virtual float MaxFillY => Attributes["maxFillY"].AsFloat();
+    
     public static WaterTightContainableProps GetInContainerProps(ItemStack stack)
     {
         try
@@ -59,7 +65,7 @@ public class BlockLiquidContainerSealed : BlockLiquidContainerBase
                     ActionLangCode = $"{BtCore.Modid}:blockhelp-open", // json lang file. 
                     HotKeyCodes = new[] { "sneak", "sprint" },
                     MouseButton = EnumMouseButton.Right,
-                    ShouldApply = (wi, bs, es) => {
+                    ShouldApply = (_, bs, _) => {
                         BlockEntityKettle beKettle = world.BlockAccessor.GetBlockEntity(bs.Position) as BlockEntityKettle;
                         return beKettle is { isSealed: true };
                     }
@@ -69,7 +75,7 @@ public class BlockLiquidContainerSealed : BlockLiquidContainerBase
                     ActionLangCode = $"{BtCore.Modid}:blockhelp-close", // json lang file. 
                     HotKeyCodes = new[] { "sneak", "sprint" },
                     MouseButton = EnumMouseButton.Right,
-                    ShouldApply = (wi, bs, es) => {
+                    ShouldApply = (_, bs, _) => {
                         BlockEntityKettle beKettle = world.BlockAccessor.GetBlockEntity(bs.Position) as BlockEntityKettle;
                         return beKettle != null && !beKettle.isSealed;
                     }
@@ -340,8 +346,6 @@ public class BlockLiquidContainerSealed : BlockLiquidContainerBase
 
             if (moved > 0)
             {
-                int maxstacksize = slot.Itemstack.Collectible.MaxStackSize;
-
                 (byEntity as EntityPlayer)?.WalkInventory((pslot) =>
                 {
                     if (pslot.Empty || pslot is ItemSlotCreative || pslot.StackSize == pslot.Itemstack.Collectible.MaxStackSize) return true;
@@ -385,33 +389,38 @@ public class BlockLiquidContainerSealed : BlockLiquidContainerBase
             return moved;
         }
     }
-
+    
     public override void OnBeforeRender(ICoreClientAPI capi, ItemStack itemstack, EnumItemRenderTarget target, ref ItemRenderInfo renderinfo)
     {
-        Dictionary<int, MultiTextureMeshRef> meshrefs = null;
+        Dictionary<int, MultiTextureMeshRef> meshrefs;
         bool isSealed = itemstack.Attributes.GetBool("isSealed");
-        
+
         object obj;
-        if (capi.ObjectCache.TryGetValue((Variant["metal"]) + "MeshRefs", out obj) && obj is Dictionary<int, MultiTextureMeshRef> dict)
+        
+        var variantStringBuilder = new System.Text.StringBuilder();
+        foreach (var entry in Variant)
         {
-            meshrefs = dict;
+            variantStringBuilder.Append($"{entry.Value}-");
+        }
+        string variantString = variantStringBuilder.Length > 0 ? variantStringBuilder.ToString(0, variantStringBuilder.Length - 2) : "";
+        
+        if (capi.ObjectCache.TryGetValue(variantString + "MeshRefs", out obj))
+        {
+            meshrefs = obj as Dictionary<int, MultiTextureMeshRef>;
         }
         else
         {
-            capi.ObjectCache[(Variant["metal"]) + "MeshRefs"] = meshrefs = new Dictionary<int, MultiTextureMeshRef>();
+            capi.ObjectCache[variantString + "MeshRefs"] = meshrefs = new Dictionary<int, MultiTextureMeshRef>();
         }
-
         ItemStack contentStack = GetContent(itemstack);
         if (contentStack == null) return;
-
         int hashcode = GetContainerHashCode(capi.World, contentStack, isSealed);
-
         MultiTextureMeshRef meshRef = null;
-
-        if (!meshrefs.TryGetValue(hashcode, out meshRef))
+        if (meshrefs != null && !meshrefs.TryGetValue(hashcode, out meshRef))
         {
             MeshData meshdata = GenRightMesh(capi, contentStack, null, isSealed);
             meshrefs[hashcode] = meshRef = capi.Render.UploadMultiTextureMesh(meshdata);
+
         }
         if (meshRef != null) { renderinfo.ModelRef = meshRef; }
 
@@ -423,8 +432,58 @@ public class BlockLiquidContainerSealed : BlockLiquidContainerBase
         if (isSealed) s += "sealed";
         return s.GetHashCode();
     }
-
     
+    // Works only if the shape hierarchy has been flattened, it need not have any element with children
+    private Shape SliceFlattenedShape(Shape fullShape, float fullness)
+    {
+        var minY = MinFillY;
+        var maxY = MaxFillY;
+        
+        var newMaxY = minY + (maxY - minY) * fullness;
+        List<ShapeElement> newElements = new List<ShapeElement>();
+
+        foreach (var element in fullShape.Elements)
+        {
+            double elementMinY = Math.Min(element.From[1], element.To[1]);
+            double elementMaxY = Math.Max(element.From[1], element.To[1]);
+        
+            if (elementMaxY < minY || elementMinY > newMaxY) continue;
+        
+            var newElement = element.Clone();
+            double adjustedFromY = Math.Max(element.From[1], 0);
+            double adjustedToY = Math.Min(element.To[1], newMaxY);
+            if (!(adjustedFromY <= adjustedToY)) continue;
+            newElement.From[1] = adjustedFromY;
+            newElement.To[1] = adjustedToY;
+            
+            // Calculate the proportion of the adjustment
+            double originalHeight = elementMaxY - elementMinY;
+            double newHeight = adjustedToY - adjustedFromY;
+            double heightProportion = originalHeight > 0 ? newHeight / originalHeight : 0;
+            
+            for (int i = 0; i < 4; i++)
+            {
+                var face = newElement.FacesResolved[i];
+                if (face != null)
+                {
+                    double vMin = face.Uv[1];
+                    double vMax = face.Uv[3];
+                    double vRange = vMax - vMin;
+                
+                    // Adjust the V values based on the height proportion
+                    face.Uv[1] = (float)(vMin + vRange * (1 - heightProportion));
+                    face.Uv[3] = (float)vMax;
+                }
+            }
+            newElements.Add(newElement);
+        }
+
+        var partialShape = fullShape.Clone();
+        partialShape.Elements = newElements.ToArray();
+        return partialShape;
+    }
+
+
     public MeshData GenRightMesh(ICoreClientAPI capi, ItemStack contentStack, BlockPos forBlockPos = null, bool isSealed = false) {
         Shape shape = capi.Assets.TryGet($"{BtCore.Modid}:shapes/block/" + FirstCodePart() + "/" + (isSealed && Attributes.IsTrue("canSeal") ? "lid" : "empty") + ".json").ToObject<Shape>();
         MeshData bucketmesh;
@@ -433,52 +492,16 @@ public class BlockLiquidContainerSealed : BlockLiquidContainerBase
         if (contentStack != null)
         {
             WaterTightContainableProps props = GetInContainerProps(contentStack);
-
             ContainerTextureSource contentSource = new ContainerTextureSource(capi, contentStack, props.Texture);
-
             MeshData contentMesh;
+            float fullness = contentStack.StackSize / (props.ItemsPerLitre * CapacityLitres);
 
             if (props.Texture == null) return null;
 
-            float maxLevel = Attributes["maxFillLevel"].AsFloat();
-            float fullness = contentStack.StackSize / (props.ItemsPerLitre * CapacityLitres);
-
-            if (maxLevel is 8f)
-            {
-                if (fullness <= 1f/8 % maxLevel)
-                {
-                    shape = capi.Assets.TryGet($"{BtCore.Modid}:shapes/block/" + FirstCodePart() + "/contents" + "-" + 1.ToString().Replace(",", ".") + ".json").ToObject<Shape>();
-                }
-                if (fullness <= 2f/8 % maxLevel)
-                {
-                    shape = capi.Assets.TryGet($"{BtCore.Modid}:shapes/block/" + FirstCodePart() + "/contents" + "-" + 2.ToString().Replace(",", ".") + ".json").ToObject<Shape>();
-                }
-                else if (fullness <= 3f/8 % maxLevel)
-                {
-                    shape = capi.Assets.TryGet($"{BtCore.Modid}:shapes/block/" + FirstCodePart() + "/contents" + "-" + 3.ToString().Replace(",", ".") + ".json").ToObject<Shape>();
-                }
-                else if (fullness <= 4f/8 % maxLevel)
-                {
-                    shape = capi.Assets.TryGet($"{BtCore.Modid}:shapes/block/" + FirstCodePart() + "/contents" + "-" + 4.ToString().Replace(",", ".") + ".json").ToObject<Shape>();
-                }
-                else if (fullness <= 5f/8 % maxLevel)
-                {
-                    shape = capi.Assets.TryGet($"{BtCore.Modid}:shapes/block/" + FirstCodePart() + "/contents" + "-" + 5.ToString().Replace(",", ".") + ".json").ToObject<Shape>();
-                }
-                else if (fullness <= 6f/8 % maxLevel)
-                {
-                    shape = capi.Assets.TryGet($"{BtCore.Modid}:shapes/block/" + FirstCodePart() + "/contents" + "-" + 6.ToString().Replace(",", ".") + ".json").ToObject<Shape>();
-                }
-                else if (fullness <= 7f/8 % maxLevel)
-                {
-                    shape = capi.Assets.TryGet($"{BtCore.Modid}:shapes/block/" + FirstCodePart() + "/contents" + "-" + 7.ToString().Replace(",", ".") + ".json").ToObject<Shape>();
-                }
-                else if (fullness <= 1f % maxLevel)
-                {
-                    shape = capi.Assets.TryGet($"{BtCore.Modid}:shapes/block/" + FirstCodePart() + "/contents" + "-" + 8.ToString().Replace(",", ".") + ".json").ToObject<Shape>();
-                }
-            }
-
+            shape = capi.Assets.TryGet($"{BtCore.Modid}:shapes/block/" + FirstCodePart() + "/contents" + "-" + 8.ToString().Replace(",", ".") + ".json").ToObject<Shape>();
+            
+            shape = SliceFlattenedShape(shape.FlattenHierarchy(), fullness);
+            
             capi.Tesselator.TesselateShape("kettle", shape, out contentMesh, contentSource, new Vec3f(Shape.rotateX, Shape.rotateY, Shape.rotateZ));
 
             if (props.ClimateColorMap != null)
