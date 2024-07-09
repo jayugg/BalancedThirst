@@ -7,6 +7,7 @@
     },
     "width": 2,
     "height": 1,
-    "output": { "type": "block", "code": "balancedthirst:demijohn-glass-{color}"  }
+    "output": { "type": "block", "code": "balancedthirst:demijohn-glass-{color}"  },
+    "enabled": false
   }
 ]

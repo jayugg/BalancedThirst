@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using BalancedThirst.BlockEntities;
 using BalancedThirst.Util;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
@@ -12,12 +13,14 @@ using Vintagestory.GameContent;
 
 namespace BalancedThirst.Blocks;
 
-public class BlockLiquidContainerSealed : BlockLiquidContainerBase
+public class BlockLiquidContainerSealable : BlockLiquidContainerBase
 {
-
     public virtual float MinFillY => Attributes["minFillY"].AsFloat();
 
     public virtual float MaxFillY => Attributes["maxFillY"].AsFloat();
+    public override bool CanDrinkFrom => true;
+    public override bool IsTopOpened => true;
+    public override bool AllowHeldLiquidTransfer => true;
     
     public static WaterTightContainableProps GetInContainerProps(ItemStack stack)
     {
@@ -66,8 +69,8 @@ public class BlockLiquidContainerSealed : BlockLiquidContainerBase
                     HotKeyCodes = new[] { "sneak", "sprint" },
                     MouseButton = EnumMouseButton.Right,
                     ShouldApply = (_, bs, _) => {
-                        BlockEntityKettle beKettle = world.BlockAccessor.GetBlockEntity(bs.Position) as BlockEntityKettle;
-                        return beKettle is { isSealed: true };
+                        BlockEntitySealable beSealable = world.BlockAccessor.GetBlockEntity(bs.Position) as BlockEntitySealable;
+                        return beSealable is { IsSealed: true };
                     }
                 },
                 new()
@@ -76,8 +79,8 @@ public class BlockLiquidContainerSealed : BlockLiquidContainerBase
                     HotKeyCodes = new[] { "sneak", "sprint" },
                     MouseButton = EnumMouseButton.Right,
                     ShouldApply = (_, bs, _) => {
-                        BlockEntityKettle beKettle = world.BlockAccessor.GetBlockEntity(bs.Position) as BlockEntityKettle;
-                        return beKettle != null && !beKettle.isSealed;
+                        BlockEntitySealable beSealable = world.BlockAccessor.GetBlockEntity(bs.Position) as BlockEntitySealable;
+                        return beSealable != null && !beSealable.IsSealed;
                     }
                 }
         };
@@ -159,7 +162,7 @@ public class BlockLiquidContainerSealed : BlockLiquidContainerBase
 
     public override bool OnBlockInteractStart(IWorldAccessor world, IPlayer byPlayer, BlockSelection blockSel) {
 
-        BlockEntityKettle sp = world.BlockAccessor.GetBlockEntity(blockSel.Position) as BlockEntityKettle;
+        BlockEntitySealable sp = world.BlockAccessor.GetBlockEntity(blockSel.Position) as BlockEntitySealable;
         BlockPos pos = blockSel.Position;
 
         if (byPlayer.WorldData.EntityControls.Sneak && byPlayer.WorldData.EntityControls.Sprint)
@@ -167,7 +170,7 @@ public class BlockLiquidContainerSealed : BlockLiquidContainerBase
             if (sp != null && Attributes.IsTrue("canSeal"))
             {
                 world.PlaySoundAt(AssetLocation.Create(Attributes["lidSound"].AsString("sounds/block"), Code.Domain), pos.X + 0.5f, pos.Y + 0.5f, pos.Z + 0.5f, byPlayer);
-                sp.isSealed = !sp.isSealed;
+                sp.IsSealed = !sp.IsSealed;
                 sp.RedoMesh();
                 sp.MarkDirty(true);
             }
@@ -175,7 +178,7 @@ public class BlockLiquidContainerSealed : BlockLiquidContainerBase
             return true;
         }
 
-        if (sp?.isSealed == true) return false;
+        if (sp?.IsSealed == true) return false;
         ItemSlot hotbarSlot = byPlayer.InventoryManager.ActiveHotbarSlot;
 
         if (!hotbarSlot.Empty && hotbarSlot.Itemstack.Collectible.Attributes?.IsTrue("handleLiquidContainerInteract") == true)
@@ -185,13 +188,7 @@ public class BlockLiquidContainerSealed : BlockLiquidContainerBase
             if (handling == EnumHandHandling.PreventDefault || handling == EnumHandHandling.PreventDefaultAction) return true;
         }
 
-        if (hotbarSlot.Empty || !(hotbarSlot.Itemstack.Collectible is ILiquidInterface)) return base.OnBlockInteractStart(world, byPlayer, blockSel);
-
-
-        CollectibleObject obj = hotbarSlot.Itemstack.Collectible;
-
-        bool singleTake = byPlayer.WorldData.EntityControls.Sneak;
-        bool singlePut = byPlayer.WorldData.EntityControls.Sprint;
+        if (hotbarSlot.Empty || hotbarSlot.Itemstack.Collectible is not ILiquidInterface) return base.OnBlockInteractStart(world, byPlayer, blockSel);
 
         return base.OnBlockInteractStart(world, byPlayer, blockSel);
     }
@@ -331,13 +328,13 @@ public class BlockLiquidContainerSealed : BlockLiquidContainerBase
         }
 
 
-        int moved = splitStackAndPerformAction(byEntity, containerSlot, (stack) => { SetContent(stack, null); return contentStack.StackSize; });
+        int moved = SplitStackAndPerformAction(byEntity, containerSlot, (stack) => { SetContent(stack, null); return contentStack.StackSize; });
 
         DoLiquidMovedEffects(byPlayer, contentStack, moved, EnumLiquidDirection.Pour);
         return true;
     }
 
-    protected int splitStackAndPerformAction(Entity byEntity, ItemSlot slot, System.Func<ItemStack, int> action)
+    protected int SplitStackAndPerformAction(Entity byEntity, ItemSlot slot, System.Func<ItemStack, int> action)
     {
         if (slot.Itemstack == null) return 0;
         if (slot.Itemstack.StackSize == 1)
@@ -434,7 +431,7 @@ public class BlockLiquidContainerSealed : BlockLiquidContainerBase
     }
     
     // Works only if the shape hierarchy has been flattened, it need not have any element with children
-    private Shape SliceFlattenedShape(Shape fullShape, float fullness)
+    public Shape SliceFlattenedShape(Shape fullShape, float fullness)
     {
         var minY = MinFillY;
         var maxY = MaxFillY;
@@ -498,11 +495,11 @@ public class BlockLiquidContainerSealed : BlockLiquidContainerBase
 
             if (props.Texture == null) return null;
 
-            shape = capi.Assets.TryGet($"{BtCore.Modid}:shapes/block/" + FirstCodePart() + "/contents" + "-" + 8.ToString().Replace(",", ".") + ".json").ToObject<Shape>();
+            shape = capi.Assets.TryGet($"{BtCore.Modid}:shapes/block/" + FirstCodePart() + "/contents" +  ".json").ToObject<Shape>();
             
             shape = SliceFlattenedShape(shape.FlattenHierarchy(), fullness);
             
-            capi.Tesselator.TesselateShape("kettle", shape, out contentMesh, contentSource, new Vec3f(Shape.rotateX, Shape.rotateY, Shape.rotateZ));
+            capi.Tesselator.TesselateShape("sealableContainer", shape, out contentMesh, contentSource, new Vec3f(Shape.rotateX, Shape.rotateY, Shape.rotateZ));
 
             if (props.ClimateColorMap != null)
             {
@@ -550,7 +547,7 @@ public class BlockLiquidContainerSealed : BlockLiquidContainerBase
         int num1 = base.DoPlaceBlock(world, byPlayer, blockSel, byItemStack) ? 1 : 0;
         if (num1 == 0)
             return false;
-        if (!(world.BlockAccessor.GetBlockEntity(blockSel.Position) is BlockEntityKettle blockEntity))
+        if (!(world.BlockAccessor.GetBlockEntity(blockSel.Position) is BlockEntitySealable blockEntity))
             return true;
         BlockPos blockPos = blockSel.DidOffset ? blockSel.Position.AddCopy(blockSel.Face.Opposite) : blockSel.Position;
         double num2 = Math.Atan2(byPlayer.Entity.Pos.X - (blockPos.X + blockSel.HitPosition.X), byPlayer.Entity.Pos.Z - (blockPos.Z + blockSel.HitPosition.Z));
@@ -565,9 +562,9 @@ public class BlockLiquidContainerSealed : BlockLiquidContainerBase
     {
         ItemStack drop = base.OnPickBlock(world, pos);
 
-        if (world.BlockAccessor.GetBlockEntity(pos) is BlockEntityKettle sp)
+        if (world.BlockAccessor.GetBlockEntity(pos) is BlockEntitySealable sp)
         {
-            drop.Attributes.SetBool("isSealed", sp.isSealed);
+            drop.Attributes.SetBool("isSealed", sp.IsSealed);
         }
 
         return drop;

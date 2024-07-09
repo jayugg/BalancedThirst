@@ -10,7 +10,7 @@
 	},
 	"elements": [
 		{
-			"name": "contents4",
+			"name": "contents",
 			"rotationOrigin": [10, 0, 4],
 			"from": [0, 0, 0],
 			"to": [0, 0, 0],
@@ -43,123 +43,164 @@
 			},
 			"children": [
 				{
+					"name": "cube48",
+					"from": [5.2113, 1.01, 6.5],
+					"to": [5.9863, 4.91, 9.5],
+					"rotationOrigin": [11, 0.5, 10],
+					"faces": {
+						"north": {
+							"texture": "#water_bucket",
+							"uv": [10.0137, 11.09, 10.7887, 14.99],
+							"autoUv": false
+						},
+						"east": {
+							"texture": "#water_bucket",
+							"uv": [6.5, 11.09, 9.5, 14.99],
+							"autoUv": false
+						},
+						"south": {
+							"texture": "#water_bucket",
+							"uv": [4.9863, 11.09, 5.7613, 14.99],
+							"autoUv": false
+						},
+						"west": {
+							"texture": "#water_bucket",
+							"uv": [6.5, 11.09, 9.5, 14.99],
+							"autoUv": false
+						},
+						"up": {
+							"texture": "#water_bucket",
+							"uv": [4.9863, 6.5, 5.7613, 9.5],
+							"autoUv": false
+						},
+						"down": {
+							"texture": "#water_bucket",
+							"uv": [4.9863, 6.5, 5.7613, 9.5],
+							"autoUv": false
+						}
+					},
+					"parent": "contents",
+					"children": []
+				},
+				{
+					"name": "cube49",
+					"from": [10.0137, 1.01, 6.5],
+					"to": [10.7387, 4.91, 9.5],
+					"rotationOrigin": [5, 0.5, 10],
+					"faces": {
+						"north": {
+							"texture": "#water_bucket",
+							"uv": [4.9863, 11.09, 5.7113, 14.99],
+							"autoUv": false
+						},
+						"east": {
+							"texture": "#water_bucket",
+							"uv": [6.5, 11.09, 9.5, 14.99],
+							"autoUv": false
+						},
+						"south": {
+							"texture": "#water_bucket",
+							"uv": [10.0137, 11.09, 10.7387, 14.99],
+							"autoUv": false
+						},
+						"west": {
+							"texture": "#water_bucket",
+							"uv": [6.5, 11.09, 9.5, 14.99],
+							"autoUv": false
+						},
+						"up": {
+							"texture": "#water_bucket",
+							"uv": [10.0137, 6.5, 10.7387, 9.5],
+							"autoUv": false
+						},
+						"down": {
+							"texture": "#water_bucket",
+							"uv": [10.0137, 6.5, 10.7387, 9.5],
+							"autoUv": false
+						}
+					},
+					"parent": "contents",
+					"children": []
+				},
+				{
+					"name": "cube50",
+					"from": [5.9863, 1.01, 5.7375],
+					"to": [10.0363, 4.91, 10.225],
+					"rotationOrigin": [11, 0.5, 10],
+					"faces": {
+						"north": {
+							"texture": "#water_bucket",
+							"uv": [5.9637, 11.09, 10.0137, 14.99],
+							"autoUv": false
+						},
+						"east": {
+							"texture": "#water_bucket",
+							"uv": [5.5, 11.09, 9.9875, 14.99],
+							"autoUv": false
+						},
+						"south": {
+							"texture": "#water_bucket",
+							"uv": [5.9863, 11.09, 10.0363, 14.99],
+							"autoUv": false
+						},
+						"west": {
+							"texture": "#water_bucket",
+							"uv": [5.5, 11.09, 9.9875, 14.99],
+							"autoUv": false
+						},
+						"up": {
+							"texture": "#water_bucket",
+							"uv": [5.9863, 5.5, 10.0363, 9.9875],
+							"autoUv": false
+						},
+						"down": {
+							"texture": "#water_bucket",
+							"uv": [5.9863, 5.5, 10.0363, 9.9875],
+							"autoUv": false
+						}
+					},
+					"parent": "contents",
+					"children": []
+				},
+				{
 					"name": "cube65",
-					"from": [4.9863, 1.01, 5.5],
-					"to": [5.9863, 3, 8.5],
-					"rotationOrigin": [11, 0.5, 9],
+					"from": [7.7363, 3.0725, 2.95],
+					"to": [8.2863, 4.1625, 3.55],
+					"rotationOrigin": [8.0113, 3.3175, 3.2125],
 					"faces": {
 						"north": {
 							"texture": "#water_bucket",
-							"uv": [10.0137, 13, 11.0137, 14.99],
+							"uv": [7.7137, 11.5875, 8.2637, 12.6775],
 							"autoUv": false
 						},
 						"east": {
 							"texture": "#water_bucket",
-							"uv": [7.5, 13, 10.5, 14.99],
+							"uv": [12.45, 11.5875, 13.05, 12.6775],
 							"autoUv": false
 						},
 						"south": {
 							"texture": "#water_bucket",
-							"uv": [4.9863, 13, 5.9863, 14.99],
+							"uv": [7.7363, 11.5875, 8.2863, 12.6775],
 							"autoUv": false
 						},
 						"west": {
 							"texture": "#water_bucket",
-							"uv": [5.5, 13, 8.5, 14.99],
+							"uv": [2.95, 11.5875, 3.55, 12.6775],
 							"autoUv": false
 						},
 						"up": {
 							"texture": "#water_bucket",
-							"uv": [4.9863, 5.5, 5.9863, 8.5],
+							"uv": [7.7363, 2.95, 8.2863, 3.55],
 							"autoUv": false
 						},
 						"down": {
 							"texture": "#water_bucket",
-							"uv": [4.9863, 7.5, 5.9863, 10.5],
+							"uv": [7.7363, 12.45, 8.2863, 13.05],
 							"autoUv": false
 						}
 					},
-					"parent": "contents4",
-					"children": []
-				},
-				{
-					"name": "cube66",
-					"from": [10.0137, 1.01, 5.5],
-					"to": [11.0137, 3, 8.5],
-					"rotationOrigin": [5, 0.5, 9],
-					"faces": {
-						"north": {
-							"texture": "#water_bucket",
-							"uv": [4.9863, 13, 5.9863, 14.99],
-							"autoUv": false
-						},
-						"east": {
-							"texture": "#water_bucket",
-							"uv": [7.5, 13, 10.5, 14.99],
-							"autoUv": false
-						},
-						"south": {
-							"texture": "#water_bucket",
-							"uv": [10.0137, 13, 11.0137, 14.99],
-							"autoUv": false
-						},
-						"west": {
-							"texture": "#water_bucket",
-							"uv": [5.5, 13, 8.5, 14.99],
-							"autoUv": false
-						},
-						"up": {
-							"texture": "#water_bucket",
-							"uv": [10.0137, 5.5, 11.0137, 8.5],
-							"autoUv": false
-						},
-						"down": {
-							"texture": "#water_bucket",
-							"uv": [10.0137, 7.5, 11.0137, 10.5],
-							"autoUv": false
-						}
-					},
-					"parent": "contents4",
-					"children": []
-				},
-				{
-					"name": "cube67",
-					"from": [5.9863, 1.01, 4.5],
-					"to": [10.0363, 3, 9.5],
-					"rotationOrigin": [11, 0.5, 9],
-					"faces": {
-						"north": {
-							"texture": "#water_bucket",
-							"uv": [5.9637, 13, 10.0137, 14.99],
-							"autoUv": false
-						},
-						"east": {
-							"texture": "#water_bucket",
-							"uv": [6.5, 13, 11.5, 14.99],
-							"autoUv": false
-						},
-						"south": {
-							"texture": "#water_bucket",
-							"uv": [5.9863, 13, 10.0363, 14.99],
-							"autoUv": false
-						},
-						"west": {
-							"texture": "#water_bucket",
-							"uv": [4.5, 13, 9.5, 14.99],
-							"autoUv": false
-						},
-						"up": {
-							"texture": "#water_bucket",
-							"uv": [5.9863, 4.5, 10.0363, 9.5],
-							"autoUv": false
-						},
-						"down": {
-							"texture": "#water_bucket",
-							"uv": [5.9863, 6.5, 10.0363, 11.5],
-							"autoUv": false
-						}
-					},
-					"parent": "contents4",
+					"parent": "contents",
+					"rotationX": -45,
 					"children": []
 				}
 			]

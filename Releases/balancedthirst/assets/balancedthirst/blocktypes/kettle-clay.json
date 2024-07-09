@@ -2,98 +2,132 @@
   "code": "kettle-clay",
   "classByType": {
     "*-raw": "Block",
-    "*": "BlockLiquidContainerTopOpened"
+    "*": "balancedthirst.BlockKettle"
   },
-  "behaviors": [
-    { "name": "GroundStorable", "properties": { "layout": "Quadrants", "collisionBox": { "x1": 0, "y1": 0, "z1": 0, "x2": 1, "y2": 0.4375, "z2": 1 } } },
-    { "name": "Unplaceable", "__comment": "The ground storable obsoletes this being a block. Should be an item, but is kept a block for backwards compatibility" },
-    { "name": "RightClickPickup"}
-  ],
+  "entityClassByType": {
+    "*-fired": "balancedthirst.BlockEntityKettle",
+    "*-porcelain": "balancedthirst.BlockEntityKettle"
+  },
+  "behaviorsByType": {
+    "*": [
+      { "name": "UnstableFalling" },
+      { "name": "RightClickPickup" }
+    ]
+  },
   "variantgroups": [
-    { "code": "type", "states": ["raw", "fired"] }
+    { "code": "type", "states": ["raw", "fired", "porcelain"] }
   ],
-  "attributes": {
-    "shelvable": true,
-    "liquidContainerPropsByType": {
-      "*-raw": { },
-      "*": {
-        "capacityLitres": 8,
-        "transferSizeLitres": 1,
-        "emptyShapeLoc": "game:block/clay/pot-opened-empty",
-        "opaqueContentShapeLoc": "block/kettle-contents",
-        "liquidContentShapeLoc": "block/kettle-liquidcontents",
-        "liquidMaxYTranslate": 0.05
-      }
-    }
-  },
   "attributesByType": {
-    "*-raw": { },
+    "*-raw": { "shelvable": true },
     "*": {
-      "maxTemperature": 100,
+      "lidSound": "game:sounds/walk/wood",
+      "canSeal": true,
+      "handbook": { "groupBy": ["kettle-*"] },
+      "lidPerishRate": 0.75,
+      "maxTemperature": 110,
       "allowHeating": true,
+      "minFillY": 1.01,
+      "maxFillY": 4.91,
+      "storageType": 1,
+      "maxContainerSlotStackSize": 3,
+      "cookingSlotCapacityLitres": 3,
+      "cookingContainerSlots": 4,
+      "liquidcontainer": true,
+      "capacityLitres": 12,
+      "canhold": [ "water-*" ],
       "inFirePitProps": {
         "transform": {
-          "translation": { "x": 0, "y": 0.125, "z": 0 }
+          "translation": {
+            "x": 0,
+            "y": 0.2,
+            "z": 0
+          }
         },
         "useFirepitModel": "Wide"
-      }
+      },
+      "shelvable": true
     }
   },
-  "combustiblePropsByType": {
-    "*-raw": {
-      "meltingPoint": 600,
-      "meltingDuration": 45,
-      "smeltedRatio": 1,
-      "smeltingType": "fire",
-      "smeltedStack": { "type": "block", "code": "balancedthirst:kettle-clay-fired" },
-      "requiresContainer": false
-    }
+  "shapeByType": {
+    "*": { "base": "block/kettle-clay/empty" },
+    "*-porcelain": { "base": "block/kettle/empty" }
   },
-  "shape": { "base": "game:block/clay/pot-opened-empty" },
-  "heldTpIdleAnimation": "holdbothhands",
-  "heldTpUseAnimation": "twohandplaceblock",
   "doNotRenderAtLod2": true,
-  "blockmaterial": "Ceramic",
   "creativeinventory": { "general": ["*"], "decorative": ["*"] },
-  "liquidSelectable": 1,
-  "replaceable": 400,
-  "resistance": 1.5,
   "maxStackSizeByType": {
     "*": 1
   },
-  "lightAbsorption": 0,
-  "texturesByType": {
+  "sidesolid": {
+    "all": false
+  },
+  "sideopaque": {
+    "all": false
+  },
+  "drawtype": "JSON",
+  "blockmaterial": "Ceramic",
+  "heldTpUseAnimation": "water",
+  "heldRightTpIdleAnimation": "holdinglanternrighthand",
+  "heldLeftTpIdleAnimation": "holdinglanternlefthand",
+  "texturesbyType": {
     "*-raw": {
-      "all": { "base": "game:block/clay/blueclay" }
+      "snout": { "base": "game:block/clay/blueclay" },
+      "lip": { "base": "game:block/clay/blueclay" },
+      "lid": { "base": "game:block/wood/debarked/oak" },
+      "bottom": {
+        "base": "game:block/clay/blueclay",
+        "overlays": [ "block/kettle/metaloverlay" ]
+      },
+      "body": {
+        "base": "game:block/clay/blueclay",
+        "overlays": [ "block/kettle/metaloverlaygradient" ]
+      }
     },
     "*-fired": {
-      "ceramic": { "base": "game:block/clay/pot-side" },
-      "lid": { "base": "game:block/wood/crate/oak-inside" },
-      "tallow": { "base": "game:block/wood/crate/oak-inside" }
+      "snout": { "base": "game:block/clay/pot-side" },
+      "lip": { "base": "game:block/clay/pot-side" },
+      "lid": { "base": "game:block/wood/debarked/oak" },
+      "bottom": {
+        "base": "game:block/clay/pot-side",
+        "overlays": [ "block/kettle/metaloverlay" ]
+      },
+      "body": {
+        "base": "game:block/clay/pot-side",
+        "overlays": [ "block/kettle/metaloverlaygradient" ]
+      }
     },
-    "*": {
-      "ceramic": { "base": "game:block/metal/ingot/{material}" },
-      "lid": { "base": "game:block/wood/crate/oak-inside" },
-      "tallow": { "base": "game:block/wood/crate/oak-inside" }
+    "*-porcelain": {
+      "snout": { "base": "game:block/clay/flintporcelain/fired" },
+      "lip": { "base": "game:block/clay/flintporcelain/fired" },
+      "lid": { "base": "game:block/wood/debarked/oak" },
+      "bottom": {
+        "base": "game:block/clay/flintporcelain/fired",
+        "overlays": [ "block/kettle/metaloverlay" ]
+      },
+      "body": {
+        "base": "game:block/clay/flintporcelain/fired",
+        "overlays": [ "block/kettle/metaloverlaygradient" ]
+      }
     }
   },
+  "replaceable": 500,
+  "resistance": 1.5,
+  "materialDensity": 7870,
+  "liquidSelectable": 1,
+  "lightAbsorption": 1,
   "sounds": {
     "place": "game:walk/stone",
     "hit": "game:walk/stone",
     "break": "game:walk/stone",
     "walk": "game:walk/stone"
   },
-  "sideopaque": {
-    "all": false
-  },
-  "sidesolid": {
-    "all": false
-  },
-  "collisionbox": { "x1": 0.28, "y1": 0, "z1": 0.28, "x2": 0.72, "y2": 0.35, "z2": 0.72 },
-  "selectionbox": { "x1": 0.28, "y1": 0, "z1": 0.28, "x2": 0.72, "y2": 0.35, "z2": 0.72 },
+  "collisionSelectionBoxes": [
+    { "x1": 0.28, "y1": 0, "z1": 0.28, "x2": 0.72, "y2": 0.35, "z2": 0.72 }
+  ],
   "guiTransform": {
+    "translation": { "x": -2, "y": 2, "z": 0 },
+    "rotation": { "x": -22, "y": -57, "z": 0 },
     "origin": { "x": 0.5, "y": 0.2, "z": 0.5 },
-    "scale": 2
+    "scale": 2.15
   },
   "groundTransform": {
     "scale": 3

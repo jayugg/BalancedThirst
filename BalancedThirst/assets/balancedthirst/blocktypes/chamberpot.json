@@ -1,0 +1,99 @@
+{
+  "code": "chamberpot",
+  "classByType": {
+    "*-raw": "Block",
+    "*": "balancedthirst.BlockLiquidContainerSealable"
+  },
+  "entityClassByType": {
+    "*-fired": "balancedthirst.BlockEntitySealable",
+    "*-porcelain": "balancedthirst.BlockEntitySealable"
+  },
+  "behaviorsByType": {
+    "*": [
+      { "name": "UnstableFalling" },
+      { "name": "RightClickPickup" }
+    ]
+  },
+  "variantgroups": [
+    { "code": "type", "states": ["raw", "fired", "porcelain"] }
+  ],
+  "attributesByType": {
+    "*-raw": { "shelvable": true },
+    "*": {
+      "lidSound": "game:sounds/walk/wood",
+      "canSeal": true,
+      "handbook": { "groupBy": ["chamberpot-*"] },
+      "lidPerishRate": 0.75,
+      "minFillY": 1,
+      "maxFillY": 5.9475,
+      "storageType": 1,
+      "liquidcontainer": true,
+      "capacityLitres": 16,
+      "canhold": [ "water-*" ],
+      "shelvable": true
+    }
+  },
+  "shapeByType": {
+    "*": { "base": "block/chamberpot/empty" }
+  },
+  "doNotRenderAtLod2": true,
+  "creativeinventory": { "general": ["*"], "decorative": ["*"] },
+  "maxStackSizeByType": {
+    "*": 1
+  },
+  "sidesolid": {
+    "all": false
+  },
+  "sideopaque": {
+    "all": false
+  },
+  "drawtype": "JSON",
+  "blockmaterial": "Ceramic",
+  "heldRightTpIdleAnimation": "holdinglanternrighthand",
+  "heldLeftTpIdleAnimation": "holdinglanternlefthand",
+  "texturesbyType": {
+    "*-raw": {
+      "ceramic": {
+        "base": "game:block/clay/blueclay"
+      }
+    },
+    "*-fired": {
+      "ceramic": {
+        "base": "game:block/clay/pot-side"
+      }
+    },
+    "*-porcelain": {
+      "ceramic": {
+        "base": "game:block/clay/flintporcelain/fired"
+      }
+    }
+  },
+  "replaceable": 500,
+  "resistance": 1.5,
+  "materialDensity": 7870,
+  "liquidSelectable": 1,
+  "lightAbsorption": 1,
+  "sounds": {
+    "place": "game:walk/stone",
+    "hit": "game:walk/stone",
+    "break": "game:walk/stone",
+    "walk": "game:walk/stone"
+  },
+  "collisionSelectionBoxes": [
+    {  "x1": 0.25, "y1": 0, "z1": 0.25, "x2": 0.75, "y2": 0.48, "z2": 0.75 }
+  ],
+  "guiTransform": {
+    "origin": { "x": 0.5, "y": 0.35, "z": 0.5 },
+    "scale": 1.87
+  },
+  "tpHandTransform": {
+    "translation": { "x": -0.97, "y": -0.7, "z": -0.58 },
+    "rotation": { "x": 64, "y": 180, "z": 87 },
+    "origin": { "x": 0.5, "y": 0.3, "z": 0.5 },
+    "scale": 0.65
+  },
+  "groundTransform": {
+    "origin": { "x": 0.5, "y": 0, "z": 0.5 },
+    "scale": 2.5
+  }
+}

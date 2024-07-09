@@ -1,26 +1,17 @@
-
-
-using System;
-using System.Collections.Generic;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
-using Vintagestory.API.Common.Entities;
 using Vintagestory.API.Config;
-using Vintagestory.API.MathTools;
 using Vintagestory.GameContent;
-using Vintagestory.API.Datastructures;
 using System.Linq;
 using BalancedThirst.Util;
 
 namespace BalancedThirst.Blocks;
-public class BlockKettle : BlockLiquidContainerSealed, IInFirepitRendererSupplier
+public class BlockKettle : BlockLiquidContainerSealable, IInFirepitRendererSupplier
 {
     public override bool CanDrinkFrom => true;
     public override bool IsTopOpened => true;
     public override bool AllowHeldLiquidTransfer => true;
     public AssetLocation liquidFillSoundLocation => new AssetLocation("game:sounds/effect/water-fill");
-
-    public bool isSealed;
 
     public IInFirepitRenderer GetRendererWhenInFirepit(ItemStack stack, BlockEntityFirepit firepit, bool forOutputSlot)
     {
@@ -61,8 +52,8 @@ public class BlockKettle : BlockLiquidContainerSealed, IInFirepitRendererSupplie
         ItemStack product = new ItemStack(world.GetItem(new AssetLocation("boilingwaterportion")));
         product.StackSize = 0;
 
-        product.StackSize += (int) GetTotalLitres(cookingSlotsProvider, inputSlot.Itemstack) * 100;
-        
+        product.StackSize += (int) (GetTotalLitres(cookingSlotsProvider, inputSlot.Itemstack) * 100f);
+        BtCore.Logger.Warning("Product Stack Size: " + product.StackSize);
         if (product.StackSize == 0) return;
         
         foreach (var t in cookingSlotsProvider.Slots)
@@ -72,7 +63,7 @@ public class BlockKettle : BlockLiquidContainerSealed, IInFirepitRendererSupplie
         if (inputSlot.Itemstack.Collectible is BlockKettle kettle)
             kettle.TryTakeLiquid(inputSlot.Itemstack, kettle.GetContent(inputSlot.Itemstack).GetLitres());
         outputSlot.Itemstack = inputSlot.TakeOut(1);
-        (outputSlot.Itemstack.Collectible as BlockLiquidContainerBase)?.TryPutLiquid(outputSlot.Itemstack, product, product.StackSize);
+        (outputSlot.Itemstack.Collectible as BlockKettle)?.TryPutLiquid(outputSlot.Itemstack, product, product.StackSize);
     }
 
     public override float GetMeltingDuration(IWorldAccessor world, ISlotProvider cookingSlotsProvider, ItemSlot inputSlot)
@@ -89,13 +80,11 @@ public class BlockKettle : BlockLiquidContainerSealed, IInFirepitRendererSupplie
         float temp = 100f;
         return temp;
     }
-
    
     public string GetOutputText(IWorldAccessor world, InventorySmelting inv)
     {
         ItemStack product = new ItemStack(world.GetItem(new AssetLocation("boilingwaterportion")));
         var litres = GetTotalLitres(inv, inv[1]?.Itemstack);
-        return litres == 0f ? "" : Lang.Get("firepit-gui-willcreate", litres, Lang.Get($"{BtCore.Modid}firepit-gui-litres", product.GetName()));
+        return litres == 0f ? "" : Lang.Get("firepit-gui-willcreate", litres, Lang.Get($"{BtCore.Modid}:firepit-gui-litres", product.GetName()));
     }
-    
 }

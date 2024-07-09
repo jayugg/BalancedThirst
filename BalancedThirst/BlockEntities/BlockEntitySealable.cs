@@ -1,29 +1,29 @@
-using Vintagestory.API.MathTools;
-
-namespace BalancedThirst.Blocks;
-
+using BalancedThirst.Blocks;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
 using Vintagestory.API.Datastructures;
+using Vintagestory.API.MathTools;
 using Vintagestory.GameContent;
 
-public class BlockEntityKettle : BlockEntityBucket
+namespace BalancedThirst.BlockEntities;
+
+public class BlockEntitySealable : BlockEntityBucket
 {
-    MeshData currentRightMesh;
-    BlockKettle ownBlock;
-    public bool isSealed;
-    public float MeshAngle;
+    private MeshData _currentRightMesh;
+    private BlockLiquidContainerSealable _ownBlock;
+    public bool IsSealed;
+    public new float MeshAngle;
 
     public override void Initialize(ICoreAPI api)
     {
         base.Initialize(api);
 
-        ownBlock = Block as BlockKettle;
+        _ownBlock = Block as BlockLiquidContainerSealable;
 
 
         if (Api.Side == EnumAppSide.Client)
         {
-            currentRightMesh = GenRightMesh();
+            _currentRightMesh = GenRightMesh();
             MarkDirty(true);
         }
     }
@@ -32,11 +32,11 @@ public class BlockEntityKettle : BlockEntityBucket
     {
         base.OnBlockPlaced(byItemStack);
 
-        if (byItemStack != null) isSealed = byItemStack.Attributes.GetBool("isSealed");
+        if (byItemStack != null) IsSealed = byItemStack.Attributes.GetBool("isSealed");
 
         if (Api.Side == EnumAppSide.Client)
         {
-            currentRightMesh = GenRightMesh();
+            _currentRightMesh = GenRightMesh();
             MarkDirty(true);
         }
     }
@@ -46,11 +46,11 @@ public class BlockEntityKettle : BlockEntityBucket
         base.FromTreeAttributes(tree, worldForResolving);
 
         MeshAngle = tree.GetFloat("meshAngle", MeshAngle);
-        isSealed = tree.GetBool("isSealed");
+        IsSealed = tree.GetBool("isSealed");
 
         if (Api?.Side == EnumAppSide.Client)
         {
-            currentRightMesh = GenRightMesh();
+            _currentRightMesh = GenRightMesh();
             MarkDirty(true);
         }
     }
@@ -59,16 +59,16 @@ public class BlockEntityKettle : BlockEntityBucket
     {
         base.ToTreeAttributes(tree);
         tree.SetFloat("meshAngle", this.MeshAngle);
-        tree.SetBool("isSealed", isSealed);
+        tree.SetBool("isSealed", IsSealed);
     }
 
     internal MeshData GenRightMesh()
     {
         //if (ownBlock == null || ownBlock.Code.Path.Contains("clay")) return null;
 
-        MeshData mesh = ownBlock.GenRightMesh(Api as ICoreClientAPI, GetContent(), Pos, isSealed);
+        MeshData mesh = _ownBlock?.GenRightMesh(Api as ICoreClientAPI, GetContent(), Pos, IsSealed);
 
-        if (mesh.CustomInts != null)
+        if (mesh?.CustomInts != null)
         {
             for (int i = 0; i < mesh.CustomInts.Count; i++)
             {
@@ -83,8 +83,8 @@ public class BlockEntityKettle : BlockEntityBucket
     
     public override bool OnTesselation(ITerrainMeshPool mesher, ITesselatorAPI tesselator)
     {
-        if (this.currentRightMesh != null)
-            mesher.AddMeshData(this.currentRightMesh.Clone().Rotate(new Vec3f(0.5f, 0.5f, 0.5f), 0.0f, this.MeshAngle, 0.0f));
+        if (this._currentRightMesh != null)
+            mesher.AddMeshData(this._currentRightMesh.Clone().Rotate(new Vec3f(0.5f, 0.5f, 0.5f), 0.0f, this.MeshAngle, 0.0f));
         return true;
     }
 
@@ -92,13 +92,12 @@ public class BlockEntityKettle : BlockEntityBucket
     {
         if (Api.Side == EnumAppSide.Client)
         {
-            currentRightMesh = GenRightMesh();
+            _currentRightMesh = GenRightMesh();
         }
     }
 
-
     public override float GetPerishRate()
     {
-        return base.GetPerishRate() * (isSealed ? Block.Attributes["lidPerishRate"].AsFloat(0.5f) : 1f);
+        return base.GetPerishRate() * (IsSealed ? Block.Attributes["lidPerishRate"].AsFloat(0.5f) : 1f);
     }
 }

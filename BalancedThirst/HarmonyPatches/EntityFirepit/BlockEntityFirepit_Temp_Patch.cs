@@ -14,18 +14,18 @@ public class BlockEntityFirepit_Temp_Patch
 
         var inventory = __instance?.GetField<InventorySmelting>("inventory");
         if (inventory == null) return;
-        if (inventory.CookingSlots == null || inventory.CookingSlots.Length == 0)
+        if (inventory.CookingSlots == null || inventory.CookingSlots.Length == 0 && stack.Collectible != null)
         {
             __result = stack.Collectible.GetTemperature(__instance?.Api?.World, stack);
             return;
         }
-        float temperature = stack.Collectible.GetTemperature(__instance?.Api?.World, stack);
-        for (int index = 0; index < inventory.CookingSlots.Length; ++index)
+        float temperature = stack.Collectible.GetTemperature(__instance.Api?.World, stack);
+        foreach (var slot in inventory.CookingSlots)
         {
-            ItemStack itemstack = inventory.CookingSlots[index]?.Itemstack;
+            ItemStack itemstack = slot?.Itemstack;
             if (itemstack?.Collectible != null)
             {
-                temperature = Math.Min(itemstack.Collectible.GetTemperature(__instance.Api.World, itemstack), temperature);
+                temperature = Math.Min(itemstack.Collectible?.GetTemperature(__instance.Api?.World, itemstack) ?? 0f, temperature);
             }
         }
         __result = temperature;
@@ -38,10 +38,8 @@ public class BlockEntityFirepit_Temp_Patch
         var inventory = __instance.GetField<InventorySmelting>("inventory");
         if (inventory == null) return;
         stack.Collectible?.SetTemperature(__instance.Api.World, stack, value);
-        if (inventory.CookingSlots.Length != 0)
-        {
-            for (int index = 0; index < inventory.CookingSlots.Length; ++index)
-                inventory.CookingSlots[index].Itemstack?.Collectible.SetTemperature(__instance.Api.World, inventory.CookingSlots[index].Itemstack, value);
-        }
+        if (inventory.CookingSlots == null || inventory.CookingSlots.Length == 0) return;
+        foreach (var slot in inventory.CookingSlots)
+            slot.Itemstack?.Collectible.SetTemperature(__instance.Api.World, slot.Itemstack, value);
     }
 }

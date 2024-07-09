@@ -98,7 +98,7 @@ public class ConfigServer : SyncedConfig
         HoDClothingCoolingMultiplier = previousConfig.HoDClothingCoolingMultiplier;
     }
 
-    public void UpdateFromSyncedConfig(SyncedConfig config)
+    public void UpdateFromSyncedConfig(ICoreAPI api, SyncedConfig config)
     {
         EnableThirst = config.EnableThirst;
         EnableBladder = config.EnableBladder;

@@ -1,4 +1,5 @@
-﻿using BalancedThirst.Blocks;
+﻿using BalancedThirst.BlockEntities;
+using BalancedThirst.Blocks;
 using BalancedThirst.Compatibility.HoDCompat;
 using BalancedThirst.Config;
 using BalancedThirst.Hud;
@@ -21,9 +22,8 @@ public class BtCore : ModSystem
     public static ILogger Logger;
     public static string Modid;
     private static ICoreAPI _api;
-
-    public static bool IsHoDLoaded => _api.ModLoader.IsModEnabled("hydrateordiedrate");
-    public static bool IsXSkillsLoaded => _api.ModLoader.IsModEnabled("xskills");
+    public static bool IsHoDLoaded => _api?.ModLoader.IsModEnabled("hydrateordiedrate") ?? false;
+    public static bool IsXSkillsLoaded => _api?.ModLoader.IsModEnabled("xskills") ?? false;
     public override double ExecuteOrder() => 0.02;
     
     public override void StartPre(ICoreAPI api)
@@ -47,7 +47,9 @@ public class BtCore : ModSystem
     {
         api.RegisterBlockClass($"{Modid}.{nameof(BlockLiquidContainerLeaking)}", typeof(BlockLiquidContainerLeaking));
         api.RegisterBlockClass($"{Modid}.{nameof(BlockKettle)}", typeof(BlockKettle));
+        api.RegisterBlockClass($"{Modid}.{nameof(BlockLiquidContainerSealable)}", typeof(BlockLiquidContainerSealable));
         api.RegisterBlockEntityClass($"{Modid}.{nameof(BlockEntityKettle)}", typeof(BlockEntityKettle));
+        api.RegisterBlockEntityClass($"{Modid}.{nameof(BlockEntitySealable)}", typeof(BlockEntitySealable));
         api.RegisterItemClass(Modid + "." + nameof(ItemDowsingRod), typeof(ItemDowsingRod));
         api.RegisterBlockBehaviorClass(Modid + ":GushingLiquid", typeof(BlockBehaviorGushingLiquid));
         api.RegisterBlockBehaviorClass(Modid + ":PureWater", typeof(BlockBehaviorPureWater));

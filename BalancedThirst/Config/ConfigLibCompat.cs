@@ -9,6 +9,7 @@ using ImGuiNET;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
 using Vintagestory.API.Config;
+using Vintagestory.API.Datastructures;
 
 namespace BalancedThirst.Config;
 
@@ -32,7 +33,7 @@ public class ConfigLibCompat
         if (api.Side == EnumAppSide.Client)
             api.ModLoader.GetModSystem<ConfigLibModSystem>().RegisterCustomConfig(Lang.Get("balancedthirst:balancedthirst_client"), (id, buttons) => EditConfigClient(id, buttons, api));
     }
-    
+
     private static void SyncConfig(ICoreAPI api)
     {
         api.Event.PushEvent(EventIds.ConfigReloaded);
@@ -40,7 +41,8 @@ public class ConfigLibCompat
     
     private static void SyncConfigAdmin(ICoreAPI api)
     {
-        BtCore.Logger.Warning("Reloading synced config from admin");
+        BtCore.Logger.Warning("Sending synced config from admin");
+        BtCore.Logger.Warning($"{ConfigSystem.SyncedConfigData.EnableBladder}");
         api.Event.PushEvent(EventIds.AdminSetConfig);
     }
     

@@ -1,3 +1,4 @@
+using BalancedThirst.Util;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
 using Vintagestory.API.MathTools;
@@ -15,7 +16,8 @@ public class KettleInFirepitRenderer : IInFirepitRenderer
     ICoreClientAPI _capi;
     ItemStack _stack;
 
-    MultiTextureMeshRef _saucepanRef;
+    MultiTextureMeshRef _kettleRef;
+    MultiTextureMeshRef _contentRef;
     MultiTextureMeshRef _topRef;
     BlockPos _pos;
     float _temp;
@@ -38,19 +40,36 @@ public class KettleInFirepitRenderer : IInFirepitRenderer
         if (stack.Collectible.CodeWithVariant("type", "fired") == null) { kettleBlock = capi.World.GetBlock(stack.Collectible.CodeWithVariant("metal", "")) as BlockKettle; }
 
         MeshData kettleMesh;
-        capi.Tesselator.TesselateShape(kettleBlock, capi.Assets.TryGet($"{BtCore.Modid}:shapes/block/" + kettleBlock?.FirstCodePart() + "/" + "empty.json").ToObject<Shape>(), out kettleMesh); // Main Shape
-        _saucepanRef = capi.Render.UploadMultiTextureMesh(kettleMesh);
+        capi.Tesselator.TesselateShape(kettleBlock, capi.Assets.TryGet($"{BtCore.Modid}:shapes/block/{kettleBlock?.FirstCodePart()}/empty.json").ToObject<Shape>(), out kettleMesh); // Main Shape
+        _kettleRef = capi.Render.UploadMultiTextureMesh(kettleMesh);
 
         MeshData topMesh;
-        capi.Tesselator.TesselateShape(kettleBlock, capi.Assets.TryGet($"{BtCore.Modid}:shapes/block/" + kettleBlock?.FirstCodePart() + "/" + "lid-only.json").ToObject<Shape>(), out topMesh); // Lid
+        capi.Tesselator.TesselateShape(kettleBlock, capi.Assets.TryGet($"{BtCore.Modid}:shapes/block/{kettleBlock?.FirstCodePart()}/lid-only.json").ToObject<Shape>(), out topMesh); // Lid
         _topRef = capi.Render.UploadMultiTextureMesh(topMesh);
-    
+        
+        if (stack.Collectible is not BlockKettle kettle) return;
+        var contentStack = kettle.GetContent(stack);
+        WaterTightContainableProps props = BlockLiquidContainerSealable.GetInContainerProps(contentStack);
+        if (props?.Texture == null) return;
+        BtCore.Logger.Warning("Props Tex" + props.Texture);
+        ContainerTextureSource contentSource = new ContainerTextureSource(capi, contentStack, props.Texture);
+        MeshData contentMesh;
+        float fullness = contentStack?.StackSize / (props.ItemsPerLitre * kettleBlock?.CapacityLitres) ?? 0;
+        
+        var contentShape = capi.Assets.TryGet($"{BtCore.Modid}:shapes/block/{kettleBlock?.FirstCodePart()}/contents.json").ToObject<Shape>();
+            
+        contentShape = kettle.SliceFlattenedShape(contentShape.FlattenHierarchy(), fullness);
+            
+        capi.Tesselator.TesselateShape("kettle", contentShape, out contentMesh, contentSource);
+        
+        _contentRef = capi.Render.UploadMultiTextureMesh(contentMesh);
     }
 
     public void Dispose()
     {
-        _saucepanRef?.Dispose();
+        _kettleRef?.Dispose();
         _topRef?.Dispose();
+        _contentRef?.Dispose();
 
         _cookingSound?.Stop();
         _cookingSound?.Dispose();
@@ -91,7 +110,7 @@ public class KettleInFirepitRenderer : IInFirepitRenderer
         prog.ViewMatrix = rpi.CameraMatrixOriginf;
         prog.ProjectionMatrix = rpi.CurrentProjectionMatrix;
 
-        rpi.RenderMultiTextureMesh(_saucepanRef);
+        rpi.RenderMultiTextureMesh(_kettleRef);
 
         if (!_isInOutputSlot)
         {
@@ -115,6 +134,10 @@ public class KettleInFirepitRenderer : IInFirepitRenderer
 
 
             rpi.RenderMultiTextureMesh(_topRef);
+        }
+        else
+        {
+            rpi.RenderMultiTextureMesh(_contentRef);
         }
 
         prog.Stop();

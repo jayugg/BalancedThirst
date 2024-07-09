@@ -2,15 +2,27 @@
     "block-woodenbowl-raw": "Wooden bowl",
     "block-woodenbowl-waxed": "Waxed wooden bowl",
 
+    "block-chamberpot-raw": "Raw chamberpot",
+    "block-chamberpot-fired": "Chamberpot",
+    "block-chamberpot-porcelain": "Chamberpot (Porcelain)",
+    
+    "block-toolmold-raw-kettle": "Raw kettle mold",
+    "block-toolmold-burned-kettle": "Kettle mold",
+
     "block-kettle-clay-raw": "Raw kettle",
     "block-kettle-clay-fired": "Kettle (Ceramic)",
+    "block-kettle-clay-porcelain": "Kettle (Porcelain)",
 
     "balancedthirst:block-kettle-copper": "Kettle (Copper)",
+    "balancedthirst:block-kettle-brass": "Kettle (Brass)",
     "balancedthirst:block-kettle-tinbronze": "Kettle (Tin bronze)",
     "balancedthirst:block-kettle-bismuthbronze": "Kettle (Bismuth bronze)",
     "balancedthirst:block-kettle-blackbronze": "Kettle (Black bronze)",
-    "balancedthirst:block-kettle-stainlesssteel": "Kettle (Stainless steel)",
     "balancedthirst:block-kettle-silver": "Kettle (Silver)",
+    "balancedthirst:block-kettle-iron": "Kettle (Cast Iron)",
+    "balancedthirst:block-kettle-meteoriciron": "Kettle (Meteoric iron)",
+    "balancedthirst:block-kettle-steel": "Kettle (Steel)",
+    "balancedthirst:block-kettle-stainlesssteel": "Kettle (Stainless steel)",
 
     "block-waterskin-pelt": "Pelt waterskin",
     "block-waterskin-leather": "Leather waterskin",
@@ -125,7 +137,10 @@
     "playerinfo-hydration": "Hydration",
     "playerinfo-hydration-boost": "Euhydration",
     
-    "cookingrecipe-boilingwater" : "Boiling water",
+    "blockhelp-close": "Close",
+    "blockhelp-open": "Open",
+    
+    "firepit-gui-litres": "Litres of {0}",
 
     "ability-camelhump": "Camel Hump",
     "abilitydesc-camelhump": "Increases your maximum hydration by {0}.",

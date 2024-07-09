@@ -8,6 +8,7 @@
     "shapeless": true,
     "width": 1,
     "height": 2,
-    "output": { "type": "block", "code": "balancedthirst:demijohn-wicker-{color}"  }
+    "output": { "type": "block", "code": "balancedthirst:demijohn-wicker-{color}"  },
+    "enabled": false
   }
 ]

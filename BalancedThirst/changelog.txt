@@ -1,7 +1,4 @@
-Added compatibility:
-- ACA: bottles extend water shelf life, can boil water in cauldron
-- Expanded Foods
-- Wildcraft: Fruits and Nuts
-- Wildcraft: Herbs and Spices
-- A Warrior's Drink!
-- Rivers: now river water is potable!
+- Added better kettle and reworked water boiling
+- Added chamberpot
+- Fixed bug that didn't sync configs properly in servers
+- Added fallback for mod detection with a null api for better compatibility with other mods.

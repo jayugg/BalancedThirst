@@ -9,7 +9,7 @@
   },
   "entityClass": "balancedthirst.BlockEntityKettle",
   "variantgroups": [
-    { "code": "metal", "states": ["copper", "tinbronze", "bismuthbronze", "blackbronze", "silver", "iron", "meteoriciron", "steel", "stainlesssteel"] }
+    { "code": "metal", "states": ["copper", "brass", "tinbronze", "bismuthbronze", "blackbronze", "silver", "iron", "meteoriciron", "steel", "stainlesssteel"] }
   ],
   "attributesByType": {
     "*": {
@@ -55,77 +55,91 @@
   },
   "drawtype": "JSON",
   "blockmaterial": "Metal",
+  "heldTpUseAnimation": "water",
   "heldRightTpIdleAnimation": "holdinglanternrighthand",
   "heldLeftTpIdleAnimation": "holdinglanternlefthand",
   "texturesbyType": {
     "*-copper": {
-      "snout": { "base": "game:block/metal/sheet/copper1" },
-      "lip": { "base": "game:block/metal/sheet/brass1" },
+      "snout": { "base": "game:block/metal/ingot/copper" },
+      "lip": { "base": "game:block/metal/ingot/brass" },
       "lid": { "base": "game:block/wood/debarked/oak" },
       "bottom": {
-        "base": "game:block/metal/sheet/copper1",
+        "base": "game:block/metal/ingot/copper",
         "overlays": [ "block/kettle/metaloverlay" ]
       },
       "body": {
-        "base": "game:block/metal/sheet/copper1",
+        "base": "game:block/metal/ingot/copper",
+        "overlays": [ "block/kettle/metaloverlaygradient" ]
+      }
+    },
+    "*-brass": {
+      "snout": { "base": "game:block/metal/ingot/brass" },
+      "lip": { "base": "game:block/metal/sheet/bismuthbronze1" },
+      "lid": { "base": "game:block/wood/debarked/oak" },
+      "bottom": {
+        "base": "game:block/metal/ingot/brass",
+        "overlays": [ "block/kettle/metaloverlay" ]
+      },
+      "body": {
+        "base": "game:block/metal/ingot/brass",
         "overlays": [ "block/kettle/metaloverlaygradient" ]
       }
     },
     "*-tinbronze": {
-      "snout": { "base": "game:block/metal/sheet/tinbronze1" },
+      "snout": { "base": "game:block/metal/ingot/tinbronze" },
       "lip": { "base": "game:block/metal/sheet/bismuth1" },
       "lid": { "base": "game:block/wood/debarked/oak" },
       "bottom": {
-        "base": "game:block/metal/sheet/tinbronze1",
+        "base": "game:block/metal/ingot/tinbronze",
         "overlays": [ "block/kettle/metaloverlay" ]
       },
       "body": {
-        "base": "game:block/metal/sheet/tinbronze1",
+        "base": "game:block/metal/ingot/tinbronze",
         "overlays": [ "block/kettle/metaloverlaygradient" ]
       }
     },
     "*-bismuthbronze": {
-      "snout": { "base": "game:block/metal/sheet/bismuthbronze1" },
-      "lip": { "base": "game:block/metal/sheet/tin1" },
+      "snout": { "base": "game:block/metal/ingot/bismuthbronze" },
+      "lip": { "base": "game:block/metal/ingot/tin" },
       "lid": { "base": "game:block/wood/debarked/oak" },
       "bottom": {
-        "base": "game:block/metal/sheet/bismuthbronze1",
+        "base": "game:block/metal/ingot/bismuthbronze",
         "overlays": [ "block/kettle/metaloverlay" ]
       },
       "body": {
-        "base": "game:block/metal/sheet/bismuthbronze1",
+        "base": "game:block/metal/ingot/bismuthbronze",
         "overlays": [ "block/kettle/metaloverlaygradient" ]
       }
     },
     "*-blackbronze": {
-      "snout": { "base": "game:block/metal/sheet/blackbronze1" },
-      "lip": { "base": "game:block/metal/sheet/zinc1" },
+      "snout": { "base": "game:block/metal/ingot/blackbronze" },
+      "lip": { "base": "game:block/metal/ingot/zinc" },
       "lid": { "base": "game:block/wood/debarked/oak" },
       "bottom": {
-        "base": "game:block/metal/sheet/blackbronze1",
+        "base": "game:block/metal/ingot/blackbronze",
         "overlays": [ "block/kettle/metaloverlay" ]
       },
       "body": {
-        "base": "game:block/metal/sheet/blackbronze1",
+        "base": "game:block/metal/ingot/blackbronze",
         "overlays": [ "block/kettle/metaloverlaygradient" ]
       }
     },
     "*-silver": {
-      "snout": { "base": "game:block/metal/sheet/silver1" },
-      "lip": { "base": "game:block/metal/sheet/electrum1" },
+      "snout": { "base": "game:block/metal/ingot/silver" },
+      "lip": { "base": "game:block/metal/ingot/electrum" },
       "lid": { "base": "game:block/wood/debarked/oak" },
       "bottom": {
-        "base": "game:block/metal/sheet/silver1",
+        "base": "game:block/metal/ingot/silver",
         "overlays": [ "block/kettle/metaloverlay" ]
       },
       "body": {
-        "base": "game:block/metal/sheet/silver1",
+        "base": "game:block/metal/ingot/silver",
         "overlays": [ "block/kettle/metaloverlaygradient" ]
       }
     },
     "*-iron": {
       "snout": { "base": "block/kettle/castiron" },
-      "lip": { "base": "game:block/metal/sheet/molybdochalkos1" },
+      "lip": { "base": "game:block/metal/ingot/molybdochalkos" },
       "lid": { "base": "game:block/wood/debarked/oak" },
       "bottom": {
         "base": "block/kettle/castiron",
@@ -138,7 +152,7 @@
     },
     "*-meteoriciron": {
       "snout": { "base": "block/kettle/meteoriciron" },
-      "lip": { "base": "game:block/metal/sheet/tinbronze1" },
+      "lip": { "base": "game:block/metal/ingot/tinbronze" },
       "lid": { "base": "game:block/wood/debarked/oak" },
       "bottom": {
         "base": "block/kettle/meteoriciron",
@@ -150,28 +164,28 @@
       }
     },
     "*-steel": {
-      "snout": { "base": "game:block/metal/sheet/steel1" },
+      "snout": { "base": "game:block/metal/ingot/steel" },
       "lip": { "base": "block/kettle/castiron" },
       "lid": { "base": "game:block/wood/debarked/oak" },
       "bottom": {
-        "base": "game:block/metal/sheet/steel1",
+        "base": "game:block/metal/ingot/steel",
         "overlays": [ "block/kettle/metaloverlay" ]
       },
       "body": {
-        "base": "game:block/metal/sheet/steel1",
+        "base": "game:block/metal/ingot/steel",
         "overlays": [ "block/kettle/metaloverlaygradient" ]
       }
     },
     "*-stainlesssteel": {
-      "snout": { "base": "game:block/metal/sheet/stainlesssteel1" },
-      "lip": { "base": "game:block/metal/sheet/titanium1" },
+      "snout": { "base": "game:block/metal/ingot/stainlesssteel" },
+      "lip": { "base": "game:block/metal/ingot/titanium" },
       "lid": { "base": "game:block/wood/debarked/oak" },
       "bottom": {
-        "base": "game:block/metal/sheet/steel1",
+        "base": "game:block/metal/ingot/steel",
         "overlays": [ "block/kettle/metaloverlay" ]
       },
       "body": {
-        "base": "game:block/metal/sheet/stainlesssteel1",
+        "base": "game:block/metal/ingot/stainlesssteel",
         "overlays": [ "block/kettle/metaloverlaygradient" ]
       }
     }
@@ -191,10 +205,10 @@
     { "x1": 0.28, "y1": 0, "z1": 0.28, "x2": 0.72, "y2": 0.35, "z2": 0.72 }
   ],
   "guiTransform": {
-    "translation": { "x": -2, "y": 0, "z": 0 },
-    "rotation": { "x": -31, "y": -54, "z": 0 },
+    "translation": { "x": -2, "y": 2, "z": 0 },
+    "rotation": { "x": -22, "y": -57, "z": 0 },
     "origin": { "x": 0.5, "y": 0.2, "z": 0.5 },
-    "scale": 2.6
+    "scale": 2.15
   },
   "groundTransform": {
     "scale": 3

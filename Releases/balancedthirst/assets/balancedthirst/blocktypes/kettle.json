@@ -1,76 +1,214 @@
 {
   "code": "kettle",
-  "class": "BlockLiquidContainerTopOpened",
-  "behaviors": [
-    { "name": "GroundStorable", "properties": { "layout": "Quadrants", "collisionBox": { "x1": 0, "y1": 0, "z1": 0, "x2": 1, "y2": 0.4375, "z2": 1 } } },
-    { "name": "Unplaceable", "__comment": "The ground storable obsoletes this being a block. Should be an item, but is kept a block for backwards compatibility" },
-    { "name": "RightClickPickup"}
-  ],
-  "variantgroups": [
-    { "code": "material", "states": ["copper", "tinbronze", "bismuthbronze", "blackbronze", "silver", "stainlesssteel"] }
-  ],
-  "attributes": {
-    "shelvable": true,
-    "liquidContainerPropsByType": {
-      "*": {
-        "capacityLitres": 8,
-        "transferSizeLitres": 1,
-        "emptyShapeLoc": "game:block/clay/pot-opened-empty",
-        "opaqueContentShapeLoc": "block/kettle-contents",
-        "liquidContentShapeLoc": "block/kettle-liquidcontents",
-        "liquidMaxYTranslate": 0.05
-      }
-    }
+  "class": "balancedthirst.BlockKettle",
+  "behaviorsByType": {
+    "*": [
+      { "name": "UnstableFalling" },
+      { "name": "RightClickPickup" }
+    ]
   },
+  "entityClass": "balancedthirst.BlockEntityKettle",
+  "variantgroups": [
+    { "code": "metal", "states": ["copper", "brass", "tinbronze", "bismuthbronze", "blackbronze", "silver", "iron", "meteoriciron", "steel", "stainlesssteel"] }
+  ],
   "attributesByType": {
     "*": {
-      "maxTemperature": 100,
+      "lidSound": "game:sounds/walk/wood",
+      "canSeal": true,
+      "handbook": { "groupBy": ["kettle-*"] },
+      "lidPerishRate": 0.75,
+      "maxTemperature": 110,
       "allowHeating": true,
+      "minFillY": 1.01,
+      "maxFillY": 4.91,
+      "storageType": 1,
+      "maxContainerSlotStackSize": 3,
+      "cookingSlotCapacityLitres": 3,
+      "cookingContainerSlots": 4,
+      "liquidcontainer": true,
+      "capacityLitres": 12,
+      "canhold": [ "water-*" ],
       "inFirePitProps": {
         "transform": {
-          "translation": { "x": 0, "y": 0.125, "z": 0 }
+          "translation": {
+            "x": 0,
+            "y": 0.2,
+            "z": 0
+          }
         },
         "useFirepitModel": "Wide"
-      }
+      },
+      "shelvable": true
     }
   },
-  "shape": { "base": "game:block/clay/pot-opened-empty" },
-  "heldTpIdleAnimation": "holdbothhands",
-  "heldTpUseAnimation": "twohandplaceblock",
+  "shape": { "base": "block/kettle/empty" },
   "doNotRenderAtLod2": true,
-  "blockmaterial": "Metal",
   "creativeinventory": { "general": ["*"], "decorative": ["*"] },
-  "liquidSelectable": 1,
-  "replaceable": 400,
-  "resistance": 1.5,
   "maxStackSizeByType": {
     "*": 1
-  },
-  "lightAbsorption": 0,
-  "texturesByType": {
-    "*": {
-      "ceramic": { "base": "game:block/metal/ingot/{material}" },
-      "lid": { "base": "game:block/wood/crate/oak-inside" },
-      "tallow": { "base": "game:block/wood/crate/oak-inside" }
-    }
-  },
-  "sounds": {
-    "place": "game:walk/stone",
-    "hit": "game:walk/stone",
-    "break": "game:walk/stone",
-    "walk": "game:walk/stone"
-  },
-  "sideopaque": {
-    "all": false
   },
   "sidesolid": {
     "all": false
   },
-  "collisionbox": { "x1": 0.28, "y1": 0, "z1": 0.28, "x2": 0.72, "y2": 0.35, "z2": 0.72 },
-  "selectionbox": { "x1": 0.28, "y1": 0, "z1": 0.28, "x2": 0.72, "y2": 0.35, "z2": 0.72 },
+  "sideopaque": {
+    "all": false
+  },
+  "drawtype": "JSON",
+  "blockmaterial": "Metal",
+  "heldTpUseAnimation": "water",
+  "heldRightTpIdleAnimation": "holdinglanternrighthand",
+  "heldLeftTpIdleAnimation": "holdinglanternlefthand",
+  "texturesbyType": {
+    "*-copper": {
+      "snout": { "base": "game:block/metal/ingot/copper" },
+      "lip": { "base": "game:block/metal/ingot/brass" },
+      "lid": { "base": "game:block/wood/debarked/oak" },
+      "bottom": {
+        "base": "game:block/metal/ingot/copper",
+        "overlays": [ "block/kettle/metaloverlay" ]
+      },
+      "body": {
+        "base": "game:block/metal/ingot/copper",
+        "overlays": [ "block/kettle/metaloverlaygradient" ]
+      }
+    },
+    "*-brass": {
+      "snout": { "base": "game:block/metal/ingot/brass" },
+      "lip": { "base": "game:block/metal/sheet/bismuthbronze1" },
+      "lid": { "base": "game:block/wood/debarked/oak" },
+      "bottom": {
+        "base": "game:block/metal/ingot/brass",
+        "overlays": [ "block/kettle/metaloverlay" ]
+      },
+      "body": {
+        "base": "game:block/metal/ingot/brass",
+        "overlays": [ "block/kettle/metaloverlaygradient" ]
+      }
+    },
+    "*-tinbronze": {
+      "snout": { "base": "game:block/metal/ingot/tinbronze" },
+      "lip": { "base": "game:block/metal/sheet/bismuth1" },
+      "lid": { "base": "game:block/wood/debarked/oak" },
+      "bottom": {
+        "base": "game:block/metal/ingot/tinbronze",
+        "overlays": [ "block/kettle/metaloverlay" ]
+      },
+      "body": {
+        "base": "game:block/metal/ingot/tinbronze",
+        "overlays": [ "block/kettle/metaloverlaygradient" ]
+      }
+    },
+    "*-bismuthbronze": {
+      "snout": { "base": "game:block/metal/ingot/bismuthbronze" },
+      "lip": { "base": "game:block/metal/ingot/tin" },
+      "lid": { "base": "game:block/wood/debarked/oak" },
+      "bottom": {
+        "base": "game:block/metal/ingot/bismuthbronze",
+        "overlays": [ "block/kettle/metaloverlay" ]
+      },
+      "body": {
+        "base": "game:block/metal/ingot/bismuthbronze",
+        "overlays": [ "block/kettle/metaloverlaygradient" ]
+      }
+    },
+    "*-blackbronze": {
+      "snout": { "base": "game:block/metal/ingot/blackbronze" },
+      "lip": { "base": "game:block/metal/ingot/zinc" },
+      "lid": { "base": "game:block/wood/debarked/oak" },
+      "bottom": {
+        "base": "game:block/metal/ingot/blackbronze",
+        "overlays": [ "block/kettle/metaloverlay" ]
+      },
+      "body": {
+        "base": "game:block/metal/ingot/blackbronze",
+        "overlays": [ "block/kettle/metaloverlaygradient" ]
+      }
+    },
+    "*-silver": {
+      "snout": { "base": "game:block/metal/ingot/silver" },
+      "lip": { "base": "game:block/metal/ingot/electrum" },
+      "lid": { "base": "game:block/wood/debarked/oak" },
+      "bottom": {
+        "base": "game:block/metal/ingot/silver",
+        "overlays": [ "block/kettle/metaloverlay" ]
+      },
+      "body": {
+        "base": "game:block/metal/ingot/silver",
+        "overlays": [ "block/kettle/metaloverlaygradient" ]
+      }
+    },
+    "*-iron": {
+      "snout": { "base": "block/kettle/castiron" },
+      "lip": { "base": "game:block/metal/ingot/molybdochalkos" },
+      "lid": { "base": "game:block/wood/debarked/oak" },
+      "bottom": {
+        "base": "block/kettle/castiron",
+        "overlays": [ "block/kettle/metaloverlay" ]
+      },
+      "body": {
+        "base": "block/kettle/castiron",
+        "overlays": [ "block/kettle/metaloverlaygradient" ]
+      }
+    },
+    "*-meteoriciron": {
+      "snout": { "base": "block/kettle/meteoriciron" },
+      "lip": { "base": "game:block/metal/ingot/tinbronze" },
+      "lid": { "base": "game:block/wood/debarked/oak" },
+      "bottom": {
+        "base": "block/kettle/meteoriciron",
+        "overlays": [ "block/kettle/metaloverlay" ]
+      },
+      "body": {
+        "base": "block/kettle/meteoriciron",
+        "overlays": [ "block/kettle/metaloverlaygradient" ]
+      }
+    },
+    "*-steel": {
+      "snout": { "base": "game:block/metal/ingot/steel" },
+      "lip": { "base": "block/kettle/castiron" },
+      "lid": { "base": "game:block/wood/debarked/oak" },
+      "bottom": {
+        "base": "game:block/metal/ingot/steel",
+        "overlays": [ "block/kettle/metaloverlay" ]
+      },
+      "body": {
+        "base": "game:block/metal/ingot/steel",
+        "overlays": [ "block/kettle/metaloverlaygradient" ]
+      }
+    },
+    "*-stainlesssteel": {
+      "snout": { "base": "game:block/metal/ingot/stainlesssteel" },
+      "lip": { "base": "game:block/metal/ingot/titanium" },
+      "lid": { "base": "game:block/wood/debarked/oak" },
+      "bottom": {
+        "base": "game:block/metal/ingot/steel",
+        "overlays": [ "block/kettle/metaloverlay" ]
+      },
+      "body": {
+        "base": "game:block/metal/ingot/stainlesssteel",
+        "overlays": [ "block/kettle/metaloverlaygradient" ]
+      }
+    }
+  },
+  "replaceable": 500,
+  "resistance": 1.5,
+  "materialDensity": 7870,
+  "liquidSelectable": 1,
+  "lightAbsorption": 1,
+  "sounds": {
+    "place": "game:block/ingot",
+    "hit": "game:block/ingot",
+    "break": "game:block/ingot",
+    "walk": "game:walk/ingot"
+  },
+  "collisionSelectionBoxes": [
+    { "x1": 0.28, "y1": 0, "z1": 0.28, "x2": 0.72, "y2": 0.35, "z2": 0.72 }
+  ],
   "guiTransform": {
+    "translation": { "x": -2, "y": 2, "z": 0 },
+    "rotation": { "x": -22, "y": -57, "z": 0 },
     "origin": { "x": 0.5, "y": 0.2, "z": 0.5 },
-    "scale": 2
+    "scale": 2.15
   },
   "groundTransform": {
     "scale": 3

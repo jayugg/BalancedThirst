@@ -21,25 +21,17 @@ public class HarmonyPatches : ModSystem
         this._api = api;
         HarmonyInstance = new Harmony(Mod.Info.ModID);
         var configData = ConfigSystem.SyncedConfigData;
-        if (configData?.BoilWaterInFirepits ?? true)
-        {
-            HarmonyInstance.Patch(typeof(BlockEntityFirepit).GetMethod("GetTemp", BindingFlags.NonPublic | BindingFlags.Instance),
-                postfix: typeof(BlockEntityFirepit_Temp_Patch).GetMethod(
-                    nameof(BlockEntityFirepit_Temp_Patch.GetTemp)));
-            HarmonyInstance.Patch(typeof(BlockEntityFirepit).GetMethod("SetTemp", BindingFlags.NonPublic | BindingFlags.Instance),
-                postfix: typeof(BlockEntityFirepit_Temp_Patch).GetMethod(
-                    nameof(BlockEntityFirepit_Temp_Patch.SetTemp)));
-            HarmonyInstance.Patch(typeof(BlockEntityFirepit).GetMethod(nameof(BlockEntityFirepit.canSmeltInput)),
-                postfix: typeof(BlockEntityFirepit_canSmeltInput_Patch).GetMethod(
-                    nameof(BlockEntityFirepit_canSmeltInput_Patch.Postfix)));
-            HarmonyInstance.Patch(typeof(BlockEntityFirepit).GetMethod("OnBurnTick", BindingFlags.NonPublic | BindingFlags.Instance),
-                postfix: typeof(BlockEntityFirepit_OnBurnTick_Patch).GetMethod(
-                    nameof(BlockEntityFirepit_OnBurnTick_Patch.Postfix)));
-            
-            HarmonyInstance.Patch(typeof(InventorySmelting).GetMethod(nameof(InventorySmelting.GetOutputText)),
-                postfix: typeof(InventorySmelting_GetOutputText_Patch).GetMethod(
-                    nameof(InventorySmelting_GetOutputText_Patch.Postfix)));
-        }
+        
+        HarmonyInstance.Patch(typeof(BlockEntityFirepit).GetMethod("GetTemp", BindingFlags.NonPublic | BindingFlags.Instance),
+            postfix: typeof(BlockEntityFirepit_Temp_Patch).GetMethod(
+                nameof(BlockEntityFirepit_Temp_Patch.GetTemp)));
+        HarmonyInstance.Patch(typeof(BlockEntityFirepit).GetMethod("SetTemp", BindingFlags.NonPublic | BindingFlags.Instance),
+            postfix: typeof(BlockEntityFirepit_Temp_Patch).GetMethod(
+                nameof(BlockEntityFirepit_Temp_Patch.SetTemp)));
+        HarmonyInstance.Patch(typeof(InventorySmelting).GetMethod(nameof(InventorySmelting.GetOutputText)),
+            postfix: typeof(InventorySmelting_GetOutputText_Patch).GetMethod(
+                nameof(InventorySmelting_GetOutputText_Patch.Postfix)));
+        
         if (!configData?.EnableThirst ?? false) return;
         HarmonyInstance.Patch(typeof(CollectibleObject).GetMethod("tryEatStop", BindingFlags.NonPublic | BindingFlags.Instance),
             prefix: typeof(CollectibleObject_tryEatStop_Patch).GetMethod(

@@ -5,7 +5,8 @@
     "*": "balancedthirst.BlockKettle"
   },
   "entityClassByType": {
-    "*-fired": "balancedthirst.BlockEntityKettle"
+    "*-fired": "balancedthirst.BlockEntityKettle",
+    "*-porcelain": "balancedthirst.BlockEntityKettle"
   },
   "behaviorsByType": {
     "*": [
@@ -14,9 +15,10 @@
     ]
   },
   "variantgroups": [
-    { "code": "type", "states": ["raw", "fired"] }
+    { "code": "type", "states": ["raw", "fired", "porcelain"] }
   ],
   "attributesByType": {
+    "*-raw": { "shelvable": true },
     "*": {
       "lidSound": "game:sounds/walk/wood",
       "canSeal": true,
@@ -46,7 +48,10 @@
       "shelvable": true
     }
   },
-  "shape": { "base": "block/kettle/empty" },
+  "shapeByType": {
+    "*": { "base": "block/kettle-clay/empty" },
+    "*-porcelain": { "base": "block/kettle/empty" }
+  },
   "doNotRenderAtLod2": true,
   "creativeinventory": { "general": ["*"], "decorative": ["*"] },
   "maxStackSizeByType": {
@@ -60,6 +65,7 @@
   },
   "drawtype": "JSON",
   "blockmaterial": "Ceramic",
+  "heldTpUseAnimation": "water",
   "heldRightTpIdleAnimation": "holdinglanternrighthand",
   "heldLeftTpIdleAnimation": "holdinglanternlefthand",
   "texturesbyType": {
@@ -88,6 +94,19 @@
         "base": "game:block/clay/pot-side",
         "overlays": [ "block/kettle/metaloverlaygradient" ]
       }
+    },
+    "*-porcelain": {
+      "snout": { "base": "game:block/clay/flintporcelain/fired" },
+      "lip": { "base": "game:block/clay/flintporcelain/fired" },
+      "lid": { "base": "game:block/wood/debarked/oak" },
+      "bottom": {
+        "base": "game:block/clay/flintporcelain/fired",
+        "overlays": [ "block/kettle/metaloverlay" ]
+      },
+      "body": {
+        "base": "game:block/clay/flintporcelain/fired",
+        "overlays": [ "block/kettle/metaloverlaygradient" ]
+      }
     }
   },
   "replaceable": 500,
@@ -105,10 +124,10 @@
     { "x1": 0.28, "y1": 0, "z1": 0.28, "x2": 0.72, "y2": 0.35, "z2": 0.72 }
   ],
   "guiTransform": {
-    "translation": { "x": -2, "y": 0, "z": 0 },
-    "rotation": { "x": -31, "y": -54, "z": 0 },
+    "translation": { "x": -2, "y": 2, "z": 0 },
+    "rotation": { "x": -22, "y": -57, "z": 0 },
     "origin": { "x": 0.5, "y": 0.2, "z": 0.5 },
-    "scale": 2.6
+    "scale": 2.15
   },
   "groundTransform": {
     "scale": 3
