@@ -1,0 +1,13 @@
+[
+  {
+    "ingredientPattern": "CG",
+    "ingredients": {
+      "C": { "type": "item", "code": "game:chisel-*", "isTool": true },
+      "G": { "type": "block", "code": "game:glass-*", "name": "color" }
+    },
+    "width": 2,
+    "height": 1,
+    "output": { "type": "block", "code": "balancedthirst:demijohn-glass-{color}"  },
+    "enabled": false
+  }
+]

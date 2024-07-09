@@ -1,0 +1,68 @@
+[
+  {
+    "op": "addeach",
+    "path": "/attributes/tradeProps/selling/list/-",
+    "value": [
+      {
+        "code": "balancedthirst:chamberpot-porcelain",
+        "type": "block",
+        "stacksize": 1,
+        "stock": {
+          "avg": 2,
+          "var": 1
+        },
+        "price": {
+          "avg": 8,
+          "var": 1.5
+        }
+      },
+      {
+        "code": "balancedthirst:kettle-clay-porcelain",
+        "type": "block",
+        "stacksize": 1,
+        "stock": {
+          "avg": 4,
+          "var": 1
+        },
+        "price": {
+          "avg": 5,
+          "var": 0.75
+        }
+      }
+    ],
+    "file": "game:entities/humanoid/trader-luxuries.json"
+  },
+  {
+    "op": "addeach",
+    "path": "/attributes/tradeProps/buying/list/-",
+    "value": [
+      {
+        "code": "balancedthirst:chamberpot-porcelain",
+        "type": "block",
+        "stacksize": 1,
+        "stock": {
+          "avg": 2,
+          "var": 1
+        },
+        "price": {
+          "avg": 9,
+          "var": 1.5
+        }
+      },
+      {
+        "code": "balancedthirst:kettle-clay-porcelain",
+        "type": "block",
+        "stacksize": 1,
+        "stock": {
+          "avg": 4,
+          "var": 1
+        },
+        "price": {
+          "avg": 3,
+          "var": 0.75
+        }
+      }
+    ],
+    "file": "game:entities/humanoid/trader-luxuries.json"
+  }
+]

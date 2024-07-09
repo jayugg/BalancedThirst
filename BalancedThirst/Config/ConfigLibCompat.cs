@@ -159,9 +159,6 @@ public class ConfigLibCompat
         if (ImGui.CollapsingHeader(Lang.Get(settingsAdvanced) + $"##settingAdvanced-{id}"))
         {
             ImGui.Indent();
-            if (ImGui.CollapsingHeader(Lang.Get(settingPrefix + nameof(config.HeatableLiquidContainers)) + $"##settingHeatableContainers")) {
-                config.HeatableLiquidContainers = OnInputList(id, config.HeatableLiquidContainers, nameof(config.HeatableLiquidContainers));
-            }
             if (ImGui.CollapsingHeader(Lang.Get(settingPrefix + nameof(config.WaterPortions)) + $"##settingWaterPortions")) {
                 config.WaterPortions = OnInputList(id, config.WaterPortions, nameof(config.WaterPortions));
             }

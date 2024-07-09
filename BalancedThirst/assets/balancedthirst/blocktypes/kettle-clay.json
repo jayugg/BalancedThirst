@@ -9,6 +9,24 @@
     "*-porcelain": "balancedthirst.BlockEntityKettle"
   },
   "behaviorsByType": {
+    "*-raw": [
+      {
+        "name": "UnstableFalling"
+      },
+      {
+        "name": "RightClickPickup"
+      },
+      {
+        "name": "Unplaceable"
+      },
+      {
+        "name": "GroundStorable",
+        "properties": {
+          "layout": "Quadrants",
+          "collisionBox": { "x1": 0, "y1": 0, "z1": 0, "x2": 1, "y2": 0.4375, "z2": 1 }
+        }
+      }
+    ],
     "*": [
       { "name": "UnstableFalling" },
       { "name": "RightClickPickup" }
@@ -46,6 +64,16 @@
         "useFirepitModel": "Wide"
       },
       "shelvable": true
+    }
+  },
+  "combustiblePropsByType": {
+    "*-raw": {
+      "meltingPoint": 650,
+      "meltingDuration": 45,
+      "smeltedRatio": 1,
+      "smeltingType": "fire",
+      "smeltedStack": { "type": "block", "code": "kettle-clay-fired" },
+      "requiresContainer": false
     }
   },
   "shapeByType": {

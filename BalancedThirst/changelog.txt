@@ -1,4 +1,3 @@
-- Added better kettle and reworked water boiling
-- Added chamberpot
-- Fixed bug that didn't sync configs properly in servers
-- Added fallback for mod detection with a null api for better compatibility with other mods.
+- Fixed drinking bug that removed more litres than hydration given
+- Fixed kettle and chamberpot not being fireable in a pit kiln
+- Luxury trader sells porcelain kettle and chamberpot, survival goods trader sells ceramic kettle, commodities trader sells ceramic chamberpot and kettle

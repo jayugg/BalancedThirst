@@ -1,0 +1,42 @@
+[
+  {
+    "ingredientPattern": "QHQ,_P_",
+    "ingredients": {
+      "P": { "type": "item", "code": "game:metalplate-*", "name": "metal",
+        "allowedVariants": ["copper", "brass", "tinbronze", "bismuthbronze", "blackbronze", "silver", "iron", "steel", "stainlesssteel"],
+        "returnedStack": {
+          "type": "item",
+          "code": "game:metalbit-{metal}",
+          "quantity": 60
+        }
+      },
+      "Q": { "type": "item", "code": "game:metalplate-*", "name": "metal",
+        "allowedVariants": ["copper", "brass", "tinbronze", "bismuthbronze", "blackbronze", "silver", "iron", "steel", "stainlesssteel"]
+      },
+      "H": { "type": "item", "code": "game:hammer-*", "isTool": true }
+    },
+    "width": 3,
+    "height": 2,
+    "output": { "type": "block", "code": "balancedthirst:kettle-{metal}", "quantity": 1  }
+  },
+  {
+    "ingredientPattern": "QHQ,_P_",
+    "ingredients": {
+      "P": { "type": "item", "code": "game:metalplate-*", "name": "metal",
+        "allowedVariants": ["meteoriciron"],
+        "returnedStack": {
+          "type": "item",
+          "code": "game:ingot-{metal}",
+          "quantity": 3
+        }
+      },
+      "Q": { "type": "item", "code": "game:metalplate-*", "name": "metal",
+        "allowedVariants": ["meteoriciron"]
+      },
+      "H": { "type": "item", "code": "game:hammer-*", "isTool": true }
+    },
+    "width": 3,
+    "height": 2,
+    "output": { "type": "block", "code": "balancedthirst:kettle-{metal}", "quantity": 1  }
+  }
+]

@@ -77,6 +77,12 @@ public class KettleInFirepitRenderer : IInFirepitRenderer
 
     public void OnRenderFrame(float deltaTime, EnumRenderStage stage)
     {
+        if (_kettleRef == null)
+        {
+            BtCore.Logger.Warning("Kettle mesh is null, this usually happens if you haven't reset your cache after updating the mod.");
+            return;
+        }
+        
         IRenderAPI rpi = _capi.Render;
         Vec3d camPos = _capi.World.Player.Entity.CameraPos;
 

@@ -35,7 +35,6 @@ public class ConfigServer : SyncedConfig
     public bool GushingSpringWater { get; set; } = true;
     
     // Advanced Settings
-    public List<string> HeatableLiquidContainers { get; set; } = BtConstants.HeatableLiquidContainers;
     public List<string> WaterPortions { get; set; } = BtConstants.WaterPortions;
     public Dictionary<string, float> WaterContainers { get; set; } = BtConstants.WaterContainers;
     public Dictionary<string, HydrationProperties> HydratingLiquids { get; set; } = BtConstants.HydratingLiquids;
@@ -88,7 +87,6 @@ public class ConfigServer : SyncedConfig
         BoilWaterInFirepits = previousConfig.BoilWaterInFirepits;
         GushingSpringWater = previousConfig.GushingSpringWater;
         
-        HeatableLiquidContainers = previousConfig.HeatableLiquidContainers;
         WaterContainers = previousConfig.WaterContainers;
         WaterPortions = previousConfig.WaterPortions;
         HydratingLiquids = previousConfig.HydratingLiquids;

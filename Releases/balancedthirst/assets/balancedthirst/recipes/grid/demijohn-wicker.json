@@ -1,0 +1,14 @@
+[
+  {
+    "ingredientPattern": "D,B",
+    "ingredients": {
+      "B": { "type": "item", "code": "game:basket" },
+      "D": { "type": "block", "code": "balancedthirst:demijohn-glass-*", "name": "color" }
+    },
+    "shapeless": true,
+    "width": 1,
+    "height": 2,
+    "output": { "type": "block", "code": "balancedthirst:demijohn-wicker-{color}"  },
+    "enabled": false
+  }
+]

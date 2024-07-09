@@ -36,6 +36,21 @@ public class DrinkableBehavior : CollectibleBehavior
       }
     }
     
+    public static HydrationProperties GetContentHydrationPropsPerLitre(
+      BlockLiquidContainerBase container,
+      ItemStack itemstack)
+    {
+      if (itemstack == null) return null;
+      ItemStack content = container.GetContent(itemstack);
+      if (content == null) return null;
+      if (!content.Collectible.HasBehavior<DrinkableBehavior>()) return null;
+      var behavior = content.Collectible.GetBehavior<DrinkableBehavior>();
+      HydrationProperties hydrationProperties = behavior.GetHydrationProperties(new ItemStack(content.Item));
+      if (hydrationProperties == null)
+        return null;
+      return hydrationProperties;
+    }
+    
     public static HydrationProperties GetContainerHydrationProperties(
       BlockLiquidContainerBase container,
       ItemStack itemstack)

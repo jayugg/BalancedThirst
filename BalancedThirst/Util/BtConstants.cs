@@ -11,14 +11,6 @@ public static class BtConstants
     public static readonly string ConfigServerName = "BalancedThirst/balancedthirst" + ".json";
     public static readonly string ConfigClientName = "BalancedThirst/balancedthirst_client" + ".json";
     public static readonly string SyncedConfigName = "BalancedThirst/balancedthirst_sync" + ".json";
-    
-    public static readonly List<string> HeatableLiquidContainers = new()
-    {
-        "@(game):bowl-fired",
-        "@(game):jug-fired",
-        "@("+ BtCore.Modid + "):kettle-(.*)",
-        "@("+ BtCore.Modid + "):kettle-clay-fired"
-    };
 
     public static readonly List<string> WaterPortions = new()
     {

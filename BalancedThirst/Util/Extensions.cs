@@ -1,3 +1,4 @@
+#nullable enable
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,7 +24,7 @@ public static class Extensions
 {
     public static void EnsureAttributesNotNull(this CollectibleObject obj) => obj.Attributes ??= new JsonObject(new JObject());
     
-    public static HydrationProperties GetHydrationProperties(
+    public static HydrationProperties? GetHydrationProperties(
         this CollectibleObject collObj,
         IWorldAccessor world,
         ItemStack itemStack,
@@ -42,8 +43,20 @@ public static class Extensions
         var behavior = collObj.GetBehavior<DrinkableBehavior>();
         return behavior.GetHydrationProperties(itemStack);
     }
+    
+    public static HydrationProperties? GetHydrationPropsPerLitre(
+        this BlockLiquidContainerBase container,
+        ItemStack itemStack)
+    {
+        if (container.GetContent(itemStack) != null &&
+            container.GetContent(itemStack).Collectible.HasBehavior<DrinkableBehavior>())
+        {
+            return DrinkableBehavior.GetContentHydrationPropsPerLitre(container, itemStack);
+        }
+        return null;
+    }
 
-    public static HydrationProperties GetHydrationProperties(
+    public static HydrationProperties? GetHydrationProperties(
         this CollectibleObject collObj,
         ItemStack itemStack,
         Entity byEntity)
@@ -51,24 +64,11 @@ public static class Extensions
         return GetHydrationProperties(collObj, byEntity.World, itemStack, byEntity);
     }
     
-    public static HydrationProperties GetHydrationProperties(this Block block, IWorldAccessor world, Entity byEntity)
-    {
-        if (block != null && world != null)
-        {
-            var drinkableBehavior = block.GetBehavior<BlockBehaviorDrinkable>();
-            if (drinkableBehavior != null)
-            {
-                return drinkableBehavior.GetHydrationProperties(world, byEntity);
-            }
-        }
-        return null;
-    }
-    
-    public static HydrationProperties GetBlockHydrationProperties(this Block block)
+    public static HydrationProperties? GetBlockHydrationProperties(this Block block)
     {
         block.EnsureAttributesNotNull();
         JToken token = block.Attributes.Token;
-        HydrationProperties hydrationProperties = token["hydrationProps"]?.ToObject<HydrationProperties>();
+        HydrationProperties? hydrationProperties = token["hydrationProps"]?.ToObject<HydrationProperties>();
         return hydrationProperties;
     }
 
@@ -150,12 +150,6 @@ public static class Extensions
         }
 
         return stack.StackSize / itemsPerLitre ;
-    }
-    
-    public static bool IsHeatableLiquidContainer(this CollectibleObject collectible, EnumAppSide side)
-    {
-        if ((side & EnumAppSide.Client) != 0) throw new NullReferenceException();
-        return ConfigSystem.ConfigServer.HeatableLiquidContainers.Any(collectible.MyWildCardMatch);
     }
     
     // Should only be used on the server side!

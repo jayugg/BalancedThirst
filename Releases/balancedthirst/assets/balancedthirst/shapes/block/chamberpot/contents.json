@@ -1,0 +1,794 @@
+{
+  "textureWidth": 16,
+  "textureHeight": 16,
+  "textureSizes": {
+    "water_bucket": [24, 24]
+  },
+  "elements": [
+    {
+      "name": "contents",
+      "rotationOrigin": [10, 0, 4],
+      "from": [0, 0, 0],
+      "to": [0, 0, 0],
+      "parent": null,
+      "faces": {
+        "north": {
+          "texture": "#",
+          "uv": [0, 0, 0, 0]
+        },
+        "east": {
+          "texture": "#",
+          "uv": [0, 0, 0, 0]
+        },
+        "south": {
+          "texture": "#",
+          "uv": [0, 0, 0, 0]
+        },
+        "west": {
+          "texture": "#",
+          "uv": [0, 0, 0, 0]
+        },
+        "up": {
+          "texture": "#",
+          "uv": [0, 0, 0, 0]
+        },
+        "down": {
+          "texture": "#",
+          "uv": [0, 0, 0, 0]
+        }
+      },
+      "children": [
+        {
+          "name": "group",
+          "rotationOrigin": [7.175, -0.0125, 10],
+          "from": [0, 0, 0],
+          "to": [0, 0, 0],
+          "parent": "contents",
+          "faces": {
+            "north": {
+              "texture": "#",
+              "uv": [0, 0, 0, 0]
+            },
+            "east": {
+              "texture": "#",
+              "uv": [0, 0, 0, 0]
+            },
+            "south": {
+              "texture": "#",
+              "uv": [0, 0, 0, 0]
+            },
+            "west": {
+              "texture": "#",
+              "uv": [0, 0, 0, 0]
+            },
+            "up": {
+              "texture": "#",
+              "uv": [0, 0, 0, 0]
+            },
+            "down": {
+              "texture": "#",
+              "uv": [0, 0, 0, 0]
+            }
+          },
+          "children": []
+        },
+        {
+          "name": "group",
+          "rotationOrigin": [7.175, -0.0125, 10],
+          "from": [0, 0, 0],
+          "to": [0, 0, 0],
+          "parent": "contents",
+          "faces": {
+            "north": {
+              "texture": "#",
+              "uv": [0, 0, 0, 0]
+            },
+            "east": {
+              "texture": "#",
+              "uv": [0, 0, 0, 0]
+            },
+            "south": {
+              "texture": "#",
+              "uv": [0, 0, 0, 0]
+            },
+            "west": {
+              "texture": "#",
+              "uv": [0, 0, 0, 0]
+            },
+            "up": {
+              "texture": "#",
+              "uv": [0, 0, 0, 0]
+            },
+            "down": {
+              "texture": "#",
+              "uv": [0, 0, 0, 0]
+            }
+          },
+          "children": [
+            {
+              "name": "cube100",
+              "from": [6.9238, 4.71, 6.0125],
+              "to": [9.0738, 5.95, 9.9875],
+              "rotationOrigin": [11, -0.0125, 10],
+              "faces": {
+                "north": {
+                  "texture": "#water_bucket",
+                  "uv": [6.9262, 10.05, 9.0762, 11.29],
+                  "autoUv": false
+                },
+                "east": {
+                  "texture": "#water_bucket",
+                  "uv": [6.0125, 10.05, 9.9875, 11.29],
+                  "autoUv": false
+                },
+                "south": {
+                  "texture": "#water_bucket",
+                  "uv": [6.9238, 10.05, 9.0738, 11.29],
+                  "autoUv": false
+                },
+                "west": {
+                  "texture": "#water_bucket",
+                  "uv": [6.0125, 10.05, 9.9875, 11.29],
+                  "autoUv": false
+                },
+                "up": {
+                  "texture": "#water_bucket",
+                  "uv": [6.9238, 6.0125, 9.0738, 9.9875],
+                  "autoUv": false
+                },
+                "down": {
+                  "texture": "#water_bucket",
+                  "uv": [6.9238, 6.0125, 9.0738, 9.9875],
+                  "autoUv": false
+                }
+              },
+              "parent": "group",
+              "children": []
+            },
+            {
+              "name": "cube101",
+              "from": [5.9863, 4.71, 6.475],
+              "to": [6.9238, 5.95, 9.525],
+              "rotationOrigin": [8.825, -0.0125, 10],
+              "faces": {
+                "north": {
+                  "texture": "#water_bucket",
+                  "uv": [9.0762, 10.05, 10.0137, 11.29],
+                  "autoUv": false
+                },
+                "east": {
+                  "texture": "#water_bucket",
+                  "uv": [6.475, 10.05, 9.525, 11.29],
+                  "autoUv": false
+                },
+                "south": {
+                  "texture": "#water_bucket",
+                  "uv": [5.9863, 10.05, 6.9238, 11.29],
+                  "autoUv": false
+                },
+                "west": {
+                  "texture": "#water_bucket",
+                  "uv": [6.475, 10.05, 9.525, 11.29],
+                  "autoUv": false
+                },
+                "up": {
+                  "texture": "#water_bucket",
+                  "uv": [5.9863, 6.475, 6.9238, 9.525],
+                  "autoUv": false
+                },
+                "down": {
+                  "texture": "#water_bucket",
+                  "uv": [5.9863, 6.475, 6.9238, 9.525],
+                  "autoUv": false
+                }
+              },
+              "parent": "group",
+              "children": []
+            },
+            {
+              "name": "cube102",
+              "from": [9.0737, 4.71, 6.475],
+              "to": [10.0012, 5.95, 9.525],
+              "rotationOrigin": [7.175, -0.0125, 10],
+              "faces": {
+                "north": {
+                  "texture": "#water_bucket",
+                  "uv": [5.9988, 10.05, 6.9263, 11.29],
+                  "autoUv": false
+                },
+                "east": {
+                  "texture": "#water_bucket",
+                  "uv": [6.475, 10.05, 9.525, 11.29],
+                  "autoUv": false
+                },
+                "south": {
+                  "texture": "#water_bucket",
+                  "uv": [9.0737, 10.05, 10.0012, 11.29],
+                  "autoUv": false
+                },
+                "west": {
+                  "texture": "#water_bucket",
+                  "uv": [6.475, 10.05, 9.525, 11.29],
+                  "autoUv": false
+                },
+                "up": {
+                  "texture": "#water_bucket",
+                  "uv": [9.0737, 6.475, 10.0012, 9.525],
+                  "autoUv": false
+                },
+                "down": {
+                  "texture": "#water_bucket",
+                  "uv": [9.0737, 6.475, 10.0012, 9.525],
+                  "autoUv": false
+                }
+              },
+              "parent": "group",
+              "children": []
+            },
+            {
+              "name": "cube103",
+              "from": [6.6113, 4.71, 9.525],
+              "to": [6.9238, 5.95, 10.15],
+              "rotationOrigin": [8.825, -0.0125, 12.775],
+              "faces": {
+                "north": {
+                  "texture": "#water_bucket",
+                  "uv": [9.0762, 10.05, 9.3887, 11.29],
+                  "autoUv": false
+                },
+                "east": {
+                  "texture": "#water_bucket",
+                  "uv": [5.85, 10.05, 6.475, 11.29],
+                  "autoUv": false
+                },
+                "south": {
+                  "texture": "#water_bucket",
+                  "uv": [6.6113, 10.05, 6.9238, 11.29],
+                  "autoUv": false
+                },
+                "west": {
+                  "texture": "#water_bucket",
+                  "uv": [9.525, 10.05, 10.15, 11.29],
+                  "autoUv": false
+                },
+                "up": {
+                  "texture": "#water_bucket",
+                  "uv": [6.6113, 9.525, 6.9238, 10.15],
+                  "autoUv": false
+                },
+                "down": {
+                  "texture": "#water_bucket",
+                  "uv": [6.6113, 5.85, 6.9238, 6.475],
+                  "autoUv": false
+                }
+              },
+              "parent": "group",
+              "children": []
+            },
+            {
+              "name": "cube104",
+              "from": [9.0737, 4.71, 9.525],
+              "to": [9.3862, 5.95, 10.15],
+              "rotationOrigin": [7.1725, -0.0125, 12.775],
+              "faces": {
+                "north": {
+                  "texture": "#water_bucket",
+                  "uv": [6.6138, 10.05, 6.9263, 11.29],
+                  "autoUv": false
+                },
+                "east": {
+                  "texture": "#water_bucket",
+                  "uv": [5.85, 10.05, 6.475, 11.29],
+                  "autoUv": false
+                },
+                "south": {
+                  "texture": "#water_bucket",
+                  "uv": [9.0737, 10.05, 9.3862, 11.29],
+                  "autoUv": false
+                },
+                "west": {
+                  "texture": "#water_bucket",
+                  "uv": [9.525, 10.05, 10.15, 11.29],
+                  "autoUv": false
+                },
+                "up": {
+                  "texture": "#water_bucket",
+                  "uv": [9.0737, 9.525, 9.3862, 10.15],
+                  "autoUv": false
+                },
+                "down": {
+                  "texture": "#water_bucket",
+                  "uv": [9.0737, 5.85, 9.3862, 6.475],
+                  "autoUv": false
+                }
+              },
+              "parent": "group",
+              "children": []
+            },
+            {
+              "name": "cube105",
+              "from": [9.0737, 4.71, 5.85],
+              "to": [9.3862, 5.95, 6.475],
+              "rotationOrigin": [7.1725, -0.0125, 3.225],
+              "faces": {
+                "north": {
+                  "texture": "#water_bucket",
+                  "uv": [6.6138, 10.05, 6.9263, 11.29],
+                  "autoUv": false
+                },
+                "east": {
+                  "texture": "#water_bucket",
+                  "uv": [9.525, 10.05, 10.15, 11.29],
+                  "autoUv": false
+                },
+                "south": {
+                  "texture": "#water_bucket",
+                  "uv": [9.0737, 10.05, 9.3862, 11.29],
+                  "autoUv": false
+                },
+                "west": {
+                  "texture": "#water_bucket",
+                  "uv": [5.85, 10.05, 6.475, 11.29],
+                  "autoUv": false
+                },
+                "up": {
+                  "texture": "#water_bucket",
+                  "uv": [9.0737, 5.85, 9.3862, 6.475],
+                  "autoUv": false
+                },
+                "down": {
+                  "texture": "#water_bucket",
+                  "uv": [9.0737, 9.525, 9.3862, 10.15],
+                  "autoUv": false
+                }
+              },
+              "parent": "group",
+              "children": []
+            },
+            {
+              "name": "cube106",
+              "from": [6.6113, 4.71, 5.85],
+              "to": [6.9238, 5.95, 6.475],
+              "rotationOrigin": [8.825, -0.0125, 3.225],
+              "faces": {
+                "north": {
+                  "texture": "#water_bucket",
+                  "uv": [9.0762, 10.05, 9.3887, 11.29],
+                  "autoUv": false
+                },
+                "east": {
+                  "texture": "#water_bucket",
+                  "uv": [9.525, 10.05, 10.15, 11.29],
+                  "autoUv": false
+                },
+                "south": {
+                  "texture": "#water_bucket",
+                  "uv": [6.6113, 10.05, 6.9238, 11.29],
+                  "autoUv": false
+                },
+                "west": {
+                  "texture": "#water_bucket",
+                  "uv": [5.85, 10.05, 6.475, 11.29],
+                  "autoUv": false
+                },
+                "up": {
+                  "texture": "#water_bucket",
+                  "uv": [6.6113, 5.85, 6.9238, 6.475],
+                  "autoUv": false
+                },
+                "down": {
+                  "texture": "#water_bucket",
+                  "uv": [6.6113, 9.525, 6.9238, 10.15],
+                  "autoUv": false
+                }
+              },
+              "parent": "group",
+              "children": []
+            },
+            {
+              "name": "cube107",
+              "from": [6.9238, 0.295, 6.0125],
+              "to": [9.0738, 0.9975, 9.9875],
+              "rotationOrigin": [11, -5.05, 10],
+              "faces": {
+                "north": {
+                  "texture": "#water_bucket",
+                  "uv": [6.9262, 15.0025, 9.0762, 15.705],
+                  "autoUv": false
+                },
+                "east": {
+                  "texture": "#water_bucket",
+                  "uv": [6.0125, 15.0025, 9.9875, 15.705],
+                  "autoUv": false
+                },
+                "south": {
+                  "texture": "#water_bucket",
+                  "uv": [6.9238, 15.0025, 9.0738, 15.705],
+                  "autoUv": false
+                },
+                "west": {
+                  "texture": "#water_bucket",
+                  "uv": [6.0125, 15.0025, 9.9875, 15.705],
+                  "autoUv": false
+                },
+                "up": {
+                  "texture": "#water_bucket",
+                  "uv": [6.9238, 6.0125, 9.0738, 9.9875],
+                  "autoUv": false
+                },
+                "down": {
+                  "texture": "#water_bucket",
+                  "uv": [6.9238, 6.0125, 9.0738, 9.9875],
+                  "autoUv": false
+                }
+              },
+              "parent": "group",
+              "children": []
+            },
+            {
+              "name": "cube108",
+              "from": [5.9863, 0.295, 6.475],
+              "to": [6.9238, 0.9975, 9.525],
+              "rotationOrigin": [8.825, -5.05, 10],
+              "faces": {
+                "north": {
+                  "texture": "#water_bucket",
+                  "uv": [9.0762, 15.0025, 10.0137, 15.705],
+                  "autoUv": false
+                },
+                "east": {
+                  "texture": "#water_bucket",
+                  "uv": [6.475, 15.0025, 9.525, 15.705],
+                  "autoUv": false
+                },
+                "south": {
+                  "texture": "#water_bucket",
+                  "uv": [5.9863, 15.0025, 6.9238, 15.705],
+                  "autoUv": false
+                },
+                "west": {
+                  "texture": "#water_bucket",
+                  "uv": [6.475, 15.0025, 9.525, 15.705],
+                  "autoUv": false
+                },
+                "up": {
+                  "texture": "#water_bucket",
+                  "uv": [5.9863, 6.475, 6.9238, 9.525],
+                  "autoUv": false
+                },
+                "down": {
+                  "texture": "#water_bucket",
+                  "uv": [5.9863, 6.475, 6.9238, 9.525],
+                  "autoUv": false
+                }
+              },
+              "parent": "group",
+              "children": []
+            },
+            {
+              "name": "cube109",
+              "from": [6.6113, 0.295, 9.525],
+              "to": [6.9238, 0.9975, 10.15],
+              "rotationOrigin": [8.825, -5.05, 12.775],
+              "faces": {
+                "north": {
+                  "texture": "#water_bucket",
+                  "uv": [9.0762, 15.0025, 9.3887, 15.705],
+                  "autoUv": false
+                },
+                "east": {
+                  "texture": "#water_bucket",
+                  "uv": [5.85, 15.0025, 6.475, 15.705],
+                  "autoUv": false
+                },
+                "south": {
+                  "texture": "#water_bucket",
+                  "uv": [6.6113, 15.0025, 6.9238, 15.705],
+                  "autoUv": false
+                },
+                "west": {
+                  "texture": "#water_bucket",
+                  "uv": [9.525, 15.0025, 10.15, 15.705],
+                  "autoUv": false
+                },
+                "up": {
+                  "texture": "#water_bucket",
+                  "uv": [6.6113, 9.525, 6.9238, 10.15],
+                  "autoUv": false
+                },
+                "down": {
+                  "texture": "#water_bucket",
+                  "uv": [6.6113, 5.85, 6.9238, 6.475],
+                  "autoUv": false
+                }
+              },
+              "parent": "group",
+              "children": []
+            },
+            {
+              "name": "cube110",
+              "from": [9.0737, 0.295, 9.525],
+              "to": [9.3862, 0.9975, 10.15],
+              "rotationOrigin": [7.1725, -5.05, 12.775],
+              "faces": {
+                "north": {
+                  "texture": "#water_bucket",
+                  "uv": [6.6138, 15.0025, 6.9263, 15.705],
+                  "autoUv": false
+                },
+                "east": {
+                  "texture": "#water_bucket",
+                  "uv": [5.85, 15.0025, 6.475, 15.705],
+                  "autoUv": false
+                },
+                "south": {
+                  "texture": "#water_bucket",
+                  "uv": [9.0737, 15.0025, 9.3862, 15.705],
+                  "autoUv": false
+                },
+                "west": {
+                  "texture": "#water_bucket",
+                  "uv": [9.525, 15.0025, 10.15, 15.705],
+                  "autoUv": false
+                },
+                "up": {
+                  "texture": "#water_bucket",
+                  "uv": [9.0737, 9.525, 9.3862, 10.15],
+                  "autoUv": false
+                },
+                "down": {
+                  "texture": "#water_bucket",
+                  "uv": [9.0737, 5.85, 9.3862, 6.475],
+                  "autoUv": false
+                }
+              },
+              "parent": "group",
+              "children": []
+            },
+            {
+              "name": "cube111",
+              "from": [9.0737, 0.295, 5.85],
+              "to": [9.3862, 0.9975, 6.475],
+              "rotationOrigin": [7.1725, -5.05, 3.225],
+              "faces": {
+                "north": {
+                  "texture": "#water_bucket",
+                  "uv": [6.6138, 15.0025, 6.9263, 15.705],
+                  "autoUv": false
+                },
+                "east": {
+                  "texture": "#water_bucket",
+                  "uv": [9.525, 15.0025, 10.15, 15.705],
+                  "autoUv": false
+                },
+                "south": {
+                  "texture": "#water_bucket",
+                  "uv": [9.0737, 15.0025, 9.3862, 15.705],
+                  "autoUv": false
+                },
+                "west": {
+                  "texture": "#water_bucket",
+                  "uv": [5.85, 15.0025, 6.475, 15.705],
+                  "autoUv": false
+                },
+                "up": {
+                  "texture": "#water_bucket",
+                  "uv": [9.0737, 5.85, 9.3862, 6.475],
+                  "autoUv": false
+                },
+                "down": {
+                  "texture": "#water_bucket",
+                  "uv": [9.0737, 9.525, 9.3862, 10.15],
+                  "autoUv": false
+                }
+              },
+              "parent": "group",
+              "children": []
+            },
+            {
+              "name": "cube112",
+              "from": [6.6113, 0.295, 5.85],
+              "to": [6.9238, 0.9975, 6.475],
+              "rotationOrigin": [8.825, -5.05, 3.225],
+              "faces": {
+                "north": {
+                  "texture": "#water_bucket",
+                  "uv": [9.0762, 15.0025, 9.3887, 15.705],
+                  "autoUv": false
+                },
+                "east": {
+                  "texture": "#water_bucket",
+                  "uv": [9.525, 15.0025, 10.15, 15.705],
+                  "autoUv": false
+                },
+                "south": {
+                  "texture": "#water_bucket",
+                  "uv": [6.6113, 15.0025, 6.9238, 15.705],
+                  "autoUv": false
+                },
+                "west": {
+                  "texture": "#water_bucket",
+                  "uv": [5.85, 15.0025, 6.475, 15.705],
+                  "autoUv": false
+                },
+                "up": {
+                  "texture": "#water_bucket",
+                  "uv": [6.6113, 5.85, 6.9238, 6.475],
+                  "autoUv": false
+                },
+                "down": {
+                  "texture": "#water_bucket",
+                  "uv": [6.6113, 9.525, 6.9238, 10.15],
+                  "autoUv": false
+                }
+              },
+              "parent": "group",
+              "children": []
+            },
+            {
+              "name": "cube113",
+              "from": [9.0737, 0.295, 6.475],
+              "to": [10.0012, 0.9975, 9.525],
+              "rotationOrigin": [7.175, -5.05, 10],
+              "faces": {
+                "north": {
+                  "texture": "#water_bucket",
+                  "uv": [5.9988, 15.0025, 6.9263, 15.705],
+                  "autoUv": false
+                },
+                "east": {
+                  "texture": "#water_bucket",
+                  "uv": [6.475, 15.0025, 9.525, 15.705],
+                  "autoUv": false
+                },
+                "south": {
+                  "texture": "#water_bucket",
+                  "uv": [9.0737, 15.0025, 10.0012, 15.705],
+                  "autoUv": false
+                },
+                "west": {
+                  "texture": "#water_bucket",
+                  "uv": [6.475, 15.0025, 9.525, 15.705],
+                  "autoUv": false
+                },
+                "up": {
+                  "texture": "#water_bucket",
+                  "uv": [9.0737, 6.475, 10.0012, 9.525],
+                  "autoUv": false
+                },
+                "down": {
+                  "texture": "#water_bucket",
+                  "uv": [9.0737, 6.475, 10.0012, 9.525],
+                  "autoUv": false
+                }
+              },
+              "parent": "group",
+              "children": []
+            }
+          ]
+        },
+        {
+          "name": "cube81",
+          "from": [5.7113, 0.9975, 6.1125],
+          "to": [5.9863, 4.7, 9.85],
+          "rotationOrigin": [11, -0.0125, 10],
+          "faces": {
+            "north": {
+              "texture": "#water_bucket",
+              "uv": [10.0137, 11.3, 10.2887, 15.0025],
+              "autoUv": false
+            },
+            "east": {
+              "texture": "#water_bucket",
+              "uv": [6.15, 11.3, 9.8875, 15.0025],
+              "autoUv": false
+            },
+            "south": {
+              "texture": "#water_bucket",
+              "uv": [5.7113, 11.3, 5.9863, 15.0025],
+              "autoUv": false
+            },
+            "west": {
+              "texture": "#water_bucket",
+              "uv": [6.1125, 11.3, 9.85, 15.0025],
+              "autoUv": false
+            },
+            "up": {
+              "texture": "#water_bucket",
+              "uv": [5.7113, 6.1125, 5.9863, 9.85],
+              "autoUv": false
+            },
+            "down": {
+              "texture": "#water_bucket",
+              "uv": [5.7113, 6.15, 5.9863, 9.8875],
+              "autoUv": false
+            }
+          },
+          "parent": "contents",
+          "children": []
+        },
+        {
+          "name": "cube82",
+          "from": [10.0137, 0.9975, 6.15],
+          "to": [10.4012, 4.7, 9.875],
+          "rotationOrigin": [5, -0.0125, 10],
+          "faces": {
+            "north": {
+              "texture": "#water_bucket",
+              "uv": [5.5988, 11.3, 5.9863, 15.0025],
+              "autoUv": false
+            },
+            "east": {
+              "texture": "#water_bucket",
+              "uv": [6.125, 11.3, 9.85, 15.0025],
+              "autoUv": false
+            },
+            "south": {
+              "texture": "#water_bucket",
+              "uv": [10.0137, 11.3, 10.4012, 15.0025],
+              "autoUv": false
+            },
+            "west": {
+              "texture": "#water_bucket",
+              "uv": [6.15, 11.3, 9.875, 15.0025],
+              "autoUv": false
+            },
+            "up": {
+              "texture": "#water_bucket",
+              "uv": [10.0137, 6.15, 10.4012, 9.875],
+              "autoUv": false
+            },
+            "down": {
+              "texture": "#water_bucket",
+              "uv": [10.0137, 6.125, 10.4012, 9.85],
+              "autoUv": false
+            }
+          },
+          "parent": "contents",
+          "children": []
+        },
+        {
+          "name": "cube83",
+          "from": [5.9863, 0.9975, 5.7125],
+          "to": [10.0363, 4.7, 10.2875],
+          "rotationOrigin": [11, -0.0125, 10],
+          "faces": {
+            "north": {
+              "texture": "#water_bucket",
+              "uv": [5.9637, 11.3, 10.0137, 15.0025],
+              "autoUv": false
+            },
+            "east": {
+              "texture": "#water_bucket",
+              "uv": [5.7125, 11.3, 10.2875, 15.0025],
+              "autoUv": false
+            },
+            "south": {
+              "texture": "#water_bucket",
+              "uv": [5.9863, 11.3, 10.0363, 15.0025],
+              "autoUv": false
+            },
+            "west": {
+              "texture": "#water_bucket",
+              "uv": [5.7125, 11.3, 10.2875, 15.0025],
+              "autoUv": false
+            },
+            "up": {
+              "texture": "#water_bucket",
+              "uv": [5.9863, 5.7125, 10.0363, 10.2875],
+              "autoUv": false
+            },
+            "down": {
+              "texture": "#water_bucket",
+              "uv": [5.9863, 5.7125, 10.0363, 10.2875],
+              "autoUv": false
+            }
+          },
+          "parent": "contents",
+          "children": []
+        }
+      ]
+    }
+  ],
+  "animations": []
+}
