@@ -16,6 +16,7 @@ namespace BalancedThirst.Blocks;
 
 public class BlockLiquidContainerSealable : BlockLiquidContainerBase
 {
+
     public virtual float MinFillY => Attributes["minFillY"].AsFloat();
 
     public virtual float MaxFillY => Attributes["maxFillY"].AsFloat();
@@ -329,13 +330,13 @@ public class BlockLiquidContainerSealable : BlockLiquidContainerBase
         }
 
 
-        int moved = SplitStackAndPerformAction(byEntity, containerSlot, (stack) => { SetContent(stack, null); return contentStack.StackSize; });
+        int moved = splitStackAndPerformAction(byEntity, containerSlot, (stack) => { SetContent(stack, null); return contentStack.StackSize; });
 
         DoLiquidMovedEffects(byPlayer, contentStack, moved, EnumLiquidDirection.Pour);
         return true;
     }
 
-    protected int SplitStackAndPerformAction(Entity byEntity, ItemSlot slot, System.Func<ItemStack, int> action)
+    protected int splitStackAndPerformAction(Entity byEntity, ItemSlot slot, System.Func<ItemStack, int> action)
     {
         if (slot.Itemstack == null) return 0;
         if (slot.Itemstack.StackSize == 1)
@@ -431,8 +432,8 @@ public class BlockLiquidContainerSealable : BlockLiquidContainerBase
         return s.GetHashCode();
     }
     
-    // Works only if the shape hierarchy has been flattened, it need not have any element with children
-    public Shape SliceFlattenedShape(Shape fullShape, float fullness)
+    // Works only if the shape hierarchy has been flattened, it must not have any element with children
+    private Shape SliceFlattenedShape(Shape fullShape, float fullness)
     {
         var minY = MinFillY;
         var maxY = MaxFillY;
