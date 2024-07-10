@@ -1,3 +1,4 @@
+using System;
 using System.Reflection;
 using BalancedThirst.HarmonyPatches.BlockLiquidContainer;
 using BalancedThirst.HarmonyPatches.CharExtraDialogs;
@@ -21,7 +22,16 @@ public class HarmonyPatches : ModSystem
         this._api = api;
         HarmonyInstance = new Harmony(Mod.Info.ModID);
         var configData = ConfigSystem.SyncedConfigData;
-        
+
+        if (Math.Abs(configData.ContainerDrinkSpeed - 1) > 0.0001)
+        {
+            HarmonyInstance.Patch(
+                typeof(BlockLiquidContainerBase).GetMethod("tryEatStop",
+                    BindingFlags.NonPublic | BindingFlags.Instance),
+                transpiler: typeof(BlockLiquidContainerBase_tryEatStop_Transpiler).GetMethod(
+                    nameof(BlockLiquidContainerBase_tryEatStop_Transpiler.Transpiler)));
+        }
+
         HarmonyInstance.Patch(typeof(BlockEntityFirepit).GetMethod("GetTemp", BindingFlags.NonPublic | BindingFlags.Instance),
             postfix: typeof(BlockEntityFirepit_Temp_Patch).GetMethod(
                 nameof(BlockEntityFirepit_Temp_Patch.GetTemp)));

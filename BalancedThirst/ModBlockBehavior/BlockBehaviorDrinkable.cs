@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using BalancedThirst.ModBehavior;
+using BalancedThirst.Systems;
 using BalancedThirst.Thirst;
 using BalancedThirst.Util;
 using Vintagestory.API.Client;
@@ -40,7 +41,6 @@ public class BlockBehaviorDrinkable : BlockBehavior
         var itemstack = GetBlockStack(world, byEntity);
         try
         {
-            //BtCore.Logger.Warning("Getting hydration properties for " + itemstack.Collectible.Code.Path);
             JsonObject itemAttribute = itemstack.ItemAttributes?["hydrationProps"];
             return itemAttribute is { Exists: true } ? itemAttribute.AsObject<HydrationProperties>( null, itemstack.Collectible.Code.Domain) : null;
         }

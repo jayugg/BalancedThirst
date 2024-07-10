@@ -71,7 +71,6 @@ public class BlockBehaviorGushingLiquid : BlockBehaviorFiniteSpreadingLiquid
     
     private void TryRise(IWorldAccessor world, BlockPos pos)
     {
-        // BtCore.Logger.Warning("Trying to rise");
         BlockPos abovePos = pos.UpCopy();
         var blockAccessor = world.BlockAccessor;
         if (blockAccessor.GetBlock(abovePos).IsReplacableBy(this.block) &&

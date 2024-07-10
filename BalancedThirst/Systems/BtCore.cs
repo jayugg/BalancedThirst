@@ -6,16 +6,15 @@ using BalancedThirst.Hud;
 using BalancedThirst.Items;
 using BalancedThirst.ModBehavior;
 using BalancedThirst.ModBlockBehavior;
-using BalancedThirst.Systems;
 using BalancedThirst.Thirst;
 using BalancedThirst.Util;
 using Vintagestory.API.Client;
-using Vintagestory.API.Server;
 using Vintagestory.API.Common;
 using Vintagestory.API.Common.Entities;
 using Vintagestory.API.Datastructures;
+using Vintagestory.API.Server;
 
-namespace BalancedThirst;
+namespace BalancedThirst.Systems;
 
 public class BtCore : ModSystem
 {
@@ -24,7 +23,6 @@ public class BtCore : ModSystem
     private static ICoreAPI _api;
     public static bool IsHoDLoaded => _api?.ModLoader.IsModEnabled("hydrateordiedrate") ?? false;
     public static bool IsXSkillsLoaded => _api?.ModLoader.IsModEnabled("xskills") ?? false;
-    public override double ExecuteOrder() => 0.02;
     
     public override void StartPre(ICoreAPI api)
     {
@@ -40,7 +38,7 @@ public class BtCore : ModSystem
             ItemHydrationConfigLoader.GenerateBTHydrationConfig(api);
             BlockHydrationConfigLoader.GenerateBTHydrationConfig(api);
         }
-        ConfigSystem.OnConfigLoaded += ConfigSystem_OnConfigLoaded;
+        ConfigSystem.StartPre(api);
     }
 
     public override void Start(ICoreAPI api)
@@ -50,12 +48,13 @@ public class BtCore : ModSystem
         api.RegisterBlockClass($"{Modid}.{nameof(BlockLiquidContainerSealable)}", typeof(BlockLiquidContainerSealable));
         api.RegisterBlockEntityClass($"{Modid}.{nameof(BlockEntityKettle)}", typeof(BlockEntityKettle));
         api.RegisterBlockEntityClass($"{Modid}.{nameof(BlockEntitySealable)}", typeof(BlockEntitySealable));
-        api.RegisterItemClass(Modid + "." + nameof(ItemDowsingRod), typeof(ItemDowsingRod));
-        api.RegisterBlockBehaviorClass(Modid + ":GushingLiquid", typeof(BlockBehaviorGushingLiquid));
-        api.RegisterBlockBehaviorClass(Modid + ":PureWater", typeof(BlockBehaviorPureWater));
-        api.RegisterEntityBehaviorClass(Modid + ":thirst", typeof(EntityBehaviorThirst));
-        api.RegisterCollectibleBehaviorClass(Modid + ":Drinkable", typeof(DrinkableBehavior));
-        api.RegisterEntityBehaviorClass(Modid + ":bladder", typeof(EntityBehaviorBladder));
+        api.RegisterItemClass($"{Modid}.{nameof(ItemDowsingRod)}", typeof(ItemDowsingRod));
+        api.RegisterBlockBehaviorClass($"{Modid}:GushingLiquid", typeof(BlockBehaviorGushingLiquid));
+        api.RegisterBlockBehaviorClass($"{Modid}:PureWater", typeof(BlockBehaviorPureWater));
+        api.RegisterEntityBehaviorClass($"{Modid}:thirst", typeof(EntityBehaviorThirst));
+        api.RegisterEntityBehaviorClass($"{Modid}:bladder", typeof(EntityBehaviorBladder));
+        api.RegisterCollectibleBehaviorClass($"{Modid}:Drinkable", typeof(DrinkableBehavior));
+        api.RegisterCollectibleBehaviorClass($"{Modid}:WaterContainer", typeof(WaterContainerBehavior));
     }
 
     public override void StartServerSide(ICoreServerAPI sapi)
@@ -65,6 +64,7 @@ public class BtCore : ModSystem
         sapi.Event.PlayerJoin += (player) => OnPlayerJoin(player.Entity);
         sapi.Event.RegisterEventBusListener(OnConfigReloaded, filterByEventName:EventIds.ConfigReloaded);
         BtCommands.Register(sapi);
+        ConfigSystem.StartServerSide(sapi);
     }
 
     public override void StartClientSide(ICoreClientAPI capi)
@@ -73,17 +73,18 @@ public class BtCore : ModSystem
         {
             new ThirstBarHudElement(capi)
         });
+        ConfigSystem.StartClientSide(capi);
     }
     
     private void OnPlayerJoin(EntityPlayer player)
     {
-        if (ConfigSystem.ConfigServer.EnableBladder) return;
+        if (ConfigSystem.ConfigServer!.EnableBladder) return;
         player.Stats.Remove("walkspeed", "bladderfull");
     }
     private void AddEntityBehaviors(Entity entity)
     {
         if (entity is not EntityPlayer) return;
-        if (ConfigSystem.ConfigServer.EnableThirst)
+        if (ConfigSystem.ConfigServer!.EnableThirst)
             entity.AddBehavior(new EntityBehaviorThirst(entity));
         if (ConfigSystem.ConfigServer.EnableBladder)
             entity.AddBehavior(new EntityBehaviorBladder(entity));
@@ -92,7 +93,7 @@ public class BtCore : ModSystem
     private void RemoveEntityBehaviors(Entity entity)
     {
         if (entity is not EntityPlayer) return;
-        if (!ConfigSystem.ConfigServer.EnableThirst && entity.HasBehavior<EntityBehaviorThirst>())
+        if (!ConfigSystem.ConfigServer!.EnableThirst && entity.HasBehavior<EntityBehaviorThirst>())
             entity.RemoveBehavior(entity.GetBehavior<EntityBehaviorThirst>());
         if (!ConfigSystem.ConfigServer.EnableBladder && entity.HasBehavior<EntityBehaviorBladder>())
             entity.RemoveBehavior(entity.GetBehavior<EntityBehaviorBladder>());
@@ -108,21 +109,11 @@ public class BtCore : ModSystem
         }
     }
     
-    private void ConfigSystem_OnConfigLoaded()
-    {
-        if (!_api.Side.IsServer() || EditAssets.Completed) return;
-        EditAssets.Completed = true;
-        EditAssets.AddContainerProps(_api);
-        if (!ConfigSystem.ConfigServer.EnableThirst) return;
-        EditAssets.AddHydrationToCollectibles(_api);
-    }
-    
     public override void AssetsFinalize(ICoreAPI api)
     {
-        if (!api.Side.IsServer() || !ConfigSystem.IsLoaded || EditAssets.Completed) return;
-        EditAssets.Completed = true;
+        if (!api.Side.IsServer()) return;
         EditAssets.AddContainerProps(api);
-        if (ConfigSystem.ConfigServer.EnableThirst) return;
+        if (!ConfigSystem.ConfigServer.EnableThirst) return;
         EditAssets.AddHydrationToCollectibles(api);
     }
 }

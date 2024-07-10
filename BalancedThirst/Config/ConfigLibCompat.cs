@@ -42,7 +42,6 @@ public class ConfigLibCompat
     private static void SyncConfigAdmin(ICoreAPI api)
     {
         BtCore.Logger.Warning("Sending synced config from admin");
-        BtCore.Logger.Warning($"{ConfigSystem.SyncedConfigData.EnableBladder}");
         api.Event.PushEvent(EventIds.AdminSetConfig);
     }
     
@@ -89,6 +88,7 @@ public class ConfigLibCompat
             config.EnableThirst = OnCheckBox(id, config.EnableThirst, nameof(config.EnableThirst));
             config.EnableBladder = OnCheckBox(id, config.EnableBladder, nameof(config.EnableBladder));
             ImGui.Separator();
+            config.ContainerDrinkSpeed = OnInputFloat(id, config.ContainerDrinkSpeed, nameof(config.ContainerDrinkSpeed));
             config.FruitHydrationYield = OnInputFloat(id, config.FruitHydrationYield, nameof(config.FruitHydrationYield));
             config.VegetableHydrationYield = OnInputFloat(id, config.VegetableHydrationYield, nameof(config.VegetableHydrationYield));
             config.DairyHydrationYield = OnInputFloat(id, config.DairyHydrationYield, nameof(config.DairyHydrationYield));
@@ -98,7 +98,6 @@ public class ConfigLibCompat
             config.UnknownHydrationYield = OnInputFloat(id, config.UnknownHydrationYield, nameof(config.UnknownHydrationYield));
             ImGui.Separator();
             config.DowsingRodRadius = OnInputFloat(id, config.DowsingRodRadius, nameof(config.DowsingRodRadius));
-            config.BoilWaterInFirepits = OnCheckBox(id, config.BoilWaterInFirepits, nameof(config.BoilWaterInFirepits));
         }
     }
 
@@ -120,12 +119,14 @@ public class ConfigLibCompat
             config.MaxHydration = OnInputFloat(id, config.MaxHydration, nameof(config.MaxHydration));
             config.ThirstKills = OnCheckBox(id, config.ThirstKills, nameof(config.ThirstKills));
             config.ThirstSpeedModifier = OnInputFloat(id, config.ThirstSpeedModifier, nameof(config.ThirstSpeedModifier));
+            config.ContainerDrinkSpeed = OnInputFloat(id, config.ContainerDrinkSpeed, nameof(config.ContainerDrinkSpeed));
             config.HotTemperatureThreshold = OnInputFloat(id, config.HotTemperatureThreshold, nameof(config.HotTemperatureThreshold));
             config.VomitHydrationMultiplier = OnInputFloat(id, config.VomitHydrationMultiplier, nameof(config.VomitHydrationMultiplier));
             config.VomitEuhydrationMultiplier = OnInputFloat(id, config.VomitEuhydrationMultiplier, nameof(config.VomitEuhydrationMultiplier));
             ImGui.Separator();
             config.EnableBladder = OnCheckBox(id, config.EnableBladder, nameof(config.EnableBladder));
             config.BladderWalkSpeedDebuff = OnInputFloat(id, config.BladderWalkSpeedDebuff, nameof(config.BladderWalkSpeedDebuff));
+            config.BladderCapacityOverload = OnInputFloat(id, config.BladderCapacityOverload, nameof(config.BladderCapacityOverload));
             config.UrineNutrientChance = OnInputFloat(id, config.UrineNutrientChance, nameof(config.UrineNutrientChance));
             config.UrineDrainRate = OnInputFloat(id, config.UrineDrainRate, nameof(config.UrineDrainRate));
             DisplayEnumFloatDictionary(config.UrineNutrientLevels, nameof(config.UrineNutrientLevels), id);
@@ -153,7 +154,6 @@ public class ConfigLibCompat
             config.UnknownHydrationYield = OnInputFloat(id, config.UnknownHydrationYield, nameof(config.UnknownHydrationYield));
             ImGui.Separator();
             config.DowsingRodRadius = OnInputFloat(id, config.DowsingRodRadius, nameof(config.DowsingRodRadius));
-            config.BoilWaterInFirepits = OnCheckBox(id, config.BoilWaterInFirepits, nameof(config.BoilWaterInFirepits));
             config.GushingSpringWater = OnCheckBox(id, config.GushingSpringWater, nameof(config.GushingSpringWater));
         }
         if (ImGui.CollapsingHeader(Lang.Get(settingsAdvanced) + $"##settingAdvanced-{id}"))
@@ -179,6 +179,8 @@ public class ConfigLibCompat
             ImGui.Indent();
             config.UseHoDHydrationValues = OnCheckBox(id, config.UseHoDHydrationValues, nameof(config.UseHoDHydrationValues), BtCore.IsHoDLoaded);
             config.HoDClothingCoolingMultiplier = OnInputFloat(id, config.HoDClothingCoolingMultiplier, nameof(config.HoDClothingCoolingMultiplier));
+            config.CamelHumpMaxHydrationMultiplier = OnInputFloat(id, config.CamelHumpMaxHydrationMultiplier, nameof(config.CamelHumpMaxHydrationMultiplier));
+            config.ElephantBladderCapacityMultiplier = OnInputFloat(id, config.ElephantBladderCapacityMultiplier, nameof(config.ElephantBladderCapacityMultiplier));
             ImGui.Unindent();
         }
     }

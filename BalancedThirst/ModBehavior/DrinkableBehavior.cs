@@ -1,5 +1,6 @@
 using System;
 using System.Text;
+using BalancedThirst.Systems;
 using BalancedThirst.Thirst;
 using Vintagestory.API.Common;
 using Vintagestory.API.Datastructures;
@@ -36,7 +37,7 @@ public class DrinkableBehavior : CollectibleBehavior
       }
     }
     
-    public static HydrationProperties GetContentHydrationPropsPerLitre(
+    internal static HydrationProperties GetContentHydrationPropsPerLitre(
       BlockLiquidContainerBase container,
       ItemStack itemstack)
     {
@@ -46,8 +47,6 @@ public class DrinkableBehavior : CollectibleBehavior
       if (!content.Collectible.HasBehavior<DrinkableBehavior>()) return null;
       var behavior = content.Collectible.GetBehavior<DrinkableBehavior>();
       HydrationProperties hydrationProperties = behavior.GetHydrationProperties(new ItemStack(content.Item));
-      if (hydrationProperties == null)
-        return null;
       return hydrationProperties;
     }
     
@@ -58,11 +57,7 @@ public class DrinkableBehavior : CollectibleBehavior
       if (itemstack == null) return null;
       ItemStack content = container.GetContent(itemstack);
       if (content == null) return null;
-      if (!content.Collectible.HasBehavior<DrinkableBehavior>()) return null;
-      var behavior = content.Collectible.GetBehavior<DrinkableBehavior>();
-      HydrationProperties hydrationProperties = behavior.GetHydrationProperties(new ItemStack(content.Item));
-      if (hydrationProperties == null)
-        return null;
+      var hydrationProperties = GetContentHydrationPropsPerLitre(container, itemstack);
       WaterTightContainableProps containableProps = BlockLiquidContainerBase.GetContainableProps(content);
       float num = content.StackSize / containableProps.ItemsPerLitre;
       hydrationProperties.Hydration *= num;
@@ -75,13 +70,27 @@ public class DrinkableBehavior : CollectibleBehavior
       if (byEntity.Controls.HandUse != EnumHandInteract.HeldItemInteract)
         return;
       IPlayer dualCallByPlayer = null;
-      if (byEntity is EntityPlayer)
-        dualCallByPlayer = byEntity.World.PlayerByUid(((EntityPlayer) byEntity).PlayerUID);
+      if (byEntity is EntityPlayer player)
+        dualCallByPlayer = player.World.PlayerByUid(player.PlayerUID);
       byEntity.PlayEntitySound("drink", dualCallByPlayer);
       eatSoundRepeats--;
       if (eatSoundRepeats <= 0)
         return;
       byEntity.World.RegisterCallback(_ => PlayDrinkSound(byEntity, eatSoundRepeats), 300);
+    }
+    
+    public static bool IsWaterPortion(CollectibleObject collectible)
+    {
+      try
+      {
+        JsonObject attribute = collectible.Attributes?["waterportion"];
+        return attribute is { Exists: true } && attribute.AsBool();
+      }
+      catch (Exception ex)
+      {
+        BtCore.Logger.Error("Error getting waterportion bool: " + ex.Message);
+        return false;
+      }
     }
 
     public override void GetHeldItemInfo(ItemSlot inSlot, StringBuilder dsc, IWorldAccessor world, bool withDebugInfo)

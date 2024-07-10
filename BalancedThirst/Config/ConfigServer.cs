@@ -43,6 +43,8 @@ public class ConfigServer : SyncedConfig
     // Compatibility
     public bool UseHoDHydrationValues { get; set; }
     public float HoDClothingCoolingMultiplier { get; set; } = 1f; 
+    public float CamelHumpMaxHydrationMultiplier { get; set; } = 1/3f;
+    public float ElephantBladderCapacityMultiplier { get; set; } = 1/2f;
     public ConfigServer(ICoreAPI api, ConfigServer previousConfig = null)
     {
         if (previousConfig == null)
@@ -54,6 +56,7 @@ public class ConfigServer : SyncedConfig
         ThirstSpeedModifier = previousConfig.ThirstSpeedModifier;
         ThirstKills = previousConfig.ThirstKills;
         HotTemperatureThreshold = previousConfig.HotTemperatureThreshold;
+        ContainerDrinkSpeed = ContainerDrinkSpeed;
         
         VomitHydrationMultiplier = previousConfig.VomitHydrationMultiplier;
         VomitEuhydrationMultiplier = previousConfig.VomitEuhydrationMultiplier;
@@ -84,7 +87,6 @@ public class ConfigServer : SyncedConfig
         
         DowsingRodRadius = previousConfig.DowsingRodRadius;
         
-        BoilWaterInFirepits = previousConfig.BoilWaterInFirepits;
         GushingSpringWater = previousConfig.GushingSpringWater;
         
         WaterContainers = previousConfig.WaterContainers;
@@ -94,20 +96,7 @@ public class ConfigServer : SyncedConfig
         
         UseHoDHydrationValues = previousConfig.UseHoDHydrationValues;
         HoDClothingCoolingMultiplier = previousConfig.HoDClothingCoolingMultiplier;
-    }
-
-    public void UpdateFromSyncedConfig(ICoreAPI api, SyncedConfig config)
-    {
-        EnableThirst = config.EnableThirst;
-        EnableBladder = config.EnableBladder;
-        BoilWaterInFirepits = config.BoilWaterInFirepits;
-        DowsingRodRadius = config.DowsingRodRadius;
-        FruitHydrationYield = config.FruitHydrationYield;
-        VegetableHydrationYield = config.VegetableHydrationYield;
-        DairyHydrationYield = config.DairyHydrationYield;
-        ProteinHydrationYield = config.ProteinHydrationYield;
-        GrainHydrationYield = config.GrainHydrationYield;
-        NoNutritionHydrationYield = config.NoNutritionHydrationYield;
-        UnknownHydrationYield = config.UnknownHydrationYield;
+        CamelHumpMaxHydrationMultiplier = previousConfig.CamelHumpMaxHydrationMultiplier;
+        ElephantBladderCapacityMultiplier = previousConfig.ElephantBladderCapacityMultiplier;
     }
 }

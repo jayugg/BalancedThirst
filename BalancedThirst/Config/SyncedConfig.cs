@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using BalancedThirst.Util;
 using ProtoBuf;
@@ -15,8 +17,8 @@ public class SyncedConfig : IModConfig
     [ProtoMember(2, IsRequired = true)]
     public bool EnableBladder { get; set; } = true;
     
-    [ProtoMember(3, IsRequired = true)]
-    public bool BoilWaterInFirepits { get; set; } = true;
+    [ProtoMember(12, IsRequired = true)]
+    public float ContainerDrinkSpeed { get; set; } = 0.25f;
     
     [ProtoMember(4, IsRequired = true)]
     public float DowsingRodRadius { get; set; } = BtConstants.DowsingRodRadius;
@@ -45,7 +47,7 @@ public class SyncedConfig : IModConfig
         }
         EnableThirst = previousConfig.EnableThirst;
         EnableBladder = previousConfig.EnableBladder;
-        BoilWaterInFirepits = previousConfig.BoilWaterInFirepits;
+        ContainerDrinkSpeed = previousConfig.ContainerDrinkSpeed;
         DowsingRodRadius = previousConfig.DowsingRodRadius;
         FruitHydrationYield = previousConfig.FruitHydrationYield;
         VegetableHydrationYield = previousConfig.VegetableHydrationYield;
@@ -62,7 +64,7 @@ public class SyncedConfig : IModConfig
         {
             EnableThirst = config.EnableThirst,
             EnableBladder = config.EnableBladder,
-            BoilWaterInFirepits = config.BoilWaterInFirepits,
+            ContainerDrinkSpeed = config.ContainerDrinkSpeed,
             DowsingRodRadius = config.DowsingRodRadius,
             FruitHydrationYield = config.FruitHydrationYield,
             VegetableHydrationYield = config.VegetableHydrationYield,
@@ -80,7 +82,7 @@ public class SyncedConfig : IModConfig
         {
             EnableThirst = EnableThirst,
             EnableBladder = EnableBladder,
-            BoilWaterInFirepits = BoilWaterInFirepits,
+            ContainerDrinkSpeed = ContainerDrinkSpeed,
             DowsingRodRadius = DowsingRodRadius,
             FruitHydrationYield = FruitHydrationYield,
             VegetableHydrationYield = VegetableHydrationYield,

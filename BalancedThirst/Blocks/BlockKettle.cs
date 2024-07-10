@@ -3,6 +3,7 @@ using Vintagestory.API.Common;
 using Vintagestory.API.Config;
 using Vintagestory.GameContent;
 using System.Linq;
+using BalancedThirst.Systems;
 using BalancedThirst.Util;
 
 namespace BalancedThirst.Blocks;
@@ -53,7 +54,6 @@ public class BlockKettle : BlockLiquidContainerSealable, IInFirepitRendererSuppl
         product.StackSize = 0;
 
         product.StackSize += (int) (GetTotalLitres(cookingSlotsProvider, inputSlot.Itemstack) * 100f);
-        BtCore.Logger.Warning("Product Stack Size: " + product.StackSize);
         if (product.StackSize == 0) return;
         
         foreach (var t in cookingSlotsProvider.Slots)

@@ -46,14 +46,14 @@ public static class Extensions
     
     public static HydrationProperties? GetHydrationPropsPerLitre(
         this BlockLiquidContainerBase container,
-        ItemStack itemStack)
+        IWorldAccessor world,
+        ItemStack itemStack,
+        Entity byEntity)
     {
-        if (container.GetContent(itemStack) != null &&
-            container.GetContent(itemStack).Collectible.HasBehavior<DrinkableBehavior>())
-        {
-            return DrinkableBehavior.GetContentHydrationPropsPerLitre(container, itemStack);
-        }
-        return null;
+        if (container.GetContent(itemStack) == null) return null;
+        return container.GetContent(itemStack).Collectible.HasBehavior<DrinkableBehavior>() ?
+            DrinkableBehavior.GetContentHydrationPropsPerLitre(container, itemStack) :
+            HydrationProperties.FromNutrition(container.GetContent(itemStack).Collectible.GetNutritionProperties(world, itemStack, byEntity));
     }
 
     public static HydrationProperties? GetHydrationProperties(
@@ -95,6 +95,12 @@ public static class Extensions
         collectible.CollectibleBehaviors = collectible.CollectibleBehaviors.Append(behavior);
     }
     
+    public static void AddContainerBehavior(this CollectibleObject collectible)
+    {
+        var behavior = new WaterContainerBehavior(collectible);
+        collectible.CollectibleBehaviors = collectible.CollectibleBehaviors.Append(behavior);
+    }
+    
     public static void SetAttribute(this CollectibleObject collectible, string name, object obj)
     {
         collectible.EnsureAttributesNotNull();
@@ -130,7 +136,7 @@ public static class Extensions
     {
         var collectible = stack?.Collectible;
         collectible?.EnsureAttributesNotNull();
-        JToken token = collectible?.Attributes.Token;
+        JToken? token = collectible?.Attributes.Token;
         if (token == null) return 0;
         if (token["waterTightContainerProps"] == null)
         {
@@ -139,17 +145,16 @@ public static class Extensions
         }
 
         var itemsPerLitre = 1f;
-        if (token["waterTightContainerProps"]["itemsPerLitre"] == null)
+        if (token["waterTightContainerProps"]?["itemsPerLitre"] == null)
         {
-            BtCore.Logger.Warning(
-                "[GetLitres] Cannot get litres for collectible without itemsPerLitre, defaulting to 1");
+            BtCore.Logger.Warning("[GetLitres] Cannot get litres for collectible without itemsPerLitre, defaulting to 1");
         }
         else
         {
-            itemsPerLitre = token["waterTightContainerProps"]["itemsPerLitre"].Value<float>();
+            itemsPerLitre = (token["waterTightContainerProps"]["itemsPerLitre"] ?? 1).Value<float>();
         }
 
-        return stack.StackSize / itemsPerLitre ;
+        return stack?.StackSize ?? 0 / itemsPerLitre ;
     }
     
     // Should only be used on the server side!
@@ -160,7 +165,7 @@ public static class Extensions
 
     public static bool IsWaterPortion(this CollectibleObject collectible)
     {
-        return collectible.Attributes?["waterportion"]?.AsBool() ?? false;
+        return DrinkableBehavior.IsWaterPortion(collectible);
     }
     
     // Should only be used on the server side!
@@ -168,10 +173,9 @@ public static class Extensions
     {
         return ConfigSystem.ConfigServer.WaterContainers.Keys.Any(collectible.MyWildCardMatch);
     }
-
     public static bool IsWaterContainer(this CollectibleObject collectible)
     {
-        return collectible.Attributes?["waterTransitionMul"]?.AsFloat() != 0;
+        return Math.Abs(WaterContainerBehavior.GetTransitionRateMul(collectible, EnumTransitionType.Perish) - 1) > 0.0001;
     }
     public static bool IsLiquidSourceBlock(this Block b) => b.LiquidLevel == 7;
     public static bool IsSameLiquid(this Block b, Block o) => b.LiquidCode == o.LiquidCode;

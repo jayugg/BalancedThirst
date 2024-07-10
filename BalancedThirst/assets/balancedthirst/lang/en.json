@@ -62,6 +62,7 @@
     "Config.Setting.EnableThirst": "Enable thirst",
     "Config.Setting.MaxHydration": "Max hydration",
     "Config.Setting.ThirstKills": "Can you die of thirst?",
+    "Config.Setting.ContainerDrinkSpeed": "Drink speed from container",
     "Config.Setting.HotTemperatureThreshold": "At which temperature do you get thirsty faster?",
     "Config.Setting.ThirstSpeedModifier": "Thirst speed modifier",
     "Config.Setting.VomitHydrationMultiplier": "Hydration reduction when vomiting",
@@ -119,9 +120,10 @@
     "Config.Setting.BladderBarColor": "Bladder bar color",
     
     "Config.SettingsCompat": "Compatibility Settings (Require reload)",
-    "Config.Setting.YieldThirstManagementToHoD": "Yield thirst management to HoD",
     "Config.Setting.UseHoDHydrationValues": "Use HoD hydration values",
-    "Config.Setting.HoDClothingCoolingMultiplier": "Clothing cooling multiplier",
+    "Config.Setting.HoDClothingCoolingMultiplier": "Clothing cooling multiplier (HoD)",
+    "Config.Setting.CamelHumpMaxHydrationMultiplier": "Camel Hump skill hydration boost (xSkills)",
+    "Config.Setting.ElephantBladderCapacityMultiplier": "Elephant Bladder skill hydration boost (xSkills)",
 
     "Found water nearby!" : "Found water nearby!",
 
@@ -151,5 +153,7 @@
     "interaction-pee": "Urinate",
     "interaction-drink": "Drink",
     
-    "peemodenotset": "Urination mode is not set. Please set it in the client config."
+    "peemodenotset": "Urination mode is not set. Please set it in the client config.",
+
+    "iteminfo-storedwater" : "Stored water perish speed: {0}"
 }

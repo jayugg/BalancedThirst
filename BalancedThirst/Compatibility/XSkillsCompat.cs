@@ -1,3 +1,4 @@
+using System;
 using BalancedThirst.ModBehavior;
 using BalancedThirst.Systems;
 using BalancedThirst.Thirst;
@@ -21,10 +22,10 @@ public class XSkillsCompat : ModSystem
         this._api = api;
         XLeveling xLeveling = api.ModLoader.GetModSystem("XLib.XLeveling.XLeveling") as XLeveling;
         Skill survival = xLeveling?.GetSkill("survival");
-        Ability camelHump = new Ability("camelhump", BtCore.Modid+":ability-camelhump", BtCore.Modid+":abilitydesc-camelhump", 1, 3, new int[] { 500, 1000, 1500 });
+        Ability camelHump = new Ability("camelhump", BtCore.Modid+":ability-camelhump", BtCore.Modid+":abilitydesc-camelhump", 1, 3, new[] { 1, 2, 3 });
         camelHump.OnPlayerAbilityTierChanged += OnCamelHump;
         survival?.AddAbility(camelHump);
-        Ability elephantBladder = new Ability("elephantbladder", BtCore.Modid+":ability-elephantbladder", BtCore.Modid+":abilitydesc-elephantbladder", 1, 2, new int[] { 750, 1500 });
+        Ability elephantBladder = new Ability("elephantbladder", BtCore.Modid+":ability-elephantbladder", BtCore.Modid+":abilitydesc-elephantbladder", 1, 2, new[] { 1, 2 });
         elephantBladder.OnPlayerAbilityTierChanged += OnElephantBladder;
         survival?.AddAbility(elephantBladder);
     }
@@ -41,10 +42,10 @@ public class XSkillsCompat : ModSystem
         EntityBehaviorThirst behavior = player.Entity.GetBehavior<EntityBehaviorThirst>();
         if (behavior == null)
             return;
-        float num = (ConfigSystem.ConfigServer.MaxHydration + playerAbility.Value(0)) / behavior.MaxHydration;
-        behavior.MaxHydration = (ConfigSystem.ConfigServer.MaxHydration + playerAbility.Value(0));
-        behavior.Euhydration *= num;
-        behavior.Hydration *= num;
+        var factor = 1f + playerAbility.Value(0)*ConfigSystem.ConfigServer.CamelHumpMaxHydrationMultiplier;
+        behavior.MaxHydration = (float) Math.Round(ConfigSystem.ConfigServer.MaxHydration*factor);
+        behavior.Euhydration *= factor;
+        behavior.Hydration *= factor;
         behavior.UpdateThirstBoosts();
     }
     
@@ -60,8 +61,9 @@ public class XSkillsCompat : ModSystem
         EntityBehaviorBladder behavior = player.Entity.GetBehavior<EntityBehaviorBladder>();
         if (behavior == null)
             return;
-        behavior.Capacity = (ConfigSystem.ConfigServer.MaxHydration + playerAbility.Value(0));
-        behavior.CapacityOverload = ConfigSystem.ConfigServer.BladderCapacityOverload*(ConfigSystem.ConfigServer.MaxHydration + playerAbility.Value(0));
+        var factor = 1f + playerAbility.Value(0)*ConfigSystem.ConfigServer.ElephantBladderCapacityMultiplier;
+        behavior.Capacity = (float) Math.Round(ConfigSystem.ConfigServer.MaxHydration * factor);
+        behavior.CapacityOverload = (float) Math.Round(ConfigSystem.ConfigServer.BladderCapacityOverload*ConfigSystem.ConfigServer.MaxHydration*factor);
     }
     
 }

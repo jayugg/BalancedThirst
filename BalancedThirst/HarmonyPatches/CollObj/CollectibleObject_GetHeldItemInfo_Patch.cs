@@ -7,6 +7,7 @@ using BalancedThirst.Util;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
 using Vintagestory.API.Config;
+using Vintagestory.GameContent;
 
 namespace BalancedThirst.HarmonyPatches.CollObj;
 
@@ -109,7 +110,7 @@ public class CollectibleObject_GetHeldItemInfo_Patch
             (hydrationProperties.Purity == EnumPurityLevel.Pure && !itemstack.Collectible.Code.ToString().Contains("pure")))
         {
             if (existingText.Contains(Lang.Get(BtCore.Modid+$":purity-{hydrationProperties.Purity}"))) return;
-            dsc.AppendLine(Lang.Get(BtCore.Modid+":purity{0}", Lang.Get(BtCore.Modid+$":purity-{hydrationProperties.Purity}")));
+            dsc.AppendLine(Lang.Get(BtCore.Modid+":purity{0}", Lang.Get($"{BtCore.Modid}:purity-{hydrationProperties.Purity}")));
         }
     }
 }

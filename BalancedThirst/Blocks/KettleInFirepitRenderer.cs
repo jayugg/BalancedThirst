@@ -1,3 +1,4 @@
+using BalancedThirst.Systems;
 using BalancedThirst.Util;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
@@ -51,7 +52,6 @@ public class KettleInFirepitRenderer : IInFirepitRenderer
         var contentStack = kettle.GetContent(stack);
         WaterTightContainableProps props = BlockLiquidContainerSealable.GetInContainerProps(contentStack);
         if (props?.Texture == null) return;
-        BtCore.Logger.Warning("Props Tex" + props.Texture);
         ContainerTextureSource contentSource = new ContainerTextureSource(capi, contentStack, props.Texture);
         MeshData contentMesh;
         float fullness = contentStack?.StackSize / (props.ItemsPerLitre * kettleBlock?.CapacityLitres) ?? 0;

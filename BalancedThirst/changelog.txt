@@ -1,3 +1,6 @@
-- Fixed drinking bug that removed more litres than hydration given
-- Fixed kettle and chamberpot not being fireable in a pit kiln
-- Luxury trader sells porcelain kettle and chamberpot, survival goods trader sells ceramic kettle, commodities trader sells ceramic chamberpot and kettle
+- Added config option for drink speed
+- Added config option for xSkills skill modifiers
+- Buffed default hydration values by 2x
+- Fixed default juice and cider hydration values (before they weren't being applied because of wrong item codes)
+- Added Floral Zones, butchering and  hydration values
+- Fixed broken container transition multiplier for water
