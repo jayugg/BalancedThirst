@@ -3,6 +3,7 @@ using System.Reflection;
 using BalancedThirst.HarmonyPatches.BlockLiquidContainer;
 using BalancedThirst.HarmonyPatches.CharExtraDialogs;
 using BalancedThirst.HarmonyPatches.CollObj;
+using BalancedThirst.HarmonyPatches.Container;
 using BalancedThirst.HarmonyPatches.EntityFirepit;
 using BalancedThirst.HarmonyPatches.InvSmelting;
 using HarmonyLib;
@@ -51,9 +52,14 @@ public class HarmonyPatches : ModSystem
         HarmonyInstance.Patch(typeof(CollectibleObject).GetMethod(nameof(CollectibleObject.GetHeldItemInfo)),
             postfix: typeof(CollectibleObject_GetHeldItemInfo_Patch).GetMethod(
                 nameof(CollectibleObject_GetHeldItemInfo_Patch.Postfix)));
-        HarmonyInstance.Patch(typeof(CollectibleObject).GetMethod(nameof(CollectibleObject.GetTransitionRateMul)),
-            postfix: typeof(CollectibleObject_GetTransitionRateMul_Patch).GetMethod(
-                nameof(CollectibleObject_GetTransitionRateMul_Patch.Postfix)));
+        
+        HarmonyInstance.Patch(typeof(BlockContainer).GetMethod(nameof(BlockContainer.GetContainingTransitionModifierContained)),
+            postfix: typeof(BlockContainer_GetContainingTransitionModifier).GetMethod(
+                nameof(BlockContainer_GetContainingTransitionModifier.Contained_Postfix)));
+        HarmonyInstance.Patch(typeof(BlockContainer).GetMethod(nameof(BlockContainer.GetContainingTransitionModifierPlaced)),
+            postfix: typeof(BlockContainer_GetContainingTransitionModifier).GetMethod(
+                nameof(BlockContainer_GetContainingTransitionModifier.Placed_Postfix)));
+
         HarmonyInstance.Patch(typeof(BlockLiquidContainerBase).GetMethod("tryEatStop", BindingFlags.NonPublic | BindingFlags.Instance),
             prefix: typeof(BlockLiquidContainerBase_tryEatStop_Patch).GetMethod(
                 nameof(BlockLiquidContainerBase_tryEatStop_Patch.Prefix)),

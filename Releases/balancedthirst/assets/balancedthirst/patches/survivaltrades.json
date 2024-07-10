@@ -15,6 +15,32 @@
           "avg": 2,
           "var": 0.75
         }
+      },
+      {
+        "code": "balancedthirst:waterskin-pelt",
+        "type": "block",
+        "stacksize": 1,
+        "stock": {
+          "avg": 2,
+          "var": 1
+        },
+        "price": {
+          "avg": 4,
+          "var": 1
+        }
+      },
+      {
+        "code": "balancedthirst:waterskin-leather",
+        "type": "block",
+        "stacksize": 1,
+        "stock": {
+          "avg": 2,
+          "var": 1
+        },
+        "price": {
+          "avg": 6,
+          "var": 1.5
+        }
       }
     ],
     "file": "game:entities/humanoid/trader-survivalgoods.json"
@@ -34,6 +60,32 @@
         "price": {
           "avg": 1,
           "var": 0.75
+        }
+      },
+      {
+        "code": "balancedthirst:waterskin-pelt",
+        "type": "block",
+        "stacksize": 1,
+        "stock": {
+          "avg": 2,
+          "var": 1
+        },
+        "price": {
+          "avg": 2.5,
+          "var": 1
+        }
+      },
+      {
+        "code": "balancedthirst:waterskin-leather",
+        "type": "block",
+        "stacksize": 1,
+        "stock": {
+          "avg": 2,
+          "var": 1
+        },
+        "price": {
+          "avg": 3.5,
+          "var": 1.5
         }
       }
     ],

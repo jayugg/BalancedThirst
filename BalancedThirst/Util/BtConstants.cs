@@ -30,9 +30,7 @@ public static class BtConstants
         { "@(liquidcontainers):watercontainer-leather.*", 0.45f },
         { "@(liquidcontainers):watercontainer-bamboo.*", 0.6f },
         { "@(liquidcontainers):watercontainer-wood.*", 0.6f },
-        { "@(liquidcontainers):watercontainermetal-.*", 0.35f },
-        { "@(aculinaryartillery):bottle-.*-burned", 0.4f },
-        { "@(aculinaryartillery):bottle-clay-burned", 0.5f }
+        { "@(liquidcontainers):watercontainermetal-.*", 0.35f }
     };
     
     public static readonly Dictionary<string, HydrationProperties> HydratingLiquids = new()

@@ -433,7 +433,7 @@ public class BlockLiquidContainerSealable : BlockLiquidContainerBase
     }
     
     // Works only if the shape hierarchy has been flattened, it must not have any element with children
-    private Shape SliceFlattenedShape(Shape fullShape, float fullness)
+    public Shape SliceFlattenedShape(Shape fullShape, float fullness)
     {
         var minY = MinFillY;
         var maxY = MaxFillY;

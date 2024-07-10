@@ -21,7 +21,7 @@ public class BlockBehaviorGushingLiquid : BlockBehaviorFiniteSpreadingLiquid
     public override void OnBlockPlaced(IWorldAccessor world, BlockPos blockPos, ref EnumHandling handling)
     {
         base.OnBlockPlaced(world, blockPos, ref handling);
-        if (!ConfigSystem.ConfigServer.GushingSpringWater) return;
+        if (!ConfigSystem.ConfigServer?.GushingSpringWater ?? true) return;
         if (world is IServerWorldAccessor serverWorld)
         {
             serverWorld.RegisterCallback(DoTryRise, blockPos, 300);

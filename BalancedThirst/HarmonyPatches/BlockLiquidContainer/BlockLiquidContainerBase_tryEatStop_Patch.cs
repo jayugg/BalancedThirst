@@ -46,9 +46,6 @@ public class BlockLiquidContainerBase_tryEatStop_Patch
         
         AdjustLiquidContents(slotInfo, out ItemSlot retrievedSlot, out var litresDrank);
         HydrateFromContainer(retrievedSlot, litresDrank, player);
-        //slot.Itemstack = retrievedSlot.Itemstack;
-        //slot.MarkDirty();
-        //player.Player?.InventoryManager?.BroadcastHotbarSlot();
     }
 
     private static void AdjustLiquidContents(Tuple<ItemSlot, float, float> slotInfo, out ItemSlot retrievedSlot, out float litresDrank)
