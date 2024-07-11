@@ -30,12 +30,15 @@ public class BlockKettle : BlockLiquidContainerSealable, IInFirepitRendererSuppl
         foreach (var slot in cookingSlotsProvider.Slots)
         {
             if (slot.Empty) continue;
+            BtCore.Logger.Warning($"Slot: {slot.Itemstack.Collectible.Code.Path}");
             if (!slot.Itemstack.Collectible.IsWaterPortion())
             {
+                BtCore.Logger.Warning("Not a water portion");
                 return false;
             }
         }
         var litres = GetTotalLitres(cookingSlotsProvider, inputStack);
+        BtCore.Logger.Notification($"Litres: {litres}");
         return litres > 0 && litres <= (Attributes["capacityLitres"]?.AsFloat() ?? 12f);
     }
     
@@ -50,6 +53,7 @@ public class BlockKettle : BlockLiquidContainerSealable, IInFirepitRendererSuppl
     public override void DoSmelt(IWorldAccessor world, ISlotProvider cookingSlotsProvider, ItemSlot inputSlot, ItemSlot outputSlot)
     {
         if (!CanSmelt(world, cookingSlotsProvider, inputSlot.Itemstack, outputSlot.Itemstack)) return;
+        BtCore.Logger.Notification("Smelting");
         ItemStack product = new ItemStack(world.GetItem(new AssetLocation("boilingwaterportion")));
         product.StackSize = 0;
 

@@ -9,13 +9,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9363b40e-165c-4a01-a221-4b01f3a6d07c" name="Changes" comment="Fixed broken transition mul and added config options for drink speed">
-      <change afterPath="$PROJECT_DIR$/BalancedThirst/HarmonyPatches/BlockLiquidContainer/BlockContainer_ContainingTransMod_Patch.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BalancedThirst/Blocks/BlockLiquidContainerSealable.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/Blocks/BlockLiquidContainerSealable.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BalancedThirst/HarmonyPatches/BlockLiquidContainer/BlockLiquidContainerBase_tryEatStop_Patch.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/HarmonyPatches/BlockLiquidContainer/BlockLiquidContainerBase_tryEatStop_Patch.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BalancedThirst/HarmonyPatches/CollObj/CollectibleObject_GetTransitionRateMul_Patch.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/HarmonyPatches/CollObj/CollectibleObject_GetTransitionRateMul_Patch.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BalancedThirst/Util/BtConstants.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/Util/BtConstants.cs" afterDir="false" />
-    </list>
+    <list default="true" id="9363b40e-165c-4a01-a221-4b01f3a6d07c" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -188,7 +182,7 @@
       <updated>1717083017700</updated>
       <workItem from="1720205318823" duration="64000" />
       <workItem from="1720205418427" duration="53125000" />
-      <workItem from="1720391330739" duration="84743000" />
+      <workItem from="1720391330739" duration="88641000" />
     </task>
     <task id="LOCAL-00001" summary="Working kettle, and smelting, demijohn">
       <option name="closed" value="true" />
@@ -262,7 +256,23 @@
       <option name="project" value="LOCAL" />
       <updated>1720571958479</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="0.0.27 release">
+      <option name="closed" value="true" />
+      <created>1720575995963</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1720575995963</updated>
+    </task>
+    <task id="LOCAL-00011" summary="0.0.27 release">
+      <option name="closed" value="true" />
+      <created>1720576002232</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1720576002232</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -288,7 +298,8 @@
     <MESSAGE value="Kettle recipes and chamberpot" />
     <MESSAGE value="Fixed hydration from containers,kettle firing and added trades" />
     <MESSAGE value="Fixed broken transition mul and added config options for drink speed" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed broken transition mul and added config options for drink speed" />
+    <MESSAGE value="0.0.27 release" />
+    <option name="LAST_COMMIT_MESSAGE" value="0.0.27 release" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

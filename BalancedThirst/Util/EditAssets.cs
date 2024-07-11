@@ -43,7 +43,6 @@ public static class EditAssets
         BtCore.Logger.Notification("Adding container properties to blocks");
         foreach (var block in api.World.Blocks) {
             if (block is not BlockLiquidContainerBase container) continue;
-            if (!block.IsWaterContainer(api.Side)) continue;
             var mostSpecificMatch = ConfigSystem.ConfigServer?.WaterContainers
                 .Where(keyVal => block.MyWildCardMatch(keyVal.Key))
                 .OrderByDescending(keyVal => keyVal.Key.Length)

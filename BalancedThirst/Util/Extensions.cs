@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using BalancedThirst.ModBehavior;
-using BalancedThirst.ModBlockBehavior;
 using BalancedThirst.Systems;
 using BalancedThirst.Thirst;
 using Newtonsoft.Json.Linq;
@@ -118,13 +117,14 @@ public static class Extensions
         JToken token = collectible.Attributes.Token;
         token["hydrationProps"] = JToken.FromObject(hydrationProperties);
         FoodNutritionProperties nutritionProperties = new() { Satiety = 0, FoodCategory = EnumFoodCategory.NoNutrition };
-        if (token["waterTightContainerProps"] == null)
+        var waterTightContainerProps = token["waterTightContainerProps"];
+        if (waterTightContainerProps == null)
         {
             token["nutritionProps"] ??= JToken.FromObject(nutritionProperties);
         }
         else
         {
-            token["waterTightContainerProps"]["nutritionPropsPerLitre"] ??= JToken.FromObject(nutritionProperties);
+            waterTightContainerProps["nutritionPropsPerLitre"] ??= JToken.FromObject(nutritionProperties);
         }
         // Convert the JToken back to a JsonObject
         JsonObject newAttributes = new JsonObject(token);
@@ -138,23 +138,25 @@ public static class Extensions
         collectible?.EnsureAttributesNotNull();
         JToken? token = collectible?.Attributes.Token;
         if (token == null) return 0;
-        if (token["waterTightContainerProps"] == null)
+        var waterTightContainerProps = token["waterTightContainerProps"];
+        if (waterTightContainerProps == null)
         {
             BtCore.Logger.Warning("[GetLitres] Cannot get litres for collectible without waterTightContainerProps");
             return 0;
         }
 
+        var itemsPerLitreProps = waterTightContainerProps["itemsPerLitre"];
         var itemsPerLitre = 1f;
-        if (token["waterTightContainerProps"]?["itemsPerLitre"] == null)
+        if (itemsPerLitreProps == null)
         {
             BtCore.Logger.Warning("[GetLitres] Cannot get litres for collectible without itemsPerLitre, defaulting to 1");
         }
         else
         {
-            itemsPerLitre = (token["waterTightContainerProps"]["itemsPerLitre"] ?? 1).Value<float>();
+            itemsPerLitre *= itemsPerLitreProps.Value<float>();
         }
-
-        return stack?.StackSize ?? 0 / itemsPerLitre ;
+        BtCore.Logger.Warning($"[GetLitres] Items per litre: {itemsPerLitre}");
+        return ((float)(stack?.StackSize ?? 0)) / itemsPerLitre ;
     }
     
     // Should only be used on the server side!
@@ -175,7 +177,8 @@ public static class Extensions
     }
     public static bool IsWaterContainer(this CollectibleObject collectible)
     {
-        return Math.Abs(WaterContainerBehavior.GetTransitionRateMul(collectible, EnumTransitionType.Perish) - 1) > 0.0001;
+        var mult = WaterContainerBehavior.GetTransitionRateMul(collectible, EnumTransitionType.Perish);
+        return Math.Abs(mult - 1) > 0.0001 && mult != 0;
     }
     public static bool IsLiquidSourceBlock(this Block b) => b.LiquidLevel == 7;
     public static bool IsSameLiquid(this Block b, Block o) => b.LiquidCode == o.LiquidCode;
@@ -217,24 +220,48 @@ public static class Extensions
         }
     }
 
+    public static BlockSelection? GetLookLiquidBlockSelection(this IClientPlayer clientPlayer)
+    {
+        var api = clientPlayer.Entity?.World.Api;
+        if (api is not ICoreClientAPI capi || clientPlayer.Entity == null) return null;
+        var game = capi.GetField<ClientMain>("game");
+        if (game == null) return null;
+        BlockFilter bfilter = (pos, block) => block is not { RenderPass: EnumChunkRenderPass.Meta };
+        bool liquidSelectable = game.LiquidSelectable;
+        game.SetInternalField("forceLiquidSelectable", true);
+        var blockSel = clientPlayer.Entity.BlockSelection?.Clone();
+        var entitySel = clientPlayer.Entity.EntitySelection?.Clone();
+        if (!game.MouseGrabbed)
+        {
+            var pickingRayUtil = game.GetField<PickingRayUtil>("pickingRayUtil");
+            if (pickingRayUtil == null) return null;
+            Ray mouseCoordinates = pickingRayUtil.GetPickingRayByMouseCoordinates(game);
+            if (mouseCoordinates == null)
+            {
+                game.SetInternalField("forceLiquidSelectable", liquidSelectable);
+                return null;
+            }
+            game.RayTraceForSelection(mouseCoordinates, ref blockSel, ref entitySel, bfilter, _ => true);
+        }
+        else
+            game.RayTraceForSelection(clientPlayer, ref blockSel, ref entitySel, bfilter, _ => true);
+        if (blockSel == null) return null;
+        game.SetInternalField("forceLiquidSelectable", false);
+        return blockSel;
+    }
+    
+    public static bool IsLookingAtInteractable(this IClientPlayer clientPlayer)
+    {
+        if (clientPlayer.CurrentBlockSelection?.Block?.HasBehavior<BlockBehaviorBlockEntityInteract>() ?? 
+            clientPlayer.CurrentBlockSelection?.Block is BlockGroundStorage) return true;
+        if (clientPlayer.CurrentEntitySelection?.Entity?.HasBehavior<EntityBehaviorConversable>() ?? false) return true;
+        return false;
+    }
+
     public static bool IsLookingAtDrinkableBlock(this IClientPlayer clientPlayer)
     {
-        var player = clientPlayer.Entity;
-        var world = player.World;
-        var blockSel = player.BlockSelection;
-        var selPos = blockSel?.Position;
-        var selFace = player.BlockSelection?.Face;
-        var waterPos = selPos?.AddCopy(selFace);
-        if (blockSel == null)
-        {
-            blockSel = Raycast.RayCastForFluidBlocks(player.Player);
-            waterPos = blockSel?.Position;
-            if (waterPos == null)
-            {
-                return false;
-            }
-        }
-        return world.BlockAccessor?.GetBlock(waterPos)?.GetBlockHydrationProperties() != null;
+        var liquidSel = clientPlayer.GetLookLiquidBlockSelection();
+        return liquidSel?.Block?.GetBlockHydrationProperties() != null;
     }
     
     public static string Localize(this string input, params object[] args)
@@ -262,7 +289,7 @@ public static class Extensions
     // From DanaTweaks
     public static void CoolWithWater(this BlockEntityToolMold mold)
     {
-        ItemStack stack = mold?.metalContent;
+        ItemStack stack = mold.metalContent;
         if (stack != null)
         {
             // No clue why this doesn't work either

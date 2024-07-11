@@ -50,9 +50,11 @@ public class DrinkNetwork : ModSystem
     private void OnClientTick(float dt)
     {
         var player = _capi.World.Player;
-        if (ConfigSystem.SyncedConfigData.EnableThirst && player.IsLookingAtDrinkableBlock() && player.Entity.RightHandItemSlot.Empty)
+        if (ConfigSystem.SyncedConfigData.EnableThirst && !player.IsLookingAtInteractable() &&
+            player.IsLookingAtDrinkableBlock() && player.Entity.RightHandItemSlot.Empty)
             _capi.Event.PushEvent(EventIds.Interaction,
                 new StringAttribute(BtConstants.InteractionIds.Drink));
+        
         if (!ConfigSystem.SyncedConfigData.EnableBladder) return;
         if (!(player.IsBladderOverloaded() || _capi.World.ElapsedMilliseconds - _lastPeeTime < 2000) || !player.Entity.RightHandItemSlot.Empty) return;
         if (ConfigSystem.ConfigClient.PeeMode.IsSitting())
@@ -79,24 +81,14 @@ public class DrinkNetwork : ModSystem
         }
         var world = _capi.World;
         EntityPlayer player = world.Player.Entity;
-        //BtCore.Logger.Warning(ConfigSystem.SyncedConfigData(EnumAppSide.Client, "fromdrinknetwork").EnableThirst.ToString());
         if (ConfigSystem.SyncedConfigData.EnableThirst
-            && player.RightHandItemSlot.Empty)
+            && player.RightHandItemSlot.Empty
+            && player.Player is IClientPlayer clientPlayer &&
+            !clientPlayer.IsLookingAtDrinkableBlock())
         {
-            var blockSel = player.BlockSelection;
-            var selPos = blockSel?.Position;
-            var selFace = player.BlockSelection?.Face;
-            var waterPos = selPos?.AddCopy(selFace);
-            if (blockSel == null)
-            {
-                blockSel = Raycast.RayCastForFluidBlocks(player.Player);
-                waterPos = blockSel?.Position;
-                if (waterPos == null)
-                {
-                    handled = EnumHandling.PassThrough;
-                    return;
-                }
-            }
+            var blockSel = clientPlayer.GetLookLiquidBlockSelection();
+            var waterPos = blockSel?.Position;
+            if (waterPos == null) return;
             if (world.BlockAccessor?.GetBlock(waterPos)?.GetBlockHydrationProperties() != null)
             {
                 _clientChannel.SendPacket(new DrinkMessage.Request() {Position = waterPos});
@@ -196,16 +188,17 @@ public class DrinkNetwork : ModSystem
         {
             var waterStack = new ItemStack(world.GetItem(new AssetLocation(BtCore.Modid+":urineportion")));
             container.TryPutLiquid(request.Position, waterStack, 0.1f);
+            container.DoLiquidMovedEffects(player, waterStack, waterStack.StackSize, BlockLiquidContainerBase.EnumLiquidDirection.Fill);
         }
         else if (block is BlockToolMold)
         {
             var be = world.BlockAccessor.GetBlockEntity(request.Position) as BlockEntityToolMold; 
-            be.CoolWithWater();
+            be?.CoolWithWater();
         }
         else if (block is BlockIngotMold)
         {
             var be = world.BlockAccessor.GetBlockEntity(request.Position) as BlockEntityIngotMold; 
-            be.CoolWithWater();
+            be?.CoolWithWater();
         }
     }
     
@@ -216,7 +209,7 @@ public class DrinkNetwork : ModSystem
         be?.WaterFarmland(0.05f);
         if (ConfigSystem.ConfigServer.UrineNutrientChance > world.Rand.NextDouble())
         {
-            be.IncreaseNutrients(ConfigSystem.ConfigServer.UrineNutrientLevels);
+            be?.IncreaseNutrients(ConfigSystem.ConfigServer.UrineNutrientLevels);
         }
     }
     

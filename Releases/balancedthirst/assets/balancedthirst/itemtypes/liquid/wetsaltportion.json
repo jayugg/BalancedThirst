@@ -34,5 +34,6 @@
   },
   "tpHandTransform": {
     "translation": { "x": -1.5, "y": -1, "z": -1.4 }
-  }
+  },
+  "enabled": false
 }

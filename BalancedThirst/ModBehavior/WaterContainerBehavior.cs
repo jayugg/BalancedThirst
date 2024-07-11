@@ -8,7 +8,7 @@ using Vintagestory.API.Datastructures;
 
 namespace BalancedThirst.ModBehavior;
 
-public class WaterContainerBehavior : CollectibleBehavior
+public class WaterContainerBehavior : DrinkableBehavior
 {
     public WaterContainerBehavior(CollectibleObject collObj) : base(collObj)
     {

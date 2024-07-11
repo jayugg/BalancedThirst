@@ -20,6 +20,7 @@ public class HudInteractionHelp : HudElement
     private Queue<string> messageQueue = new Queue<string>();
     
     private DrawWorldInteractionUtil wiUtil;
+    private WorldInteraction[] interactions;
     private double x;
     private double y;
 
@@ -33,7 +34,7 @@ public class HudInteractionHelp : HudElement
       this.wiUtil = new DrawWorldInteractionUtil(capi, this.Composers, "-interactHelper");
       this.wiUtil.UnscaledLineHeight = 25.0;
       this.wiUtil.FontSize = 16f;
-      capi.Event.RegisterEventBusListener(OnEvent, 0.5);
+      capi.Event.RegisterEventBusListener(OnEvent, filterByEventName: EventIds.Interaction);
       capi.Event.AfterActiveSlotChanged += this.OnSlotFilled;
       capi.Event.RegisterGameTickListener(new Action<float>(this.OnGameTick), 20);
     }
@@ -42,13 +43,13 @@ public class HudInteractionHelp : HudElement
     
     private void OnEvent(string eventName, ref EnumHandling handling, IAttribute data)
     {
-      if (eventName != EventIds.Interaction) return;
       this.errorTextActiveMs = this.capi.InWorldEllapsedMilliseconds;
       if (data?.GetValue() is string interactionId) {
-        this.wiUtil.ComposeBlockWorldInteractionHelp(new[] { BtConstants.Interactions[interactionId] });
+        interactions = new[] { BtConstants.Interactions[interactionId] };
+        this.wiUtil.ComposeBlockWorldInteractionHelp(interactions);
       }
     }
-    
+
     private void OnSlotFilled(ActiveSlotChangeEventArgs slot)
     {
       var player = this.capi.World.Player;

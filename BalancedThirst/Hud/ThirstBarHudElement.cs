@@ -21,7 +21,6 @@ namespace BalancedThirst.Hud
         bool ShouldShowThirstBar => ConfigSystem.SyncedConfigData.EnableThirst;
         public double[] ThirstBarColor => ModGuiStyle.FromHex(ConfigSystem.ConfigClient.ThirstBarColor);
         public double[] BladderBarColor => ModGuiStyle.FromHex(ConfigSystem.ConfigClient.BladderBarColor);
-        
         public bool FirstComposed { get; private set; }
         
         public ThirstBarHudElement(ICoreClientAPI capi) : base(capi)

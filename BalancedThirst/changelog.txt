@@ -1,10 +1,4 @@
-- Added config option for drink speed
-- Nerfed drink speed to 0.25
-- Added config option for xSkills skill modifiers
-- Buffed default hydration values by 2x
-- Fixed default juice and cider hydration values (before they weren't being applied because of wrong item codes)
-- Added Floral Zones and Butchering hydration values
-- Added more Expanded Foods hydration values
-- Added some catch all hydration values for some standard drinkable items (juiceportion, ciderportion etc, add more specific modifiers to override)
-- Fixed broken container transition multiplier for water
-- Now survival traders sell and buy waterskins
+- Should have fixed drinking from air/worms
+- Fixed not being able to interact with blocks underwater
+- Fixed kettle not brewing because they counted too many water litres inside
+- No more tooltip patches for better compatibility

@@ -1,4 +1,5 @@
 using System;
+using BalancedThirst.Systems;
 using Vintagestory.API.Common;
 using Vintagestory.API.MathTools;
 
@@ -10,21 +11,21 @@ public static class Raycast
     {
         var fromPos = player.Entity.ServerPos.XYZ.Add(0, player.Entity.LocalEyePos.Y, 0);
         var toPos = fromPos.AheadCopy(range, player.Entity.ServerPos.Pitch, player.Entity.ServerPos.Yaw);
-        var step = toPos.Sub(fromPos).Normalize().Mul(0.1);
+        var step = toPos.Sub(fromPos).Normalize().Mul(0.5); // Reduced step size for finer granularity
         var currentPos = fromPos.Clone();
-        int dimensionId = (int)(player.Entity.ServerPos.Y / BlockPos.DimensionBoundary);
 
         while (currentPos.SquareDistanceTo(fromPos) <= range * range)
         {
-            var blockPos = new BlockPos((int)currentPos.X, (int)currentPos.Y, (int)currentPos.Z, dimensionId);
+            var blockPos = new BlockPos((int)currentPos.X, (int)currentPos.Y, (int)currentPos.Z);
             var block = player.Entity.World.BlockAccessor.GetBlock(blockPos);
-            var diff = currentPos.SubCopy(fromPos);
-
+        
+            BtCore.Logger.Warning($"Checking block at {blockPos}, Code: {block.Code}, Material: {block.BlockMaterial}");
+        
             if (block.BlockMaterial == EnumBlockMaterial.Liquid)
             {
-                return new BlockSelection { Position = blockPos, HitPosition = currentPos.Clone() };
+                return new BlockSelection { Position = blockPos.Copy(), HitPosition = currentPos.Clone() };
             }
-            else if (block.SideIsSolid(blockPos, GetFacingSide(diff).Index))
+            if (block.BlockMaterial != EnumBlockMaterial.Air)
             {
                 return null;
             }

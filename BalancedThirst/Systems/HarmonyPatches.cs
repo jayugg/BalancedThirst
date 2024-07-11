@@ -49,9 +49,6 @@ public class HarmonyPatches : ModSystem
                 nameof(CollectibleObject_tryEatStop_Patch.Prefix)),
             postfix: typeof(CollectibleObject_tryEatStop_Patch).GetMethod(
                 nameof(CollectibleObject_tryEatStop_Patch.Postfix)));
-        HarmonyInstance.Patch(typeof(CollectibleObject).GetMethod(nameof(CollectibleObject.GetHeldItemInfo)),
-            postfix: typeof(CollectibleObject_GetHeldItemInfo_Patch).GetMethod(
-                nameof(CollectibleObject_GetHeldItemInfo_Patch.Postfix)));
         
         HarmonyInstance.Patch(typeof(BlockContainer).GetMethod(nameof(BlockContainer.GetContainingTransitionModifierContained)),
             postfix: typeof(BlockContainer_GetContainingTransitionModifier).GetMethod(

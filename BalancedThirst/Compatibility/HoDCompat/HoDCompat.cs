@@ -15,8 +15,7 @@ public class HoDCompat : ModSystem
     private Dictionary<string, float> PlayerThirstLevels = new Dictionary<string, float>();
     
     public override double ExecuteOrder() => 1.03;
-    public override bool ShouldLoad(EnumAppSide forSide) => forSide == EnumAppSide.Server && false && ConfigSystem.ConfigServer.UseHoDHydrationValues;
-    
+    public override bool ShouldLoad(EnumAppSide forSide) => forSide == EnumAppSide.Server && ConfigSystem.ConfigServer.UseHoDHydrationValues;
     public override void StartPre(ICoreAPI api)
     {
         base.StartPre(api);

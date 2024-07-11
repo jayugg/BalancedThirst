@@ -48,5 +48,6 @@
     "rotation": { "x": -4, "y": 8, "z": 0 },
     "origin": { "x": 0.5, "y": 0.5, "z": 0.5299 },
     "scale": 1.92
-  }
+  },
+  "enabled": false
 }
