@@ -13,6 +13,8 @@ public class BlockKettle : BlockLiquidContainerSealable, IInFirepitRendererSuppl
     public override bool IsTopOpened => true;
     public override bool AllowHeldLiquidTransfer => true;
     public AssetLocation liquidFillSoundLocation => new AssetLocation("game:sounds/effect/water-fill");
+    public override string EmptyShapeLoc => $"{BtCore.Modid}:shapes/block/{(FirstCodePart(1) == "clay" && (FirstCodePart(2) != "porcelain") ? FirstCodePart() + "-" + FirstCodePart(1) : FirstCodePart())}/empty.json";
+    public override string LidShapeLoc => $"{BtCore.Modid}:shapes/block/{(FirstCodePart(1) == "clay" && (FirstCodePart(2) != "porcelain") ? FirstCodePart() + "-" + FirstCodePart(1) : FirstCodePart())}/lid.json";
 
     public IInFirepitRenderer GetRendererWhenInFirepit(ItemStack stack, BlockEntityFirepit firepit, bool forOutputSlot)
     {
@@ -38,7 +40,6 @@ public class BlockKettle : BlockLiquidContainerSealable, IInFirepitRendererSuppl
             }
         }
         var litres = GetTotalLitres(cookingSlotsProvider, inputStack);
-        BtCore.Logger.Notification($"Litres: {litres}");
         return litres > 0 && litres <= (Attributes["capacityLitres"]?.AsFloat() ?? 12f);
     }
     
@@ -53,7 +54,6 @@ public class BlockKettle : BlockLiquidContainerSealable, IInFirepitRendererSuppl
     public override void DoSmelt(IWorldAccessor world, ISlotProvider cookingSlotsProvider, ItemSlot inputSlot, ItemSlot outputSlot)
     {
         if (!CanSmelt(world, cookingSlotsProvider, inputSlot.Itemstack, outputSlot.Itemstack)) return;
-        BtCore.Logger.Notification("Smelting");
         ItemStack product = new ItemStack(world.GetItem(new AssetLocation("boilingwaterportion")));
         product.StackSize = 0;
 

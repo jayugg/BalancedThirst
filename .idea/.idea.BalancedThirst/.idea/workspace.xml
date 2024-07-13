@@ -9,7 +9,60 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9363b40e-165c-4a01-a221-4b01f3a6d07c" name="Changes" comment="" />
+    <list default="true" id="9363b40e-165c-4a01-a221-4b01f3a6d07c" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/BalancedThirst/BlockEntities/BlockEntityGourdMotherplant.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BalancedThirst/BlockEntities/BlockEntityGourdVine.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BalancedThirst/Blocks/BlockGourdMotherplant.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BalancedThirst/ModBehavior/GourdCropBehavior.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/blocktypes/gourd.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/blocktypes/gourdpumpkin/fruit.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/blocktypes/gourdpumpkin/motherplant.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/blocktypes/gourdpumpkin/vine.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/itemtypes/seeds.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/itemtypes/vegetable.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/recipes/grid/carvegourd.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/shapes/block/gourd/stage1.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/shapes/block/gourd/stage2.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/shapes/block/gourd/stage3.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/shapes/block/gourd/stage4.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/shapes/item/vegetable/slicedpickledpumpkin.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/shapes/item/vegetable/slicedpumpkin.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/textures/block/gourd/cordage.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/textures/block/gourd/large.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/textures/block/gourd/medium.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/textures/block/gourd/stage1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/textures/block/gourd/stage2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/textures/block/gourd/stage3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/textures/block/gourd/stage4.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/textures/block/gourd/top.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/textures/item/seeds/gourdpumpkin.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/textures/item/slicedpumpkin.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BalancedThirst/assets/game/worldgen/blockpatches/gourd.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.BalancedThirst/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.BalancedThirst/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BalancedThirst/BlockEntities/BlockEntitySealable.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/BlockEntities/BlockEntitySealable.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BalancedThirst/Blocks/BlockKettle.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/Blocks/BlockKettle.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BalancedThirst/Blocks/BlockLiquidContainerSealable.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/Blocks/BlockLiquidContainerSealable.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BalancedThirst/Compatibility/HoDCompat/BlockHydrationConfigLoader.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BalancedThirst/Compatibility/HoDCompat/HoDCompat.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/Compatibility/HoDCompat.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BalancedThirst/Compatibility/HoDCompat/HoDManager.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BalancedThirst/Compatibility/HoDCompat/ItemHydrationConfigLoader.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BalancedThirst/Config/ConfigLibCompat.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/Config/ConfigLibCompat.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BalancedThirst/HarmonyPatches/BlockLiquidContainer/BlockLiquidContainerBase_tryEatStop_Transpiler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/HarmonyPatches/BlockLiquidContainer/BlockLiquidContainerBase_tryEatStop_Transpiler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BalancedThirst/Systems/BtCore.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/Systems/BtCore.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BalancedThirst/Systems/DrinkNetwork.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/Systems/DrinkNetwork.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BalancedThirst/Util/BetterDrawWorldInteractionUtil.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/blocktypes/waterskin.json" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/blocktypes/waterskin.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/lang/en.json" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/lang/en.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/patches/survivaltrades.json" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/patches/survivaltrades.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BalancedThirst/changelog.txt" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/changelog.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BalancedThirst/modinfo.json" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/modinfo.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Releases/balancedthirst/BalancedThirst.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Releases/balancedthirst/BalancedThirst.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Releases/balancedthirst/BalancedThirst.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Releases/balancedthirst/BalancedThirst.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Releases/balancedthirst/assets/balancedthirst/blocktypes/waterskin.json" beforeDir="false" afterPath="$PROJECT_DIR$/Releases/balancedthirst/assets/balancedthirst/blocktypes/waterskin.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Releases/balancedthirst/assets/balancedthirst/lang/en.json" beforeDir="false" afterPath="$PROJECT_DIR$/Releases/balancedthirst/assets/balancedthirst/lang/en.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Releases/balancedthirst/assets/balancedthirst/patches/survivaltrades.json" beforeDir="false" afterPath="$PROJECT_DIR$/Releases/balancedthirst/assets/balancedthirst/patches/survivaltrades.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Releases/balancedthirst/modinfo.json" beforeDir="false" afterPath="$PROJECT_DIR$/Releases/balancedthirst/modinfo.json" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -17,6 +70,13 @@
   </component>
   <component name="DpaMonitoringSettings">
     <option name="autoShow" value="false" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JSON File" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -29,49 +89,100 @@
 }</component>
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/jayugg/BalancedThirst.git&quot;,
+    &quot;url&quot;: &quot;https://github.com/jayucraft/BalancedThirst.git&quot;,
     &quot;accountId&quot;: &quot;456ee43c-a204-45ad-b149-a0551b542c36&quot;
   }
 }</component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/ILViewer/542ba26bb8aa4ea49b5afc99fb8541f2246200/52/6c5ba1c8/02000395.il" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/21f82f5bb7f14f84b700c07e682ac4a627d000/01/547a2a81/ClientCoreAPI.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/21f82f5bb7f14f84b700c07e682ac4a627d000/13/d20413ed/HudHotbar.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/21f82f5bb7f14f84b700c07e682ac4a627d000/39/d3261d5c/ClientSystemDebugCommands.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/21f82f5bb7f14f84b700c07e682ac4a627d000/3a/f29e9aca/ClientSystem.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/21f82f5bb7f14f84b700c07e682ac4a627d000/3d/393bb4d9/InventoryCraftingGrid.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/21f82f5bb7f14f84b700c07e682ac4a627d000/51/472fb255/SystemMouseInWorldInteractions.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/21f82f5bb7f14f84b700c07e682ac4a627d000/69/d887a275/ServerSystemBlockSimulation.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/21f82f5bb7f14f84b700c07e682ac4a627d000/6c/448f5336/GuiScreenConnectingToServer.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/21f82f5bb7f14f84b700c07e682ac4a627d000/77/80e2d377/PlayerAreaSelection.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/21f82f5bb7f14f84b700c07e682ac4a627d000/a5/3e984d0a/ClientMain.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/21f82f5bb7f14f84b700c07e682ac4a627d000/c4/01538fa2/GameMain.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/21f82f5bb7f14f84b700c07e682ac4a627d000/ca/3f41bcec/CraftingInventoryNetworkUtil.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/21f82f5bb7f14f84b700c07e682ac4a627d000/dc/7b17650b/DrawWorldInteractionUtil.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/21f82f5bb7f14f84b700c07e682ac4a627d000/f8/8bc6c26e/LoadSoundsThread.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/3442bdbe7a07406dbd4e05fe7357d408c40e00/2d/3c09cf84/Array.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/3442bdbe7a07406dbd4e05fe7357d408c40e00/2f/4acd34c3/Dictionary`2.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/3442bdbe7a07406dbd4e05fe7357d408c40e00/57/5013a3de/Random.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/3442bdbe7a07406dbd4e05fe7357d408c40e00/b1/15cd4d1c/Type.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/3442bdbe7a07406dbd4e05fe7357d408c40e00/d0/5d6c6528/Object.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/542ba26bb8aa4ea49b5afc99fb8541f2246200/09/4078fe70/ItemPlantableSeed.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/542ba26bb8aa4ea49b5afc99fb8541f2246200/0f/9ebde324/BlockEntityContainer.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/542ba26bb8aa4ea49b5afc99fb8541f2246200/11/05c2e34a/IInFirepitRendererSupplier.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/542ba26bb8aa4ea49b5afc99fb8541f2246200/18/67ddf549/BlockCrop.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/542ba26bb8aa4ea49b5afc99fb8541f2246200/37/5713de01/BlockContainer.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/542ba26bb8aa4ea49b5afc99fb8541f2246200/3c/353a7682/BlockBucket.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/542ba26bb8aa4ea49b5afc99fb8541f2246200/41/ef305807/ItemWorkItem.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/542ba26bb8aa4ea49b5afc99fb8541f2246200/46/7f91b677/BlockEntityFarmland.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/542ba26bb8aa4ea49b5afc99fb8541f2246200/48/9d990308/BlockEntityWildCrop.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/542ba26bb8aa4ea49b5afc99fb8541f2246200/4b/8d4d08f8/ItemHoe.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/542ba26bb8aa4ea49b5afc99fb8541f2246200/54/14b7e80e/AnvilWorkItemRenderer.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/542ba26bb8aa4ea49b5afc99fb8541f2246200/58/4828be8c/BlockEntityAnvil.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/542ba26bb8aa4ea49b5afc99fb8541f2246200/5a/2a2332bd/ItemIronBloom.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/542ba26bb8aa4ea49b5afc99fb8541f2246200/5f/c0ee17fc/BlockCookingContainer.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/542ba26bb8aa4ea49b5afc99fb8541f2246200/60/b768095f/BlockEntityOven.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/542ba26bb8aa4ea49b5afc99fb8541f2246200/66/81ebf7e9/BlockEntityFirepit.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/542ba26bb8aa4ea49b5afc99fb8541f2246200/96/3cc97765/BlockFarmland.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/542ba26bb8aa4ea49b5afc99fb8541f2246200/9c/05f4d0b6/BlockEntityPumpkinVine.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/542ba26bb8aa4ea49b5afc99fb8541f2246200/ad/5e96cd92/BlockLiquidContainerTopOpened.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/542ba26bb8aa4ea49b5afc99fb8541f2246200/b2/1af7809f/BlockEntityBucket.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/542ba26bb8aa4ea49b5afc99fb8541f2246200/b7/eaebe87e/BlockLiquidContainerBase.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/542ba26bb8aa4ea49b5afc99fb8541f2246200/be/2f30b6c4/InventorySmelting.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/542ba26bb8aa4ea49b5afc99fb8541f2246200/be/c5d50b42/IInFirepitRenderer.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/542ba26bb8aa4ea49b5afc99fb8541f2246200/c1/a60d8f23/CookingRecipe.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/542ba26bb8aa4ea49b5afc99fb8541f2246200/c7/0efe32cb/IAnvilWorkable.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/542ba26bb8aa4ea49b5afc99fb8541f2246200/ec/bf78b9fb/BlockBarrel.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/542ba26bb8aa4ea49b5afc99fb8541f2246200/fc/c0b5d5be/BlockEntityDeadCrop.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/542ba26bb8aa4ea49b5afc99fb8541f2246200/fc/c0ccb487/PumpkinCropBehavior.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/6c0b9dbc23c247b392d18f1a652b5a1b58800/90/a46cdf3c/ConfigLibModSystem.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/b4dd82ebff7a472d87d85df3653210b290200/3c/0d31c5c6/BlockType.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/b4dd82ebff7a472d87d85df3653210b290200/58/6a62486a/Room.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/b4dd82ebff7a472d87d85df3653210b290200/5e/7350bf0b/CollectibleType.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/b4dd82ebff7a472d87d85df3653210b290200/60/8eae488a/RoomRegistry.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/b4dd82ebff7a472d87d85df3653210b290200/a0/513d42d4/TransientProperties.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/b4dd82ebff7a472d87d85df3653210b290200/a8/0de3dbaa/BlockEntityTransient.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/c1f9f1d656394ee5bb78c49d93c5e56f1c2400/03/37f72f77/InventoryGeneric.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/c1f9f1d656394ee5bb78c49d93c5e56f1c2400/09/950e6dc5/IWorldAccessor.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/c1f9f1d656394ee5bb78c49d93c5e56f1c2400/17/fac5dca2/BlockSelection.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/c1f9f1d656394ee5bb78c49d93c5e56f1c2400/1b/07efe0bb/ITesselatorAPI.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/c1f9f1d656394ee5bb78c49d93c5e56f1c2400/1f/16989b95/Vec4f.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/c1f9f1d656394ee5bb78c49d93c5e56f1c2400/22/9ecbf17b/Item.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/c1f9f1d656394ee5bb78c49d93c5e56f1c2400/27/fedeb367/CropBehavior.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/c1f9f1d656394ee5bb78c49d93c5e56f1c2400/32/61fdae31/MeshData.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/c1f9f1d656394ee5bb78c49d93c5e56f1c2400/38/ba54db32/ColorUtil.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/c1f9f1d656394ee5bb78c49d93c5e56f1c2400/40/200ada0d/ArrayExtensions.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/c1f9f1d656394ee5bb78c49d93c5e56f1c2400/46/f14ec273/IEventAPI.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/c1f9f1d656394ee5bb78c49d93c5e56f1c2400/54/89de1868/RegistryObject.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/c1f9f1d656394ee5bb78c49d93c5e56f1c2400/58/dc563859/EntityPlayer.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/c1f9f1d656394ee5bb78c49d93c5e56f1c2400/82/4f16e413/AABBIntersectionTest.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/c1f9f1d656394ee5bb78c49d93c5e56f1c2400/89/0fa8dfdf/GuiDialog.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/c1f9f1d656394ee5bb78c49d93c5e56f1c2400/8a/b9e5f7a6/ICoreClientAPI.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/c1f9f1d656394ee5bb78c49d93c5e56f1c2400/8c/92015201/CollectibleObject.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/c1f9f1d656394ee5bb78c49d93c5e56f1c2400/94/8aef8cf9/ITreeAttribute.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/c1f9f1d656394ee5bb78c49d93c5e56f1c2400/99/db02df1f/Block.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/c1f9f1d656394ee5bb78c49d93c5e56f1c2400/9d/99fbb253/IBlockAccessor.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/c1f9f1d656394ee5bb78c49d93c5e56f1c2400/a1/7ea867a1/AssetLocation.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/c1f9f1d656394ee5bb78c49d93c5e56f1c2400/a6/0cd19847/ModSystem.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/c1f9f1d656394ee5bb78c49d93c5e56f1c2400/a7/02d4cffa/ItemStack.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/c1f9f1d656394ee5bb78c49d93c5e56f1c2400/ab/4e5c1a98/IClientEventAPI.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/c1f9f1d656394ee5bb78c49d93c5e56f1c2400/b3/0b04bdbb/IAttribute.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/c1f9f1d656394ee5bb78c49d93c5e56f1c2400/b4/28e86ce6/BlockFacing.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/c1f9f1d656394ee5bb78c49d93c5e56f1c2400/c6/99302b28/CairoFont.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/c1f9f1d656394ee5bb78c49d93c5e56f1c2400/c7/84c68907/ItemSlot.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/c1f9f1d656394ee5bb78c49d93c5e56f1c2400/c9/a8f83e90/BlockFilter.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/c1f9f1d656394ee5bb78c49d93c5e56f1c2400/c9/d20e412e/BlockBehavior.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/c1f9f1d656394ee5bb78c49d93c5e56f1c2400/ca/c57ac05f/CollectibleBehavior.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/c1f9f1d656394ee5bb78c49d93c5e56f1c2400/cc/b356d919/Shape.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/c1f9f1d656394ee5bb78c49d93c5e56f1c2400/d2/5a0c9d1c/Entity.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/c1f9f1d656394ee5bb78c49d93c5e56f1c2400/d5/08a90826/IFarmlandBlockEntity.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/c1f9f1d656394ee5bb78c49d93c5e56f1c2400/d8/15963286/EnumReflectiveMode.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/c1f9f1d656394ee5bb78c49d93c5e56f1c2400/e7/6f270b70/CustomGetTransitionSpeedMulDelegate.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/c1f9f1d656394ee5bb78c49d93c5e56f1c2400/ea/2f2c1c0e/InventoryBase.cs" root0="SKIP_HIGHLIGHTING" />
@@ -80,10 +191,6 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/c1f9f1d656394ee5bb78c49d93c5e56f1c2400/ee/d3b9581b/ISlotProvider.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/c1f9f1d656394ee5bb78c49d93c5e56f1c2400/f3/1424871b/ShapeElementFace.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/c1f9f1d656394ee5bb78c49d93c5e56f1c2400/f6/0fefd77f/ItemstackComponentBase.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Users/jacopouggeri/workspace/VintageModding/BalancedThirst/BalancedThirst/Blocks/BlockLiquidContainerSealable.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Users/jacopouggeri/workspace/VintageModding/BalancedThirst/BalancedThirst/Blocks/BlockLiquidContainerSealable.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Users/jacopouggeri/workspace/VintageModding/BalancedThirst/BalancedThirst/ModBlockBehavior/BlockBehaviorGushingLiquid.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Users/jacopouggeri/workspace/VintageModding/BalancedThirst/BalancedThirst/ModBlockBehavior/BlockBehaviorGushingLiquid.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/BalancedThirst/Systems/BtCore.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/BalancedThirst/Systems/ConfigSystem.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
@@ -99,29 +206,29 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    ".NET Launch Settings Profile.BalancedThirst: Client.executor": "Run",
-    ".NET Launch Settings Profile.BalancedThirst: Server.executor": "Run",
-    ".NET Project.CakeBuild.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "master",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "SolutionBuilderGeneralOptionsPage",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;.NET Launch Settings Profile.BalancedThirst: Client.executor&quot;: &quot;Run&quot;,
+    &quot;.NET Launch Settings Profile.BalancedThirst: Server.executor&quot;: &quot;Run&quot;,
+    &quot;.NET Project.CakeBuild.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "rider.external.source.directories": [
-      "/Users/jacopouggeri/Library/Application Support/JetBrains/Rider2024.1/resharper-host/DecompilerCache",
-      "/Users/jacopouggeri/Library/Application Support/JetBrains/Rider2024.1/resharper-host/SourcesCache",
-      "/Users/jacopouggeri/Library/Application Support/Symbols/src"
+  &quot;keyToStringList&quot;: {
+    &quot;rider.external.source.directories&quot;: [
+      &quot;/Users/jacopouggeri/Library/Application Support/JetBrains/Rider2024.1/resharper-host/DecompilerCache&quot;,
+      &quot;/Users/jacopouggeri/Library/Application Support/JetBrains/Rider2024.1/resharper-host/SourcesCache&quot;,
+      &quot;/Users/jacopouggeri/Library/Application Support/Symbols/src&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected=".NET Launch Settings Profile.BalancedThirst: Client">
     <configuration name="CakeBuild" type="DotNetProject" factoryName=".NET Project">
       <option name="EXE_PATH" value="" />
@@ -183,6 +290,9 @@
       <workItem from="1720205318823" duration="64000" />
       <workItem from="1720205418427" duration="53125000" />
       <workItem from="1720391330739" duration="88641000" />
+      <workItem from="1720616624608" duration="73959000" />
+      <workItem from="1720826003399" duration="322000" />
+      <workItem from="1720830441454" duration="12175000" />
     </task>
     <task id="LOCAL-00001" summary="Working kettle, and smelting, demijohn">
       <option name="closed" value="true" />
@@ -272,7 +382,15 @@
       <option name="project" value="LOCAL" />
       <updated>1720576002232</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Source drinking rework">
+      <option name="closed" value="true" />
+      <created>1720658102281</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1720658102281</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -299,7 +417,8 @@
     <MESSAGE value="Fixed hydration from containers,kettle firing and added trades" />
     <MESSAGE value="Fixed broken transition mul and added config options for drink speed" />
     <MESSAGE value="0.0.27 release" />
-    <option name="LAST_COMMIT_MESSAGE" value="0.0.27 release" />
+    <MESSAGE value="Source drinking rework" />
+    <option name="LAST_COMMIT_MESSAGE" value="Source drinking rework" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

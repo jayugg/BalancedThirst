@@ -2,6 +2,9 @@
     "block-woodenbowl-raw": "Wooden bowl",
     "block-woodenbowl-waxed": "Waxed wooden bowl",
 
+    "item-vegetable-gourd": "Gourd (Vegetable)",
+    "item-seeds-gourd": "Gourd Plant Seeds",
+
     "block-chamberpot-raw": "Raw chamberpot",
     "block-chamberpot-fired": "Chamberpot",
     "block-chamberpot-porcelain": "Chamberpot (Porcelain)",
@@ -26,6 +29,24 @@
 
     "block-waterskin-pelt": "Pelt waterskin",
     "block-waterskin-leather": "Leather waterskin",
+
+    "balancedthirst:block-gourdpumpkin-fruit-1": "Growing calabash",
+    "balancedthirst:block-gourdpumpkin-fruit-2": "Growing calabash",
+    "balancedthirst:block-gourdpumpkin-fruit-3": "Calabash",
+    "balancedthirst:block-gourdpumpkin-fruit-4": "Calabash (Large)",
+    "balancedthirst:block-gourd-medium-carved": "Carved calabash",
+    "balancedthirst:block-gourd-large-carved": "Carved calabash (Large)",
+    "balancedthirst:block-gourd-medium-dried": "Gourd",
+    "balancedthirst:block-gourd-large-dried": "Large gourd",
+    "balancedthirst:item-vegetable-gourdpumpkin": "Sliced calabash",
+    "balancedthirst:item-seeds-gourdpumpkin": "Calabash seeds",
+    "block-crop-gourdpumpkin-*": "Growing calabash plant",
+    "block-crop-gourdpumpkin-7": "Mature calabash plant",
+    "block-crop-gourdpumpkin-8": "Withered calabash plant",
+    "block-gourdpumpkin-vine-*": "Growing calabash vine",
+    "block-gourdpumpkin-vine-3-normal": "Mature calabash vine",
+    "block-gourdpumpkin-vine-3-blooming": "Blooming calabash vine",
+    "block-gourdpumpkin-vine-4-withered": "Withered calabash vine",
 
     "item-waterportion-pure": "Pure water",
     "incontainer-item-waterportion-pure": "Pure water",

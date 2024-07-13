@@ -6,7 +6,7 @@ using Vintagestory.API.Client;
 using Vintagestory.API.Common;
 using Vintagestory.API.Server;
 
-namespace BalancedThirst.Compatibility.HoDCompat;
+namespace BalancedThirst.Compatibility;
 
 public class HoDCompat : ModSystem
 {
@@ -15,25 +15,11 @@ public class HoDCompat : ModSystem
     private Dictionary<string, float> PlayerThirstLevels = new Dictionary<string, float>();
     
     public override double ExecuteOrder() => 1.03;
-    public override bool ShouldLoad(EnumAppSide forSide) => forSide == EnumAppSide.Server && ConfigSystem.ConfigServer.UseHoDHydrationValues;
-    public override void StartPre(ICoreAPI api)
-    {
-        base.StartPre(api);
-        ItemHydrationConfigLoader.GenerateBTHydrationConfig(api);
-        BlockHydrationConfigLoader.GenerateBTHydrationConfig(api);
-    }
-
+    public override bool ShouldLoad(EnumAppSide forSide) => BtCore.IsHoDLoaded;
     public override void StartServerSide(ICoreServerAPI sapi)
     {
         base.Start(sapi);
         sapi.World.RegisterGameTickListener((dt) => OnServerGameTick(sapi, dt), 200);
-    }
-
-    public override void AssetsFinalize(ICoreAPI api)
-    {
-        base.AssetsFinalize(api);
-        LoadAndApplyHydrationPatches(api);
-        LoadAndApplyBlockHydrationPatches(api);
     }
     
     private void OnServerGameTick(ICoreAPI api, float dt)
@@ -54,17 +40,4 @@ public class HoDCompat : ModSystem
             PlayerThirstLevels[player.PlayerUID] = currentThirst;
         }
     }
-    
-    private void LoadAndApplyHydrationPatches(ICoreAPI api)
-    {
-        List<JObject> hydrationPatches = ItemHydrationConfigLoader.LoadHydrationPatches(api);
-        HoDManager.ApplyHydrationPatches(api, hydrationPatches);
-    }
-    
-    private void LoadAndApplyBlockHydrationPatches(ICoreAPI api)
-    {
-        List<JObject> blockHydrationPatches = BlockHydrationConfigLoader.LoadBlockHydrationConfig(api);
-        HoDManager.ApplyBlockHydrationPatches(api, blockHydrationPatches);
-    }
-
 }

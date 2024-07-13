@@ -1,0 +1,13 @@
+[
+  {
+    "comment": "Small patches of gourd pumpkin",
+    "blockCodes": ["balancedthirst:crop-gourdpumpkin-5", "balancedthirst:crop-gourdpumpkin-4", "balancedthirst:crop-gourdpumpkin-3", "balancedthirst:crop-gourdpumpkin-2", "balancedthirst:crop-gourdpumpkin-1"],
+    "minTemp": 3,
+    "maxTemp": 36,
+    "minRain": 0.35,
+    "maxRain": 0.9,
+    "maxForest": 0.3,
+    "quantity": { "avg": 1, "var": 1 },
+    "chance": 0.036
+  }
+]

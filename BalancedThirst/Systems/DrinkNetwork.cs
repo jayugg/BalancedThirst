@@ -84,7 +84,7 @@ public class DrinkNetwork : ModSystem
         if (ConfigSystem.SyncedConfigData.EnableThirst
             && player.RightHandItemSlot.Empty
             && player.Player is IClientPlayer clientPlayer &&
-            !clientPlayer.IsLookingAtDrinkableBlock())
+            !clientPlayer.IsLookingAtInteractable())
         {
             var blockSel = clientPlayer.GetLookLiquidBlockSelection();
             var waterPos = blockSel?.Position;

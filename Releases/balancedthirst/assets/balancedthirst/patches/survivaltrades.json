@@ -17,7 +17,7 @@
         }
       },
       {
-        "code": "balancedthirst:waterskin-pelt",
+        "code": "balancedthirst:gourd-medium-dried",
         "type": "block",
         "stacksize": 1,
         "stock": {
@@ -30,7 +30,7 @@
         }
       },
       {
-        "code": "balancedthirst:waterskin-leather",
+        "code": "balancedthirst:gourd-large-dried",
         "type": "block",
         "stacksize": 1,
         "stock": {
@@ -63,7 +63,7 @@
         }
       },
       {
-        "code": "balancedthirst:waterskin-pelt",
+        "code": "balancedthirst:gourd-medium-dried",
         "type": "block",
         "stacksize": 1,
         "stock": {
@@ -76,7 +76,7 @@
         }
       },
       {
-        "code": "balancedthirst:waterskin-leather",
+        "code": "balancedthirst:gourd-large-dried",
         "type": "block",
         "stacksize": 1,
         "stock": {

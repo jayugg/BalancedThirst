@@ -79,7 +79,6 @@ public class BlockEntitySealable : BlockEntityBucket
 
         return mesh;
     }
-
     
     public override bool OnTesselation(ITerrainMeshPool mesher, ITesselatorAPI tesselator)
     {

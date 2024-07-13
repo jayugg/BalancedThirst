@@ -1,0 +1,65 @@
+{
+  "code": "vegetable",
+  "maxstacksize": 64,
+  "attributesByType": {
+    "*-gourdpumpkin": {
+      "inContainerTexture": { "base": "game:block/wood/barrel/raw-pumpkin" },
+      "nutritionPropsWhenInMeal": { "satiety": 80, "foodcategory": "Vegetable" },
+      "inPieProperties": { "texture": "game:block/food/pie/fill-pumpkin", "partType": "Filling" }
+    }
+  },
+  "variantgroups": [
+    { "code": "type", "states": ["gourdpumpkin"] }
+  ],
+  "shapebytype": {
+    "*-gourdpumpkin": { "base": "item/vegetable/slicedpumpkin" }
+  },
+  "creativeinventory": { "general": ["*"], "items": ["*"] },
+  "nutritionPropsByType": {
+    "*-gourdpumpkin": { "satiety": 60, "foodcategory": "Vegetable" }
+  },
+  "transitionablePropsByType": {
+    "*-gourdpumpkin": [
+      {
+        "type": "Perish",
+        "freshHours": { "avg": 216 },
+        "transitionHours": { "avg": 72 },
+        "transitionedStack": { "type": "item", "code": "game:rot" },
+        "transitionRatio": 0.5
+      }
+    ]
+  },
+  "materialDensity": 600,
+  "guiTransformByType": {
+    "*-gourdpumpkin": {
+      "translation": { "x": 2, "y": 2, "z": 0 },
+      "rotation": { "x": 127, "y": 180, "z": 38 },
+      "origin": { "x": 0.5, "y": 0.05, "z": 0.5 },
+      "scale": 3.5999
+    }
+  },
+  "fpHandTransformByType": {
+    "*-gourdpumpkin":	{
+      "translation": { "x": 0, "y": 0.22, "z": 0 },
+      "rotation": { "x": 45, "y": 47, "z": -30 },
+      "origin": { "x": 0.5, "y": 0.1, "z": 0.5 },
+      "scale": 1.8999
+    }
+  },
+  "tpHandTransformByType": {
+    "*-gourdpumpkin": {
+      "translation": { "x": -0.8, "y": -0.2, "z": -0.59 },
+      "rotation": { "x": 84, "y": 3, "z": 4 },
+      "origin": { "x": 0.5, "y": 0.1, "z": 0.5 },
+      "scale": 0.75
+    }
+  },
+  "groundTransformByType": {
+    "*-gourdpumpkin": {
+      "translation": { "x": 0, "y": 0.01, "z": 0 },
+      "rotation": { "x": 0, "y": 0, "z": 0 },
+      "origin": { "x": 0.47, "y": 0, "z": 0.5 },
+      "scale": 4.0
+    }
+  }
+}

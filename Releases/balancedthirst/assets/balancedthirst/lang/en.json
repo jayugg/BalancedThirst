@@ -2,6 +2,9 @@
     "block-woodenbowl-raw": "Wooden bowl",
     "block-woodenbowl-waxed": "Waxed wooden bowl",
 
+    "item-vegetable-gourd": "Gourd (Vegetable)",
+    "item-seeds-gourd": "Gourd Plant Seeds",
+
     "block-chamberpot-raw": "Raw chamberpot",
     "block-chamberpot-fired": "Chamberpot",
     "block-chamberpot-porcelain": "Chamberpot (Porcelain)",
@@ -26,6 +29,22 @@
 
     "block-waterskin-pelt": "Pelt waterskin",
     "block-waterskin-leather": "Leather waterskin",
+
+    "balancedthirst:block-gourdpumpkin-fruit-3": "Gourd fruit",
+    "balancedthirst:block-gourdpumpkin-fruit-4": "Large gourd fruit",
+    "balancedthirst:block-gourd-medium-carved": "Carved gourd",
+    "balancedthirst:block-gourd-large-carved": "Carved gourd (large)",
+    "balancedthirst:block-gourd-medium-dried": "Gourd",
+    "balancedthirst:block-gourd-large-dried": "Large gourd",
+    "balancedthirst:item-vegetable-gourdpumpkin": "Sliced gourd fruit",
+    "balancedthirst:item-seeds-gourdpumpkin": "Gourd seeds",
+    "block-crop-gourdpumpkin-*": "Growing gourd plant",
+    "block-crop-gourdpumpkin-7": "Mature gourd plant",
+    "block-crop-gourdpumpkin-8": "Withered gourd plant",
+    "block-gourdpumpkin-vine-*": "Growing gourd vine",
+    "block-gourdpumpkin-vine-3-normal": "Mature gourd vine",
+    "block-gourdpumpkin-vine-3-blooming": "Blooming gourd vine",
+    "block-gourdpumpkin-vine-4-withered": "Withered gourd vine",
 
     "item-waterportion-pure": "Pure water",
     "incontainer-item-waterportion-pure": "Pure water",

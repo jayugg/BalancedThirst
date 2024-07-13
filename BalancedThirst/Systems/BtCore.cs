@@ -1,6 +1,5 @@
 ﻿using BalancedThirst.BlockEntities;
 using BalancedThirst.Blocks;
-using BalancedThirst.Compatibility.HoDCompat;
 using BalancedThirst.Config;
 using BalancedThirst.Hud;
 using BalancedThirst.Items;
@@ -33,11 +32,6 @@ public class BtCore : ModSystem
         {
             _ = new ConfigLibCompat(api);
         }
-        if (IsHoDLoaded)
-        {
-            ItemHydrationConfigLoader.GenerateBTHydrationConfig(api);
-            BlockHydrationConfigLoader.GenerateBTHydrationConfig(api);
-        }
         ConfigSystem.StartPre(api);
     }
 
@@ -46,9 +40,13 @@ public class BtCore : ModSystem
         api.RegisterBlockClass($"{Modid}.{nameof(BlockLiquidContainerLeaking)}", typeof(BlockLiquidContainerLeaking));
         api.RegisterBlockClass($"{Modid}.{nameof(BlockKettle)}", typeof(BlockKettle));
         api.RegisterBlockClass($"{Modid}.{nameof(BlockLiquidContainerSealable)}", typeof(BlockLiquidContainerSealable));
+        api.RegisterBlockClass($"{Modid}.{nameof(BlockGourdMotherplant)}", typeof(BlockGourdMotherplant));
         api.RegisterBlockEntityClass($"{Modid}.{nameof(BlockEntityKettle)}", typeof(BlockEntityKettle));
         api.RegisterBlockEntityClass($"{Modid}.{nameof(BlockEntitySealable)}", typeof(BlockEntitySealable));
+        api.RegisterBlockEntityClass($"{Modid}.{nameof(BlockEntityGourdVine)}", typeof(BlockEntityGourdVine));
+        api.RegisterBlockEntityClass($"{Modid}.{nameof(BlockEntityGourdMotherplant)}", typeof(BlockEntityGourdMotherplant));
         api.RegisterItemClass($"{Modid}.{nameof(ItemDowsingRod)}", typeof(ItemDowsingRod));
+        api.RegisterCropBehavior($"{Modid}:GourdPumpkin", typeof(GourdCropBehavior));
         api.RegisterBlockBehaviorClass($"{Modid}:GushingLiquid", typeof(BlockBehaviorGushingLiquid));
         api.RegisterBlockBehaviorClass($"{Modid}:PureWater", typeof(BlockBehaviorPureWater));
         api.RegisterEntityBehaviorClass($"{Modid}:thirst", typeof(EntityBehaviorThirst));

@@ -23,6 +23,9 @@ public class BlockLiquidContainerSealable : BlockLiquidContainerBase
     public override bool CanDrinkFrom => true;
     public override bool IsTopOpened => true;
     public override bool AllowHeldLiquidTransfer => true;
+    public virtual string EmptyShapeLoc => $"{BtCore.Modid}:shapes/block/{FirstCodePart()}/empty.json";
+    public virtual string LidShapeLoc => $"{BtCore.Modid}:shapes/block/{FirstCodePart()}/lid.json";
+    public virtual string ContentsShapeLoc => $"{BtCore.Modid}:shapes/block/{FirstCodePart()}/contents.json";
     
     public static WaterTightContainableProps GetInContainerProps(ItemStack stack)
     {
@@ -484,7 +487,7 @@ public class BlockLiquidContainerSealable : BlockLiquidContainerBase
 
 
     public MeshData GenRightMesh(ICoreClientAPI capi, ItemStack contentStack, BlockPos forBlockPos = null, bool isSealed = false) {
-        Shape shape = capi.Assets.TryGet($"{BtCore.Modid}:shapes/block/" + FirstCodePart() + "/" + (isSealed && Attributes.IsTrue("canSeal") ? "lid" : "empty") + ".json").ToObject<Shape>();
+        Shape shape = capi.Assets.TryGet(isSealed && Attributes.IsTrue("canSeal") ? LidShapeLoc : EmptyShapeLoc).ToObject<Shape>();
         MeshData bucketmesh;
         capi.Tesselator.TesselateShape(this, shape, out bucketmesh);
 
@@ -497,7 +500,7 @@ public class BlockLiquidContainerSealable : BlockLiquidContainerBase
 
             if (props.Texture == null) return null;
 
-            shape = capi.Assets.TryGet($"{BtCore.Modid}:shapes/block/" + FirstCodePart() + "/contents" +  ".json").ToObject<Shape>();
+            shape = capi.Assets.TryGet(ContentsShapeLoc).ToObject<Shape>();
             
             shape = SliceFlattenedShape(shape.FlattenHierarchy(), fullness);
             
@@ -539,7 +542,7 @@ public class BlockLiquidContainerSealable : BlockLiquidContainerBase
         }
         return bucketmesh;
     }
-    
+
     public override bool DoPlaceBlock(
         IWorldAccessor world,
         IPlayer byPlayer,

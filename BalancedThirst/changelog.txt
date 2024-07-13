@@ -1,4 +1,2 @@
-- Should have fixed drinking from air/worms
-- Fixed not being able to interact with blocks underwater
-- Fixed kettle not brewing because they counted too many water litres inside
-- No more tooltip patches for better compatibility
+- Fixed source drinking not working
+- Added gourd crop and container (models temporary), replaced waterskins with gourd

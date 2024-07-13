@@ -19,8 +19,6 @@ public static class Raycast
             var blockPos = new BlockPos((int)currentPos.X, (int)currentPos.Y, (int)currentPos.Z);
             var block = player.Entity.World.BlockAccessor.GetBlock(blockPos);
         
-            BtCore.Logger.Warning($"Checking block at {blockPos}, Code: {block.Code}, Material: {block.BlockMaterial}");
-        
             if (block.BlockMaterial == EnumBlockMaterial.Liquid)
             {
                 return new BlockSelection { Position = blockPos.Copy(), HitPosition = currentPos.Clone() };
