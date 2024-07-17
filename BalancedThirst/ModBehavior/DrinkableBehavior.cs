@@ -6,6 +6,7 @@ using BalancedThirst.Thirst;
 using BalancedThirst.Util;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
+using Vintagestory.API.Common.Entities;
 using Vintagestory.API.Config;
 using Vintagestory.API.Datastructures;
 using Vintagestory.GameContent;
@@ -27,18 +28,41 @@ public class DrinkableBehavior : CollectibleBehavior
       base.OnLoaded(api);
     }
     
-    internal HydrationProperties GetHydrationProperties(ItemStack itemstack)
+    internal virtual HydrationProperties GetHydrationProperties(IWorldAccessor world, ItemStack itemstack, Entity byEntity)
     {
-      try
-      {
-        JsonObject itemAttribute = itemstack?.ItemAttributes?["hydrationProps"];
-        return itemAttribute is { Exists: true } ? itemAttribute.AsObject<HydrationProperties>( null, itemstack.Collectible.Code.Domain) : null;
-      }
-      catch (Exception ex)
-      {
-        BtCore.Logger.Error("Error getting hydration properties: " + ex.Message);
+        return ExtractDirectHydrationProperties(itemstack);
+    }
+
+    protected HydrationProperties ExtractContainerHydrationProperties(IWorldAccessor world, ItemStack itemstack, Entity byEntity)
+    {
+        if (collObj is BlockLiquidContainerBase container && container.GetContent(itemstack) != null && container.GetContent(itemstack).Collectible.HasBehavior<DrinkableBehavior>())
+        {
+            return GetContainerHydrationProperties(container, itemstack);
+        }
         return null;
-      }
+    }
+
+    protected HydrationProperties ExtractNutritionHydrationProperties(IWorldAccessor world, ItemStack itemstack, Entity byEntity)
+    {
+        if (itemstack.Collectible.HasBehavior<HydratingFoodBehavior>())
+        {
+            return HydrationProperties.FromNutrition(collObj.GetNutritionProperties(world, itemstack, byEntity));
+        }
+        return null;
+    }
+
+    protected HydrationProperties ExtractDirectHydrationProperties(ItemStack itemstack)
+    {
+        try
+        {
+            JsonObject itemAttribute = itemstack?.ItemAttributes?["hydrationProps"];
+            return itemAttribute is { Exists: true } ? itemAttribute.AsObject<HydrationProperties>(null, itemstack.Collectible.Code.Domain) : null;
+        }
+        catch (Exception ex)
+        {
+            BtCore.Logger.Error("Error getting hydration properties: " + ex.Message);
+            return null;
+        }
     }
     
     internal static HydrationProperties GetContentHydrationPropsPerLitre(
@@ -50,7 +74,7 @@ public class DrinkableBehavior : CollectibleBehavior
       if (content == null) return null;
       if (!content.Collectible.HasBehavior<DrinkableBehavior>()) return null;
       var behavior = content.Collectible.GetBehavior<DrinkableBehavior>();
-      HydrationProperties hydrationProperties = behavior.GetHydrationProperties(new ItemStack(content.Item));
+      HydrationProperties hydrationProperties = behavior.ExtractDirectHydrationProperties(new ItemStack(content.Item));
       return hydrationProperties;
     }
     
@@ -63,6 +87,7 @@ public class DrinkableBehavior : CollectibleBehavior
       if (content == null) return null;
       var hydrationProperties = GetContentHydrationPropsPerLitre(container, itemstack);
       WaterTightContainableProps containableProps = BlockLiquidContainerBase.GetContainableProps(content);
+      if (containableProps == null || hydrationProperties == null) return null;
       float num = content.StackSize / containableProps.ItemsPerLitre;
       hydrationProperties.Hydration *= num;
       hydrationProperties.HydrationLossDelay *= num;
@@ -100,12 +125,13 @@ public class DrinkableBehavior : CollectibleBehavior
     public override void GetHeldItemInfo(ItemSlot inSlot, StringBuilder dsc, IWorldAccessor world, bool withDebugInfo)
     {
       base.GetHeldItemInfo(inSlot, dsc, world, withDebugInfo);
-              var itemstack = inSlot.Itemstack;
-        var collObj = itemstack.Collectible;
+        var itemstack = inSlot.Itemstack;
+        var collectible = itemstack.Collectible;
         EntityPlayer entity = world.Side == EnumAppSide.Client ? (world as IClientWorldAccessor)?.Player.Entity : null;
-        HydrationProperties hydrationProperties = collObj?.GetHydrationProperties(world, itemstack, entity);
+        if (entity == null) return;
+        HydrationProperties hydrationProperties = this.GetHydrationProperties(world, itemstack, entity);
         if (hydrationProperties == null) return;
-        float spoilState = collObj.AppendPerishableInfoText(inSlot, new StringBuilder(), world);
+        float spoilState = collectible.AppendPerishableInfoText(inSlot, new StringBuilder(), world);
         float spoilageFactor = GlobalConstants.FoodSpoilageSatLossMul(spoilState, itemstack, entity);
         var hydration = hydrationProperties.Hydration * spoilageFactor;
         string existingText = dsc.ToString();
@@ -176,7 +202,7 @@ public class DrinkableBehavior : CollectibleBehavior
                 dsc.Replace(existingLine, updatedLine);
             }
         }
-        FoodNutritionProperties nutritionProperties = collObj.GetNutritionProperties(world, itemstack, entity);
+        FoodNutritionProperties nutritionProperties = collectible.GetNutritionProperties(world, itemstack, entity);
         if (nutritionProperties != null && nutritionProperties.FoodCategory == EnumFoodCategory.NoNutrition)
         {
             string foodCategoryPattern = Lang.Get("Food Category: {0}", @"(.*)");

@@ -47,11 +47,30 @@ public static class ConfigSystem
         _clientChannel?.SendPacket(ModConfig.ReadConfig<SyncedConfig>(_api, BtConstants.SyncedConfigName));
     }
     
+    public static void ResetModBoosts(EntityPlayer player)
+    {
+        if (player == null) return;
+        foreach (var stat in ConfigSystem.ConfigServer.ThirstStatMultipliers.Keys)
+        {
+            player.Stats.Remove(stat, BtCore.Modid + ":thirsty");
+        }
+        player.Stats.Remove(BtCore.Modid + ":thirstrate", "HoD:cooling");
+        player.Stats.Remove(BtCore.Modid + ":thirstrate", "resistheat");
+        player.Stats.Remove("walkspeed", "bladderfull");
+        player.Stats.Remove("walkspeed", "bowelfull");
+    }
+    
     private static void ReloadSyncedConfig(SyncedConfig packet)
     {
         BtCore.Logger.Warning("Reloading synced config");
         ModConfig.WriteConfig(_api, BtConstants.SyncedConfigName, packet);
         SyncedConfig = packet.Clone();
+        if (SyncedConfig.ResetModBoosts)
+        {
+            ResetModBoosts((_api as ICoreClientAPI)?.World.Player.Entity);
+            SyncedConfig.ResetModBoosts = false;
+            ModConfig.WriteConfig(_api, BtConstants.SyncedConfigName, SyncedConfig);
+        }
         _api?.Event.PushEvent(EventIds.ConfigReloaded);
     }
     #endregion

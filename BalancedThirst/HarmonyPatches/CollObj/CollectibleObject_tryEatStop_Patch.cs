@@ -22,7 +22,7 @@ public class CollectibleObject_tryEatStop_Patch
         if (api is not { Side: EnumAppSide.Server } || slot?.Itemstack == null) return;
         var collObj = slot.Itemstack.Collectible;
         if (!(secondsUsed >= 0.95f)) return;
-        HydrationProperties hydrationProps = collObj.GetHydrationProperties(slot.Itemstack, byEntity);
+        HydrationProperties hydrationProps = collObj.GetHydrationProperties(byEntity.World, slot.Itemstack, byEntity);
         if (hydrationProps == null || byEntity is not EntityPlayer player) return;
         TransitionState transitionState = collObj.UpdateAndGetTransitionState(byEntity.Api.World, slot, EnumTransitionType.Perish);
         double spoilState = transitionState?.TransitionLevel ?? 0.0;

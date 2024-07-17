@@ -41,6 +41,7 @@ public class BtCore : ModSystem
         api.RegisterBlockClass($"{Modid}.{nameof(BlockKettle)}", typeof(BlockKettle));
         api.RegisterBlockClass($"{Modid}.{nameof(BlockLiquidContainerSealable)}", typeof(BlockLiquidContainerSealable));
         api.RegisterBlockClass($"{Modid}.{nameof(BlockGourdMotherplant)}", typeof(BlockGourdMotherplant));
+        api.RegisterBlockClass($"{Modid}.{nameof(BlockStain)}", typeof(BlockStain));
         api.RegisterBlockEntityClass($"{Modid}.{nameof(BlockEntityKettle)}", typeof(BlockEntityKettle));
         api.RegisterBlockEntityClass($"{Modid}.{nameof(BlockEntitySealable)}", typeof(BlockEntitySealable));
         api.RegisterBlockEntityClass($"{Modid}.{nameof(BlockEntityGourdVine)}", typeof(BlockEntityGourdVine));
@@ -53,6 +54,7 @@ public class BtCore : ModSystem
         api.RegisterEntityBehaviorClass($"{Modid}:bladder", typeof(EntityBehaviorBladder));
         api.RegisterCollectibleBehaviorClass($"{Modid}:Drinkable", typeof(DrinkableBehavior));
         api.RegisterCollectibleBehaviorClass($"{Modid}:WaterContainer", typeof(WaterContainerBehavior));
+        api.RegisterCollectibleBehaviorClass($"{Modid}:HydratingFood", typeof(HydratingFoodBehavior));
     }
 
     public override void StartServerSide(ICoreServerAPI sapi)

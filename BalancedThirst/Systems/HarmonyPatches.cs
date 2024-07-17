@@ -50,18 +50,19 @@ public class HarmonyPatches : ModSystem
             postfix: typeof(CollectibleObject_tryEatStop_Patch).GetMethod(
                 nameof(CollectibleObject_tryEatStop_Patch.Postfix)));
         
+        HarmonyInstance.Patch(typeof(CollectibleObject).GetMethod(nameof(CollectibleObject.OnHeldInteractStop)),
+            prefix: typeof(CollectibleObject_OnHeldInteractStop_Patch).GetMethod(
+                nameof(CollectibleObject_OnHeldInteractStop_Patch.Prefix)),
+            postfix: typeof(CollectibleObject_OnHeldInteractStop_Patch).GetMethod(
+                nameof(CollectibleObject_OnHeldInteractStop_Patch.Postfix)));
+        
         HarmonyInstance.Patch(typeof(BlockContainer).GetMethod(nameof(BlockContainer.GetContainingTransitionModifierContained)),
             postfix: typeof(BlockContainer_GetContainingTransitionModifier).GetMethod(
                 nameof(BlockContainer_GetContainingTransitionModifier.Contained_Postfix)));
         HarmonyInstance.Patch(typeof(BlockContainer).GetMethod(nameof(BlockContainer.GetContainingTransitionModifierPlaced)),
             postfix: typeof(BlockContainer_GetContainingTransitionModifier).GetMethod(
                 nameof(BlockContainer_GetContainingTransitionModifier.Placed_Postfix)));
-
-        HarmonyInstance.Patch(typeof(BlockLiquidContainerBase).GetMethod("tryEatStop", BindingFlags.NonPublic | BindingFlags.Instance),
-            prefix: typeof(BlockLiquidContainerBase_tryEatStop_Patch).GetMethod(
-                nameof(BlockLiquidContainerBase_tryEatStop_Patch.Prefix)),
-            postfix: typeof(BlockLiquidContainerBase_tryEatStop_Patch).GetMethod(
-                nameof(BlockLiquidContainerBase_tryEatStop_Patch.Postfix)));
+        
         HarmonyInstance.Patch(typeof(CharacterExtraDialogs).GetMethod("Dlg_ComposeExtraGuis",  BindingFlags.NonPublic | BindingFlags.Instance),
             postfix: typeof(CharacterExtraDialogs_Dlg_ComposeExtraGuis_Patch).GetMethod(
                 nameof(CharacterExtraDialogs_Dlg_ComposeExtraGuis_Patch.Postfix)));

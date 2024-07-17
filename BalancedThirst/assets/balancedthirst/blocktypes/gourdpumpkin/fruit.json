@@ -51,6 +51,26 @@
 		"hit": "game:block/pumpkin"
 	},
 	"materialDensity": 200,
+	"transitionablePropsByType": {
+		"*-3": [
+			{
+				"type": "Dry",
+				"freshHours": { "avg":  96 },
+				"transitionHours": { "avg": 36 },
+				"transitionedStack": { "type": "block", "code": "balancedthirst:gourd-medium-dried" },
+				"transitionRatio": 1
+			}
+		],
+		"*-4": [
+			{
+				"type": "Dry",
+				"freshHours": { "avg":  96 },
+				"transitionHours": { "avg": 48 },
+				"transitionedStack": { "type": "block", "code": "balancedthirst:gourd-large-dried" },
+				"transitionRatio": 1
+			}
+		]
+	},
 	"transitionableProps": [{
 		"type": "Perish",
 		"freshHours": { "avg": 432 },
@@ -59,9 +79,8 @@
 		"transitionRatio": 2
 	}],
 	"guiTransform": {
-		"translation": { "x": 0, "y": -1, "z": 0 },
-		"rotation": { "x": -27, "y": -39, "z": 0 },
-		"scale": 1.11
+		"origin": { "x": 0.5, "y": 0.3, "z": 0.5 },
+		"scale": 1.8
 	},
 	"tpHandTransform": {
 		"translation": { "x": -1.4, "y": -0.8, "z": -0.59 },

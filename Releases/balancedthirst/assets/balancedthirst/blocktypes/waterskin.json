@@ -50,14 +50,14 @@
       "type": "Perish",
       "freshHours": { "avg":  1 },
       "transitionHours": { "avg": 0 },
-      "transitionedStack": { "type": "block", "code": "balancedthirst:gourd-large-dried" },
+      "transitionedStack": { "type": "block", "code": "balancedthirst:gourd-large-carved" },
       "transitionRatio": 1
     }],
     "*-pelt": [{
       "type": "Perish",
       "freshHours": { "avg":  1 },
       "transitionHours": { "avg": 0 },
-      "transitionedStack": { "type": "block", "code": "balancedthirst:gourd-medium-dried" },
+      "transitionedStack": { "type": "block", "code": "balancedthirst:gourd-medium-carved" },
       "transitionRatio": 1
     }]
   },

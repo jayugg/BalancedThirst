@@ -10,16 +10,19 @@ public static class EditAssets
 {
     public static void AddHydrationToCollectibles(ICoreAPI api)
     {
-        BtCore.Logger.Notification("Adding hydration properties to collectibles");
         foreach (var collectible in api.World.Collectibles.Where(c => c?.Code != null))
         {
             HydrationProperties hydrationProps = ConfigSystem.ConfigServer?.HydratingLiquids.FirstOrDefault(keyVal => collectible.MyWildCardMatch(keyVal.Key)).Value;
+            
             if (hydrationProps != null)
             {
-                collectible.AddDrinkableBehavior();
                 collectible.SetHydrationProperties(hydrationProps);
+                collectible.AddDrinkableBehavior();
+            } else if (collectible is not BlockLiquidContainerBase)
+            {
+                collectible.AddHydratingFoodBehavior();
             }
-
+            
             if (collectible.IsWaterPortion(api.Side))
             {
                 collectible.SetAttribute("waterportion", true);

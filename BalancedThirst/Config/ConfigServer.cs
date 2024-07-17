@@ -39,6 +39,7 @@ public class ConfigServer : SyncedConfig
     public Dictionary<string, float> WaterContainers { get; set; } = BtConstants.WaterContainers;
     public Dictionary<string, HydrationProperties> HydratingLiquids { get; set; } = BtConstants.HydratingLiquids;
     public Dictionary<string, HydrationProperties> HydratingBlocks { get; set; } = BtConstants.HydratingBlocks;
+    public List<EnumBlockMaterial> UrineStainableMaterials { get; set; } = BtConstants.UrineStainableMaterials;
     
     // Compatibility
     public bool UseHoDHydrationValues { get; set; }
@@ -53,15 +54,19 @@ public class ConfigServer : SyncedConfig
         }
         EnableThirst = previousConfig.EnableThirst;
         MaxHydration = previousConfig.MaxHydration;
+        ContainerDrinkSpeed = previousConfig.ContainerDrinkSpeed;
         ThirstSpeedModifier = previousConfig.ThirstSpeedModifier;
         ThirstKills = previousConfig.ThirstKills;
+        ContainerDrinkSpeed = previousConfig.ContainerDrinkSpeed;
         HotTemperatureThreshold = previousConfig.HotTemperatureThreshold;
-        ContainerDrinkSpeed = ContainerDrinkSpeed;
+        ThirstRatePerDegrees = previousConfig.ThirstRatePerDegrees;
+        HarshHeatExponentialMultiplier = previousConfig.HarshHeatExponentialMultiplier;
         
         VomitHydrationMultiplier = previousConfig.VomitHydrationMultiplier;
         VomitEuhydrationMultiplier = previousConfig.VomitEuhydrationMultiplier;
 
-        EnableBladder = EnableBladder;
+        EnableBladder = previousConfig.EnableBladder;
+        UrineStains = previousConfig.UrineStains;
         BladderWalkSpeedDebuff = previousConfig.BladderWalkSpeedDebuff;
         BladderCapacityOverload = previousConfig.BladderCapacityOverload;
         UrineNutrientChance = previousConfig.UrineNutrientChance;
@@ -93,10 +98,13 @@ public class ConfigServer : SyncedConfig
         WaterPortions = previousConfig.WaterPortions;
         HydratingLiquids = previousConfig.HydratingLiquids;
         HydratingBlocks = previousConfig.HydratingBlocks;
+        UrineStainableMaterials = previousConfig.UrineStainableMaterials;
         
         UseHoDHydrationValues = previousConfig.UseHoDHydrationValues;
         HoDClothingCoolingMultiplier = previousConfig.HoDClothingCoolingMultiplier;
         CamelHumpMaxHydrationMultiplier = previousConfig.CamelHumpMaxHydrationMultiplier;
         ElephantBladderCapacityMultiplier = previousConfig.ElephantBladderCapacityMultiplier;
+        
+        ResetModBoosts = previousConfig.ResetModBoosts;
     }
 }

@@ -1,8 +1,10 @@
 using System;
 using System.Text;
 using BalancedThirst.Systems;
+using BalancedThirst.Thirst;
 using BalancedThirst.Util;
 using Vintagestory.API.Common;
+using Vintagestory.API.Common.Entities;
 using Vintagestory.API.Config;
 using Vintagestory.API.Datastructures;
 
@@ -13,7 +15,12 @@ public class WaterContainerBehavior : DrinkableBehavior
     public WaterContainerBehavior(CollectibleObject collObj) : base(collObj)
     {
     }
-    
+
+    internal override HydrationProperties GetHydrationProperties(IWorldAccessor world, ItemStack itemstack, Entity byEntity)
+    {
+        return base.ExtractContainerHydrationProperties(world, itemstack, byEntity);
+    }
+
     public static float GetTransitionRateMul(CollectibleObject collectible, EnumTransitionType transType)
     {
         try

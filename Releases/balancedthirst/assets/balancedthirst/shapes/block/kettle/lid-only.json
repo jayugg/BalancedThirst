@@ -6,7 +6,7 @@
 	"textureWidth": 32,
 	"textureHeight": 32,
 	"textureSizes": {
-		"lid": [32, 32]
+		"lid": [16, 16]
 	},
 	"elements": [
 		{

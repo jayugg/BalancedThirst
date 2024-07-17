@@ -2,35 +2,29 @@
   {
     "ingredientPattern": "KG",
     "ingredients": {
-      "G": { "type": "block", "code": "balancedthirst:gourdpumpkin-fruit-*", "name": "stage",
-        "allowedVariants": ["3"],
+      "G": { "type": "block", "code": "balancedthirst:gourd-*-dried", "name": "stage", "allowedVariants": ["medium"],
         "returnedStack": {
-          "type": "item",
-          "code": "balancedthirst:vegetable-gourdpumpkin",
-          "quantity": 3
+          "type": "item", "code": "balancedthirst:seeds-gourdpumpkin", "quantity": 1
         }
       },
       "K": { "type": "item", "code": "game:knife-*", "isTool": true }
     },
     "width": 2,
     "height": 1,
-    "output": { "type": "block", "code": "balancedthirst:gourd-medium-carved", "quantity": 1  }
+    "output": { "type": "block", "code": "balancedthirst:gourd-{stage}-carved", "quantity": 1  }
   },
   {
     "ingredientPattern": "KG",
     "ingredients": {
-      "G": { "type": "block", "code": "balancedthirst:gourdpumpkin-fruit-*", "name": "stage",
-        "allowedVariants": ["4"],
+      "G": { "type": "block", "code": "balancedthirst:gourd-*-dried", "name": "stage", "allowedVariants": ["large"],
         "returnedStack": {
-          "type": "item",
-          "code": "balancedthirst:vegetable-gourdpumpkin",
-          "quantity": 4
+          "type": "item", "code": "balancedthirst:seeds-gourdpumpkin", "quantity": 2
         }
       },
       "K": { "type": "item", "code": "game:knife-*", "isTool": true }
     },
     "width": 2,
     "height": 1,
-    "output": { "type": "block", "code": "balancedthirst:gourd-large-carved", "quantity": 1  }
+    "output": { "type": "block", "code": "balancedthirst:gourd-{stage}-carved", "quantity": 1  }
   }
 ]

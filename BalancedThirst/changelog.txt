@@ -1,2 +1,7 @@
-- Fixed source drinking not working
-- Added gourd crop and container (models temporary), replaced waterskins with gourd
+- Kettle lid texture fix
+- Slight fix to interaction with underwater entities
+- Fixed subtle bug that gave the player the full hunger reduction every time they hit an entity
+- Implemented temperature mechanics, above a configurable threshold your thirst rate will increase due to temperature, rate increase per degrees is configurable
+- HoD clothing cooling compatibility now works with the above temperature mechanics
+- Added dehydration, caused mostly by salt water and a few other food items (like alcohol) to a much smaller degree, will increase thirst rate
+- Added biomes compatibility

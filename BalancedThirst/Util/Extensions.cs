@@ -29,18 +29,24 @@ public static class Extensions
         ItemStack itemStack,
         Entity byEntity)
     {
-        if (!collObj.HasBehavior<DrinkableBehavior>())
+        if (collObj.HasBehavior<HydratingFoodBehavior>())
         {
-            if (collObj is BlockLiquidContainerBase container &&
-                container.GetContent(itemStack) != null &&
-                container.GetContent(itemStack).Collectible.HasBehavior<DrinkableBehavior>())
-            {
-                return DrinkableBehavior.GetContainerHydrationProperties(container, itemStack);
-            }
-            return HydrationProperties.FromNutrition(collObj.GetNutritionProperties(world, itemStack, byEntity));
+            var behavior = collObj.GetBehavior<HydratingFoodBehavior>();
+            return behavior?.GetHydrationProperties(world, itemStack, byEntity) ?? null;
         }
-        var behavior = collObj.GetBehavior<DrinkableBehavior>();
-        return behavior.GetHydrationProperties(itemStack);
+        
+        if (collObj.HasBehavior<DrinkableBehavior>())
+        {
+            var behavior = collObj.GetBehavior<DrinkableBehavior>();
+            return behavior?.GetHydrationProperties(world, itemStack, byEntity) ?? null;
+        }
+
+        if (collObj.HasBehavior<WaterContainerBehavior>())
+        {
+            var behavior = collObj.GetBehavior<WaterContainerBehavior>();
+            return behavior?.GetHydrationProperties(world, itemStack, byEntity) ?? null;
+        }
+        return null;
     }
     
     public static HydrationProperties? GetHydrationPropsPerLitre(
@@ -54,14 +60,6 @@ public static class Extensions
             DrinkableBehavior.GetContentHydrationPropsPerLitre(container, itemStack) :
             HydrationProperties.FromNutrition(container.GetContent(itemStack).Collectible.GetNutritionProperties(world, itemStack, byEntity));
     }
-
-    public static HydrationProperties? GetHydrationProperties(
-        this CollectibleObject collObj,
-        ItemStack itemStack,
-        Entity byEntity)
-    {
-        return GetHydrationProperties(collObj, byEntity.World, itemStack, byEntity);
-    }
     
     public static HydrationProperties? GetBlockHydrationProperties(this Block block)
     {
@@ -69,6 +67,34 @@ public static class Extensions
         JToken token = block.Attributes.Token;
         HydrationProperties? hydrationProperties = token["hydrationProps"]?.ToObject<HydrationProperties>();
         return hydrationProperties;
+    }
+    
+    public static FoodNutritionProperties? GetNutritionProperties(this CollectibleObject collectible)
+    {
+        collectible.EnsureAttributesNotNull();
+        JToken token = collectible.Attributes.Token;
+        var waterTightContainerProps = token["waterTightContainerProps"];
+        if (waterTightContainerProps == null)
+        {
+            FoodNutritionProperties? nutritionProperties = token["nutritionProps"]?.ToObject<FoodNutritionProperties>();
+            if (nutritionProperties == null)
+            {
+                Dictionary<string, FoodNutritionProperties>? nutritionPropsByType = token["nutritionPropsByType"]?.ToObject<Dictionary<string, FoodNutritionProperties>>();
+                if (nutritionPropsByType != null)
+                {
+                    nutritionProperties = nutritionPropsByType.Where(keyVal => collectible.MyWildCardMatch(keyVal.Key))
+                        .OrderByDescending(keyVal => keyVal.Key.Length)
+                        .FirstOrDefault()
+                        .Value;
+                }
+            }
+            return nutritionProperties;
+        }
+        else
+        {
+            FoodNutritionProperties? nutritionProperties = token["nutritionPropsPerLitre"]?.ToObject<FoodNutritionProperties>();
+            return nutritionProperties;
+        }
     }
 
     public static bool IsRiverBlock(this Block block, IWorldAccessor world, BlockPos pos)
@@ -91,6 +117,12 @@ public static class Extensions
     public static void AddDrinkableBehavior(this CollectibleObject collectible)
     {
         var behavior = new DrinkableBehavior(collectible);
+        collectible.CollectibleBehaviors = collectible.CollectibleBehaviors.Append(behavior);
+    }
+    
+    public static void AddHydratingFoodBehavior(this CollectibleObject collectible)
+    {
+        var behavior = new HydratingFoodBehavior(collectible);
         collectible.CollectibleBehaviors = collectible.CollectibleBehaviors.Append(behavior);
     }
     
@@ -132,9 +164,10 @@ public static class Extensions
         collectible.Attributes = newAttributes;
     }
 
-    public static float GetLitres(this ItemStack stack)
+    public static float GetLitres(this ItemStack? stack)
     {
-        var collectible = stack?.Collectible;
+        if (stack == null) return 0;
+        var collectible = stack.Collectible;
         collectible?.EnsureAttributesNotNull();
         JToken? token = collectible?.Attributes.Token;
         if (token == null) return 0;
@@ -155,8 +188,7 @@ public static class Extensions
         {
             itemsPerLitre *= itemsPerLitreProps.Value<float>();
         }
-        BtCore.Logger.Warning($"[GetLitres] Items per litre: {itemsPerLitre}");
-        return ((float)(stack?.StackSize ?? 0)) / itemsPerLitre ;
+        return ((float) stack.StackSize) / itemsPerLitre ;
     }
     
     // Should only be used on the server side!
@@ -227,6 +259,7 @@ public static class Extensions
         var game = capi.GetField<ClientMain>("game");
         if (game == null) return null;
         BlockFilter bfilter = (pos, block) => block is not { RenderPass: EnumChunkRenderPass.Meta };
+        EntityFilter efilter = (entity) => entity.IsInteractable;
         bool liquidSelectable = game.LiquidSelectable;
         game.SetInternalField("forceLiquidSelectable", true);
         var blockSel = clientPlayer.Entity.BlockSelection?.Clone();
@@ -241,10 +274,10 @@ public static class Extensions
                 game.SetInternalField("forceLiquidSelectable", liquidSelectable);
                 return null;
             }
-            game.RayTraceForSelection(mouseCoordinates, ref blockSel, ref entitySel, bfilter, _ => true);
+            game.RayTraceForSelection(mouseCoordinates, ref blockSel, ref entitySel, bfilter, efilter);
         }
         else
-            game.RayTraceForSelection(clientPlayer, ref blockSel, ref entitySel, bfilter, _ => true);
+            game.RayTraceForSelection(clientPlayer, ref blockSel, ref entitySel, bfilter, efilter);
         if (blockSel == null) return null;
         game.SetInternalField("forceLiquidSelectable", false);
         return blockSel;
@@ -254,7 +287,7 @@ public static class Extensions
     {
         if (clientPlayer.CurrentBlockSelection?.Block?.HasBehavior<BlockBehaviorBlockEntityInteract>() ?? 
             clientPlayer.CurrentBlockSelection?.Block is BlockGroundStorage) return true;
-        if (clientPlayer.CurrentEntitySelection?.Entity?.HasBehavior<EntityBehaviorConversable>() ?? false) return true;
+        if (clientPlayer.Entity.EntitySelection?.Entity?.IsInteractable ?? false) return true;
         return false;
     }
 

@@ -17,6 +17,9 @@ public class SyncedConfig : IModConfig
     [ProtoMember(2, IsRequired = true)]
     public bool EnableBladder { get; set; } = true;
     
+    [ProtoMember(13, IsRequired = true)]
+    public bool UrineStains { get; set; } = true;
+    
     [ProtoMember(12, IsRequired = true)]
     public float ContainerDrinkSpeed { get; set; } = 0.25f;
     
@@ -37,6 +40,15 @@ public class SyncedConfig : IModConfig
     [ProtoMember(11, IsRequired = true)]
     public float UnknownHydrationYield { get; set; }
     
+    [ProtoMember(14, IsRequired = true)]
+    public float ThirstRatePerDegrees { get; set; } = 5f;
+    
+    [ProtoMember(15, IsRequired = true)]
+    public float HarshHeatExponentialMultiplier { get; set; } = 0.2f;
+    
+    [ProtoMember(16, IsRequired = true)]
+    public bool ResetModBoosts { get; set; }
+    
     public SyncedConfig() { }
 
     public SyncedConfig(ICoreAPI api, SyncedConfig previousConfig = null)
@@ -47,6 +59,7 @@ public class SyncedConfig : IModConfig
         }
         EnableThirst = previousConfig.EnableThirst;
         EnableBladder = previousConfig.EnableBladder;
+        UrineStains = previousConfig.UrineStains;
         ContainerDrinkSpeed = previousConfig.ContainerDrinkSpeed;
         DowsingRodRadius = previousConfig.DowsingRodRadius;
         FruitHydrationYield = previousConfig.FruitHydrationYield;
@@ -56,24 +69,9 @@ public class SyncedConfig : IModConfig
         GrainHydrationYield = previousConfig.GrainHydrationYield;
         NoNutritionHydrationYield = previousConfig.NoNutritionHydrationYield;
         UnknownHydrationYield = previousConfig.UnknownHydrationYield;
-    }
-    
-    public static SyncedConfig FromServerConfig(ConfigServer config)
-    {
-        return new SyncedConfig
-        {
-            EnableThirst = config.EnableThirst,
-            EnableBladder = config.EnableBladder,
-            ContainerDrinkSpeed = config.ContainerDrinkSpeed,
-            DowsingRodRadius = config.DowsingRodRadius,
-            FruitHydrationYield = config.FruitHydrationYield,
-            VegetableHydrationYield = config.VegetableHydrationYield,
-            DairyHydrationYield = config.DairyHydrationYield,
-            ProteinHydrationYield = config.ProteinHydrationYield,
-            GrainHydrationYield = config.GrainHydrationYield,
-            NoNutritionHydrationYield = config.NoNutritionHydrationYield,
-            UnknownHydrationYield = config.UnknownHydrationYield
-        };
+        ThirstRatePerDegrees = previousConfig.ThirstRatePerDegrees;
+        HarshHeatExponentialMultiplier = previousConfig.HarshHeatExponentialMultiplier;
+        ResetModBoosts = previousConfig.ResetModBoosts;
     }
 
     public SyncedConfig Clone()
@@ -90,7 +88,10 @@ public class SyncedConfig : IModConfig
             ProteinHydrationYield = ProteinHydrationYield,
             GrainHydrationYield = GrainHydrationYield,
             NoNutritionHydrationYield = NoNutritionHydrationYield,
-            UnknownHydrationYield = UnknownHydrationYield
+            UnknownHydrationYield = UnknownHydrationYield,
+            ThirstRatePerDegrees = ThirstRatePerDegrees,
+            HarshHeatExponentialMultiplier = HarshHeatExponentialMultiplier,
+            ResetModBoosts = ResetModBoosts
         };
     }
 }

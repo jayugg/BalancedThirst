@@ -10,6 +10,10 @@ public class PeeMessage
     {
         [ProtoMember(1)]
         public BlockPos Position;
+        [ProtoMember(2)]
+        public Vec3d HitPostion;
+        [ProtoMember(3)]
+        public string Color;
     }
 
     [ProtoContract]

@@ -22,10 +22,10 @@ public class XSkillsCompat : ModSystem
         this._api = api;
         XLeveling xLeveling = api.ModLoader.GetModSystem("XLib.XLeveling.XLeveling") as XLeveling;
         Skill survival = xLeveling?.GetSkill("survival");
-        Ability camelHump = new Ability("camelhump", BtCore.Modid+":ability-camelhump", BtCore.Modid+":abilitydesc-camelhump", 1, 3, new[] { 1, 2, 3 });
+        Ability camelHump = new Ability("camelhump", BtCore.Modid+":ability-camelhump", BtCore.Modid+":abilitydesc-camelhump", 1, 3, new int[] { 500, 1000, 1500 });
         camelHump.OnPlayerAbilityTierChanged += OnCamelHump;
         survival?.AddAbility(camelHump);
-        Ability elephantBladder = new Ability("elephantbladder", BtCore.Modid+":ability-elephantbladder", BtCore.Modid+":abilitydesc-elephantbladder", 1, 2, new[] { 1, 2 });
+        Ability elephantBladder = new Ability("elephantbladder", BtCore.Modid+":ability-elephantbladder", BtCore.Modid+":abilitydesc-elephantbladder", 1, 2, new int[] { 750, 1500 });
         elephantBladder.OnPlayerAbilityTierChanged += OnElephantBladder;
         survival?.AddAbility(elephantBladder);
     }
@@ -42,9 +42,8 @@ public class XSkillsCompat : ModSystem
         EntityBehaviorThirst behavior = player.Entity.GetBehavior<EntityBehaviorThirst>();
         if (behavior == null)
             return;
-        var factor = 1f + playerAbility.Value(0)*ConfigSystem.ConfigServer.CamelHumpMaxHydrationMultiplier;
+        var factor = 1f + (float) ((double) playerAbility.Value(0)/500)*ConfigSystem.ConfigServer.CamelHumpMaxHydrationMultiplier;
         behavior.MaxHydration = (float) Math.Round(ConfigSystem.ConfigServer.MaxHydration*factor);
-        behavior.Euhydration *= factor;
         behavior.Hydration *= factor;
         behavior.UpdateThirstBoosts();
     }
@@ -61,7 +60,7 @@ public class XSkillsCompat : ModSystem
         EntityBehaviorBladder behavior = player.Entity.GetBehavior<EntityBehaviorBladder>();
         if (behavior == null)
             return;
-        var factor = 1f + playerAbility.Value(0)*ConfigSystem.ConfigServer.ElephantBladderCapacityMultiplier;
+        var factor = 1f + (float) ((double) playerAbility.Value(0)/750)*ConfigSystem.ConfigServer.ElephantBladderCapacityMultiplier;
         behavior.Capacity = (float) Math.Round(ConfigSystem.ConfigServer.MaxHydration * factor);
         behavior.CapacityOverload = (float) Math.Round(ConfigSystem.ConfigServer.BladderCapacityOverload*ConfigSystem.ConfigServer.MaxHydration*factor);
     }

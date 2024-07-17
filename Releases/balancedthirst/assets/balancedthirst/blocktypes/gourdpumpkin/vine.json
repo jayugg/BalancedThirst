@@ -12,6 +12,7 @@
 	"randomizeRotations": true,
 	"blockmaterial": "Plant",
 	"attributes": {
+		"largeFruitChance": 0.1,
 		"butterflyFeedByType": {
 			"*-1": false,
 			"*-4": false,

@@ -15,7 +15,7 @@ using Vintagestory.GameContent;
 
 namespace BalancedThirst.Systems;
 
-public class DrinkNetwork : ModSystem
+public partial class DrinkNetwork : ModSystem
 {
     public override double ExecuteOrder() => 2.02;
 
@@ -91,7 +91,7 @@ public class DrinkNetwork : ModSystem
             if (waterPos == null) return;
             if (world.BlockAccessor?.GetBlock(waterPos)?.GetBlockHydrationProperties() != null)
             {
-                _clientChannel.SendPacket(new DrinkMessage.Request() {Position = waterPos});
+                _clientChannel.SendPacket(new DrinkMessage.Request() { Position = waterPos });
                 handled = EnumHandling.Handled;
                 return;
             }
@@ -106,7 +106,12 @@ public class DrinkNetwork : ModSystem
             ConfigSystem.ConfigClient.PeeMode.IsSitting())))
         {
             _lastPeeTime = world.ElapsedMilliseconds;
-            _clientChannel.SendPacket(new PeeMessage.Request() {Position = player.BlockSelection?.Position});
+            _clientChannel.SendPacket(new PeeMessage.Request()
+            {
+                Position = player.BlockSelection?.Position,
+                HitPostion = player.BlockSelection?.HitPosition,
+                Color = ConfigSystem.ConfigClient.UrineColor == "default" ? null : ConfigSystem.ConfigClient.UrineColor
+            });
             handled = EnumHandling.Handled;
         }
     }
@@ -117,13 +122,6 @@ public class DrinkNetwork : ModSystem
         IPlayer dualCallByPlayer = entity.World.PlayerByUid(entity.PlayerUID);
         entity?.PlayEntitySound("drink", dualCallByPlayer);
         SpawnDrinkParticles(_capi.World.Player.Entity, response.Position);
-    }
-    
-    private void OnServerPeeMessage(PeeMessage.Response response)
-    {
-        var entity = _capi.World.Player.Entity;
-        SpawnPeeParticles(entity, response.Position, entity.BlockSelection?.HitPosition);
-        EntityBehaviorBladder.PlayPeeSound(entity);
     }
     #endregion
     
@@ -163,55 +161,6 @@ public class DrinkNetwork : ModSystem
             _serverChannel.SendPacket(new DrinkMessage.Response() { Position = blockSel?.HitPosition }, player);
         }
     }
-
-    private void HandlePeeAction(IServerPlayer player, PeeMessage.Request request)
-    {
-        if (!player.Entity.HasBehavior<EntityBehaviorBladder>()) return;
-        if (request.Position == null) return;
-        var bh = player.Entity.GetBehavior<EntityBehaviorBladder>();
-        if (!bh.Drain(ConfigSystem.ConfigServer.UrineDrainRate)) return;
-        EntityBehaviorBladder.PlayPeeSound(player.Entity);
-        SpawnPeeParticles(player.Entity, request.Position, player.CurrentBlockSelection?.HitPosition);
-        
-        var world = player.Entity.World;
-        var block = world.BlockAccessor.GetBlock(request.Position);
-        _serverChannel.SendPacket(new PeeMessage.Response() { Position = request.Position }, player);
-        if (block is BlockFarmland)
-        {
-            FertiliseFarmland(world, request.Position);
-        } 
-        else if (world.BlockAccessor.GetBlock(request.Position.DownCopy()) is BlockFarmland)
-        {
-            FertiliseFarmland(world, request.Position.DownCopy());
-        }
-        else if (block is BlockLiquidContainerBase container )
-        {
-            var waterStack = new ItemStack(world.GetItem(new AssetLocation(BtCore.Modid+":urineportion")));
-            container.TryPutLiquid(request.Position, waterStack, 0.1f);
-            container.DoLiquidMovedEffects(player, waterStack, waterStack.StackSize, BlockLiquidContainerBase.EnumLiquidDirection.Fill);
-        }
-        else if (block is BlockToolMold)
-        {
-            var be = world.BlockAccessor.GetBlockEntity(request.Position) as BlockEntityToolMold; 
-            be?.CoolWithWater();
-        }
-        else if (block is BlockIngotMold)
-        {
-            var be = world.BlockAccessor.GetBlockEntity(request.Position) as BlockEntityIngotMold; 
-            be?.CoolWithWater();
-        }
-    }
-    
-    private void FertiliseFarmland(IWorldAccessor world, BlockPos position)
-    {
-        if (position == null) return;
-        var be = world.BlockAccessor.GetBlockEntity(position) as BlockEntityFarmland; 
-        be?.WaterFarmland(0.05f);
-        if (ConfigSystem.ConfigServer.UrineNutrientChance > world.Rand.NextDouble())
-        {
-            be?.IncreaseNutrients(ConfigSystem.ConfigServer.UrineNutrientLevels);
-        }
-    }
     
     #endregion
 
@@ -228,29 +177,6 @@ public class DrinkNetwork : ModSystem
                 ShouldDieInLiquid = true
             };
 
-        byEntity.World.SpawnParticles(_waterParticles, byEntity is EntityPlayer entityPlayer ? entityPlayer.Player : null);
-    }
-
-    public static void SpawnPeeParticles(Entity byEntity, BlockPos pos, Vec3d hitPos)
-    {
-        if (hitPos == null || pos == null) return;
-        Vec3d entityPos = byEntity.Pos.XYZ.AddCopy(byEntity.LocalEyePos.SubCopy(0, 0.2, 0));
-        Vec3d posVec = pos.ToVec3d().AddCopy(hitPos);
-        Vec3d dist = (posVec - entityPos);
-        var addVertical = new Vec3f(0, (float)(0.5f*Math.Sqrt(dist.NoY().LengthSq())), 0);
-        var velocity = 2.5f * dist.ToVec3f().AddCopy(addVertical).Normalize();
-        var xyz = entityPos.AddCopy(0.5 * dist.Normalize());
-        var one = new Vec3f(1, 1, 1);
-
-        _waterParticles = new SimpleParticleProperties(1f, 1f, -1, xyz, new Vec3d(), velocity.AddCopy(0.2f*one), velocity.AddCopy(-0.2f*one), minSize: 0.33f, maxSize: 0.75f)
-        {
-            AddPos = new Vec3d(),
-            SizeEvolve = new EvolvingNatFloat(EnumTransformFunction.LINEAR, -1f),
-            ClimateColorMap = "climateWaterTint",
-            AddQuantity = 5f,
-            GravityEffect = 0.6f,
-            ShouldDieInLiquid = true
-        };
         byEntity.World.SpawnParticles(_waterParticles, byEntity is EntityPlayer entityPlayer ? entityPlayer.Player : null);
     }
     

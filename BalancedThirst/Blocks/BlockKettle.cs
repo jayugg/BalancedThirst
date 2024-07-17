@@ -35,7 +35,6 @@ public class BlockKettle : BlockLiquidContainerSealable, IInFirepitRendererSuppl
             BtCore.Logger.Warning($"Slot: {slot.Itemstack.Collectible.Code.Path}");
             if (!slot.Itemstack.Collectible.IsWaterPortion())
             {
-                BtCore.Logger.Warning("Not a water portion");
                 return false;
             }
         }
@@ -45,10 +44,10 @@ public class BlockKettle : BlockLiquidContainerSealable, IInFirepitRendererSuppl
     
     private float GetTotalLitres(ISlotProvider cookingSlotsProvider, ItemStack inputStack)
     {
-        var totalLitres = cookingSlotsProvider.Slots.Sum(slot => slot.Itemstack.GetLitres());
+        var totalLitres = cookingSlotsProvider.Slots.Sum(slot => slot?.Itemstack?.GetLitres());
         if (inputStack.Collectible is BlockKettle kettle && kettle.GetContent(inputStack) != null)
-            totalLitres += kettle.GetContent(inputStack).GetLitres();
-        return totalLitres;
+            totalLitres += kettle.GetContent(inputStack)?.GetLitres();
+        return totalLitres ?? 0;
     }
 
     public override void DoSmelt(IWorldAccessor world, ISlotProvider cookingSlotsProvider, ItemSlot inputSlot, ItemSlot outputSlot)

@@ -3,20 +3,30 @@
   "maxstacksize": 64,
   "attributesByType": {
     "*-gourdpumpkin": {
-      "inContainerTexture": { "base": "game:block/wood/barrel/raw-pumpkin" },
-      "nutritionPropsWhenInMeal": { "satiety": 80, "foodcategory": "Vegetable" },
-      "inPieProperties": { "texture": "game:block/food/pie/fill-pumpkin", "partType": "Filling" }
+      "inContainerTexture": { "base": "balancedthirst:block/barrel/raw-gourdpumpkin" },
+      "nutritionPropsWhenInMeal": { "satiety": 120, "foodcategory": "Vegetable" },
+      "inPieProperties": { "texture": "balancedthirst:block/pie/fill-{type}", "partType": "Filling" },
+      "juiceablePropertiesByType": {
+        "*-gourdpumpkin": {
+          "litresPerItem": 0.3125,
+          "liquidStack": { "type": "item", "code": "balancedthirst:juiceportion-calabash", "stacksize": 1 },
+          "pressedStack": { "type": "item", "code": "balancedthirst:pressedmash-calabash", "stacksize": 1 }
+        }
+      }
     }
   },
   "variantgroups": [
     { "code": "type", "states": ["gourdpumpkin"] }
   ],
   "shapebytype": {
-    "*-gourdpumpkin": { "base": "item/vegetable/slicedpumpkin" }
+    "*-gourdpumpkin": { "base": "item/vegetable/strips" }
+  },
+  "texturesbytype": {
+    "*-gourdpumpkin": { "fibers": { "base": "item/calabash" }, "tie": { "base": "game:block/transparent" } }
   },
   "creativeinventory": { "general": ["*"], "items": ["*"] },
   "nutritionPropsByType": {
-    "*-gourdpumpkin": { "satiety": 60, "foodcategory": "Vegetable" }
+    "*-gourdpumpkin": { "satiety": 100, "foodcategory": "Vegetable" }
   },
   "transitionablePropsByType": {
     "*-gourdpumpkin": [
@@ -26,40 +36,46 @@
         "transitionHours": { "avg": 72 },
         "transitionedStack": { "type": "item", "code": "game:rot" },
         "transitionRatio": 0.5
+      },
+      {
+        "type": "Dry",
+        "freshHours": { "avg":  72 },
+        "transitionHours": { "avg": 36 },
+        "transitionedStack": { "type": "item", "code": "balancedthirst:dryvegetable-{type}" },
+        "transitionRatio": 1
       }
     ]
   },
   "materialDensity": 600,
   "guiTransformByType": {
     "*-gourdpumpkin": {
-      "translation": { "x": 2, "y": 2, "z": 0 },
-      "rotation": { "x": 127, "y": 180, "z": 38 },
-      "origin": { "x": 0.5, "y": 0.05, "z": 0.5 },
-      "scale": 3.5999
+      "translation": { "x": 4, "y": 2, "z": 0 },
+      "rotation": { "x": 106, "y": 39, "z": -8 },
+      "origin": { "x": 1, "y": 0, "z": 1 },
+      "scale": 2.17
     }
   },
   "fpHandTransformByType": {
-    "*-gourdpumpkin":	{
-      "translation": { "x": 0, "y": 0.22, "z": 0 },
-      "rotation": { "x": 45, "y": 47, "z": -30 },
-      "origin": { "x": 0.5, "y": 0.1, "z": 0.5 },
-      "scale": 1.8999
+    "*-gourdpumpkin": {
+      "rotation": { "x": 110, "y": 92, "z": -30 },
+      "origin": { "x": 0.6, "y": 0.2, "z": 0.4 },
+      "scale": 1.1
     }
   },
   "tpHandTransformByType": {
     "*-gourdpumpkin": {
-      "translation": { "x": -0.8, "y": -0.2, "z": -0.59 },
-      "rotation": { "x": 84, "y": 3, "z": 4 },
-      "origin": { "x": 0.5, "y": 0.1, "z": 0.5 },
-      "scale": 0.75
+      "translation": { "x": -1.7, "y": -1.1, "z": -1.45 },
+      "rotation": { "x": 0, "y": 26, "z": -180 },
+      "origin": { "x": 0.3, "y": 0.3, "z": 0.7 },
+      "scale": 0.34
     }
   },
   "groundTransformByType": {
     "*-gourdpumpkin": {
-      "translation": { "x": 0, "y": 0.01, "z": 0 },
-      "rotation": { "x": 0, "y": 0, "z": 0 },
-      "origin": { "x": 0.47, "y": 0, "z": 0.5 },
-      "scale": 4.0
+      "translation": { "x": 0, "y": 0.18, "z": 0 },
+      "rotation": { "x": 1, "y": 0, "z": 0 },
+      "origin": { "x": 0.5, "y": 0.22, "z": 0.5299 },
+      "scale": 4
     }
   }
 }

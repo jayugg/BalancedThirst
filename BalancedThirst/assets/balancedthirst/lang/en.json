@@ -2,8 +2,7 @@
     "block-woodenbowl-raw": "Wooden bowl",
     "block-woodenbowl-waxed": "Waxed wooden bowl",
 
-    "item-vegetable-gourd": "Gourd (Vegetable)",
-    "item-seeds-gourd": "Gourd Plant Seeds",
+    "block-caveart-stain-urine*": "urine stains",
 
     "block-chamberpot-raw": "Raw chamberpot",
     "block-chamberpot-fired": "Chamberpot",
@@ -34,11 +33,13 @@
     "balancedthirst:block-gourdpumpkin-fruit-2": "Growing calabash",
     "balancedthirst:block-gourdpumpkin-fruit-3": "Calabash",
     "balancedthirst:block-gourdpumpkin-fruit-4": "Calabash (Large)",
-    "balancedthirst:block-gourd-medium-carved": "Carved calabash",
-    "balancedthirst:block-gourd-large-carved": "Carved calabash (Large)",
-    "balancedthirst:block-gourd-medium-dried": "Gourd",
-    "balancedthirst:block-gourd-large-dried": "Large gourd",
-    "balancedthirst:item-vegetable-gourdpumpkin": "Sliced calabash",
+    "balancedthirst:block-gourd-medium-carved": "Gourd",
+    "balancedthirst:block-gourd-large-carved": "Large gourd",
+    "balancedthirst:block-gourd-medium-dried": "Dried calabash",
+    "balancedthirst:block-gourd-large-dried": "Dried calabash (Large)",
+    "balancedthirst:item-vegetable-gourdpumpkin": "Calabash flesh",
+    "item-pickledvegetable-gourdpumpkin": "Pickled calabash flesh",
+    "item-dryvegetable-gourdpumpkin": "Kanpyō",
     "balancedthirst:item-seeds-gourdpumpkin": "Calabash seeds",
     "block-crop-gourdpumpkin-*": "Growing calabash plant",
     "block-crop-gourdpumpkin-7": "Mature calabash plant",
@@ -47,6 +48,10 @@
     "block-gourdpumpkin-vine-3-normal": "Mature calabash vine",
     "block-gourdpumpkin-vine-3-blooming": "Blooming calabash vine",
     "block-gourdpumpkin-vine-4-withered": "Withered calabash vine",
+
+    "itemdesc-pressedmash-*": "Crudely pressed fruit. Not too appetizing looking, but some animals might still eat this.",
+    "item-pressedmash-calabash-wet": "Wet calabash mash",
+    "item-pressedmash-calabash-dry": "Dry calabash mash ",
 
     "item-waterportion-pure": "Pure water",
     "incontainer-item-waterportion-pure": "Pure water",
@@ -62,6 +67,8 @@
     "incontainer-item-urineportion": "Urine",
     "item-lantportion": "Lant",
     "incontainer-item-lantportion": "Lant",
+    "item-juiceportion-calabash": "Calabash juice",
+    "incontainer-item-juiceportion-calabash": "Calabash juice",
 
     "item-wetsalt": "Wet salt crystals",
 
@@ -94,6 +101,7 @@
     "Config.Setting.UrineNutrientChance": "Chance of urine giving nutrients to farmland (0 to disable)",
     "Config.Setting.UrineDrainRate": "Rate of urine drain",
     "Config.Setting.UrineNutrientLevels": "Amount of nutrients given by urine",
+    "Config.Setting.UrineStains": "Urinating on blocks will stain them",
     
     "Config.SettingsStatMultipliers": "Hydration modifiers to player stats",
 
@@ -124,6 +132,7 @@
     "Config.Setting.WaterContainers": "Water Containers",
     "Config.Setting.HydratingLiquids": "Hydrating Liquids",
     "Config.Setting.HydratingBlocks": "Hydrating Liquid Blocks",
+    "Config.Setting.UrineStainableMaterials": "Urine Stainable Materials",
     "Config.Setting.Hydration": "Hydration",
     "Config.Setting.HydrationLossDelay": "HydLossDelay",
     "Config.Setting.Purity": "Purity",
@@ -139,12 +148,15 @@
     "Config.Setting.HideBladderBarAt": "Hide bladder bar when below this percentage",
     "Config.Setting.ThirstBarColor": "Thirst bar color",
     "Config.Setting.BladderBarColor": "Bladder bar color",
+    "Config.Setting.UrineColor": "Urine color",
     
     "Config.SettingsCompat": "Compatibility Settings (Require reload)",
     "Config.Setting.UseHoDHydrationValues": "Use HoD hydration values",
     "Config.Setting.HoDClothingCoolingMultiplier": "Clothing cooling multiplier (HoD)",
     "Config.Setting.CamelHumpMaxHydrationMultiplier": "Camel Hump skill hydration boost (xSkills)",
     "Config.Setting.ElephantBladderCapacityMultiplier": "Elephant Bladder skill hydration boost (xSkills)",
+
+    "Config.Setting.ResetModBoosts": "(Debug) Reset mod boosts",
 
     "Found water nearby!" : "Found water nearby!",
 

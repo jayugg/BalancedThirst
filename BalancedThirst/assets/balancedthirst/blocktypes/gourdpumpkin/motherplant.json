@@ -40,11 +40,6 @@
 		"growthStages": 8,
 		"totalGrowthMonths": 1.7
 	},
-	"dropsByType": {
-		"*": [
-			{ "type": "item", "code": "balancedthirst:seeds-gourdpumpkin", "quantity": { "avg": 1.2 }  }
-		]
-	},
 	"texturesByType": {
 		"crop-gourdpumpkin-1": {
 			"all": { "base": "game:block/plant/pumpkin/motherplant/stage1-northandsouth" }

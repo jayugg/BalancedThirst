@@ -1,6 +1,7 @@
 {
 	"code": "crop",
 	"class": "BlockCrop",
+	"entityClass": "balancedthirst.BlockEntityGourdMotherplant",
 	"variantgroups": [
 		{ "code": "type", "states": ["gourdpumpkin"] },
 		{ "code": "stage", "states": ["1", "2", "3", "4", "5", "6", "7", "8"] }
@@ -38,11 +39,6 @@
 		"nutrientConsumption": 30,
 		"growthStages": 8,
 		"totalGrowthMonths": 1.7
-	},
-	"dropsByType": {
-		"*": [
-			{ "type": "item", "code": "balancedthirst:seeds-gourdpumpkin", "quantity": { "avg": 1.2 }  }
-		]
 	},
 	"texturesByType": {
 		"crop-gourdpumpkin-1": {

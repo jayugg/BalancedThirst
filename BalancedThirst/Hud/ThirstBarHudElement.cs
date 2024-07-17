@@ -124,7 +124,7 @@ namespace BalancedThirst.Hud
                 }
             }
             
-            if (bladderTree != null && !ShouldShowBladderBar)
+            if (bladderTree != null && !ShouldShowBladderBar && this._bladderBar != null)
             {
                 float? currentlevel = bladderTree.TryGetFloat("currentlevel");
                 float? capacity = bladderTree.TryGetFloat("capacity");

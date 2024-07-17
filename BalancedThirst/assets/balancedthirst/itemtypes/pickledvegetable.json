@@ -1,0 +1,62 @@
+{
+  "code": "pickledvegetable",
+  "maxstacksize": 64,
+  "attributes": {
+    "inContainerTexture": { "base": "balancedthirst:block/barrel/pickled-gourdpumpkin" },
+    "crockable": true,
+    "nutritionPropsWhenInMeal": { "satiety": 100, "foodcategory": "Vegetable" },
+    "inPieProperties": { "texture": "balancedthirst:block/pie/fill-{type}", "partType": "Filling" }
+  },
+  "variantgroups": [
+    { "code": "type", "states": ["gourdpumpkin" ] }
+  ],
+  "shapebytype": {
+    "*-gourdpumpkin": { "base": "item/vegetable/strips" }
+  },
+  "texturesbytype": {
+    "*-gourdpumpkin": { "fibers": {"base": "item/calabash-pickled"}, "tie": {"base": "game:block/transparent"} }
+  },
+  "creativeinventory": { "general": ["*"], "items": ["*"] },
+  "nutritionPropsByType": {
+    "*-gourdpumpkin": { "saturation": 80, "foodcategory": "Vegetable" }
+  },
+  "transitionableProps": [{
+    "type": "Perish",
+    "freshHours": { "avg": 1800 },
+    "transitionHours": { "avg": 240 },
+    "transitionedStack": { "type": "item", "code": "game:rot" },
+    "transitionRatio": 0.5
+  }],
+  "materialDensity": 600,
+  "guiTransformByType": {
+    "*-gourdpumpkin": {
+      "translation": { "x": 4, "y": 2, "z": 0 },
+      "rotation": { "x": 106, "y": 39, "z": -8 },
+      "origin": { "x": 1, "y": 0, "z": 1 },
+      "scale": 2.17
+    }
+  },
+  "fpHandTransformByType": {
+    "*-gourdpumpkin": {
+      "rotation": { "x": 110, "y": 92, "z": -30 },
+      "origin": { "x": 0.6, "y": 0.2, "z": 0.4 },
+      "scale": 1.1
+    }
+  },
+  "tpHandTransformByType": {
+    "*-gourdpumpkin": {
+      "translation": { "x": -1.7, "y": -1.1, "z": -1.45 },
+      "rotation": { "x": 0, "y": 26, "z": -180 },
+      "origin": { "x": 0.3, "y": 0.3, "z": 0.7 },
+      "scale": 0.34
+    }
+  },
+  "groundTransformByType": {
+    "*-gourdpumpkin": {
+      "translation": { "x": 0, "y": 0.18, "z": 0 },
+      "rotation": { "x": 1, "y": 0, "z": 0 },
+      "origin": { "x": 0.5, "y": 0.22, "z": 0.5299 },
+      "scale": 4
+    }
+  }
+}

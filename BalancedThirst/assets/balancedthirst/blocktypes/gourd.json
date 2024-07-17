@@ -1,7 +1,7 @@
 {
   "code": "gourd",
   "classByType": {
-    "*-dried": "BlockLiquidContainerTopOpened"
+    "*-carved": "BlockLiquidContainerTopOpened"
   },
   "variantgroups": [
     { "code": "size", "states": ["medium", "large"] },
@@ -13,25 +13,35 @@
   },
   "texturesByType": {
     "*-large-*": { "all": { "base": "block/gourd/large" }, "cordage": { "base": "block/gourd/cordage" } },
-    "*-medium-*": { "all": { "base": "block/gourd/medium" }, "cordage": { "base": "block/gourd/cordage" } }
+    "*-medium-*": { "all": { "base": "block/gourd/large" }, "cordage": { "base": "block/gourd/cordage" } }
   },
-  "behaviors": [
-    { "name": "GroundStorable", "properties": { "layout": "Quadrants", "collisionBox": { "x1": 0, "y1": 0, "z1": 0, "x2": 1, "y2": 0.125, "z2": 1 } } },
-    { "name": "Unplaceable", "__comment": "The ground storable obsoletes this being a block. Should be an item, but is kept a block for backwards compatibility" },
-    { "name": "RightClickPickup"}
-  ],
+  "behaviorsByType": {
+    "*-medium*": [
+      { "name": "Unplaceable", "__comment": "The ground storable obsoletes this being a block. Should be an item, but is kept a block for backwards compatibility" },
+      { "name": "RightClickPickup"},
+      { "name": "GroundStorable", "properties": { "layout": "Quadrants", "collisionBox": { "x1": 0, "y1": 0, "z1": 0, "x2": 1, "y2": 0.4375, "z2": 1 } } }
+    ],
+    "*-large*": [
+      { "name": "Unplaceable", "__comment": "The ground storable obsoletes this being a block. Should be an item, but is kept a block for backwards compatibility" },
+      { "name": "RightClickPickup"},
+      { "name": "GroundStorable", "properties": { "layout": "SingleCenter", "collisionBox": { "x1": 0.125, "y1": 0, "z1": 0.125,   "x2": 0.875, "y2": 0.75, "z2": 0.875 } } }
+    ]
+  },
+  "attributesByType": {
+    "*-medium-*": {
+      "shelvable": true
+    }
+  },
   "attributes": {
     "groundStorageTransform": {
-      "origin": { "x": 0.5, "y": 0, "z": 0.5 },
-      "scale": 0.85
+      "origin": { "x": 0.5, "y": 0, "z": 0.5 }
     },
     "onDisplayTransform": {
       "origin": { "x": 0.5, "y": 0, "z": 0.5 },
       "scale": 0.75
     },
-    "shelvable": true,
     "liquidContainerPropsByType": {
-      "*-medium-dried": {
+      "*-medium-carved": {
         "capacityLitres": 5,
         "transferSizeLitres": 0.3,
         "emptyShapeLoc": "block/gourd/stage3",
@@ -39,7 +49,7 @@
         "liquidContentShapeLoc": "game:shapes/block/basic/nothing",
         "liquidMaxYTranslate": 0.05
       },
-      "*-large-dried": {
+      "*-large-carved": {
         "capacityLitres": 8,
         "transferSizeLitres": 0.3,
         "emptyShapeLoc": "block/gourd/stage4",
@@ -48,15 +58,6 @@
         "liquidMaxYTranslate": 0.05
       }
     }
-  },
-  "transitionablePropsByType": {
-    "*-carved": [{
-      "type": "Dry",
-      "freshHours": { "avg":  18 },
-      "transitionHours": { "avg": 96 },
-      "transitionedStack": { "type": "block", "code": "balancedthirst:gourd-{size}-dried" },
-      "transitionRatio": 1
-    }]
   },
   "doNotRenderAtLod2": true,
   "creativeinventory": { "general": ["*"], "decorative": ["*"] },
@@ -98,6 +99,6 @@
   },
   "guiTransform": {
     "origin": { "x": 0.5, "y": 0.3, "z": 0.5 },
-    "scale": 1.9
+    "scale": 1.8
   }
 }

@@ -1,5 +1,3 @@
-using System;
-using System.ComponentModel;
 using BalancedThirst.Systems;
 using BalancedThirst.Util;
 using Vintagestory.API.Common;
@@ -13,8 +11,7 @@ public class HydrationProperties
     public EnumPurityLevel Purity;
     public float EuhydrationWeight = 1/10f;
     public bool Scalding;
-    [Obsolete ("Use EuhydrationWeight instead")]
-    public bool Salty;
+    public float Dehydration;
     
     public HydrationProperties Clone()
     {
@@ -23,8 +20,9 @@ public class HydrationProperties
             Hydration = this.Hydration,
             HydrationLossDelay = this.HydrationLossDelay,
             Purity = this.Purity,
-            EuhydrationWeight = this.EuhydrationWeight + (this.Salty ? -0.6f : 0),
+            EuhydrationWeight = this.EuhydrationWeight,
             Scalding = this.Scalding,
+            Dehydration = this.Dehydration
         };
     }
     
@@ -57,6 +55,7 @@ public class HydrationProperties
                 break;
             case EnumFoodCategory.Grain:
                 hydrationProps.Hydration = ConfigSystem.SyncedConfigData.GrainHydrationYield * saturation;
+                hydrationProps.Dehydration = 0.05f;
                 break;
             case EnumFoodCategory.NoNutrition:
                 if (ConfigSystem.SyncedConfigData.NoNutritionHydrationYield == 0) return null;
@@ -81,6 +80,7 @@ public class HydrationProperties
             Purity = a.Purity,
             EuhydrationWeight = a.EuhydrationWeight,
             Scalding = a.Scalding,
+            Dehydration = a.Dehydration / b
         };
     }
 }

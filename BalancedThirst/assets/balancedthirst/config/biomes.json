@@ -1,0 +1,14 @@
+{
+  "BlockPatchBiomes": {
+    "*-gourdpumpkin-*": [
+      "central palearctic",
+      "eastern palearctic",
+      "pacific palearctic",
+      "atlantic neotropic",
+      "atlantic afrotropic",
+      "eastern afrotropic",
+      "australasian",
+      "oceanic"
+    ]
+  }
+}

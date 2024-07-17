@@ -32,9 +32,15 @@ public class ConfigLibCompat
         if (api.Side == EnumAppSide.Client)
             api.ModLoader.GetModSystem<ConfigLibModSystem>().RegisterCustomConfig(Lang.Get("balancedthirst:balancedthirst_client"), (id, buttons) => EditConfigClient(id, buttons, api));
     }
-
+    
     private static void SyncConfig(ICoreAPI api)
     {
+        if (api is ICoreClientAPI { IsSinglePlayer: true } capi && ConfigSystem.ConfigServer.ResetModBoosts)
+        {
+            ConfigSystem.ResetModBoosts(capi.World?.Player?.Entity);
+            ConfigSystem.ConfigServer.ResetModBoosts = false;
+            ModConfig.WriteConfig(capi, BtConstants.ConfigServerName, ConfigSystem.ConfigServer);
+        }
         api.Event.PushEvent(EventIds.ConfigReloaded);
     }
     
@@ -67,6 +73,7 @@ public class ConfigLibCompat
             ImGui.Separator();
             config.ThirstBarColor = OnInputHex(id, config.ThirstBarColor, nameof(config.ThirstBarColor));
             config.BladderBarColor = OnInputHex(id, config.BladderBarColor, nameof(config.BladderBarColor));
+            config.UrineColor = OnInputText(id, config.UrineColor, nameof(config.UrineColor));
         }
     }
 
@@ -87,6 +94,7 @@ public class ConfigLibCompat
             config.EnableThirst = OnCheckBox(id, config.EnableThirst, nameof(config.EnableThirst));
             config.EnableBladder = OnCheckBox(id, config.EnableBladder, nameof(config.EnableBladder));
             ImGui.Separator();
+            config.UrineStains = OnCheckBox(id, config.UrineStains, nameof(config.UrineStains));
             config.ContainerDrinkSpeed = OnInputFloat(id, config.ContainerDrinkSpeed, nameof(config.ContainerDrinkSpeed));
             config.FruitHydrationYield = OnInputFloat(id, config.FruitHydrationYield, nameof(config.FruitHydrationYield));
             config.VegetableHydrationYield = OnInputFloat(id, config.VegetableHydrationYield, nameof(config.VegetableHydrationYield));
@@ -124,6 +132,7 @@ public class ConfigLibCompat
             config.VomitEuhydrationMultiplier = OnInputFloat(id, config.VomitEuhydrationMultiplier, nameof(config.VomitEuhydrationMultiplier));
             ImGui.Separator();
             config.EnableBladder = OnCheckBox(id, config.EnableBladder, nameof(config.EnableBladder));
+            config.UrineStains = OnCheckBox(id, config.UrineStains, nameof(config.UrineStains));
             config.BladderWalkSpeedDebuff = OnInputFloat(id, config.BladderWalkSpeedDebuff, nameof(config.BladderWalkSpeedDebuff));
             config.BladderCapacityOverload = OnInputFloat(id, config.BladderCapacityOverload, nameof(config.BladderCapacityOverload));
             config.UrineNutrientChance = OnInputFloat(id, config.UrineNutrientChance, nameof(config.UrineNutrientChance));
@@ -171,17 +180,22 @@ public class ConfigLibCompat
             {
                 DictionaryEditor(config.HydratingBlocks, new HydrationProperties(), Lang.Get(textSupportsWildcard));
             }
+            if (ImGui.CollapsingHeader(Lang.Get(settingPrefix + nameof(config.UrineStainableMaterials)) + $"##settingUrineStainableMaterials"))
+            {
+                config.UrineStainableMaterials = OnInputList(id, config.UrineStainableMaterials, nameof(config.UrineStainableMaterials));
+            }
             ImGui.Unindent();
         }
         if (ImGui.CollapsingHeader(Lang.Get(settingsCompat) + $"##settingCompat-{id}"))
         {
             ImGui.Indent();
-            config.UseHoDHydrationValues = OnCheckBox(id, config.UseHoDHydrationValues, nameof(config.UseHoDHydrationValues), BtCore.IsHoDLoaded);
             config.HoDClothingCoolingMultiplier = OnInputFloat(id, config.HoDClothingCoolingMultiplier, nameof(config.HoDClothingCoolingMultiplier));
             config.CamelHumpMaxHydrationMultiplier = OnInputFloat(id, config.CamelHumpMaxHydrationMultiplier, nameof(config.CamelHumpMaxHydrationMultiplier));
             config.ElephantBladderCapacityMultiplier = OnInputFloat(id, config.ElephantBladderCapacityMultiplier, nameof(config.ElephantBladderCapacityMultiplier));
             ImGui.Unindent();
         }
+        ImGui.Separator();
+        config.ResetModBoosts = OnCheckBox(id, config.ResetModBoosts, nameof(config.ResetModBoosts));
     }
 
     private bool OnCheckBox(string id, bool value, string name, bool isDisabled = false)
@@ -287,6 +301,27 @@ public class ConfigLibCompat
         return newValues;
     }
     
+    private List<T> OnInputList<T>(string id, List<T> values, string name) where T : struct, Enum
+    {
+        List<T> newValues = new List<T>(values);
+        for (int i = 0; i < newValues.Count; i++)
+        {
+            string newValue = newValues[i].ToString();
+            ImGui.InputText($"{name}[{i}]##{name}-{id}-{i}", ref newValue, 64);
+            if (Enum.TryParse(newValue, out T parsedValue))
+            {
+                newValues[i] = parsedValue;
+            }
+        }
+
+        if (ImGui.Button($"Add##{name}-{id}"))
+        {
+            newValues.Add(default);
+        }
+
+        return newValues;
+    }
+    
     private void DictionaryEditor<T>(Dictionary<string, T> dict, T defaultValue = default, string hint = "", string[] possibleValues = null)
     {
         if (ImGui.BeginTable("dict", 2, ImGuiTableFlags.BordersOuter))
@@ -332,6 +367,7 @@ public class ConfigLibCompat
                     customValue.Purity = OnInputEnum($"##purity-{row}" + key, customValue.Purity, nameof(HydrationProperties.Purity));
                     customValue.Scalding = OnCheckBoxWithoutTranslation($"##boolean-{row}" + key, customValue.Scalding, nameof(HydrationProperties.Scalding));
                     customValue.EuhydrationWeight = OnInputFloat($"##float-{row}" + key, customValue.EuhydrationWeight, nameof(HydrationProperties.EuhydrationWeight));
+                    customValue.Dehydration = OnInputFloat($"##float-{row}" + key, customValue.Dehydration, nameof(HydrationProperties.Dehydration));
                     value = (T)Convert.ChangeType(customValue, typeof(HydrationProperties));
                 }
                 else if (typeof(T) == typeof(StatMultiplier))
