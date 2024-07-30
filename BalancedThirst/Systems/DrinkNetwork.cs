@@ -45,6 +45,8 @@ public partial class DrinkNetwork : ModSystem
         api.Event.AfterActiveSlotChanged += (slot) => this.OnClientTick(0);
         api.World.RegisterGameTickListener(OnClientTick, 200);
         api.Gui.RegisterDialog(new HudInteractionHelp(api));
+        api.Input.RegisterHotKey(BtConstants.PeeKeyCode, Lang.Get(BtConstants.PeeKeyCode), GlKeys.Unknown, HotkeyType.CharacterControls);
+        api.Input.SetHotKeyHandler(BtConstants.PeeKeyCode, OnPeeKeyPressed);
     }
 
     private void OnClientTick(float dt)
@@ -56,7 +58,7 @@ public partial class DrinkNetwork : ModSystem
                 new StringAttribute(BtConstants.InteractionIds.Drink));
         
         if (!ConfigSystem.SyncedConfigData.EnableBladder) return;
-        if (!(player.IsBladderOverloaded() || _capi.World.ElapsedMilliseconds - _lastPeeTime < 2000) || !player.Entity.RightHandItemSlot.Empty) return;
+        if (!(player.IsBladderOverloaded() || _capi.World.ElapsedMilliseconds - _lastPeeTime < 2000 ) || !player.Entity.RightHandItemSlot.Empty) return;
         if (ConfigSystem.ConfigClient.PeeMode.IsSitting())
             _capi.Event.PushEvent(EventIds.Interaction,
                 new StringAttribute(player.Entity.Controls.FloorSitting ?
@@ -99,11 +101,11 @@ public partial class DrinkNetwork : ModSystem
         
         if (ConfigSystem.SyncedConfigData.EnableBladder &&
             (player.Player.IsBladderOverloaded() || world.ElapsedMilliseconds - _lastPeeTime < 2000) && 
-            (!player.Controls.TriesToMove && player.Controls.CtrlKey &&
+            !player.Controls.TriesToMove && player.Controls.CtrlKey &&
             player.RightHandItemSlot.Empty && 
             ConfigSystem.ConfigClient.PeeMode.IsStanding() ||
             (player.Controls.FloorSitting &&
-            ConfigSystem.ConfigClient.PeeMode.IsSitting())))
+            ConfigSystem.ConfigClient.PeeMode.IsSitting()))
         {
             _lastPeeTime = world.ElapsedMilliseconds;
             _clientChannel.SendPacket(new PeeMessage.Request()
@@ -151,6 +153,7 @@ public partial class DrinkNetwork : ModSystem
         if (pos == null) return;
         Block block = player?.Entity?.World?.BlockAccessor?.GetBlock(pos);
         HydrationProperties hydrationProps = block?.GetBlockHydrationProperties();
+        //BtCore.Logger.Warning($"Player {player?.PlayerName} is drinking {block?.Code} at {pos} with hydration properties {hydrationProps}");
         if (hydrationProps == null) return;
         if (block.IsRiverBlock(player.Entity.World, pos)) hydrationProps.Purity = EnumPurityLevel.Potable;
         if (player.Entity?.HasBehavior<EntityBehaviorThirst>() ?? false)

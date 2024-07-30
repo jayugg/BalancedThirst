@@ -46,6 +46,7 @@ public class BtCore : ModSystem
         api.RegisterBlockEntityClass($"{Modid}.{nameof(BlockEntitySealable)}", typeof(BlockEntitySealable));
         api.RegisterBlockEntityClass($"{Modid}.{nameof(BlockEntityGourdVine)}", typeof(BlockEntityGourdVine));
         api.RegisterBlockEntityClass($"{Modid}.{nameof(BlockEntityGourdMotherplant)}", typeof(BlockEntityGourdMotherplant));
+        api.RegisterBlockEntityClass($"{Modid}.{nameof(BlockEntityStain)}", typeof(BlockEntityStain));
         api.RegisterItemClass($"{Modid}.{nameof(ItemDowsingRod)}", typeof(ItemDowsingRod));
         api.RegisterCropBehavior($"{Modid}:GourdPumpkin", typeof(GourdCropBehavior));
         api.RegisterBlockBehaviorClass($"{Modid}:GushingLiquid", typeof(BlockBehaviorGushingLiquid));
@@ -78,13 +79,13 @@ public class BtCore : ModSystem
     
     private void OnPlayerJoin(EntityPlayer player)
     {
-        if (ConfigSystem.ConfigServer!.EnableBladder) return;
-        player.Stats.Remove("walkspeed", "bladderfull");
+        ConfigSystem.ResetModBoosts(player);
     }
     private void AddEntityBehaviors(Entity entity)
     {
         if (entity is not EntityPlayer) return;
-        if (ConfigSystem.ConfigServer!.EnableThirst)
+        RemoveEntityBehaviors(entity);
+        if (ConfigSystem.ConfigServer.EnableThirst)
             entity.AddBehavior(new EntityBehaviorThirst(entity));
         if (ConfigSystem.ConfigServer.EnableBladder)
             entity.AddBehavior(new EntityBehaviorBladder(entity));

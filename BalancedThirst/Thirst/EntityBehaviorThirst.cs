@@ -282,7 +282,6 @@ namespace BalancedThirst.Thirst
       
       if (this.Dehydration > 0)
       {
-        BtCore.Logger.Warning("Dehydration: {0}", Dehydration);
         this.entity.Stats.Set(BtCore.Modid + ":thirstrate", "dehydration", Dehydration);
         Dehydration = Math.Max(0, Dehydration - 0.01f*Hydration/MaxHydration);
       }

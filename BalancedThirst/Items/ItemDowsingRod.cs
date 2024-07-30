@@ -28,6 +28,7 @@ namespace BalancedThirst.Items;
       float radius = ConfigSystem.SyncedConfigData.DowsingRodRadius;
       if (radius <= 0) return;
       this.ProbeBlockNodeMode(byEntity.World, byEntity, itemslot, blockSel, radius);
+      itemslot.Itemstack.TempAttributes.SetFloat("dowsingRodCooldownUntilMs", byEntity.World.ElapsedMilliseconds + 5000);
       if (api.World.Rand.NextSingle() > 0.5f) DamageItem(byEntity.World, byEntity, itemslot);
       handling = EnumHandHandling.PreventDefault;
     }
@@ -53,18 +54,21 @@ namespace BalancedThirst.Items;
       }
       else
       {
-        TextCommandCallingArgs args1 = new TextCommandCallingArgs();
-        args1.Caller = new Caller()
-        {
-          Player = serverPlayer,
-          Pos = serverPlayer.Entity.Pos.XYZ,
-        };
-        args1.RawArgs = new CmdArgs("add blue Spring water");
         
-        this.api.ChatCommands.Execute("waypoint", args1);
+        if (itemslot.Itemstack.TempAttributes.GetFloat("dowsingRodCooldownUntilMs") < byEntity.World.ElapsedMilliseconds)
+        {
+          TextCommandCallingArgs args1 = new TextCommandCallingArgs();
+          args1.Caller = new Caller()
+          {
+            Player = serverPlayer,
+            Pos = serverPlayer.Entity.Pos.XYZ,
+          };
+          args1.RawArgs = new CmdArgs("add blue Spring water");
+        
+          this.api.ChatCommands.Execute("waypoint", args1);
+        }
         
         serverPlayer.SendMessage(GlobalConstants.InfoLogChatGroup, Lang.Get(BtCore.Modid+":Found water nearby!"), EnumChatType.Notification);
-        //serverPlayer.SendMessage(GlobalConstants.GeneralChatGroup, "Closest water found at " + closestWaterPos, EnumChatType.Notification);
         var message = new DowsingRodMessage()
         {
           Position = closestWaterPos

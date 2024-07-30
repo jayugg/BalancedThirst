@@ -56,5 +56,5 @@
     ]
   ],
   "name": "Kettle",
-  "output": { "type": "block", "code": "balancedthirst:kettle-clay-raw"  }
+  "output": { "type": "block", "code": "balancedthirst:kettle-raw"  }
 }

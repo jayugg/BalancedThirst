@@ -16,7 +16,6 @@ public class CollectibleObject_OnHeldInteractStop_Patch
     
     static bool _alreadyCalled = false;
     private static Dictionary<string, Tuple<ItemSlot, float, float>> _capturedSlot = new();
-    private static Dictionary<string, float> _capturedSaturation = new();
     
     public static void Prefix(
         CollectibleObject __instance,

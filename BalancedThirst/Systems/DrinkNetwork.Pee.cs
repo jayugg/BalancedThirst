@@ -4,8 +4,10 @@ using BalancedThirst.Config;
 using BalancedThirst.ModBehavior;
 using BalancedThirst.Network;
 using BalancedThirst.Util;
+using Vintagestory.API.Client;
 using Vintagestory.API.Common;
 using Vintagestory.API.Common.Entities;
+using Vintagestory.API.Config;
 using Vintagestory.API.MathTools;
 using Vintagestory.API.Server;
 using Vintagestory.GameContent;
@@ -21,6 +23,41 @@ public partial class DrinkNetwork
         var entity = _capi.World.Player.Entity;
         SpawnPeeParticles(entity, response.Position, entity.BlockSelection?.HitPosition, ConfigSystem.ConfigClient.UrineColor == "default" ? null : ConfigSystem.ConfigClient.UrineColor);
         EntityBehaviorBladder.PlayPeeSound(entity);
+    }
+    
+    private bool OnPeeKeyPressed(KeyCombination t1)
+    {
+        var world = _capi?.World;
+        var player = world?.Player;
+        if (world == null || player == null) return false;
+        
+        if (ConfigSystem.ConfigClient.PeeMode == EnumPeeMode.None)
+        {
+            player.IngameError(player, "peemodenotset", Lang.Get(BtCore.Modid+":peemodenotset") );
+        }
+
+        // Crutch to have same pee speed as other pee controls
+        if ( (player.Entity.World.Side & EnumAppSide.Server) != 0) return false;
+        if ( world.ElapsedMilliseconds % 2 != 0 ) return false;
+        
+        if (ConfigSystem.SyncedConfigData.EnableBladder &&
+            !player.Entity.Controls.TriesToMove &&
+            player.Entity.RightHandItemSlot.Empty && 
+            ConfigSystem.ConfigClient.PeeMode.IsStanding() ||
+            (player.Entity.Controls.FloorSitting &&
+             ConfigSystem.ConfigClient.PeeMode.IsSitting()))
+        {
+            _lastPeeTime = world.ElapsedMilliseconds;
+            _clientChannel.SendPacket(new PeeMessage.Request()
+            {
+                Position = player.Entity.BlockSelection?.Position,
+                HitPostion = player.Entity.BlockSelection?.HitPosition,
+                Color = ConfigSystem.ConfigClient.UrineColor == "default" ? null : ConfigSystem.ConfigClient.UrineColor
+            });
+            return true;
+        }
+
+        return false;
     }
     
     #endregion
@@ -64,6 +101,7 @@ public partial class DrinkNetwork
             be?.CoolWithWater();
         }
         if (!ConfigSystem.ConfigServer.UrineStains || player.CurrentBlockSelection == null) return;
+        if (!player.CurrentBlockSelection.Block.SideIsSolid(player.CurrentBlockSelection.Position, player.CurrentBlockSelection.Face.Index)) return;
         var rand = world.Rand.Next(0, 24);
         var x = rand % 6 + 1;
         var y = rand / 6 + 1;

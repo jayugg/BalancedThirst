@@ -1,5 +1,6 @@
 [
   {
+    "enabled": false,
     "ingredientPattern": "___,PRP,_P_",
     "ingredients": {
       "P": { "type": "item", "code": "game:hide-pelt-medium" },
@@ -10,6 +11,7 @@
     "output": { "type": "block", "code": "balancedthirst:waterskin-pelt", "quantity": 1  }
   },
   {
+    "enabled": false,
     "ingredientPattern": "P_P,PRP,PPP",
     "ingredients": {
       "P": { "type": "item", "code": "game:hide-pelt-small" },
@@ -20,6 +22,7 @@
     "output": { "type": "block", "code": "balancedthirst:waterskin-pelt", "quantity": 1  }
   },
   {
+    "enabled": false,
     "ingredientPattern": "PR",
     "ingredients": {
       "P": { "type": "item", "code": "game:hide-pelt-large" },
@@ -31,6 +34,7 @@
     "output": { "type": "block", "code": "balancedthirst:waterskin-pelt", "quantity": 1  }
   },
   {
+    "enabled": false,
     "ingredientPattern": "L_L,LRL,LLL",
     "ingredients": {
       "L": { "type": "item", "code": "game:leather-*", "quantity": 2 },

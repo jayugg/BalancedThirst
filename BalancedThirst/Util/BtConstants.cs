@@ -68,7 +68,7 @@ public static class BtConstants
         { $"@({BtCore.Modid}):waterportion-boiled", new HydrationProperties { Hydration = 200, Purity = EnumPurityLevel.Potable } },
         { $"@({BtCore.Modid}):waterportion-stagnant", new HydrationProperties { Hydration = 200, Purity = EnumPurityLevel.Stagnant } },
         { $"@({BtCore.Modid}):waterportion-distilled", new HydrationProperties { Hydration = 200, Purity = EnumPurityLevel.Pure, EuhydrationWeight = 0f } },
-        { $"@({BtCore.Modid}):urineportion", new HydrationProperties { Hydration = 120, Purity = EnumPurityLevel.Pure, EuhydrationWeight = -0.5f } },
+        { $"@({BtCore.Modid}):urineportion", new HydrationProperties { Hydration = 120, Purity = EnumPurityLevel.Pure, EuhydrationWeight = -0.5f, Dehydration = 1 } },
         { $"@({BtCore.Modid}):dryvegetable.*", new HydrationProperties { Hydration = 0, Dehydration = 0.05f } },
         { "@(aculinaryartillery):eggyolkfullportion-.*", new HydrationProperties { Hydration = 80 } },
         { "@(aculinaryartillery):eggyolkportion-.*", new HydrationProperties { Hydration = 50 } },
@@ -89,7 +89,7 @@ public static class BtConstants
         { "@(game):water-.*", new HydrationProperties { Hydration = 100, Purity = EnumPurityLevel.Okay } },
         { $"@(game):{BtCore.Modid}-purewater-.*", new HydrationProperties { Hydration = 100, Purity = EnumPurityLevel.Pure } },
         { "@(game):boilingwater-.*", new HydrationProperties { Hydration = 100, Scalding = true, Purity = EnumPurityLevel.Potable } },
-        { "@(game):saltwater-.*", new HydrationProperties { Hydration = 75, Purity = EnumPurityLevel.Okay, EuhydrationWeight = -0.5f, Dehydration = 1 } },
+        { "@(game):saltwater-.*", new HydrationProperties { Hydration = 75, Purity = EnumPurityLevel.Okay, EuhydrationWeight = -0.5f, Dehydration = 5 } },
         { "@(.*):water-.*", new HydrationProperties { Hydration = 100, Purity = EnumPurityLevel.Okay } },
     };
     
@@ -115,7 +115,7 @@ public static class BtConstants
     
     public static readonly Dictionary<string, WorldInteraction> Interactions = new()
     {
-        {"drink", new WorldInteraction()
+        { "drink", new WorldInteraction()
             {
                 ActionLangCode = BtCore.Modid + ":interaction-drink",
                 MouseButton = EnumMouseButton.Right,
@@ -145,4 +145,6 @@ public static class BtConstants
             }
         }
     };
+
+    public static string PeeKeyCode = BtCore.Modid + ":hotkey-pee";
 }

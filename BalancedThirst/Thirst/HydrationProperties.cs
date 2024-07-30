@@ -83,4 +83,9 @@ public class HydrationProperties
             Dehydration = a.Dehydration / b
         };
     }
+    
+    public override string ToString()
+    {
+        return $"Hydration: {Hydration}, HydrationLossDelay: {HydrationLossDelay}, Purity: {Purity}, EuhydrationWeight: {EuhydrationWeight}, Scalding: {Scalding}, Dehydration: {Dehydration}";
+    }
 }

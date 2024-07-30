@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using BalancedThirst.Systems;
 using BalancedThirst.Util;
 using Vintagestory.API.Client;
@@ -35,13 +36,20 @@ public class KettleInFirepitRenderer : IInFirepitRenderer
         this._pos = pos;
         this._isInOutputSlot = isInOutputSlot;
 
-        BlockKettle kettleBlock = capi.World.GetBlock(stack.Collectible.CodeWithVariant("type", "fired")) as BlockKettle;
+        var variant = stack.Collectible.Code.EndVariant();
+
+        BlockKettle kettleBlock =
+            capi.World.GetBlock(stack.Collectible.CodeWithVariant("metal", variant)) as BlockKettle;
         if (kettleBlock == null) return;
 
-        if (stack.Collectible.CodeWithVariant("type", "fired") == null) { kettleBlock = capi.World.GetBlock(stack.Collectible.CodeWithVariant("metal", "")) as BlockKettle; }
+        if (stack.Collectible.CodeWithVariant("metal", variant) == null) { kettleBlock = capi.World.GetBlock(stack.Collectible.CodeWithVariant("metal", "")) as BlockKettle; }
 
+        var shape = capi.Assets.TryGet($"{BtCore.Modid}:shapes/block/{kettleBlock?.FirstCodePart()}/empty.json")
+            .ToObject<Shape>();
+        if (stack.Collectible.Code.Equals(stack.Collectible.CodeWithVariant("metal", "fired")))
+            shape = shape.FlattenHierarchy().RemoveReflective();
         MeshData kettleMesh;
-        capi.Tesselator.TesselateShape(kettleBlock, capi.Assets.TryGet($"{BtCore.Modid}:shapes/block/{kettleBlock?.FirstCodePart()}/empty.json").ToObject<Shape>(), out kettleMesh); // Main Shape
+        capi.Tesselator.TesselateShape(kettleBlock, shape, out kettleMesh); // Main Shape
         _kettleRef = capi.Render.UploadMultiTextureMesh(kettleMesh);
 
         MeshData topMesh;
@@ -141,7 +149,7 @@ public class KettleInFirepitRenderer : IInFirepitRenderer
 
             rpi.RenderMultiTextureMesh(_topRef);
         }
-        else
+        else if (_contentRef != null)
         {
             rpi.RenderMultiTextureMesh(_contentRef);
         }

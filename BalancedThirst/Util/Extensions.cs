@@ -356,5 +356,11 @@ public static class Extensions
             //BtCore.Logger.Warning("Temperature: " + leftStack.Collectible.GetTemperature(mold.Api.World, rightStack));
         }
     }
+    
+    public static bool TryGetBeBehavior<T>(this IBlockAccessor blockAccessor, BlockPos pos, out T? behavior) where T : BlockEntityBehavior
+    {
+        behavior = blockAccessor.GetBlockEntity(pos)?.GetBehavior<T>();
+        return behavior != null;
+    }
 
 }

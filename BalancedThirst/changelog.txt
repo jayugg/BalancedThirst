@@ -1,7 +1,2 @@
-- Kettle lid texture fix
-- Slight fix to interaction with underwater entities
-- Fixed subtle bug that gave the player the full hunger reduction every time they hit an entity
-- Implemented temperature mechanics, above a configurable threshold your thirst rate will increase due to temperature, rate increase per degrees is configurable
-- HoD clothing cooling compatibility now works with the above temperature mechanics
-- Added dehydration, caused mostly by salt water and a few other food items (like alcohol) to a much smaller degree, will increase thirst rate
-- Added biomes compatibility
+- Modified legacy item transition code, no more weird crashes with perishable containers
+- Added urination hotkey to use when not in urgent need (not set by default, set in game settings), normal controls are unchanged

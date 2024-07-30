@@ -1,5 +1,5 @@
 {
-  "code": "kettle",
+  "code": "kettle-clay",
   "classByType": {
     "*-raw": "Block",
     "*": "balancedthirst.BlockKettle"
@@ -33,7 +33,7 @@
     ]
   },
   "variantgroups": [
-    { "code": "metal", "states": ["raw", "fired", "porcelain"] }
+    { "code": "type", "states": ["raw", "fired", "porcelain"] }
   ],
   "attributesByType": {
     "*-raw": { "shelvable": true },
@@ -72,7 +72,7 @@
       "meltingDuration": 45,
       "smeltedRatio": 1,
       "smeltingType": "fire",
-      "smeltedStack": { "type": "block", "code": "kettle-fired" },
+      "smeltedStack": { "type": "block", "code": "kettle-clay-fired" },
       "requiresContainer": false
     }
   },

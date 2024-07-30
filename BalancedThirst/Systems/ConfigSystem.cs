@@ -67,7 +67,7 @@ public static class ConfigSystem
         SyncedConfig = packet.Clone();
         if (SyncedConfig.ResetModBoosts)
         {
-            ResetModBoosts((_api as ICoreClientAPI)?.World.Player.Entity);
+            ResetModBoosts((_api as ICoreClientAPI)?.World?.Player?.Entity);
             SyncedConfig.ResetModBoosts = false;
             ModConfig.WriteConfig(_api, BtConstants.SyncedConfigName, SyncedConfig);
         }

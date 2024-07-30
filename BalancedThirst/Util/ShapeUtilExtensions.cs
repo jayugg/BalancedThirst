@@ -5,6 +5,19 @@ namespace BalancedThirst.Util;
 
 public static class ShapeUtilExtensions
 {
+    
+    public static Shape RemoveReflective(this Shape shape)
+    {
+        foreach (var element in shape.Elements)
+        {
+            foreach (var face in element.FacesResolved)
+            {
+                face.ReflectiveMode = 0;
+            }
+        }
+        return shape;
+    }
+    
     public static Shape FlattenHierarchy(this Shape shape)
     {
         shape.Elements = FlattenHierarchy(shape.Elements).ToArray();

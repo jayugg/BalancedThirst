@@ -15,6 +15,10 @@
     "block-kettle-clay-fired": "Kettle (Ceramic)",
     "block-kettle-clay-porcelain": "Kettle (Porcelain)",
 
+    "block-kettle-raw": "Raw kettle",
+    "block-kettle-fired": "Kettle (Ceramic)",
+    "block-kettle-porcelain": "Kettle (Porcelain)",
+
     "balancedthirst:block-kettle-copper": "Kettle (Copper)",
     "balancedthirst:block-kettle-brass": "Kettle (Brass)",
     "balancedthirst:block-kettle-tinbronze": "Kettle (Tin bronze)",
@@ -188,5 +192,7 @@
     
     "peemodenotset": "Urination mode is not set. Please set it in the client config.",
 
-    "iteminfo-storedwater" : "Stored water perish speed: {0}"
+    "iteminfo-storedwater" : "Stored water perish speed: {0}",
+    
+    "hotkey-pee": "Urinate"
 }

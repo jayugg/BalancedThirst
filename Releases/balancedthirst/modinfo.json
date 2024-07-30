@@ -6,6 +6,6 @@
         "jayugg"
     ],
     "description": "Adds a thirst mechanic to the game.",
-    "version": "0.0.33",
+    "version": "0.0.36",
     "dependencies": { }
 }

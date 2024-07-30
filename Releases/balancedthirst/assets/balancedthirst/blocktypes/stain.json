@@ -1,6 +1,7 @@
 {
   "code": "caveart-stain",
-  "class": "balancedthirst.BlockStain",
+  "class": "Block",
+  "entityclass": "balancedthirst.BlockEntityStain",
   "behaviors": [ {"name": "Decor", "properties": {"sides": ["north", "east", "south", "west", "up", "down"], "notFullFace":true, "thickness": 0.0, "removable":  true}} ],
   "attributes": {
     "handbook": {
