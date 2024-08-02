@@ -21,7 +21,7 @@ public class BlockContainer_GetContainingTransitionModifier
         EnumTransitionType transType)
     {
         if (ShouldSkipPatch) return;
-        if (transType != EnumTransitionType.Perish || __instance is not BlockLiquidContainerBase container) return;
+        if (transType != EnumTransitionType.Perish || __instance is not BlockLiquidContainerBase container || !container.IsWaterContainer()) return;
         var contentStack = container.GetContent(inSlot.Itemstack);
         if (!contentStack.Collectible.IsWaterPortion()) return;
         var exp = IsSinglePlayer(world) ? 0.5f : 1f; // Have to adjust because somehow it gets applied twice in single player
@@ -37,7 +37,7 @@ public class BlockContainer_GetContainingTransitionModifier
         EnumTransitionType transType)
     {
         if (ShouldSkipPatch) return;
-        if (transType != EnumTransitionType.Perish || __instance is not BlockLiquidContainerBase container) return;
+        if (transType != EnumTransitionType.Perish || __instance is not BlockLiquidContainerBase container || !container.IsWaterContainer()) return;
         var contentStack = container.GetContent(pos);
         if (!contentStack.Collectible.IsWaterPortion()) return;
         var exp = IsSinglePlayer(world) ? 0.5f : 1f; // Have to adjust because somehow it gets applied twice in single player

@@ -34,7 +34,7 @@ public class BlockEntityFirepit_Temp_Patch
     
     public static void SetTemp(BlockEntityFirepit __instance, ItemStack stack, float value)
     {
-        if (stack.Collectible is not BlockKettle) return;
+        if (stack?.Collectible is not BlockKettle) return;
         var inventory = __instance.GetField<InventorySmelting>("inventory");
         if (inventory == null) return;
         stack.Collectible?.SetTemperature(__instance.Api.World, stack, value);

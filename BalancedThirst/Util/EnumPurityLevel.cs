@@ -7,5 +7,6 @@ public enum EnumPurityLevel
     Potable,
     Okay,
     Stagnant,
-    Yuck
+    Yuck,
+    Distilled
 }

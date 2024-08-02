@@ -1,2 +1,6 @@
-- Modified legacy item transition code, no more weird crashes with perishable containers
-- Added urination hotkey to use when not in urgent need (not set by default, set in game settings), normal controls are unchanged
+- Fixed weird issue with container water expiration working only when placed down
+- Removed some log spam
+- Added handbook guide for thirst management
+- Added Distilled water purity level, which has 0 vomit chance. Now distilled water has 0 vomit chance (pure is 2/10k).
+- Distilled water can be turned into boiled water using salt (balanced as it needs a lot of distilled water with a 25L:1 ratio)
+- Better aca saucepan/cauldron water boiling

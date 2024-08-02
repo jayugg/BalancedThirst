@@ -21,7 +21,6 @@ public class BlockEntityStain : BlockEntity
 
     private void OnGameTick(float dt)
     {
-        BtCore.Logger.Warning("Game tick");
         bool shouldDie = Api.World.BlockAccessor.GetBlock(Pos.UpCopy()).BlockMaterial == EnumBlockMaterial.Liquid ||
                          Api.World.BlockAccessor.GetDistanceToRainFall(Pos, 2) < 2;
         if (shouldDie)
