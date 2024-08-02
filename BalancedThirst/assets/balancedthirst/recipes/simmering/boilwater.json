@@ -5,22 +5,7 @@
         "type": "item",
         "code": "waterportion",
         "quantity": 50
-      }
-    ],
-    "Simmering": {
-      "meltingPoint": 100,
-      "meltingDuration": 30,
-      "smeltedRatio": 1,
-      "smeltingType": "convert",
-      "smeltedStack": {
-        "type": "item",
-        "code": "boilingwaterportion"
       },
-      "requiresContainer": false
-    }
-  },
-  {
-    "Ingredients": [
       {
         "type": "item",
         "code": "balancedthirst:waterportion-*",
@@ -34,7 +19,194 @@
       "smeltingType": "convert",
       "smeltedStack": {
         "type": "item",
-        "code": "boilingwaterportion"
+        "code": "boilingwaterportion",
+        "quantity": 100
+      },
+      "requiresContainer": false
+    }
+  },
+  {
+    "Ingredients": [
+      {
+        "type": "item",
+        "code": "waterportion",
+        "quantity": 50
+      },
+      {
+        "type": "item",
+        "code": "waterportion",
+        "quantity": 50
+      }
+    ],
+    "Simmering": {
+      "meltingPoint": 100,
+      "meltingDuration": 30,
+      "smeltedRatio": 1,
+      "smeltingType": "convert",
+      "smeltedStack": {
+        "type": "item",
+        "code": "boilingwaterportion",
+        "quantity": 100
+      },
+      "requiresContainer": false
+    }
+  },
+  {
+    "Ingredients": [
+      {
+        "type": "item",
+        "code": "waterportion",
+        "quantity": 50
+      },
+      {
+        "type": "item",
+        "code": "waterportion",
+        "quantity": 50
+      },
+      {
+        "type": "item",
+        "code": "waterportion",
+        "quantity": 50
+      }
+    ],
+    "Simmering": {
+      "meltingPoint": 100,
+      "meltingDuration": 30,
+      "smeltedRatio": 1,
+      "smeltingType": "convert",
+      "smeltedStack": {
+        "type": "item",
+        "code": "boilingwaterportion",
+        "quantity": 150
+      },
+      "requiresContainer": false
+    }
+  },
+  {
+    "Ingredients": [
+      {
+        "type": "item",
+        "code": "waterportion",
+        "quantity": 50
+      },
+      {
+        "type": "item",
+        "code": "waterportion",
+        "quantity": 50
+      },
+      {
+        "type": "item",
+        "code": "waterportion",
+        "quantity": 50
+      },
+      {
+        "type": "item",
+        "code": "waterportion",
+        "quantity": 50
+      }
+    ],
+    "Simmering": {
+      "meltingPoint": 100,
+      "meltingDuration": 30,
+      "smeltedRatio": 1,
+      "smeltingType": "convert",
+      "smeltedStack": {
+        "type": "item",
+        "code": "boilingwaterportion",
+        "quantity": 200
+      },
+      "requiresContainer": false
+    }
+  },
+  {
+    "Ingredients": [
+      {
+        "type": "item",
+        "code": "balancedthirst:waterportion-*",
+        "quantity": 50
+      },
+      {
+        "type": "item",
+        "code": "balancedthirst:waterportion-*",
+        "quantity": 50
+      }
+    ],
+    "Simmering": {
+      "meltingPoint": 100,
+      "meltingDuration": 30,
+      "smeltedRatio": 1,
+      "smeltingType": "convert",
+      "smeltedStack": {
+        "type": "item",
+        "code": "boilingwaterportion",
+        "quantity": 100
+      },
+      "requiresContainer": false
+    }
+  },
+  {
+    "Ingredients": [
+      {
+        "type": "item",
+        "code": "balancedthirst:waterportion-*",
+        "quantity": 50
+      },
+      {
+        "type": "item",
+        "code": "balancedthirst:waterportion-*",
+        "quantity": 50
+      },
+      {
+        "type": "item",
+        "code": "balancedthirst:waterportion-*",
+        "quantity": 50
+      }
+    ],
+    "Simmering": {
+      "meltingPoint": 100,
+      "meltingDuration": 30,
+      "smeltedRatio": 1,
+      "smeltingType": "convert",
+      "smeltedStack": {
+        "type": "item",
+        "code": "boilingwaterportion",
+        "quantity": 150
+      },
+      "requiresContainer": false
+    }
+  },
+  {
+    "Ingredients": [
+      {
+        "type": "item",
+        "code": "balancedthirst:waterportion-*",
+        "quantity": 50
+      },
+      {
+        "type": "item",
+        "code": "balancedthirst:waterportion-*",
+        "quantity": 50
+      },
+      {
+        "type": "item",
+        "code": "balancedthirst:waterportion-*",
+        "quantity": 50
+      },
+      {
+        "type": "item",
+        "code": "balancedthirst:waterportion-*",
+        "quantity": 50
+      }
+    ],
+    "Simmering": {
+      "meltingPoint": 100,
+      "meltingDuration": 30,
+      "smeltedRatio": 1,
+      "smeltingType": "convert",
+      "smeltedStack": {
+        "type": "item",
+        "code": "boilingwaterportion",
+        "quantity": 200
       },
       "requiresContainer": false
     }

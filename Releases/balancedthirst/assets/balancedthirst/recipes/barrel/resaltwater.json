@@ -1,0 +1,10 @@
+[
+  {
+    "code": "resaltwater",
+    "ingredients": [
+      { "type": "item", "code": "balancedthirst:waterportion-distilled", "name": "type", "litres": 25 },
+      { "type": "item", "code": "game:salt", "quantity": 1 }
+    ],
+    "output": { "type": "item", "code": "balancedthirst:waterportion-pure", "litres": 25 }
+  }
+]

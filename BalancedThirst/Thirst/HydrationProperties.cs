@@ -8,7 +8,7 @@ public class HydrationProperties
 {
     public float Hydration;
     public float HydrationLossDelay = 10f;
-    public EnumPurityLevel Purity;
+    public EnumPurityLevel Purity = EnumPurityLevel.Distilled;
     public float EuhydrationWeight = 1/10f;
     public bool Scalding;
     public float Dehydration;

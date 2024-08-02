@@ -25,6 +25,7 @@ public static class BtConstants
     public static readonly Dictionary<string, float> WaterContainers = new()
     {
         { "@(.*):waterskin.*", 0.6f },
+        { $"@({BtCore.Modid}):gourd-.*-carved", 0.5f },
         { $"@({BtCore.Modid}):waterskin-pelt", 0.6f },
         { $"@({BtCore.Modid}):waterskin-leather", 0.45f },
         { "@(liquidcontainers):watercontainer-leather.*", 0.45f },
@@ -67,7 +68,7 @@ public static class BtConstants
         { $"@({BtCore.Modid}):waterportion-pure", new HydrationProperties { Hydration = 200, Purity = EnumPurityLevel.Pure } },
         { $"@({BtCore.Modid}):waterportion-boiled", new HydrationProperties { Hydration = 200, Purity = EnumPurityLevel.Potable } },
         { $"@({BtCore.Modid}):waterportion-stagnant", new HydrationProperties { Hydration = 200, Purity = EnumPurityLevel.Stagnant } },
-        { $"@({BtCore.Modid}):waterportion-distilled", new HydrationProperties { Hydration = 200, Purity = EnumPurityLevel.Pure, EuhydrationWeight = 0f } },
+        { $"@({BtCore.Modid}):waterportion-distilled", new HydrationProperties { Hydration = 200, Purity = EnumPurityLevel.Distilled, EuhydrationWeight = 0f } },
         { $"@({BtCore.Modid}):urineportion", new HydrationProperties { Hydration = 120, Purity = EnumPurityLevel.Pure, EuhydrationWeight = -0.5f, Dehydration = 1 } },
         { $"@({BtCore.Modid}):dryvegetable.*", new HydrationProperties { Hydration = 0, Dehydration = 0.05f } },
         { "@(aculinaryartillery):eggyolkfullportion-.*", new HydrationProperties { Hydration = 80 } },

@@ -141,6 +141,9 @@ namespace BalancedThirst.Thirst
         case EnumPurityLevel.Yuck:
           purity = ConfigSystem.ConfigServer.RotPurityLevel;
           break;
+        case EnumPurityLevel.Distilled:
+          return 0;
+          break;
         default:
           throw new ArgumentOutOfRangeException(nameof(purityLevel), purityLevel, null);
       }

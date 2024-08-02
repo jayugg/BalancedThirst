@@ -10,7 +10,7 @@ namespace BalancedThirst.Config;
 [ProtoContract]
 public class SyncedConfig : IModConfig
 {
-    // Tag Booleans with IsRequired = true to prevent false values not being sent
+    // Tag stuff with IsRequired = true to prevent default values not being sent
     [ProtoMember(1, IsRequired = true)]
     public bool EnableThirst { get; set; } = true;
     
