@@ -4,9 +4,14 @@ using BalancedThirst.HarmonyPatches.BlockLiquidContainer;
 using BalancedThirst.HarmonyPatches.CharExtraDialogs;
 using BalancedThirst.HarmonyPatches.CollObj;
 using BalancedThirst.HarmonyPatches.Container;
+using BalancedThirst.HarmonyPatches.CookedContainer;
+using BalancedThirst.HarmonyPatches.Crock;
 using BalancedThirst.HarmonyPatches.EntityFirepit;
 using BalancedThirst.HarmonyPatches.InvSmelting;
+using BalancedThirst.HarmonyPatches.Meal;
+using BalancedThirst.HarmonyPatches.PerceptionEffects;
 using HarmonyLib;
+using Vintagestory.API.Client;
 using Vintagestory.API.Common;
 using Vintagestory.GameContent;
 
@@ -50,6 +55,22 @@ public class HarmonyPatches : ModSystem
             postfix: typeof(CollectibleObject_tryEatStop_Patch).GetMethod(
                 nameof(CollectibleObject_tryEatStop_Patch.Postfix)));
         
+        HarmonyInstance.Patch(typeof(BlockMeal).GetMethod("tryFinishEatMeal", BindingFlags.NonPublic | BindingFlags.Instance),
+            prefix: typeof(BlockMeal_tryFinishEatMeal_Patch).GetMethod(
+                nameof(BlockMeal_tryFinishEatMeal_Patch.Prefix)),
+            postfix: typeof(BlockMeal_tryFinishEatMeal_Patch).GetMethod(
+                nameof(BlockMeal_tryFinishEatMeal_Patch.Postfix)));
+        
+        HarmonyInstance.Patch(typeof(BlockMeal).GetMethod(nameof(BlockMeal.GetHeldItemInfo)),
+            postfix: typeof(BlockMeal_GetHeldItemInfo_Patch).GetMethod(
+                nameof(BlockMeal_GetHeldItemInfo_Patch.Postfix)));
+        HarmonyInstance.Patch(typeof(BlockCookedContainer).GetMethod(nameof(BlockCookedContainer.GetHeldItemInfo)),
+            postfix: typeof(BlockCookedContainer_GetHeldItemInfo_Patch).GetMethod(
+                nameof(BlockCookedContainer_GetHeldItemInfo_Patch.Postfix)));
+        HarmonyInstance.Patch(typeof(BlockCrock).GetMethod(nameof(BlockCrock.GetHeldItemInfo)),
+            postfix: typeof(BlockCrock_GetHeldItemInfo_Patch).GetMethod(
+                nameof(BlockCrock_GetHeldItemInfo_Patch.Postfix)));
+        
         HarmonyInstance.Patch(typeof(CollectibleObject).GetMethod(nameof(CollectibleObject.OnHeldInteractStop)),
             prefix: typeof(CollectibleObject_OnHeldInteractStop_Patch).GetMethod(
                 nameof(CollectibleObject_OnHeldInteractStop_Patch.Prefix)),
@@ -72,6 +93,13 @@ public class HarmonyPatches : ModSystem
         HarmonyInstance.Patch(typeof(CharacterExtraDialogs).GetMethod("UpdateStats",  BindingFlags.NonPublic | BindingFlags.Instance),
             postfix: typeof(CharacterExtraDialogs_UpdateStatBars_Patch).GetMethod(
                 nameof(CharacterExtraDialogs_UpdateStatBars_Patch.Postfix)));
+        
+        HarmonyInstance.Patch(typeof(PerceptionEffects).GetMethod(nameof(PerceptionEffects.OnOwnPlayerDataReceived)),
+            prefix: typeof(PerceptionEffects_OnOwnPlayerDataReceived_Patch).GetMethod(
+                nameof(PerceptionEffects_OnOwnPlayerDataReceived_Patch.Prefix)));
+        HarmonyInstance.Patch(typeof(PerceptionEffects).GetConstructor(new[] { typeof(ICoreClientAPI) }),
+            postfix: typeof(PerceptionEffects_Constructor_Patch).GetMethod(nameof(PerceptionEffects_Constructor_Patch.Postfix))
+        );
     }
 
     public override void Dispose() {

@@ -1,6 +1,7 @@
-- Fixed weird issue with container water expiration working only when placed down
-- Removed some log spam
-- Added handbook guide for thirst management
-- Added Distilled water purity level, which has 0 vomit chance. Now distilled water has 0 vomit chance (pure is 2/10k).
-- Distilled water can be turned into boiled water using salt (balanced as it needs a lot of distilled water with a 25L:1 ratio)
-- Better ACA saucepan/cauldron water boiling
+- Ochre mod bowl compat
+- Wildcraft trees wooden bowl compatibility
+- Meal hydration fix
+- Removed surface spring water (prepare for change)
+- Can create soup with mod water variants
+- Fixed bug that didn't scale liquid dehydration with drank amount
+- Dehydration recovery buffed by 2x and massively increased (10x) when at full hydration

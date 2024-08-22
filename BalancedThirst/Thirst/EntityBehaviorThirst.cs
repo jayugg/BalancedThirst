@@ -286,7 +286,7 @@ namespace BalancedThirst.Thirst
       if (this.Dehydration > 0)
       {
         this.entity.Stats.Set(BtCore.Modid + ":thirstrate", "dehydration", Dehydration);
-        Dehydration = Math.Max(0, Dehydration - 0.01f*Hydration/MaxHydration);
+        Dehydration = Math.Max(0, Dehydration - 0.02f*Hydration/MaxHydration * (Math.Abs(Hydration - MaxHydration) < 1e-4 ? 5 : 0));
       }
       else
       {

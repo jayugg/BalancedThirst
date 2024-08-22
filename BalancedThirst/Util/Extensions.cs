@@ -29,6 +29,45 @@ public static class Extensions
         ItemStack itemStack,
         Entity byEntity)
     {
+        if (collObj is BlockMeal)
+        {
+            ItemStack[]? contentStacks = (itemStack.Collectible as BlockMeal)?.GetNonEmptyContents(world, itemStack);
+            if (contentStacks == null) return null;
+            HydrationProperties? totalProps = null;
+            foreach (ItemStack contentStack in contentStacks)
+            {
+                if (totalProps == null) totalProps = contentStack.Collectible.GetHydrationProperties(world, contentStack, byEntity);
+                else totalProps += contentStack.Collectible.GetHydrationProperties(world, contentStack, byEntity);
+            }
+            return totalProps;
+        }
+        
+        if (collObj is BlockCookedContainer)
+        {
+            ItemStack[]? contentStacks = (itemStack.Collectible as BlockCookedContainer)?.GetNonEmptyContents(world, itemStack);
+            if (contentStacks == null) return null;
+            HydrationProperties? totalProps = null;
+            foreach (ItemStack contentStack in contentStacks)
+            {
+                if (totalProps == null) totalProps = contentStack.Collectible.GetHydrationProperties(world, contentStack, byEntity);
+                else totalProps += contentStack.Collectible.GetHydrationProperties(world, contentStack, byEntity);
+            }
+            return totalProps;
+        }
+        
+        if (collObj is BlockCrock)
+        {
+            ItemStack[]? contentStacks = (itemStack.Collectible as BlockCrock)?.GetNonEmptyContents(world, itemStack);
+            if (contentStacks == null) return null;
+            HydrationProperties? totalProps = null;
+            foreach (ItemStack contentStack in contentStacks)
+            {
+                if (totalProps == null) totalProps = contentStack.Collectible.GetHydrationProperties(world, contentStack, byEntity);
+                else totalProps += contentStack.Collectible.GetHydrationProperties(world, contentStack, byEntity);
+            }
+            return totalProps;
+        }
+        
         if (collObj.HasBehavior<HydratingFoodBehavior>())
         {
             var behavior = collObj.GetBehavior<HydratingFoodBehavior>();
@@ -46,6 +85,7 @@ public static class Extensions
             var behavior = collObj.GetBehavior<WaterContainerBehavior>();
             return behavior?.GetHydrationProperties(world, itemStack, byEntity) ?? null;
         }
+
         return null;
     }
     
@@ -188,7 +228,7 @@ public static class Extensions
         {
             itemsPerLitre *= itemsPerLitreProps.Value<float>();
         }
-        return ((float) stack.StackSize) / itemsPerLitre ;
+        return stack.StackSize / itemsPerLitre ;
     }
     
     // Should only be used on the server side!

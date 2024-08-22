@@ -70,6 +70,19 @@ public class HydrationProperties
         }
         return hydrationProps;
     }
+    
+    public static HydrationProperties operator *(HydrationProperties a, float b)
+    {
+        return new HydrationProperties()
+        {
+            Hydration = a.Hydration * b,
+            HydrationLossDelay = a.HydrationLossDelay * b,
+            Purity = a.Purity,
+            EuhydrationWeight = a.EuhydrationWeight,
+            Scalding = a.Scalding,
+            Dehydration = a.Dehydration * b
+        };
+    }
 
     public static HydrationProperties operator /(HydrationProperties a, float b)
     {
@@ -81,6 +94,20 @@ public class HydrationProperties
             EuhydrationWeight = a.EuhydrationWeight,
             Scalding = a.Scalding,
             Dehydration = a.Dehydration / b
+        };
+    }
+    
+    /// Used for BlockMeal calcs
+    public static HydrationProperties operator +(HydrationProperties a, HydrationProperties b)
+    {
+        return new HydrationProperties()
+        {
+            Hydration = a.Hydration + b.Hydration,
+            HydrationLossDelay = a.HydrationLossDelay + b.HydrationLossDelay,
+            Purity = EnumPurityLevel.Distilled,
+            EuhydrationWeight = a.EuhydrationWeight + b.EuhydrationWeight,
+            Scalding = false,
+            Dehydration = a.Dehydration + b.Dehydration
         };
     }
     

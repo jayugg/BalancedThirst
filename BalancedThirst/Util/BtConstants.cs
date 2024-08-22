@@ -148,4 +148,6 @@ public static class BtConstants
     };
 
     public static string PeeKeyCode = BtCore.Modid + ":hotkey-pee";
+
+    public static string DehydratedEffectId = $"{BtCore.Modid}:dehydrated";
 }

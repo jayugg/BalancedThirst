@@ -56,6 +56,7 @@ public static class ConfigSystem
         }
         player.Stats.Remove(BtCore.Modid + ":thirstrate", "HoD:cooling");
         player.Stats.Remove(BtCore.Modid + ":thirstrate", "resistheat");
+        player.Stats.Remove(BtCore.Modid + ":thirstrate", "dehydration");
         player.Stats.Remove("walkspeed", "bladderfull");
         player.Stats.Remove("walkspeed", "bowelfull");
     }

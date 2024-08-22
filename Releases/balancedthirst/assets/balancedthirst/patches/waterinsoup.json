@@ -1,0 +1,19 @@
+[
+  {
+    "op": "addeach",
+    "path": "/ingredients/0/validStacks/-",
+    "value": [
+      {
+        type: "item",
+        code: "balancedthirst:waterportion-*",
+        shapeElement: "bowl/water",
+        "textureMapping": [
+          "water",
+          "group2"
+        ]
+      }
+    ],
+    "side": "server",
+    "file": "game:recipes/cooking/soup.json"
+  }
+]

@@ -1,0 +1,29 @@
+[
+  {
+    ingredientPattern: "BCD",
+    ingredients: {
+      "B": {
+        type: "block",
+        code: "balancedthirst:woodenbowl-*"
+      },
+      "C": {
+        type: "item",
+        code: "game:clay-fire"
+      },
+      "D": {
+        type: "item",
+        code: "game:clay-blue"
+      }
+    },
+    width: 3,
+    height: 1,
+    attributes: {
+      liquidContainerProps: {
+        requiresContent: { type: "item", code: "game:waterportion" },
+        requiresLitres: 0.4
+      }
+    },
+    shapeless: true,
+    output: { type: "item", code: "unochre:ochre-sienna", quantity: 4  }
+  }
+]

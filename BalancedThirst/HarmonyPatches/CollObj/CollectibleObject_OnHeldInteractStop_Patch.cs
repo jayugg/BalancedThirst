@@ -84,15 +84,13 @@ public class CollectibleObject_OnHeldInteractStop_Patch
         var container = retrievedSlot.Itemstack.Collectible as BlockLiquidContainerBase;
         HydrationProperties hydrationProps = container?.GetHydrationPropsPerLitre(player.World, retrievedSlot.Itemstack, player);
         if (hydrationProps == null) return;
-        hydrationProps.Hydration *= litresDrank;
-        hydrationProps.HydrationLossDelay *= litresDrank;
+        hydrationProps *= litresDrank;
                 
         TransitionState transitionState = container.UpdateAndGetTransitionState(player.Api.World, retrievedSlot, EnumTransitionType.Perish);
         double spoilState = transitionState?.TransitionLevel ?? 0.0;
         float spoilageFactor = GlobalConstants.FoodSpoilageSatLossMul((float) spoilState, retrievedSlot.Itemstack, player);
-        hydrationProps.Hydration *= spoilageFactor;
+        hydrationProps *= spoilageFactor;
         hydrationProps.EuhydrationWeight *= spoilageFactor;
-        hydrationProps.HydrationLossDelay *= spoilageFactor;
         player.ReceiveHydration(hydrationProps);
     }
 }
