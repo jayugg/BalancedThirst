@@ -1,7 +1,5 @@
-- Ochre mod bowl compat
-- Wildcraft trees wooden bowl compatibility
-- Meal hydration fix
-- Removed surface spring water (prepare for change)
-- Can create soup with mod water variants
-- Fixed bug that didn't scale liquid dehydration with drank amount
-- Dehydration recovery buffed by 2x and massively increased (10x) when at full hydration
+- Turn legacy wooden bowls into new wooden bowls
+- Fixed meal crashes with non vanilla items (?)
+- Small wooden bowl improvements
+- Nerfed kettle capacity to 8 litres
+- Fixed urine expiration to massive rot quantities

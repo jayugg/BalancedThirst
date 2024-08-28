@@ -100,6 +100,8 @@ public class HydrationProperties
     /// Used for BlockMeal calcs
     public static HydrationProperties operator +(HydrationProperties a, HydrationProperties b)
     {
+        if (b == null || b.Hydration == 0) return a;
+        if (a == null || a.Hydration == 0) return b;
         return new HydrationProperties()
         {
             Hydration = a.Hydration + b.Hydration,

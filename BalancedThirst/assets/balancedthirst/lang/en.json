@@ -1,6 +1,15 @@
 {
-    "block-woodenbowl-raw": "Wooden bowl",
-    "block-woodenbowl-waxed": "Waxed wooden bowl",
+    "block-woodenbowl-raw": "Wooden bowl (Legacy)",
+    "block-woodenbowl-waxed": "Waxed wooden bowl (Legacy)",
+
+    "block-woodenbowl-meal-raw": "Wooden bowl with Meal",
+    "block-woodenbowl-meal-waxed": "Waxed wooden bowl with Meal",
+
+    "block-woodenbowl-raw*": "Wooden bowl",
+    "block-woodenbowl-waxed*": "Waxed wooden bowl",
+
+    "block-woodenbowl-meal-raw*": "Wooden bowl with Meal",
+    "block-woodenbowl-meal-waxed*": "Waxed wooden bowl with Meal",
 
     "block-caveart-stain-urine*": "urine stains",
 
@@ -172,6 +181,7 @@
     "purity-Potable": "Potable",
     "purity-Stagnant": "Stagnant",
     "purity-Yuck": "Yuck",
+    "purity-Distilled": "Distilled",
 
     "playerinfo-hydration": "Hydration",
     "playerinfo-hydration-boost": "Euhydration",

@@ -56,6 +56,8 @@ public class BtCore : ModSystem
         api.RegisterCollectibleBehaviorClass($"{Modid}:Drinkable", typeof(DrinkableBehavior));
         api.RegisterCollectibleBehaviorClass($"{Modid}:WaterContainer", typeof(WaterContainerBehavior));
         api.RegisterCollectibleBehaviorClass($"{Modid}:HydratingFood", typeof(HydratingFoodBehavior));
+        api.RegisterCollectibleBehaviorClass($"{Modid}:DisplayMaterial", typeof(CollectibleBehaviorDisplayMaterial));
+        api.RegisterCollectibleBehaviorClass($"{Modid}:HydratingMeal", typeof(CollectibleBehaviorHydratingMeal));
     }
 
     public override void StartServerSide(ICoreServerAPI sapi)

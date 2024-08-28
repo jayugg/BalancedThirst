@@ -1,4 +1,5 @@
 using System.Linq;
+using BalancedThirst.ModBehavior;
 using BalancedThirst.Systems;
 using BalancedThirst.Thirst;
 using Vintagestory.API.Common;
@@ -17,10 +18,10 @@ public static class EditAssets
             if (hydrationProps != null)
             {
                 collectible.SetHydrationProperties(hydrationProps);
-                collectible.AddDrinkableBehavior();
+                collectible.AddBehavior<DrinkableBehavior>();
             } else if (collectible is not BlockLiquidContainerBase)
             {
-                collectible.AddHydratingFoodBehavior();
+                collectible.AddBehavior<HydratingFoodBehavior>();
             }
             
             if (collectible.IsWaterPortion(api.Side))
@@ -52,7 +53,7 @@ public static class EditAssets
                 .FirstOrDefault()
                 .Value;
             container.SetAttribute("waterTransitionMul", mostSpecificMatch ?? 1);
-            container.AddContainerBehavior();
+            container.AddBehavior<WaterContainerBehavior>();
         }
     }
     

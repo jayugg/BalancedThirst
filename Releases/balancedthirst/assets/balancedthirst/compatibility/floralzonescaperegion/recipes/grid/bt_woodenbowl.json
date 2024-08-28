@@ -1,0 +1,32 @@
+[
+  {
+    "ingredientPattern": "K_,_L",
+    "ingredients": {
+      "K": { "type": "item", "code": "game:knife-*", "isTool": true },
+      "L": { "type": "block", "code": "floralzonescaperegion:log-placed-*-ud", "name": "wood" }
+    },
+    "width": 2,
+    "height": 2,
+    "output": { "type": "block", "code": "balancedthirst:woodenbowl-raw-{wood}"  }
+  },
+  {
+    "ingredientPattern": "K_,_L",
+    "ingredients": {
+      "K": { "type": "item", "code": "game:knife-*", "isTool": true },
+      "L": { "type": "block", "code": "floralzonescaperegion:debarkedlog-*-ud", "name": "wood" }
+    },
+    "width": 2,
+    "height": 2,
+    "output": { "type": "block", "code": "balancedthirst:woodenbowl-raw-{wood}"  }
+  },
+  {
+    "ingredientPattern": "K_,_L",
+    "ingredients": {
+      "K": { "type": "item", "code": "game:knife-*", "isTool": true },
+      "L": { "type": "block", "code": "floralzonescaperegion:logsection-placed-afrocarpusfalcatus-*" }
+    },
+    "width": 2,
+    "height": 2,
+    "output": { "type": "block", "code": "balancedthirst:woodenbowl-raw-afrocarpusfalcatus" }
+  }
+]

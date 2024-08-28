@@ -46,7 +46,10 @@ public class DrinkableBehavior : CollectibleBehavior
     {
         if (itemstack.Collectible.HasBehavior<HydratingFoodBehavior>())
         {
-            return HydrationProperties.FromNutrition(collObj.GetNutritionProperties(world, itemstack, byEntity));
+            return HydrationProperties.FromNutrition(
+                collObj.GetNutritionProperties(world, itemstack, byEntity) ?? 
+                collObj.Attributes?.Token["nutritionPropsWhenInMeal"]?.ToObject<FoodNutritionProperties>()
+                );
         }
         return null;
     }
@@ -214,7 +217,7 @@ public class DrinkableBehavior : CollectibleBehavior
                 dsc.Replace(existingLine, "");
             }
         }
-        if ((hydrationProperties.Purity != EnumPurityLevel.Okay && hydrationProperties.Purity != EnumPurityLevel.Pure) ||
+        if ((hydrationProperties.Purity != EnumPurityLevel.Okay && hydrationProperties.Purity != EnumPurityLevel.Distilled) ||
             (hydrationProperties.Purity == EnumPurityLevel.Pure && !itemstack.Collectible.Code.ToString().Contains("pure")))
         {
             if (existingText.Contains(Lang.Get(BtCore.Modid+$":purity-{hydrationProperties.Purity}"))) return;

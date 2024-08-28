@@ -158,7 +158,7 @@ namespace BalancedThirst.Thirst
       bool isHydrationMaxed = this.Hydration >= maxHydration;
       this.Hydration = Math.Clamp(this.Hydration + hydrationProperties.Hydration, 0, maxHydration);
       if (!isHydrationMaxed) this.HydrationLossDelay = Math.Max(this.HydrationLossDelay, hydrationProperties.HydrationLossDelay);
-      this.Dehydration = Math.Max(0, this.Dehydration + hydrationProperties.Dehydration);
+      this.Dehydration = Math.Clamp(this.Dehydration + hydrationProperties.Dehydration/(Dehydration > 1 ? Dehydration : 1), 0, 100); // Grow logarithmically when dehydration > 1
       if (entity.World.Rand.NextDouble() < VomitChance(hydrationProperties.Purity))
       {
         entity.WatchedAttributes.SetFloat("intoxication", 1.0f);
@@ -175,7 +175,6 @@ namespace BalancedThirst.Thirst
       {
         var tree = player.WatchedAttributes.GetTreeAttribute(AttributeKey);
         EnumGameMode currentGameMode = player.World.PlayerByUid(player.PlayerUID).WorldData.CurrentGameMode;
-        this.Detox(deltaTime);
         if (currentGameMode is EnumGameMode.Creative or EnumGameMode.Spectator)
           return;
         if (player.Controls.TriesToMove || player.Controls.Jump || player.Controls.LeftMouseDown || player.Controls.RightMouseDown)
@@ -194,18 +193,6 @@ namespace BalancedThirst.Thirst
       this.ReduceHydration(num3 * (float) (1.2000000476837158 * (8.0 + this._sprintCounter / 15.0) / 10.0) * this.entity.Stats.GetBlended("thirstrate") * num2);
       this._thirstCounter = 0.0f;
       this._sprintCounter = 0;
-      this.Detox(deltaTime);
-    }
-
-    private void Detox(float dt)
-    {
-      this._detoxCounter += dt;
-      if (this._detoxCounter <= 1.0)
-        return;
-      float num = this.entity.WatchedAttributes.GetFloat("intoxication");
-      if (num > 0.0)
-        this.entity.WatchedAttributes.SetFloat("intoxication", Math.Max(0.0f, num - 0.005f));
-      this._detoxCounter = 0.0f;
     }
 
     private bool ReduceHydration(float satLossMultiplier)
@@ -286,7 +273,7 @@ namespace BalancedThirst.Thirst
       if (this.Dehydration > 0)
       {
         this.entity.Stats.Set(BtCore.Modid + ":thirstrate", "dehydration", Dehydration);
-        Dehydration = Math.Max(0, Dehydration - 0.02f*Hydration/MaxHydration * (Math.Abs(Hydration - MaxHydration) < 1e-4 ? 5 : 0));
+        Dehydration = Math.Max(0, Dehydration - 0.02f*Hydration/MaxHydration * (Math.Abs(Hydration - MaxHydration) < 1e-4 ? 5 : 1));
       }
       else
       {

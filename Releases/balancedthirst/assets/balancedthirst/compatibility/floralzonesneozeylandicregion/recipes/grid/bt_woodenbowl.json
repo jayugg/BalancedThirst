@@ -1,0 +1,62 @@
+[
+  {
+    "ingredientPattern": "K_,_L",
+    "ingredients": {
+      "K": { "type": "item", "code": "game:knife-*", "isTool": true },
+      "L": { "type": "block", "code": "floralzonesneozeylandicregion:log-placed-*-ud", "name": "wood" }
+    },
+    "width": 2,
+    "height": 2,
+    "output": { "type": "block", "code": "balancedthirst:woodenbowl-raw-{wood}"  }
+  },
+  {
+    "ingredientPattern": "K_,_L",
+    "ingredients": {
+      "K": { "type": "item", "code": "game:knife-*", "isTool": true },
+      "L": { "type": "block", "code": "floralzonesneozeylandicregion:debarkedlog-*-ud", "name": "wood" }
+    },
+    "width": 2,
+    "height": 2,
+    "output": { "type": "block", "code": "balancedthirst:woodenbowl-raw-{wood}"  }
+  },
+  {
+    "ingredientPattern": "K_,_L",
+    "ingredients": {
+      "K": { "type": "item", "code": "game:knife-*", "isTool": true },
+      "L": { "type": "block", "code": "floralzonesneozeylandicregion:logsection-placed-araucariaheterophylla-*" }
+    },
+    "width": 2,
+    "height": 2,
+    "output": { "type": "block", "code": "balancedthirst:woodenbowl-raw-araucariaheterophylla" }
+  },
+  {
+    "ingredientPattern": "K_,_L",
+    "ingredients": {
+      "K": { "type": "item", "code": "game:knife-*", "isTool": true },
+      "L": { "type": "block", "code": "floralzonesneozeylandicregion:logsection-placed-dacrydiumcupressinum-*" }
+    },
+    "width": 2,
+    "height": 2,
+    "output": { "type": "block", "code": "balancedthirst:woodenbowl-raw-dacrydiumcupressinum" }
+  },
+  {
+    "ingredientPattern": "K_,_L",
+    "ingredients": {
+      "K": { "type": "item", "code": "game:knife-*", "isTool": true },
+      "L": { "type": "block", "code": "floralzonesneozeylandicregion:logsection-placed-podocarpustotara-*" }
+    },
+    "width": 2,
+    "height": 2,
+    "output": { "type": "block", "code": "balancedthirst:woodenbowl-raw-podocarpustotara" }
+  },
+  {
+    "ingredientPattern": "K_,_L",
+    "ingredients": {
+      "K": { "type": "item", "code": "game:knife-*", "isTool": true },
+      "L": { "type": "block", "code": "floralzonesneozeylandicregion:logsection-placed-nothofagusmenziesii-*" }
+    },
+    "width": 2,
+    "height": 2,
+    "output": { "type": "block", "code": "balancedthirst:woodenbowl-raw-nothofagusmenziesii" }
+  }
+]

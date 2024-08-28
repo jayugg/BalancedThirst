@@ -1,4 +1,3 @@
-#nullable enable
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,40 +31,19 @@ public static class Extensions
         if (collObj is BlockMeal)
         {
             ItemStack[]? contentStacks = (itemStack.Collectible as BlockMeal)?.GetNonEmptyContents(world, itemStack);
-            if (contentStacks == null) return null;
-            HydrationProperties? totalProps = null;
-            foreach (ItemStack contentStack in contentStacks)
-            {
-                if (totalProps == null) totalProps = contentStack.Collectible.GetHydrationProperties(world, contentStack, byEntity);
-                else totalProps += contentStack.Collectible.GetHydrationProperties(world, contentStack, byEntity);
-            }
-            return totalProps;
+            return contentStacks?.GetHydrationProperties(world, byEntity) ?? null;
         }
         
         if (collObj is BlockCookedContainer)
         {
             ItemStack[]? contentStacks = (itemStack.Collectible as BlockCookedContainer)?.GetNonEmptyContents(world, itemStack);
-            if (contentStacks == null) return null;
-            HydrationProperties? totalProps = null;
-            foreach (ItemStack contentStack in contentStacks)
-            {
-                if (totalProps == null) totalProps = contentStack.Collectible.GetHydrationProperties(world, contentStack, byEntity);
-                else totalProps += contentStack.Collectible.GetHydrationProperties(world, contentStack, byEntity);
-            }
-            return totalProps;
+            return contentStacks?.GetHydrationProperties(world, byEntity) ?? null;
         }
         
         if (collObj is BlockCrock)
         {
             ItemStack[]? contentStacks = (itemStack.Collectible as BlockCrock)?.GetNonEmptyContents(world, itemStack);
-            if (contentStacks == null) return null;
-            HydrationProperties? totalProps = null;
-            foreach (ItemStack contentStack in contentStacks)
-            {
-                if (totalProps == null) totalProps = contentStack.Collectible.GetHydrationProperties(world, contentStack, byEntity);
-                else totalProps += contentStack.Collectible.GetHydrationProperties(world, contentStack, byEntity);
-            }
-            return totalProps;
+            return contentStacks?.GetHydrationProperties(world, byEntity) ?? null;
         }
         
         if (collObj.HasBehavior<HydratingFoodBehavior>())
@@ -87,6 +65,27 @@ public static class Extensions
         }
 
         return null;
+    }
+    
+    public static HydrationProperties? GetHydrationProperties(this ItemStack[] contentStacks, IWorldAccessor world, Entity? byEntity)
+    {
+        if (contentStacks == null || contentStacks.Length == 0 || world == null) return null;
+
+        HydrationProperties? totalProps = null;
+        foreach (ItemStack contentStack in contentStacks)
+        {
+            if (contentStack == null) continue;
+            if (contentStack.Collectible == null)
+            {
+                continue;
+            }
+
+            var currentProps = contentStack.Collectible.GetHydrationProperties(world, contentStack, byEntity);
+            if (currentProps == null) continue;
+            if (totalProps == null) totalProps = currentProps;
+            else totalProps += currentProps;
+        }
+        return totalProps;
     }
     
     public static HydrationProperties? GetHydrationPropsPerLitre(
@@ -169,6 +168,12 @@ public static class Extensions
     public static void AddContainerBehavior(this CollectibleObject collectible)
     {
         var behavior = new WaterContainerBehavior(collectible);
+        collectible.CollectibleBehaviors = collectible.CollectibleBehaviors.Append(behavior);
+    }
+    
+    public static void AddBehavior<T>(this CollectibleObject collectible) where T : CollectibleBehavior
+    {
+        var behavior = (T) Activator.CreateInstance(typeof(T), collectible);
         collectible.CollectibleBehaviors = collectible.CollectibleBehaviors.Append(behavior);
     }
     

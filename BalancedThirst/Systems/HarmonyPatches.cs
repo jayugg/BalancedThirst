@@ -61,6 +61,7 @@ public class HarmonyPatches : ModSystem
             postfix: typeof(BlockMeal_tryFinishEatMeal_Patch).GetMethod(
                 nameof(BlockMeal_tryFinishEatMeal_Patch.Postfix)));
         
+        
         HarmonyInstance.Patch(typeof(BlockMeal).GetMethod(nameof(BlockMeal.GetHeldItemInfo)),
             postfix: typeof(BlockMeal_GetHeldItemInfo_Patch).GetMethod(
                 nameof(BlockMeal_GetHeldItemInfo_Patch.Postfix)));
@@ -70,6 +71,23 @@ public class HarmonyPatches : ModSystem
         HarmonyInstance.Patch(typeof(BlockCrock).GetMethod(nameof(BlockCrock.GetHeldItemInfo)),
             postfix: typeof(BlockCrock_GetHeldItemInfo_Patch).GetMethod(
                 nameof(BlockCrock_GetHeldItemInfo_Patch.Postfix)));
+        HarmonyInstance.Patch(typeof(BlockPie).GetMethod(nameof(BlockPie.GetHeldItemInfo)),
+            postfix: typeof(BlockCookedContainer_GetHeldItemInfo_Patch).GetMethod(
+                nameof(BlockCookedContainer_GetHeldItemInfo_Patch.Postfix)));
+        
+        
+        // Patch works atm but for some reason the generated description is not being displayed, will leave for other mod compatibility
+        HarmonyInstance.Patch(typeof(BlockMeal).GetMethod(nameof(BlockMeal.GetContentNutritionFacts), new[] {
+                typeof(IWorldAccessor),
+                typeof(ItemSlot),
+                typeof(ItemStack[]),
+                typeof(EntityAgent),
+                typeof(bool),
+                typeof(float),
+                typeof(float)
+            }),
+            postfix: typeof(BlockMeal_GetContentNutritionFacts_Patch).GetMethod(
+                nameof(BlockMeal_GetContentNutritionFacts_Patch.Postfix)));
         
         HarmonyInstance.Patch(typeof(CollectibleObject).GetMethod(nameof(CollectibleObject.OnHeldInteractStop)),
             prefix: typeof(CollectibleObject_OnHeldInteractStop_Patch).GetMethod(

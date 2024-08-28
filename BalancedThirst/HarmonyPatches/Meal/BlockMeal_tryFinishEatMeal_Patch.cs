@@ -47,7 +47,7 @@ public class BlockMeal_tryFinishEatMeal_Patch
         float servingsAfterConsume = (slot.Itemstack.Collectible as BlockMeal)?.GetQuantityServings(byEntity.World, slot.Itemstack) ?? 0;
         float servingsConsumed = servingsBeforeConsume - servingsAfterConsume;
         if (servingsConsumed <= 0) return;
-        byEntity.ReceiveHydration(_capturedProperties[player.PlayerUID] / servingsConsumed);
+        byEntity.ReceiveHydration(_capturedProperties[player.PlayerUID] * servingsConsumed / servingsBeforeConsume);
         _capturedProperties.Remove(player.PlayerUID);
     }
 }

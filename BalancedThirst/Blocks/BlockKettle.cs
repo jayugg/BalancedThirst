@@ -32,7 +32,6 @@ public class BlockKettle : BlockLiquidContainerSealable, IInFirepitRendererSuppl
         foreach (var slot in cookingSlotsProvider.Slots)
         {
             if (slot.Empty) continue;
-            BtCore.Logger.Warning($"Slot: {slot.Itemstack.Collectible.Code.Path}");
             if (!slot.Itemstack.Collectible.IsWaterPortion())
             {
                 return false;

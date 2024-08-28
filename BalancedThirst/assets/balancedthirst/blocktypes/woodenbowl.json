@@ -1,21 +1,24 @@
 {
   "code": "woodenbowl",
   "classByType": {
-    "*-raw": "balancedthirst.BlockLiquidContainerLeaking",
-    "*-waxed": "BlockLiquidContainerTopOpened"
+    "*-raw-*": "balancedthirst.BlockLiquidContainerLeaking",
+    "*-waxed-*": "BlockLiquidContainerTopOpened"
   },
   "behaviors": [
     { "name": "GroundStorable", "properties": { "layout": "Quadrants", "collisionBox": { "x1": 0, "y1": 0, "z1": 0, "x2": 1, "y2": 0.125, "z2": 1 } } },
     { "name": "Unplaceable", "__comment": "The ground storable obsoletes this being a block. Should be an item, but is kept a block for backwards compatibility" },
-    { "name": "RightClickPickup"}
+    { "name": "RightClickPickup"},
+    { "name": "balancedthirst:DisplayMaterial"}
   ],
   "variantgroups": [
-    { "code":"type", "states": ["raw", "waxed"] }
+    { "code": "type", "states": ["raw", "waxed"] },
+    { "code": "wood", "loadFromProperties": "game:block/wood" }
   ],
   "attributesByType": {
-    "*-raw": {
+    "*-raw-*": {
       "shelvable": true,
       "leakageRate": 0.1,
+      "displayvariant": "wood",
       "liquidContainerProps": {
         "capacityLitres": 1,
         "transferSizeLitres": 0.1,
@@ -23,10 +26,15 @@
         "opaqueContentShapeLoc": "game:shapes/block/clay/bowl-contents",
         "liquidContentShapeLoc": "game:shapes/block/clay/bowl-liquidcontents",
         "liquidMaxYTranslate": 0.05
-      }
+      },
+      "mealContainer": true,
+      "mealBlockCode": "balancedthirst:woodenbowl-meal-raw-{wood}",
+      "servingCapacity": 1,
+      "bowlContents": null
     },
-    "*-waxed": {
+    "*-waxed-*": {
       "shelvable": true,
+      "displayvariant": "wood",
       "liquidContainerProps": {
         "capacityLitres": 1,
         "transferSizeLitres": 0.1,
@@ -34,11 +42,15 @@
         "opaqueContentShapeLoc": "game:shapes/block/clay/bowl-contents",
         "liquidContentShapeLoc": "game:shapes/block/clay/bowl-liquidcontents",
         "liquidMaxYTranslate": 0.05
-      }
+      },
+      "mealContainer": true,
+      "mealBlockCode": "balancedthirst:woodenbowl-meal-waxed-{wood}",
+      "servingCapacity": 1,
+      "bowlContents": null
     }
   },
   "combustiblePropsByType": {
-    "woodenbowl-raw": {
+    "*-raw-*": {
       "burnTemperature": 600,
       "burnDuration": 10
     }
@@ -49,33 +61,20 @@
   "heldTpIdleAnimation": "holdbothhands",
   "doNotRenderAtLod2": true,
   "blockmaterial": "Wood",
-  "creativeinventoryStacksByType": {
-    "*-raw":
-    [
-      {
-        "tabs": ["general", "decorative"],
-        "stacks": [
-          { "type": "block", "code": "balancedthirst:woodenbowl-raw", "attributes": { "ucontents": [{ "type": "item", "code": "game:waterportion", "makefull": true }] } },
-          { "type": "block", "code": "balancedthirst:woodenbowl-waxed", "attributes": { "ucontents": [{ "type": "item", "code": "game:honeyportion", "makefull": true }] } },
-          { "type": "block", "code": "balancedthirst:woodenbowl-raw" },
-          { "type": "block", "code": "balancedthirst:woodenbowl-waxed" }
-        ]
-      }
-    ]
-  },
+  "creativeinventory": { "general": ["*"], "decorative": ["*"] },
   "replaceable": 300,
   "liquidSelectable": 1,
   "resistance": 0.75,
   "maxStackSize": 8,
   "lightAbsorption": 0,
   "texturesByType": {
-    "*-raw": {
-      "floor": { "base": "game:block/wood/crate/oak-inside" },
-      "mat": { "base": "game:block/wood/crate/oak-inside" }
+    "*-raw-*": {
+      "floor": { "base": "game:block/wood/debarked/{wood}" },
+      "mat": { "base": "game:block/wood/debarked/{wood}" }
     },
-    "*-waxed": {
-      "floor": { "base": "game:block/wood/crate/pine-inside" },
-      "mat": { "base": "game:block/wood/crate/pine-inside" }
+    "*-waxed-*": {
+      "floor": { "base": "game:block/wood/debarked/{wood}" },
+      "mat": { "base": "game:block/wood/debarked/{wood}" }
     },
     "*-honey": {
       "content": { "base": "game:block/liquid/honey" }

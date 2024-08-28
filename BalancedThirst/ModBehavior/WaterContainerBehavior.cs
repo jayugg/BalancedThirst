@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Text;
 using BalancedThirst.Systems;
 using BalancedThirst.Thirst;
@@ -55,7 +56,7 @@ public class WaterContainerBehavior : DrinkableBehavior
         if (code.Contains("waterskin-leather"))
         {
             BtCore.Logger.Warning($"Transitioning legacy item {code} in inventory");
-            var newContainer = forEntity.World.GetBlock(new AssetLocation("balancedthirst:gourd-large-carved"));
+            var newContainer = forEntity.World.GetBlock(new AssetLocation($"{BtCore.Modid}:gourd-large-carved"));
             if (newContainer == null) return res;
             activeHotbarSlot.Itemstack = new ItemStack(newContainer);
             container.SetContent(activeHotbarSlot.Itemstack, content);
@@ -63,7 +64,23 @@ public class WaterContainerBehavior : DrinkableBehavior
         if (code.Contains("waterskin-pelt"))
         {
             BtCore.Logger.Warning($"Transitioning legacy item {code} in inventory");
-            var newContainer = forEntity.World.GetBlock(new AssetLocation("balancedthirst:gourd-medium-carved"));
+            var newContainer = forEntity.World.GetBlock(new AssetLocation($"{BtCore.Modid}:gourd-medium-carved"));
+            if (newContainer == null) return res;
+            activeHotbarSlot.Itemstack = new ItemStack(newContainer);
+            container.SetContent(activeHotbarSlot.Itemstack, content);
+        }
+        if (code.Equals($"{BtCore.Modid}:woodenbowl-raw"))
+        {
+            BtCore.Logger.Warning($"Transitioning legacy item {code} in inventory");
+            var newContainer = forEntity.World.GetBlock(new AssetLocation($"{BtCore.Modid}:woodenbowl-raw-oak"));
+            if (newContainer == null) return res;
+            activeHotbarSlot.Itemstack = new ItemStack(newContainer);
+            container.SetContent(activeHotbarSlot.Itemstack, content);
+        }
+        if (code.Equals($"{BtCore.Modid}:woodenbowl-waxed"))
+        {
+            BtCore.Logger.Warning($"Transitioning legacy item {code} in inventory");
+            var newContainer = forEntity.World.GetBlock(new AssetLocation($"{BtCore.Modid}:woodenbowl-waxed-pine"));
             if (newContainer == null) return res;
             activeHotbarSlot.Itemstack = new ItemStack(newContainer);
             container.SetContent(activeHotbarSlot.Itemstack, content);

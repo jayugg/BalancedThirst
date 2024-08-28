@@ -30,7 +30,7 @@ public class DehydratedPerceptionEffect : PerceptionEffect
 
     private void ApplyVignette(float strength)
     {
-        this.capi.Render.ShaderUniforms.GlitchWaviness = Math.Min(strength/10f, 0.3f);
-        this.capi.Render.ShaderUniforms.ExtraBloom = Math.Min(strength/10f, 0.3f);
+        this.capi.Render.ShaderUniforms.GlitchWaviness = strength < 5f ? 0 : Math.Min((strength - 5) / 100f, 0.3f);
+        this.capi.Render.ShaderUniforms.ExtraBloom = Math.Min(strength / 60f, 0.5f);
     }
 }

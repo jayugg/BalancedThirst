@@ -1,5 +1,6 @@
 using System;
 using System.Text;
+using System.Text.RegularExpressions;
 using BalancedThirst.Systems;
 using Vintagestory.API.Common;
 using Vintagestory.API.Config;
@@ -22,7 +23,7 @@ public class BlockLiquidContainerLeaking : BlockLiquidContainerTopOpened
             if (itemAttribute is { Exists: true })
             {
                 float leakageRate = itemAttribute.AsFloat(1);
-                if (leakageRate >= 0 && leakageRate <= 1)
+                if (leakageRate is >= 0 and <= 1)
                 {
                     return leakageRate;
                 }
@@ -41,18 +42,60 @@ public class BlockLiquidContainerLeaking : BlockLiquidContainerTopOpened
         }
     }
     
-    protected virtual float LeakagePerTick => 0.01f;
-    
+    protected virtual float LeakagePerTick => 0.1f;
+
     public override void OnHeldIdle(ItemSlot slot, EntityAgent byEntity)
     {
         base.OnHeldIdle(slot, byEntity);
-        if (this.api.World.Rand.NextSingle() > 1 - GetLeakageRate(slot.Itemstack))
-            this.TryTakeLiquid(slot.Itemstack, LeakagePerTick / (float) slot.Itemstack.StackSize);
+
+        long currentTime = byEntity.World.ElapsedMilliseconds;
+        if (slot.Itemstack.Collectible is not BlockLiquidContainerBase container) return;
+        if (container.IsEmpty(slot.Itemstack))
+        {
+            slot.Itemstack.Attributes.RemoveAttribute("nextLeakage");
+            return;
+        }
+        
+        if (slot.Itemstack.Attributes.HasAttribute("nextLeakage"))
+        {
+            long nextLeakage = slot.Itemstack.Attributes.GetLong("nextLeakage");
+            if (currentTime < nextLeakage)
+            {
+                return;
+            }
+        }
+        else
+        {
+            slot.Itemstack.Attributes.SetLong("nextLeakage", (long) (currentTime + 1000 / GetLeakageRate(slot.Itemstack)));
+            return;
+        }
+        this.TryTakeLiquid(slot.Itemstack, LeakagePerTick / (float)slot.Itemstack.StackSize);
+        slot.Itemstack.Attributes.SetLong("nextLeakage", (long) (currentTime + 1000 / GetLeakageRate(slot.Itemstack)));
     }
 
     public override void GetHeldItemInfo(ItemSlot inSlot, StringBuilder dsc, IWorldAccessor world, bool withDebugInfo)
     {
         base.GetHeldItemInfo(inSlot, dsc, world, withDebugInfo);
-        dsc.AppendLine(Lang.Get(BtCore.Modid+":container-leaky"));
+
+        string description = dsc.ToString();
+        string pattern = Lang.Get("Mod: {0}", ".*");
+        string newLine = Lang.Get(BtCore.Modid + ":container-leaky");
+        if (inSlot.Itemstack.Collectible is BlockLiquidContainerBase container && container.GetContent(inSlot.Itemstack)?.StackSize > 0)
+        {
+            newLine = $"<font color=\"#1097b4\">{newLine}</font>";
+        }
+
+        var lines = description.Split(new[] { '\n' }, StringSplitOptions.None);
+        for (int i = 0; i < lines.Length; i++)
+        {
+            if (Regex.IsMatch(lines[i], pattern))
+            {
+                lines[i] = newLine + "\n" + lines[i];
+                break;
+            }
+        }
+
+        dsc.Clear();
+        dsc.Append(string.Join("\n", lines));
     }
 }

@@ -17,7 +17,7 @@ public class BlockCookedContainer_GetHeldItemInfo_Patch
     {
         if (ShouldSkipPatch) return;
         HydrationProperties hydrationProps = inSlot.Itemstack.Collectible.GetHydrationProperties(world, inSlot.Itemstack, null);
-        if (hydrationProps != null)
+        if (hydrationProps != null && hydrationProps.Hydration != 0)
         {
             string hydrationText = Lang.Get($"{BtCore.Modid}:blockinfo-meal-hyd", hydrationProps.Hydration);
             string dscString = dsc.ToString();

@@ -1,11 +1,11 @@
 {
   "ingredientPattern": "W,B",
   "ingredients": {
-    "B": { "type": "block", "code": "balancedthirst:woodenbowl-raw" },
+    "B": { "type": "block", "code": "balancedthirst:woodenbowl-raw-*", "name": "wood", "skipVariants": ["aged", "veryaged","veryagedrotten"] },
     "W": { "type": "item", "code": "game:beeswax" }
   },
   "width": 1,
   "height": 2,
   "shapeless": true,
-  "output": { "type": "block", "code": "balancedthirst:woodenbowl-waxed", "quantity": 1  }
+  "output": { "type": "block", "code": "balancedthirst:woodenbowl-waxed-{wood}", "quantity": 1  }
 }

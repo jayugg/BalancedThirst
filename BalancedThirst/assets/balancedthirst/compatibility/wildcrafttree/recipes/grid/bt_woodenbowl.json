@@ -3,38 +3,80 @@
     "ingredientPattern": "K_,_L",
     "ingredients": {
       "K": { "type": "item", "code": "game:knife-*", "isTool": true },
-      "L": { "type": "block", "code": "wildcrafttree:log-*", "skipvariants": [
-        "chlorociboria-ud",
-        "petrified-ud"
-      ]
-      }
+      "L": { "type": "block", "code": "wildcrafttree:log-placed-*-ud", "name": "wood" }
     },
     "width": 2,
     "height": 2,
-    "output": { "type": "block", "code": "balancedthirst:woodenbowl-raw"  }
+    "output": { "type": "block", "code": "balancedthirst:woodenbowl-raw-{wood}"  }
   },
   {
     "ingredientPattern": "K_,_L",
     "ingredients": {
       "K": { "type": "item", "code": "game:knife-*", "isTool": true },
-      "L": { "type": "block", "code": "wildcrafttree:debarkedlog-*","skipvariants": [
-        "chlorociboria-ud",
-        "petrified-ud"
-      ]
-      }
+      "L": { "type": "block", "code": "wildcrafttree:debarkedlog-*-ud", "name": "wood" }
     },
     "width": 2,
     "height": 2,
-    "output": { "type": "block", "code": "balancedthirst:woodenbowl-raw"  }
+    "output": { "type": "block", "code": "balancedthirst:woodenbowl-raw-{wood}"  }
   },
   {
     "ingredientPattern": "K_,_L",
     "ingredients": {
       "K": { "type": "item", "code": "game:knife-*", "isTool": true },
-      "L": { "type": "block", "code": "wildcrafttree:logsection-placed-*" }
+      "L": { "type": "block", "code": "wildcrafttree:logsection-placed-douglasfir-*" }
     },
     "width": 2,
     "height": 2,
-    "output": { "type": "block", "code": "balancedthirst:woodenbowl-raw", "quantity": 4 }
+    "output": { "type": "block", "code": "balancedthirst:woodenbowl-raw-douglasfir" }
+  },
+  {
+    "ingredientPattern": "K_,_L",
+    "ingredients": {
+      "K": { "type": "item", "code": "game:knife-*", "isTool": true },
+      "L": { "type": "block", "code": "wildcrafttree:logsection-placed-redcedar-*" }
+    },
+    "width": 2,
+    "height": 2,
+    "output": { "type": "block", "code": "balancedthirst:woodenbowl-raw-redcedar" }
+  },
+  {
+    "ingredientPattern": "K_,_L",
+    "ingredients": {
+      "K": { "type": "item", "code": "game:knife-*", "isTool": true },
+      "L": { "type": "block", "code": "wildcrafttree:logsection-placed-kauri-*" }
+    },
+    "width": 2,
+    "height": 2,
+    "output": { "type": "block", "code": "balancedthirst:woodenbowl-raw-kauri" }
+  },
+  {
+    "ingredientPattern": "K_,_L",
+    "ingredients": {
+      "K": { "type": "item", "code": "game:knife-*", "isTool": true },
+      "L": { "type": "block", "code": "wildcrafttree:logsection-placed-sycamore-*" }
+    },
+    "width": 2,
+    "height": 2,
+    "output": { "type": "block", "code": "balancedthirst:woodenbowl-raw-sycamore" }
+  },
+  {
+    "ingredientPattern": "K_,_L",
+    "ingredients": {
+      "K": { "type": "item", "code": "game:knife-*", "isTool": true },
+      "L": { "type": "block", "code": "wildcrafttree:logsection-placed-banyan-*" }
+    },
+    "width": 2,
+    "height": 2,
+    "output": { "type": "block", "code": "balancedthirst:woodenbowl-raw-banyan" }
+  },
+  {
+    "ingredientPattern": "K_,_L",
+    "ingredients": {
+      "K": { "type": "item", "code": "game:knife-*", "isTool": true },
+      "L": { "type": "block", "code": "wildcrafttree:logsection-placed-elm-*" }
+    },
+    "width": 2,
+    "height": 2,
+    "output": { "type": "block", "code": "balancedthirst:woodenbowl-raw-elm" }
   }
 ]

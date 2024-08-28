@@ -1,4 +1,5 @@
 using BalancedThirst.Config;
+using BalancedThirst.Thirst;
 using BalancedThirst.Util;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
@@ -59,6 +60,7 @@ public static class ConfigSystem
         player.Stats.Remove(BtCore.Modid + ":thirstrate", "dehydration");
         player.Stats.Remove("walkspeed", "bladderfull");
         player.Stats.Remove("walkspeed", "bowelfull");
+        player.Attributes?.GetTreeAttribute(BtCore.Modid + ":thirst")?.SetFloat("dehydration", 0);
     }
     
     private static void ReloadSyncedConfig(SyncedConfig packet)

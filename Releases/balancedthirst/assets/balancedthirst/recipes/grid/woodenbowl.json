@@ -3,20 +3,33 @@
     "ingredientPattern": "K_,_L",
     "ingredients": {
       "K": { "type": "item", "code": "game:knife-*", "isTool": true },
-      "L": { "type": "block", "code": "game:log-*", "allowedVariants": ["placed-birch-ud", "placed-oak-ud", "placed-maple-ud", "placed-pine-ud", "placed-acacia-ud", "placed-redwood-ud", "placed-larch-ud", "placed-baldcypress-ud", "placed-walnut-ud"] }
+      "L": { "type": "block", "code": "game:log-placed-*-ud", "name": "wood", 
+        "skipVariants": ["aged", "veryaged", "veryagedrotten"] }
     },
     "width": 2,
     "height": 2,
-    "output": { "type": "block", "code": "balancedthirst:woodenbowl-raw"  }
+    "output": { "type": "block", "code": "balancedthirst:woodenbowl-raw-{wood}"  }
   },
   {
     "ingredientPattern": "K_,_L",
     "ingredients": {
       "K": { "type": "item", "code": "game:knife-*", "isTool": true },
-      "L": { "type": "block", "code": "game:logsection-placed-*" }
+      "L": { "type": "block", "code": "game:debarkedlog-*-ud", "name": "wood",
+        "skipVariants": ["aged", "veryaged", "veryagedrotten"]
+      }
     },
     "width": 2,
     "height": 2,
-    "output": { "type": "block", "code": "balancedthirst:woodenbowl-raw", "quantity": 4 }
+    "output": { "type": "block", "code": "balancedthirst:woodenbowl-raw-{wood}"  }
+  },
+  {
+    "ingredientPattern": "K_,_L",
+    "ingredients": {
+      "K": { "type": "item", "code": "game:knife-*", "isTool": true },
+      "L": { "type": "block", "code": "game:logsection-placed-redwood-*" }
+    },
+    "width": 2,
+    "height": 2,
+    "output": { "type": "block", "code": "balancedthirst:woodenbowl-raw-redwood" }
   }
 ]
