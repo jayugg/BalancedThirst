@@ -44,7 +44,7 @@ public class BlockMeal_tryFinishEatMeal_Patch
         var api = byEntity.World?.Api;
         if (api is not { Side: EnumAppSide.Server }) return;
         float servingsBeforeConsume = _capturedServings[player.PlayerUID];
-        float servingsAfterConsume = (slot.Itemstack.Collectible as BlockMeal)?.GetQuantityServings(byEntity.World, slot.Itemstack) ?? 0;
+        float servingsAfterConsume = (slot?.Itemstack?.Collectible as BlockMeal)?.GetQuantityServings(byEntity.World, slot.Itemstack) ?? 0;
         float servingsConsumed = servingsBeforeConsume - servingsAfterConsume;
         if (servingsConsumed <= 0) return;
         byEntity.ReceiveHydration(_capturedProperties[player.PlayerUID] * servingsConsumed / servingsBeforeConsume);

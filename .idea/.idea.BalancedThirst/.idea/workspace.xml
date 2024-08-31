@@ -11,88 +11,31 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9363b40e-165c-4a01-a221-4b01f3a6d07c" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/BalancedThirst/HarmonyPatches/Meal/BlockMeal_GetContentNutritionFacts_Patch.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BalancedThirst/ModBehavior/CollectibleBehaviorDisplayMaterial.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BalancedThirst/ModBehavior/CollectibleBehaviorHydratingMeal.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/blocktypes/legacy/woodenbowl-meal-untyped.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/blocktypes/legacy/woodenbowl_untyped.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/blocktypes/woodenbowl-meal.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/compatibility/floralzonescaperegion/blocktypes/bt_woodenbowl-meal.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/compatibility/floralzonescaperegion/blocktypes/bt_woodenbowl.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/compatibility/floralzonescaperegion/recipes/grid/bt_woodenbowl.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/compatibility/floralzonescaribbeanregion/blocktypes/bt_woodenbowl-meal.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/compatibility/floralzonescaribbeanregion/blocktypes/bt_woodenbowl.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/compatibility/floralzonescaribbeanregion/recipes/grid/bt_woodenbowl.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/compatibility/floralzonescentralaustralianregion/blocktypes/bt_woodenbowl-meal.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/compatibility/floralzonescentralaustralianregion/blocktypes/bt_woodenbowl.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/compatibility/floralzonescentralaustralianregion/recipes/grid/bt_woodenbowl.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/compatibility/floralzonesneozeylandicregion/blocktypes/bt_woodenbowl-meal.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/compatibility/floralzonesneozeylandicregion/blocktypes/bt_woodenbowl.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/compatibility/floralzonesneozeylandicregion/recipes/grid/bt_woodenbowl.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/compatibility/wildcrafttree/blocktypes/bt_woodenbowl.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Releases/balancedthirst/assets/balancedthirst/blocktypes/legacy/woodenbowl-meal-untyped.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Releases/balancedthirst/assets/balancedthirst/blocktypes/legacy/woodenbowl_untyped.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Releases/balancedthirst/assets/balancedthirst/blocktypes/woodenbowl-meal.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Releases/balancedthirst/assets/balancedthirst/compatibility/floralzonescaperegion/blocktypes/bt_woodenbowl-meal.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Releases/balancedthirst/assets/balancedthirst/compatibility/floralzonescaperegion/blocktypes/bt_woodenbowl.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Releases/balancedthirst/assets/balancedthirst/compatibility/floralzonescaperegion/recipes/grid/bt_woodenbowl.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Releases/balancedthirst/assets/balancedthirst/compatibility/floralzonescaribbeanregion/blocktypes/bt_woodenbowl-meal.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Releases/balancedthirst/assets/balancedthirst/compatibility/floralzonescaribbeanregion/blocktypes/bt_woodenbowl.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Releases/balancedthirst/assets/balancedthirst/compatibility/floralzonescaribbeanregion/recipes/grid/bt_woodenbowl.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Releases/balancedthirst/assets/balancedthirst/compatibility/floralzonescentralaustralianregion/blocktypes/bt_woodenbowl-meal.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Releases/balancedthirst/assets/balancedthirst/compatibility/floralzonescentralaustralianregion/blocktypes/bt_woodenbowl.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Releases/balancedthirst/assets/balancedthirst/compatibility/floralzonescentralaustralianregion/recipes/grid/bt_woodenbowl.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Releases/balancedthirst/assets/balancedthirst/compatibility/floralzonesneozeylandicregion/blocktypes/bt_woodenbowl-meal.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Releases/balancedthirst/assets/balancedthirst/compatibility/floralzonesneozeylandicregion/blocktypes/bt_woodenbowl.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Releases/balancedthirst/assets/balancedthirst/compatibility/floralzonesneozeylandicregion/recipes/grid/bt_woodenbowl.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Releases/balancedthirst/assets/balancedthirst/compatibility/wildcrafttree/blocktypes/bt_woodenbowl.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Releases/balancedthirst_0.0.40.zip" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BalancedThirst/Hud/DehydrationRenderer.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BalancedThirst/Shader/ThirstShaderProgram.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BalancedThirst/Util/ShaderCodes.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/shaders/thirst.fsh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/shaders/thirst.vsh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Releases/balancedthirst/assets/balancedthirst/shaders/thirst.fsh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Releases/balancedthirst/assets/balancedthirst/shaders/thirst.vsh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Releases/balancedthirst_0.0.41.zip" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.BalancedThirst/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.BalancedThirst/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BalancedThirst/BalancedThirst.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/BalancedThirst.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BalancedThirst/Blocks/BlockKettle.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/Blocks/BlockKettle.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BalancedThirst/Blocks/BlockLiquidContainerLeaking.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/Blocks/BlockLiquidContainerLeaking.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BalancedThirst/Config/ConfigServer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/Config/ConfigServer.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BalancedThirst/HarmonyPatches/CookedContainer/BlockCookedContainer_GetHeldItemInfo_Patch.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/HarmonyPatches/CookedContainer/BlockCookedContainer_GetHeldItemInfo_Patch.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BalancedThirst/HarmonyPatches/Meal/BlockMeal_GetHeldItemInfo_Patch.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/HarmonyPatches/Meal/BlockMeal_GetHeldItemInfo_Patch.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BalancedThirst/HarmonyPatches/Meal/BlockMeal_tryFinishEatMeal_Patch.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/HarmonyPatches/Meal/BlockMeal_tryFinishEatMeal_Patch.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BalancedThirst/HarmonyPatches/PerceptionEffects/PerceptionEffects_OnOwnPlayerDataReceived_Patch.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/HarmonyPatches/PerceptionEffects/PerceptionEffects_OnOwnPlayerDataReceived_Patch.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BalancedThirst/Hud/DehydratedPerceptionEffect.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/Hud/DehydratedPerceptionEffect.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BalancedThirst/ModBehavior/DrinkableBehavior.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/ModBehavior/DrinkableBehavior.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BalancedThirst/ModBehavior/WaterContainerBehavior.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/ModBehavior/WaterContainerBehavior.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BalancedThirst/Systems/BtCommands.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/Systems/BtCommands.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BalancedThirst/Systems/BtCore.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/Systems/BtCore.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BalancedThirst/Systems/ConfigSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/Systems/ConfigSystem.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BalancedThirst/Systems/HarmonyPatches.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/Systems/HarmonyPatches.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BalancedThirst/Systems/DrinkNetwork.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/Systems/DrinkNetwork.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BalancedThirst/Thirst/EntityBehaviorThirst.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/Thirst/EntityBehaviorThirst.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BalancedThirst/Thirst/HydrationProperties.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/Thirst/HydrationProperties.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BalancedThirst/Util/EditAssets.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/Util/EditAssets.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BalancedThirst/Util/Extensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/Util/Extensions.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/blocktypes/kettle.json" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/blocktypes/kettle.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/blocktypes/woodenbowl.json" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/blocktypes/woodenbowl.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/compatibility/wildcrafttree/recipes/grid/bt_woodenbowl.json" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/compatibility/wildcrafttree/recipes/grid/bt_woodenbowl.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/itemtypes/liquid/urineportion.json" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/itemtypes/liquid/urineportion.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/itemtypes/liquid/waterportion.json" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/itemtypes/liquid/waterportion.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/lang/en.json" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/lang/en.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/recipes/grid/woodenbowl-waxed.json" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/recipes/grid/woodenbowl-waxed.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/recipes/grid/woodenbowl.json" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/recipes/grid/woodenbowl.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/shapes/block/kettle/empty.json" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/shapes/block/kettle/empty.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/shapes/block/kettle/filled.json" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/shapes/block/kettle/filled.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/shapes/block/kettle/lid.json" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/shapes/block/kettle/lid.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BalancedThirst/changelog.txt" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/changelog.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BalancedThirst/modinfo.json" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/modinfo.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Releases/balancedthirst/BalancedThirst.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Releases/balancedthirst/BalancedThirst.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Releases/balancedthirst/BalancedThirst.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Releases/balancedthirst/BalancedThirst.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Releases/balancedthirst/assets/balancedthirst/blocktypes/kettle.json" beforeDir="false" afterPath="$PROJECT_DIR$/Releases/balancedthirst/assets/balancedthirst/blocktypes/kettle.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Releases/balancedthirst/assets/balancedthirst/blocktypes/woodenbowl.json" beforeDir="false" afterPath="$PROJECT_DIR$/Releases/balancedthirst/assets/balancedthirst/blocktypes/woodenbowl.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Releases/balancedthirst/assets/balancedthirst/compatibility/wildcrafttree/recipes/grid/bt_woodenbowl.json" beforeDir="false" afterPath="$PROJECT_DIR$/Releases/balancedthirst/assets/balancedthirst/compatibility/wildcrafttree/recipes/grid/bt_woodenbowl.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Releases/balancedthirst/assets/balancedthirst/itemtypes/liquid/urineportion.json" beforeDir="false" afterPath="$PROJECT_DIR$/Releases/balancedthirst/assets/balancedthirst/itemtypes/liquid/urineportion.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Releases/balancedthirst/assets/balancedthirst/itemtypes/liquid/waterportion.json" beforeDir="false" afterPath="$PROJECT_DIR$/Releases/balancedthirst/assets/balancedthirst/itemtypes/liquid/waterportion.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Releases/balancedthirst/assets/balancedthirst/lang/en.json" beforeDir="false" afterPath="$PROJECT_DIR$/Releases/balancedthirst/assets/balancedthirst/lang/en.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Releases/balancedthirst/assets/balancedthirst/recipes/grid/woodenbowl-waxed.json" beforeDir="false" afterPath="$PROJECT_DIR$/Releases/balancedthirst/assets/balancedthirst/recipes/grid/woodenbowl-waxed.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Releases/balancedthirst/assets/balancedthirst/recipes/grid/woodenbowl.json" beforeDir="false" afterPath="$PROJECT_DIR$/Releases/balancedthirst/assets/balancedthirst/recipes/grid/woodenbowl.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Releases/balancedthirst/assets/balancedthirst/shapes/block/kettle/empty.json" beforeDir="false" afterPath="$PROJECT_DIR$/Releases/balancedthirst/assets/balancedthirst/shapes/block/kettle/empty.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Releases/balancedthirst/assets/balancedthirst/shapes/block/kettle/filled.json" beforeDir="false" afterPath="$PROJECT_DIR$/Releases/balancedthirst/assets/balancedthirst/shapes/block/kettle/filled.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Releases/balancedthirst/assets/balancedthirst/shapes/block/kettle/lid.json" beforeDir="false" afterPath="$PROJECT_DIR$/Releases/balancedthirst/assets/balancedthirst/shapes/block/kettle/lid.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Releases/balancedthirst/modinfo.json" beforeDir="false" afterPath="$PROJECT_DIR$/Releases/balancedthirst/modinfo.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Releases/balancedthirst_0.0.38.zip" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Releases/balancedthirst_0.0.40.zip" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -125,32 +68,41 @@
   }
 }</component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/ILViewer/21f82f5bb7f14f84b700c07e682ac4a627d000/a4/d5521f91/0200028C.il" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/ILViewer/542ba26bb8aa4ea49b5afc99fb8541f2246200/52/6c5ba1c8/02000395.il" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/21f82f5bb7f14f84b700c07e682ac4a627d000/01/547a2a81/ClientCoreAPI.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/21f82f5bb7f14f84b700c07e682ac4a627d000/13/6af132f6/AssetManager.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/21f82f5bb7f14f84b700c07e682ac4a627d000/13/d20413ed/HudHotbar.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/21f82f5bb7f14f84b700c07e682ac4a627d000/2c/ddcacd61/ShaderProgramFinal.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/21f82f5bb7f14f84b700c07e682ac4a627d000/34/a1fac51c/ShaderRegistry.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/21f82f5bb7f14f84b700c07e682ac4a627d000/39/d3261d5c/ClientSystemDebugCommands.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/21f82f5bb7f14f84b700c07e682ac4a627d000/3a/f29e9aca/ClientSystem.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/21f82f5bb7f14f84b700c07e682ac4a627d000/3d/393bb4d9/InventoryCraftingGrid.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/21f82f5bb7f14f84b700c07e682ac4a627d000/48/5e3efea7/ShaderProgramColorgrade.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/21f82f5bb7f14f84b700c07e682ac4a627d000/51/059145ea/ShaderProgram.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/21f82f5bb7f14f84b700c07e682ac4a627d000/51/472fb255/SystemMouseInWorldInteractions.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/21f82f5bb7f14f84b700c07e682ac4a627d000/69/d887a275/ServerSystemBlockSimulation.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/21f82f5bb7f14f84b700c07e682ac4a627d000/6c/448f5336/GuiScreenConnectingToServer.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/21f82f5bb7f14f84b700c07e682ac4a627d000/77/80e2d377/PlayerAreaSelection.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/21f82f5bb7f14f84b700c07e682ac4a627d000/7b/067c6370/SystemRenderDebugWireframes.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/21f82f5bb7f14f84b700c07e682ac4a627d000/8d/2b9d8af5/ShaderProgramBase.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/21f82f5bb7f14f84b700c07e682ac4a627d000/a3/90555169/SystemRenderPlayerEffects.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/21f82f5bb7f14f84b700c07e682ac4a627d000/a5/3e984d0a/ClientMain.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/21f82f5bb7f14f84b700c07e682ac4a627d000/bc/6181ec20/ScreenManager.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/21f82f5bb7f14f84b700c07e682ac4a627d000/c4/01538fa2/GameMain.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/21f82f5bb7f14f84b700c07e682ac4a627d000/ca/3f41bcec/CraftingInventoryNetworkUtil.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/21f82f5bb7f14f84b700c07e682ac4a627d000/dc/7b17650b/DrawWorldInteractionUtil.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/21f82f5bb7f14f84b700c07e682ac4a627d000/e4/27b76630/ClientPlatformWindows.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/21f82f5bb7f14f84b700c07e682ac4a627d000/f8/8bc6c26e/LoadSoundsThread.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/3442bdbe7a07406dbd4e05fe7357d408c40e00/17/bd15f97b/Activator.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/3442bdbe7a07406dbd4e05fe7357d408c40e00/1a/2bd9989d/Int32.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/3442bdbe7a07406dbd4e05fe7357d408c40e00/2d/3c09cf84/Array.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/3442bdbe7a07406dbd4e05fe7357d408c40e00/2f/4acd34c3/Dictionary`2.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/3442bdbe7a07406dbd4e05fe7357d408c40e00/57/5013a3de/Random.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/3442bdbe7a07406dbd4e05fe7357d408c40e00/ad/7bb0e8c9/String.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/3442bdbe7a07406dbd4e05fe7357d408c40e00/b1/15cd4d1c/Type.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/3442bdbe7a07406dbd4e05fe7357d408c40e00/d0/5d6c6528/Object.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/542ba26bb8aa4ea49b5afc99fb8541f2246200/01/d854d486/SurvivalCoreSystem.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/542ba26bb8aa4ea49b5afc99fb8541f2246200/09/4078fe70/ItemPlantableSeed.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/542ba26bb8aa4ea49b5afc99fb8541f2246200/0f/9ebde324/BlockEntityContainer.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/542ba26bb8aa4ea49b5afc99fb8541f2246200/11/05c2e34a/IInFirepitRendererSupplier.cs" root0="SKIP_HIGHLIGHTING" />
@@ -205,6 +157,7 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/b4dd82ebff7a472d87d85df3653210b290200/59/d6a60ea9/BlockBehaviorDecor.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/b4dd82ebff7a472d87d85df3653210b290200/5e/7350bf0b/CollectibleType.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/b4dd82ebff7a472d87d85df3653210b290200/60/8eae488a/RoomRegistry.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/b4dd82ebff7a472d87d85df3653210b290200/63/0351b6d4/EntityMapComponent.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/b4dd82ebff7a472d87d85df3653210b290200/65/0e36271c/EntityType.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/b4dd82ebff7a472d87d85df3653210b290200/a0/513d42d4/TransientProperties.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/b4dd82ebff7a472d87d85df3653210b290200/a8/0de3dbaa/BlockEntityTransient.cs" root0="SKIP_HIGHLIGHTING" />
@@ -222,6 +175,7 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/c1f9f1d656394ee5bb78c49d93c5e56f1c2400/36/3f3cd1e9/FreezingPerceptionEffect.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/c1f9f1d656394ee5bb78c49d93c5e56f1c2400/38/ba54db32/ColorUtil.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/c1f9f1d656394ee5bb78c49d93c5e56f1c2400/40/200ada0d/ArrayExtensions.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/c1f9f1d656394ee5bb78c49d93c5e56f1c2400/45/a0e831ff/PerceptionEffect.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/c1f9f1d656394ee5bb78c49d93c5e56f1c2400/46/f14ec273/IEventAPI.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/c1f9f1d656394ee5bb78c49d93c5e56f1c2400/54/89de1868/RegistryObject.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/c1f9f1d656394ee5bb78c49d93c5e56f1c2400/58/dc563859/EntityPlayer.cs" root0="SKIP_HIGHLIGHTING" />
@@ -229,6 +183,7 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/c1f9f1d656394ee5bb78c49d93c5e56f1c2400/73/cff7841d/HotKey.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/c1f9f1d656394ee5bb78c49d93c5e56f1c2400/77/17cf8a3e/EntityHumanoid.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/c1f9f1d656394ee5bb78c49d93c5e56f1c2400/7b/11e97707/IAssetManager.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/c1f9f1d656394ee5bb78c49d93c5e56f1c2400/81/c09519db/DamagedPerceptionEffect.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/c1f9f1d656394ee5bb78c49d93c5e56f1c2400/82/4f16e413/AABBIntersectionTest.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/c1f9f1d656394ee5bb78c49d93c5e56f1c2400/85/d9499cb7/Cuboidf.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/c1f9f1d656394ee5bb78c49d93c5e56f1c2400/86/5bb277bf/OrderedDictionary`2.cs" root0="SKIP_HIGHLIGHTING" />
@@ -255,11 +210,14 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/c1f9f1d656394ee5bb78c49d93c5e56f1c2400/c9/a8f83e90/BlockFilter.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/c1f9f1d656394ee5bb78c49d93c5e56f1c2400/c9/d20e412e/BlockBehavior.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/c1f9f1d656394ee5bb78c49d93c5e56f1c2400/ca/c57ac05f/CollectibleBehavior.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/c1f9f1d656394ee5bb78c49d93c5e56f1c2400/cb/27809a10/IShaderAPI.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/c1f9f1d656394ee5bb78c49d93c5e56f1c2400/cc/b356d919/Shape.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/c1f9f1d656394ee5bb78c49d93c5e56f1c2400/d2/5a0c9d1c/Entity.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/c1f9f1d656394ee5bb78c49d93c5e56f1c2400/d3/8492f37b/AnimatableRenderer.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/c1f9f1d656394ee5bb78c49d93c5e56f1c2400/d5/08a90826/IFarmlandBlockEntity.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/c1f9f1d656394ee5bb78c49d93c5e56f1c2400/d8/15963286/EnumReflectiveMode.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/c1f9f1d656394ee5bb78c49d93c5e56f1c2400/df/a4899a6b/AnimationTrigger.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/c1f9f1d656394ee5bb78c49d93c5e56f1c2400/e3/29859b98/IShaderProgram.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/c1f9f1d656394ee5bb78c49d93c5e56f1c2400/e3/d1483aae/EntityStats.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/c1f9f1d656394ee5bb78c49d93c5e56f1c2400/e7/6f270b70/CustomGetTransitionSpeedMulDelegate.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/c1f9f1d656394ee5bb78c49d93c5e56f1c2400/e7/6fccce79/PerceptionEffects.cs" root0="SKIP_HIGHLIGHTING" />
@@ -317,7 +275,7 @@
     ]
   }
 }</component>
-  <component name="RunManager" selected=".NET Project.CakeBuild">
+  <component name="RunManager" selected=".NET Launch Settings Profile.BalancedThirst: Client">
     <configuration name="CakeBuild" type="DotNetProject" factoryName=".NET Project">
       <option name="EXE_PATH" value="" />
       <option name="PROGRAM_PARAMETERS" value="" />
@@ -392,7 +350,11 @@
       <workItem from="1722114326367" duration="3193000" />
       <workItem from="1722324346040" duration="16315000" />
       <workItem from="1724356405120" duration="19610000" />
-      <workItem from="1724795639152" duration="9709000" />
+      <workItem from="1724795639152" duration="9976000" />
+      <workItem from="1724881183906" duration="6612000" />
+      <workItem from="1724967953922" duration="7208000" />
+      <workItem from="1725048421477" duration="14751000" />
+      <workItem from="1725143381144" duration="2231000" />
     </task>
     <task id="LOCAL-00001" summary="Working kettle, and smelting, demijohn">
       <option name="closed" value="true" />
@@ -546,7 +508,15 @@
       <option name="project" value="LOCAL" />
       <updated>1724349135074</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="0.0.40">
+      <option name="closed" value="true" />
+      <created>1724805913467</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1724805913467</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -579,7 +549,8 @@
     <MESSAGE value="0.0.33" />
     <MESSAGE value="0.0.36 release" />
     <MESSAGE value="0.0.38 release" />
-    <option name="LAST_COMMIT_MESSAGE" value="0.0.38 release" />
+    <MESSAGE value="0.0.40" />
+    <option name="LAST_COMMIT_MESSAGE" value="0.0.40" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

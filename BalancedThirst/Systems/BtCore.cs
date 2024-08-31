@@ -5,6 +5,7 @@ using BalancedThirst.Hud;
 using BalancedThirst.Items;
 using BalancedThirst.ModBehavior;
 using BalancedThirst.ModBlockBehavior;
+using BalancedThirst.Shader;
 using BalancedThirst.Thirst;
 using BalancedThirst.Util;
 using Vintagestory.API.Client;
@@ -12,6 +13,7 @@ using Vintagestory.API.Common;
 using Vintagestory.API.Common.Entities;
 using Vintagestory.API.Datastructures;
 using Vintagestory.API.Server;
+using Vintagestory.Client.NoObf;
 
 namespace BalancedThirst.Systems;
 
@@ -22,6 +24,10 @@ public class BtCore : ModSystem
     private static ICoreAPI _api;
     public static bool IsHoDLoaded => _api?.ModLoader.IsModEnabled("hydrateordiedrate") ?? false;
     public static bool IsXSkillsLoaded => _api?.ModLoader.IsModEnabled("xskills") ?? false;
+    
+    private IShaderProgram _thirstShaderProgram;
+    public IShaderProgram ThirstShaderProgram => _thirstShaderProgram;
+    ExampleOverlayRenderer renderer;
     
     public override void StartPre(ICoreAPI api)
     {
@@ -69,6 +75,28 @@ public class BtCore : ModSystem
         BtCommands.Register(sapi);
         ConfigSystem.StartServerSide(sapi);
     }
+    
+    public bool LoadShaders()
+    {
+        if (_api is not ICoreClientAPI capi) return false;
+        
+        _thirstShaderProgram = capi.Shader.NewShaderProgram();
+        _thirstShaderProgram.VertexShader = capi.Shader.NewShader(EnumShaderType.VertexShader);
+        _thirstShaderProgram.FragmentShader = capi.Shader.NewShader(EnumShaderType.FragmentShader);
+        
+        _thirstShaderProgram.VertexShader.Code = ShaderCodes.GetVertexShaderCode();
+        _thirstShaderProgram.FragmentShader.Code = ShaderCodes.GetFragmentShaderCode();
+
+        capi.Shader.RegisterMemoryShaderProgram("thirst", _thirstShaderProgram);
+        _thirstShaderProgram.Compile();
+        
+        if (renderer != null)
+        {
+            renderer.overlayShaderProg = _thirstShaderProgram;
+        }
+        
+        return true;
+    }
 
     public override void StartClientSide(ICoreClientAPI capi)
     {
@@ -77,6 +105,11 @@ public class BtCore : ModSystem
             new ThirstBarHudElement(capi)
         });
         ConfigSystem.StartClientSide(capi);
+        capi.Event.ReloadShader += LoadShaders;
+        LoadShaders();
+
+        renderer = new ExampleOverlayRenderer(capi, _thirstShaderProgram);
+        capi.Event.RegisterRenderer(renderer, EnumRenderStage.AfterFinalComposition);
     }
     
     private void OnPlayerJoin(EntityPlayer player)
@@ -118,5 +151,16 @@ public class BtCore : ModSystem
         EditAssets.AddContainerProps(api);
         if (!ConfigSystem.ConfigServer.EnableThirst) return;
         EditAssets.AddHydrationToCollectibles(api);
+    }
+
+    public override void Dispose()
+    {
+        base.Dispose();
+        /*
+        if (_api is ICoreClientAPI clientApi)
+        {
+            clientApi.Event.ReloadShader -= LoadShaders;
+        }
+        */
     }
 }

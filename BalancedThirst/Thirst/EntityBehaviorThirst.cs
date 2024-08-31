@@ -158,7 +158,9 @@ namespace BalancedThirst.Thirst
       bool isHydrationMaxed = this.Hydration >= maxHydration;
       this.Hydration = Math.Clamp(this.Hydration + hydrationProperties.Hydration, 0, maxHydration);
       if (!isHydrationMaxed) this.HydrationLossDelay = Math.Max(this.HydrationLossDelay, hydrationProperties.HydrationLossDelay);
-      this.Dehydration = Math.Clamp(this.Dehydration + hydrationProperties.Dehydration/(Dehydration > 1 ? Dehydration : 1), 0, 100); // Grow logarithmically when dehydration > 1
+      this.Dehydration += 0.01f*hydrationProperties.Dehydration;
+      this.Dehydration = (float) Math.Clamp(this.Dehydration, 0, 9);
+      entity.WatchedAttributes.SetFloat("drankSaltwater", hydrationProperties.Dehydration);
       if (entity.World.Rand.NextDouble() < VomitChance(hydrationProperties.Purity))
       {
         entity.WatchedAttributes.SetFloat("intoxication", 1.0f);
@@ -346,6 +348,12 @@ namespace BalancedThirst.Thirst
       }
       entity.World.PlaySoundAt(this._vomitSound, entity.Pos.X, entity.Pos.Y, entity.Pos.Z, range: 10f);
       entity.World.RegisterCallback(dt => entity.WatchedAttributes.SetFloat("intoxication", 0.0f), 5000);
+    }
+
+    public void ResetStats()
+    {
+      Hydration = MaxHydration;
+      Dehydration = 0;
     }
   }
   

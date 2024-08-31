@@ -28,10 +28,11 @@ public static class Extensions
         ItemStack itemStack,
         Entity byEntity)
     {
-        if (collObj is BlockMeal)
+        if (collObj is BlockMeal meal)
         {
-            ItemStack[]? contentStacks = (itemStack.Collectible as BlockMeal)?.GetNonEmptyContents(world, itemStack);
-            return contentStacks?.GetHydrationProperties(world, byEntity) ?? null;
+            ItemStack[]? contentStacks = meal.GetNonEmptyContents(world, itemStack);
+            var quantityServings = meal.GetQuantityServings(world, itemStack);
+            return contentStacks?.GetHydrationProperties(world, byEntity) * (quantityServings == 0 ? 1 : quantityServings);
         }
         
         if (collObj is BlockCookedContainer)
@@ -406,6 +407,18 @@ public static class Extensions
     {
         behavior = blockAccessor.GetBlockEntity(pos)?.GetBehavior<T>();
         return behavior != null;
+    }
+    
+    public static bool IsHydrationMaxed(this Entity entity)
+    {
+        var thirstTree = entity.WatchedAttributes.GetTreeAttribute(BtCore.Modid+":thirst");
+        if (thirstTree == null) return false;
+
+        float? currentHydration = thirstTree.TryGetFloat("currenthydration");
+        float? maxHydration = thirstTree.TryGetFloat("maxhydration");
+
+        if (!currentHydration.HasValue || !maxHydration.HasValue) return false;
+        return currentHydration >= maxHydration;
     }
 
 }

@@ -11,6 +11,7 @@ public class ConfigServer : SyncedConfig
     public bool ThirstKills { get; set; }
     public float ThirstSpeedModifier { get; set; }
     public float HotTemperatureThreshold { get; set; } = 27.0f;
+    public bool EnableDehydration { get; set; } = true;
     public float VomitHydrationMultiplier { get; set; } = 0.5f;
     public float VomitEuhydrationMultiplier { get; set; } = 0.8f;
     public float BladderWalkSpeedDebuff { get; set; } = 0.5f;
@@ -59,6 +60,7 @@ public class ConfigServer : SyncedConfig
         ThirstKills = previousConfig.ThirstKills;
         ContainerDrinkSpeed = previousConfig.ContainerDrinkSpeed;
         HotTemperatureThreshold = previousConfig.HotTemperatureThreshold;
+        EnableDehydration = previousConfig.EnableDehydration;
         ThirstRatePerDegrees = previousConfig.ThirstRatePerDegrees;
         HarshHeatExponentialMultiplier = previousConfig.HarshHeatExponentialMultiplier;
         

@@ -1,3 +1,4 @@
+using System;
 using System.Text;
 using BalancedThirst.Systems;
 using BalancedThirst.Thirst;
@@ -16,9 +17,9 @@ public class BlockMeal_GetHeldItemInfo_Patch
     {
         if (ShouldSkipPatch) return;
         HydrationProperties hydrationProps = inSlot.Itemstack.Collectible.GetHydrationProperties(world, inSlot.Itemstack, null);
-        if (hydrationProps != null)
+        if (hydrationProps != null && Math.Round(hydrationProps.Hydration) != 0)
         {
-            string hydrationText = $"- {Lang.Get($"{BtCore.Modid}:blockinfo-meal-hyd", hydrationProps.Hydration)}";
+            string hydrationText = $"- {Lang.Get($"{BtCore.Modid}:blockinfo-meal-hyd", Math.Round(hydrationProps.Hydration))}";
             if (!dsc.ToString().Contains(hydrationText))
             {
                 dsc.AppendLine(hydrationText);

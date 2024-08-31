@@ -53,7 +53,7 @@ public partial class DrinkNetwork : ModSystem
     {
         var player = _capi.World.Player;
         if (ConfigSystem.SyncedConfigData.EnableThirst && !player.IsLookingAtInteractable() &&
-            player.IsLookingAtDrinkableBlock() && player.Entity.RightHandItemSlot.Empty)
+            player.IsLookingAtDrinkableBlock() && player.Entity.RightHandItemSlot.Empty && !player.Entity.IsHydrationMaxed())
             _capi.Event.PushEvent(EventIds.Interaction,
                 new StringAttribute(BtConstants.InteractionIds.Drink));
         
@@ -85,6 +85,7 @@ public partial class DrinkNetwork : ModSystem
         EntityPlayer player = world.Player.Entity;
         if (ConfigSystem.SyncedConfigData.EnableThirst
             && player.RightHandItemSlot.Empty
+            && !player.IsHydrationMaxed()
             && player.Player is IClientPlayer clientPlayer &&
             !clientPlayer.IsLookingAtInteractable())
         {

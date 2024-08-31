@@ -51,6 +51,11 @@ public static class ConfigSystem
     public static void ResetModBoosts(EntityPlayer player)
     {
         if (player == null) return;
+        player.Attributes?.GetTreeAttribute(BtCore.Modid + ":thirst")?.SetFloat("dehydration", 0);
+        if ((player.Api.Side & EnumAppSide.Server) != 0)
+        {
+            player.GetBehavior<EntityBehaviorThirst>().Dehydration = 0;
+        }
         foreach (var stat in ConfigSystem.ConfigServer.ThirstStatMultipliers.Keys)
         {
             player.Stats.Remove(stat, BtCore.Modid + ":thirsty");
@@ -60,7 +65,6 @@ public static class ConfigSystem
         player.Stats.Remove(BtCore.Modid + ":thirstrate", "dehydration");
         player.Stats.Remove("walkspeed", "bladderfull");
         player.Stats.Remove("walkspeed", "bowelfull");
-        player.Attributes?.GetTreeAttribute(BtCore.Modid + ":thirst")?.SetFloat("dehydration", 0);
     }
     
     private static void ReloadSyncedConfig(SyncedConfig packet)

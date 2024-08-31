@@ -13,6 +13,13 @@ namespace BalancedThirst.Systems
         public static void Register(ICoreServerAPI api)
         {
             api.ChatCommands
+                .Create("resetThirstStats")
+                .WithDescription("Resets the player's stat modifiers from thirst and bladder.")
+                .RequiresPrivilege("controlserver")
+                .WithArgs(api.ChatCommands.Parsers.OptionalWord("playerName"))
+                .HandleWith((args) => OnResetStatsCommand(api, args));
+            
+            api.ChatCommands
                 .Create("setHydration")
                 .WithDescription("Sets the player's hydration level.")
                 .RequiresPrivilege("controlserver")
@@ -27,6 +34,29 @@ namespace BalancedThirst.Systems
                 .WithArgs(api.ChatCommands.Parsers.OptionalWord("playerName"),
                     api.ChatCommands.Parsers.Float("bladderValue"))
                 .HandleWith((args) => OnSetBladderCommand(api, args));
+        }
+
+        private static TextCommandResult OnResetStatsCommand(ICoreServerAPI api, TextCommandCallingArgs args)
+        {
+            string playerName = args[0] as string;
+
+            IServerPlayer targetPlayer;
+
+            if (string.IsNullOrEmpty(playerName))
+            {
+                targetPlayer = args.Caller.Player as IServerPlayer;
+            }
+            else
+            {
+                targetPlayer = GetPlayerByName(api, playerName);
+                if (targetPlayer == null)
+                {
+                    return TextCommandResult.Error($"Player '{playerName}' not found.");
+                }
+            }
+
+            ConfigSystem.ResetModBoosts(targetPlayer?.Entity as EntityPlayer);
+            return TextCommandResult.Success($"Thirst stats reset for player '{targetPlayer.PlayerName}'.");
         }
 
         private static TextCommandResult OnSetThirstCommand(ICoreServerAPI api,

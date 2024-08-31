@@ -1,5 +1,3 @@
-- Turn legacy wooden bowls into new wooden bowls
-- Fixed meal crashes with non vanilla items (?)
-- Small wooden bowl improvements
-- Nerfed kettle capacity to 8 litres
-- Fixed urine expiration to massive rot quantities
+- Rebalanced dehhydration
+- Changed dehydration shader to bright bloom
+- Todo add dehydration config option and make it experimetal

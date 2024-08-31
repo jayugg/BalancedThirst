@@ -128,6 +128,7 @@ public class ConfigLibCompat
             config.ThirstSpeedModifier = OnInputFloat(id, config.ThirstSpeedModifier, nameof(config.ThirstSpeedModifier));
             config.ContainerDrinkSpeed = OnInputFloat(id, config.ContainerDrinkSpeed, nameof(config.ContainerDrinkSpeed));
             config.HotTemperatureThreshold = OnInputFloat(id, config.HotTemperatureThreshold, nameof(config.HotTemperatureThreshold));
+            config.EnableDehydration = OnCheckBox(id, config.EnableDehydration, nameof(config.EnableDehydration));
             config.VomitHydrationMultiplier = OnInputFloat(id, config.VomitHydrationMultiplier, nameof(config.VomitHydrationMultiplier));
             config.VomitEuhydrationMultiplier = OnInputFloat(id, config.VomitEuhydrationMultiplier, nameof(config.VomitEuhydrationMultiplier));
             ImGui.Separator();
