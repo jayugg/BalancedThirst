@@ -105,6 +105,7 @@
     "Config.Setting.ThirstKills": "Can you die of thirst?",
     "Config.Setting.ContainerDrinkSpeed": "Drink speed from container",
     "Config.Setting.HotTemperatureThreshold": "At which temperature do you get thirsty faster?",
+    "Config.Setting.EnableDehydration": "Enable Dehydration (Experimental)",
     "Config.Setting.ThirstSpeedModifier": "Thirst speed modifier",
     "Config.Setting.VomitHydrationMultiplier": "Hydration reduction when vomiting",
     "Config.Setting.VomitEuhydrationMultiplier": "Euhydration reduction when vomiting",

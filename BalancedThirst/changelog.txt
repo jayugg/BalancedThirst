@@ -1,3 +1,4 @@
-- Rebalanced dehhydration
-- Changed dehydration shader to bright bloom
-- Todo add dehydration config option and make it experimetal
+- Rebalanced dehydration
+- Removed all dehydration visual effects (will be re-added in a future update)
+- Config option to disable dehydration
+- Command resetThirstStats <player> to resets all thirst stat modifiers

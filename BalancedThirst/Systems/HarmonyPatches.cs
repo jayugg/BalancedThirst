@@ -9,7 +9,6 @@ using BalancedThirst.HarmonyPatches.Crock;
 using BalancedThirst.HarmonyPatches.EntityFirepit;
 using BalancedThirst.HarmonyPatches.InvSmelting;
 using BalancedThirst.HarmonyPatches.Meal;
-using BalancedThirst.HarmonyPatches.PerceptionEffects;
 using HarmonyLib;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
@@ -111,13 +110,6 @@ public class HarmonyPatches : ModSystem
         HarmonyInstance.Patch(typeof(CharacterExtraDialogs).GetMethod("UpdateStats",  BindingFlags.NonPublic | BindingFlags.Instance),
             postfix: typeof(CharacterExtraDialogs_UpdateStatBars_Patch).GetMethod(
                 nameof(CharacterExtraDialogs_UpdateStatBars_Patch.Postfix)));
-        
-        HarmonyInstance.Patch(typeof(PerceptionEffects).GetMethod(nameof(PerceptionEffects.OnOwnPlayerDataReceived)),
-            prefix: typeof(PerceptionEffects_OnOwnPlayerDataReceived_Patch).GetMethod(
-                nameof(PerceptionEffects_OnOwnPlayerDataReceived_Patch.Prefix)));
-        HarmonyInstance.Patch(typeof(PerceptionEffects).GetConstructor(new[] { typeof(ICoreClientAPI) }),
-            postfix: typeof(PerceptionEffects_Constructor_Patch).GetMethod(nameof(PerceptionEffects_Constructor_Patch.Postfix))
-        );
     }
 
     public override void Dispose() {

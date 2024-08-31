@@ -158,8 +158,11 @@ namespace BalancedThirst.Thirst
       bool isHydrationMaxed = this.Hydration >= maxHydration;
       this.Hydration = Math.Clamp(this.Hydration + hydrationProperties.Hydration, 0, maxHydration);
       if (!isHydrationMaxed) this.HydrationLossDelay = Math.Max(this.HydrationLossDelay, hydrationProperties.HydrationLossDelay);
-      this.Dehydration += 0.01f*hydrationProperties.Dehydration;
-      this.Dehydration = (float) Math.Clamp(this.Dehydration, 0, 9);
+      if (ConfigSystem.ConfigServer.EnableDehydration)
+      {
+        this.Dehydration += 0.01f * hydrationProperties.Dehydration;
+        this.Dehydration = (float)Math.Clamp(this.Dehydration, 0, 9);
+      }
       entity.WatchedAttributes.SetFloat("drankSaltwater", hydrationProperties.Dehydration);
       if (entity.World.Rand.NextDouble() < VomitChance(hydrationProperties.Purity))
       {
@@ -272,7 +275,7 @@ namespace BalancedThirst.Thirst
           player.World.PlayerByUid(player.PlayerUID).WorldData.CurrentGameMode == EnumGameMode.Creative)
         return;
       
-      if (this.Dehydration > 0)
+      if (ConfigSystem.ConfigServer.EnableDehydration && this.Dehydration > 0)
       {
         this.entity.Stats.Set(BtCore.Modid + ":thirstrate", "dehydration", Dehydration);
         Dehydration = Math.Max(0, Dehydration - 0.02f*Hydration/MaxHydration * (Math.Abs(Hydration - MaxHydration) < 1e-4 ? 5 : 1));
