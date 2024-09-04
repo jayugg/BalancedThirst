@@ -1,0 +1,29 @@
+[
+  {
+    "op": "add",
+    "path": "/texturesByType/*/calabash",
+    "value": {
+      "base": "balancedthirst:item/calabash"
+    },
+    side: "server",
+    "file": "game:blocktypes/clay/pot.json"
+  },
+  {
+    "op": "add",
+    "path": "/texturesByType/*/calabash-dried",
+    "value": {
+      "base": "balancedthirst:item/calabash-dried"
+    },
+    side: "server",
+    "file": "game:blocktypes/clay/pot.json"
+  },
+  {
+    "op": "add",
+    "path": "/texturesByType/*/calabash-pickled",
+    "value": {
+      "base": "balancedthirst:item/calabash-pickled"
+    },
+    side: "server",
+    "file": "game:blocktypes/clay/pot.json"
+  }
+]

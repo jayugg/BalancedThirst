@@ -36,6 +36,10 @@ public class HarmonyPatches : ModSystem
                 transpiler: typeof(BlockLiquidContainerBase_tryEatStop_Transpiler).GetMethod(
                     nameof(BlockLiquidContainerBase_tryEatStop_Transpiler.Transpiler)));
         }
+        
+        HarmonyInstance.Patch(typeof(BlockLiquidContainerBase).GetMethod("SpillContents", BindingFlags.NonPublic | BindingFlags.Instance),
+            postfix: typeof(BlockLiquidContainerBase_SpillContents_Patch).GetMethod(
+                nameof(BlockLiquidContainerBase_SpillContents_Patch.Postfix)));
 
         HarmonyInstance.Patch(typeof(BlockEntityFirepit).GetMethod("GetTemp", BindingFlags.NonPublic | BindingFlags.Instance),
             postfix: typeof(BlockEntityFirepit_Temp_Patch).GetMethod(

@@ -1,0 +1,54 @@
+[
+  {
+    "op": "addeach",
+    "path": "/ingredients/3/validStacks/-",
+    "value": [
+      { type: "item", code: "balancedthirst:vegetable-gourdpumpkin", shapeElement: "bowl/vegetable 1/*",
+        "textureMapping": [
+          "vegetable",
+          "calabash"
+        ]
+      },
+      { type: "item", code: "balancedthirst:pickledvegetable-gourdpumpkin", shapeElement: "bowl/vegetable 1/*",
+        "textureMapping": [
+          "vegetable",
+          "calabash-pickled"
+        ]
+      },
+      { type: "item", code: "balancedthirst:dryvegetable-gourdpumpkin", shapeElement: "bowl/vegetable 1/*",
+        "textureMapping": [
+          "vegetable",
+          "calabash-dried"
+        ]
+      }
+    ],
+    "side": "server",
+    "file": "game:recipes/cooking/porridge.json"
+  },
+  {
+    "op": "addeach",
+    "path": "/ingredients/4/validStacks/-",
+    "value": [
+      { type: "item", code: "balancedthirst:vegetable-gourdpumpkin", shapeElement: "bowl/vegetable 2/*",
+        "textureMapping": [
+          "vegetable",
+          "calabash"
+        ]
+      },
+      { type: "item", code: "balancedthirst:pickledvegetable-gourdpumpkin", shapeElement: "bowl/vegetable 2/*",
+        "textureMapping": [
+          "vegetable",
+          "calabash-pickled"
+        ]
+      },
+      { type: "item", code: "balancedthirst:dryvegetable-gourdpumpkin", shapeElement: "bowl/vegetable 2/*",
+        "textureMapping": [
+          "vegetable",
+          "calabash-dried"
+        ]
+      }
+    ],
+    "side": "server",
+    "file": "game:recipes/cooking/porridge.json"
+  }
+]

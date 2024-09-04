@@ -1,0 +1,54 @@
+{
+  code: "vomit",
+  behaviors: [
+    { name: "GroundStorable", properties: { layout: 'Quadrants', collisionBox: { x1: 0, y1: 0, z1: 0, x2: 1, y2: 0.125, z2: 1 } } }
+  ],
+  shape: { base: "game:item/rot" },
+  textures: {
+    "rot": { "base": "balancedthirst:item/vomit/vomit-solids" },
+    "base": { "base": "balancedthirst:item/vomit/vomit-spill" }
+  },
+  creativeinventory: { "general": ["*"], "items": ["*"] },
+  attributes: {
+    inContainerTexture: { base: "balancedthirst:block/barrel/vomit" },
+    waterTightContainerProps: {
+      texture: { base: "balancedthirst:block/barrel/vomit" },
+      itemsPerLitre: 100,
+      isopaque: true,
+      maxStackSize: 64
+    },
+    displaycaseable: true,
+    shelvable: true
+  },
+  "transitionableProps": [{
+    "type": "Perish",
+    "freshHours": { "avg": 36 },
+    "transitionHours": { "avg": 12 },
+    "transitionedStack": { "type": "item", "code": "game:rot" },
+    "transitionRatio": 0.01
+  }],
+  maxstacksize: 1600,
+  materialDensity: 620,
+  combustibleProps: {
+    burnTemperature: 400,
+    burnDuration: 6,
+  },
+  guiTransform: {
+    translation: { x: 4, y: 0, z: 0 },
+    rotation: { x: 142, y: 36, z: 0 },
+    origin: { x: 0.45, y: 0.09, z: 0.5 },
+    scale: 2.8
+  },
+  fpHandTransform: {
+    translation: { x: -0.1, y: 0, z: 0 },
+    rotation: { x: 4, y: 9, z: 9 },
+    origin: { x: 0.5, y: 0.4, z: 0.5 },
+    scale: 1.58
+  },
+  groundTransform: {
+    translation: { x: 0, y: 0, z: 0 },
+    rotation: { x: 4, y: 0, z: 0 },
+    origin: { x: 0.5, y: 0, z: 0.5 },
+    scale: 3.64
+  }
+}

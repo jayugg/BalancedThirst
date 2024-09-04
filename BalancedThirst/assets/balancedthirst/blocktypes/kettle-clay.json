@@ -47,11 +47,11 @@
       "minFillY": 1.01,
       "maxFillY": 4.91,
       "storageType": 1,
-      "maxContainerSlotStackSize": 3,
-      "cookingSlotCapacityLitres": 3,
+      "maxContainerSlotStackSize": 2,
+      "cookingSlotCapacityLitres": 2,
       "cookingContainerSlots": 4,
       "liquidcontainer": true,
-      "capacityLitres": 12,
+      "capacityLitres": 8,
       "canhold": [ "water-*" ],
       "inFirePitProps": {
         "transform": {

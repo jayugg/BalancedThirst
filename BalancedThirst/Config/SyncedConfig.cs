@@ -20,6 +20,9 @@ public class SyncedConfig : IModConfig
     [ProtoMember(13, IsRequired = true)]
     public bool UrineStains { get; set; } = true;
     
+    [ProtoMember(17, IsRequired = true)]
+    public bool SpillWashStains { get; set; } = true;
+    
     [ProtoMember(12, IsRequired = true)]
     public float ContainerDrinkSpeed { get; set; } = 0.25f;
     
@@ -59,6 +62,7 @@ public class SyncedConfig : IModConfig
         }
         EnableThirst = previousConfig.EnableThirst;
         EnableBladder = previousConfig.EnableBladder;
+        SpillWashStains = previousConfig.SpillWashStains;
         UrineStains = previousConfig.UrineStains;
         ContainerDrinkSpeed = previousConfig.ContainerDrinkSpeed;
         DowsingRodRadius = previousConfig.DowsingRodRadius;
@@ -80,6 +84,7 @@ public class SyncedConfig : IModConfig
         {
             EnableThirst = EnableThirst,
             EnableBladder = EnableBladder,
+            SpillWashStains = SpillWashStains,
             ContainerDrinkSpeed = ContainerDrinkSpeed,
             DowsingRodRadius = DowsingRodRadius,
             FruitHydrationYield = FruitHydrationYield,

@@ -189,7 +189,7 @@ public class DrinkableBehavior : CollectibleBehavior
             // Access the matched satiety value
             string satiety = satietyMatch.Groups[1].Value;
             
-            if (Math.Round(double.Parse(satiety)) == 0)
+            if (Math.Round(double.Parse(satiety)) == 0 && hydration != 0)
             {
                 string existingLine = satietyMatch.Value;
                 string updatedLine = Lang.Get("When drank: {0} hyd", Math.Round(hydration * spoilageFactor));

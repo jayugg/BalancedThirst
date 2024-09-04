@@ -1,0 +1,74 @@
+﻿[
+  {
+    "op": "addeach",
+    "path": "/ingredients/2/validStacks/-",
+      "value": [
+          {
+              "type": "item",
+              "code": "balancedthirst:vegetable-*",
+              "shapeElement": "bowl/vegetable 1/*",
+              "textureMapping": [
+                  "vegetable",
+                  "calabash"
+              ]
+          },
+          {
+              "type": "item",
+              "code": "balancedthirst:pickledvegetable-*",
+              "shapeElement": "bowl/vegetable 1/*",
+              "textureMapping": [
+                  "vegetable",
+                  "calabash-pickled"
+              ]
+          },
+          {
+              "type": "item",
+              "code": "balancedthirst:dryvegetable-*",
+              "shapeElement": "bowl/vegetable 1/*",
+              "textureMapping": [
+                  "vegetable",
+                  "calabash-dried"
+              ]
+          }
+      ],
+    "file": "game:recipes/cooking/riceandbeans.json",
+    "side": "server",
+    "dependsOn": [{ "modid": "expandedfoods" }]
+  },
+  {
+    "op": "addeach",
+    "path": "/ingredients/3/validStacks/-",
+      "value": [
+          {
+              "type": "item",
+              "code": "balancedthirst:vegetable-*",
+              "shapeElement": "bowl/vegetable 2/*",
+              "textureMapping": [
+                  "vegetable",
+                  "calabash"
+              ]
+          },
+          {
+              "type": "item",
+              "code": "balancedthirst:pickledvegetable-*",
+              "shapeElement": "bowl/vegetable 2/*",
+              "textureMapping": [
+                  "vegetable",
+                  "calabash-pickled"
+              ]
+          },
+          {
+              "type": "item",
+              "code": "balancedthirst:dryvegetable-*",
+              "shapeElement": "bowl/vegetable 2/*",
+              "textureMapping": [
+                  "vegetable",
+                  "calabash-dried"
+              ]
+          }
+      ],
+    "file": "game:recipes/cooking/riceandbeans.json",
+    "side": "server",
+    "dependsOn": [{ "modid": "expandedfoods" }]
+  }
+]

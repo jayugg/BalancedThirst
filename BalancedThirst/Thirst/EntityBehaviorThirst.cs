@@ -344,19 +344,18 @@ namespace BalancedThirst.Thirst
       Hydration *= ConfigSystem.ConfigServer.VomitHydrationMultiplier;
       HydrationLossDelay = 0;
       Euhydration *= ConfigSystem.ConfigServer.VomitEuhydrationMultiplier;
+      var satLoss = 0f;
       if (entity.HasBehavior<EntityBehaviorHunger>())
       {
         var bh = entity.GetBehavior<EntityBehaviorHunger>();
         bh.Saturation = 0.5f * bh.Saturation;
+        satLoss = bh.Saturation;
       }
       entity.World.PlaySoundAt(this._vomitSound, entity.Pos.X, entity.Pos.Y, entity.Pos.Z, range: 10f);
       entity.World.RegisterCallback(dt => entity.WatchedAttributes.SetFloat("intoxication", 0.0f), 5000);
-    }
-
-    public void ResetStats()
-    {
-      Hydration = MaxHydration;
-      Dehydration = 0;
+      var vomitStack = new ItemStack(entity.World.GetItem(new AssetLocation("balancedthirst:vomit")), (int) satLoss / 10);
+      if (vomitStack.StackSize > 10) entity.World.SpawnItemEntity(vomitStack, entity.Pos.AsBlockPos.ToVec3d().Add(0.5, 0.1, 0.5));
+      entity.World.SpawnCubeParticles(entity.Pos.AheadCopy(0.25).XYZ.Add(0.0, (double) entity.SelectionBox.Y2 / 2.0, 0.0), vomitStack, 0.75f, 100, 0.45f);
     }
   }
   

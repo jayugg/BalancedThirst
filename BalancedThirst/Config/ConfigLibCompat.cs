@@ -94,6 +94,7 @@ public class ConfigLibCompat
             config.EnableThirst = OnCheckBox(id, config.EnableThirst, nameof(config.EnableThirst));
             config.EnableBladder = OnCheckBox(id, config.EnableBladder, nameof(config.EnableBladder));
             ImGui.Separator();
+            config.SpillWashStains = OnCheckBox(id, config.SpillWashStains, nameof(config.SpillWashStains));
             config.UrineStains = OnCheckBox(id, config.UrineStains, nameof(config.UrineStains));
             config.ContainerDrinkSpeed = OnInputFloat(id, config.ContainerDrinkSpeed, nameof(config.ContainerDrinkSpeed));
             config.FruitHydrationYield = OnInputFloat(id, config.FruitHydrationYield, nameof(config.FruitHydrationYield));
@@ -133,6 +134,7 @@ public class ConfigLibCompat
             config.VomitEuhydrationMultiplier = OnInputFloat(id, config.VomitEuhydrationMultiplier, nameof(config.VomitEuhydrationMultiplier));
             ImGui.Separator();
             config.EnableBladder = OnCheckBox(id, config.EnableBladder, nameof(config.EnableBladder));
+            config.SpillWashStains = OnCheckBox(id, config.SpillWashStains, nameof(config.SpillWashStains));
             config.UrineStains = OnCheckBox(id, config.UrineStains, nameof(config.UrineStains));
             config.BladderWalkSpeedDebuff = OnInputFloat(id, config.BladderWalkSpeedDebuff, nameof(config.BladderWalkSpeedDebuff));
             config.BladderCapacityOverload = OnInputFloat(id, config.BladderCapacityOverload, nameof(config.BladderCapacityOverload));

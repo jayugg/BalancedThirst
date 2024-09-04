@@ -1,0 +1,184 @@
+[
+  {
+    "op": "addeach",
+    "path": "/ingredients/4/validStacks/-",
+    "value": [
+      { type: "item", code: "balancedthirst:vegetable-gourdpumpkin", shapeElement: "bowl/vegetable 1/*",
+        "textureMapping": [
+          "vegetable",
+          "calabash"
+        ]
+      },
+      { type: "item", code: "balancedthirst:pickledvegetable-gourdpumpkin", shapeElement: "bowl/vegetable 1/*",
+        "textureMapping": [
+          "vegetable",
+          "calabash-pickled"
+        ]
+      },
+      { type: "item", code: "balancedthirst:dryvegetable-gourdpumpkin", shapeElement: "bowl/vegetable 1/*",
+        "textureMapping": [
+          "vegetable",
+          "calabash-dried"
+        ]
+      }
+    ],
+    "side": "server",
+    "file": "game:recipes/cooking/meatystew.json"
+  },
+  {
+    "op": "addeach",
+    "path": "/ingredients/5/validStacks/-",
+    "value": [
+      { type: "item", code: "balancedthirst:vegetable-gourdpumpkin", shapeElement: "bowl/vegetable 2/*",
+        "textureMapping": [
+          "vegetable",
+          "calabash"
+        ]
+      },
+      { type: "item", code: "balancedthirst:pickledvegetable-gourdpumpkin", shapeElement: "bowl/vegetable 2/*",
+        "textureMapping": [
+          "vegetable",
+          "calabash-pickled"
+        ]
+      },
+      { type: "item", code: "balancedthirst:dryvegetable-gourdpumpkin", shapeElement: "bowl/vegetable 2/*",
+        "textureMapping": [
+          "vegetable",
+          "calabash-dried"
+        ]
+      }
+    ],
+    "side": "server",
+    "file": "game:recipes/cooking/meatystew.json"
+  },
+  {
+    "op": "addeach",
+    "path": "/ingredients/6/validStacks/-",
+    "value": [
+      { type: "item", code: "balancedthirst:vegetable-gourdpumpkin", shapeElement: "bowl/fruit 1/*",
+        "textureMapping": [
+          "vegetable",
+          "calabash"
+        ]
+      },
+      { type: "item", code: "balancedthirst:pickledvegetable-gourdpumpkin", shapeElement: "bowl/fruit 1/*",
+        "textureMapping": [
+          "vegetable",
+          "calabash-pickled"
+        ]
+      },
+      { type: "item", code: "balancedthirst:dryvegetable-gourdpumpkin", shapeElement: "bowl/fruit 1/*",
+        "textureMapping": [
+          "vegetable",
+          "calabash-dried"
+        ]
+      }
+    ],
+    "side": "server",
+    "file": "game:recipes/cooking/meatystew.json"
+  },
+  {
+    "op": "addeach",
+    "path": "/ingredients/0/validStacks/-",
+    "value": [
+      { type: "item", code: "balancedthirst:vegetable-gourdpumpkin", shapeElement: "bowl/vegetable 1/*",
+        "textureMapping": [
+          "vegetable",
+          "calabash"
+        ]
+      },
+      { type: "item", code: "balancedthirst:pickledvegetable-gourdpumpkin", shapeElement: "bowl/vegetable 1/*",
+        "textureMapping": [
+          "vegetable",
+          "calabash-pickled"
+        ]
+      },
+      { type: "item", code: "balancedthirst:dryvegetable-gourdpumpkin", shapeElement: "bowl/vegetable 1/*",
+        "textureMapping": [
+          "vegetable",
+          "calabash-dried"
+        ]
+      }
+    ],
+    "side": "server",
+    "file": "game:recipes/cooking/vegetablestew.json"
+  },
+  {
+    "op": "addeach",
+    "path": "/ingredients/1/validStacks/-",
+    "value": [
+      { type: "item", code: "balancedthirst:vegetable-gourdpumpkin", shapeElement: "bowl/vegetable 2/*",
+        "textureMapping": [
+          "vegetable",
+          "calabash"
+        ]
+      },
+      { type: "item", code: "balancedthirst:pickledvegetable-gourdpumpkin", shapeElement: "bowl/vegetable 2/*",
+        "textureMapping": [
+          "vegetable",
+          "calabash-pickled"
+        ]
+      },
+      { type: "item", code: "balancedthirst:dryvegetable-gourdpumpkin", shapeElement: "bowl/vegetable 2/*",
+        "textureMapping": [
+          "vegetable",
+          "calabash-dried"
+        ]
+      }
+    ],
+    "side": "server",
+    "file": "game:recipes/cooking/vegetablestew.json"
+  },
+  {
+    "op": "addeach",
+    "path": "/ingredients/2/validStacks/-",
+    "value": [
+      { type: "item", code: "balancedthirst:vegetable-gourdpumpkin", shapeElement: "bowl/vegetable 3/*",
+        "textureMapping": [
+          "vegetable",
+          "calabash"
+        ]
+      },
+      { type: "item", code: "balancedthirst:pickledvegetable-gourdpumpkin", shapeElement: "bowl/vegetable 3/*",
+        "textureMapping": [
+          "vegetable",
+          "calabash-pickled"
+        ]
+      },
+      { type: "item", code: "balancedthirst:dryvegetable-gourdpumpkin", shapeElement: "bowl/vegetable 3/*",
+        "textureMapping": [
+          "vegetable",
+          "calabash-dried"
+        ]
+      }
+    ],
+    "side": "server",
+    "file": "game:recipes/cooking/vegetablestew.json"
+  },
+  {
+    "op": "addeach",
+    "path": "/ingredients/3/validStacks/-",
+    "value": [
+      { type: "item", code: "balancedthirst:vegetable-gourdpumpkin", shapeElement: "bowl/vegetable 4/*",
+        "textureMapping": [
+          "vegetable",
+          "calabash"
+        ]
+      },
+      { type: "item", code: "balancedthirst:pickledvegetable-gourdpumpkin", shapeElement: "bowl/vegetable 4/*",
+        "textureMapping": [
+          "vegetable",
+          "calabash-pickled"
+        ]
+      },
+      { type: "item", code: "balancedthirst:dryvegetable-gourdpumpkin", shapeElement: "bowl/vegetable 4/*",
+        "textureMapping": [
+          "vegetable",
+          "calabash-dried"
+        ]
+      }
+    ],
+    "side": "server",
+    "file": "game:recipes/cooking/vegetablestew.json"
+  }
+]

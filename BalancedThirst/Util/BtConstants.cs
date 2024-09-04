@@ -71,6 +71,7 @@ public static class BtConstants
         { $"@({BtCore.Modid}):waterportion-distilled", new HydrationProperties { Hydration = 200, Purity = EnumPurityLevel.Distilled, EuhydrationWeight = 0f } },
         { $"@({BtCore.Modid}):urineportion", new HydrationProperties { Hydration = 120, Purity = EnumPurityLevel.Pure, EuhydrationWeight = -0.5f, Dehydration = 1 } },
         { $"@({BtCore.Modid}):dryvegetable.*", new HydrationProperties { Hydration = 0, Dehydration = 0.05f } },
+        { $"@({BtCore.Modid}):vomit", new HydrationProperties { Hydration = 20, Purity = EnumPurityLevel.Yuck } },
         { "@(aculinaryartillery):eggyolkfullportion-.*", new HydrationProperties { Hydration = 80 } },
         { "@(aculinaryartillery):eggyolkportion-.*", new HydrationProperties { Hydration = 50 } },
         { "@(aculinaryartillery):eggwhiteportion.*", new HydrationProperties { Hydration = 100 } },

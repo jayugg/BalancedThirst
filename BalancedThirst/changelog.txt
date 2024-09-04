@@ -1,4 +1,5 @@
-- Rebalanced dehydration
-- Removed all dehydration visual effects (will be re-added in a future update)
-- Config option to disable dehydration
-- Command resetThirstStats <player> to resets all thirst stat modifiers
+- Added calabash meal recipes
+- Added calabash expanded food recipes
+- Vomiting now drops vomit item if saturation lost is greater than 500
+- Vomit particle effect now plays when vomiting
+- Spilling water on stains now cleans them
