@@ -1,0 +1,66 @@
+[
+  {
+    "file": "expandedfoods:recipes/kneading/acorns/acornbreadedcalabash.json",
+    "op": "add",
+    "path": "/0/enabled",
+    "value": "false",
+    "side": "server",
+    "dependsOn": [{ "modid": "acorns", "invert": true }]
+  },
+  {
+    "file": "expandedfoods:recipes/kneading/acorns/acornbreadedcalabash.json",
+    "op": "add",
+    "path": "/1/enabled",
+    "value": "false",
+    "side": "server",
+    "dependsOn": [{ "modid": "acorns", "invert": true }]
+  },
+  {
+    "file": "expandedfoods:recipes/kneading/acorns/acornbreadedcalabash.json",
+    "op": "add",
+    "path": "/2/enabled",
+    "value": "false",
+    "side": "server",
+    "dependsOn": [{ "modid": "acorns", "invert": true }]
+  },
+  {
+    "file": "expandedfoods:recipes/kneading/acorns/acornbreadedcalabash.json",
+    "op": "add",
+    "path": "/3/enabled",
+    "value": "false",
+    "side": "server",
+    "dependsOn": [{ "modid": "acorns", "invert": true }]
+  },
+  {
+    "file": "expandedfoods:recipes/kneading/acorns/acornbreadedcalabashoiled.json",
+    "op": "add",
+    "path": "/0/enabled",
+    "value": "false",
+    "side": "server",
+    "dependsOn": [{ "modid": "acorns", "invert": true }]
+  },
+  {
+    "file": "expandedfoods:recipes/kneading/acorns/acornbreadedcalabashsyrup.json",
+    "op": "add",
+    "path": "/0/enabled",
+    "value": "false",
+    "side": "server",
+    "dependsOn": [{ "modid": "acorns", "invert": true }]
+  },
+  {
+    "file": "expandedfoods:recipes/kneading/acorns/acornbreadedcalabashsyrup.json",
+    "op": "add",
+    "path": "/1/enabled",
+    "value": "false",
+    "side": "server",
+    "dependsOn": [{ "modid": "acorns", "invert": true }]
+  },
+  {
+    "file": "expandedfoods:recipes/kneading/acorns/acornbreadedcalabashsyrup.json",
+    "op": "add",
+    "path": "/2/enabled",
+    "value": "false",
+    "side": "server",
+    "dependsOn": [{ "modid": "acorns", "invert": true }]
+  }
+]

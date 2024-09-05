@@ -1,0 +1,9 @@
+{
+  "code": "pickledvegetablecalabash",
+  "sealHours": 336,
+  "ingredients": [
+    { "type": "item", "code": "game:vinegarportion",  "litres": 0.1, "consumelitres": 0.1 },
+    { "type": "item", "code": "balancedthirst:vegetable-*", "name": "vegetable", "quantity": 1 }
+  ],
+  "output": { "type": "item", "code": "balancedthirst:pickledvegetable-{vegetable}", "stackSize": 1 }
+}

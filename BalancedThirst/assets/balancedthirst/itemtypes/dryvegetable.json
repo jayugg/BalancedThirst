@@ -19,7 +19,7 @@
     "*-gourdpumpkin": { "base": "item/vegetable/strips" }
   },
   "texturesbytype": {
-    "*-gourdpumpkin": { "fibers": {"base": "item/calabash-dried"}, "tie": {"base": "game:item/resource/fibers"} }
+    "*-gourdpumpkin": { "calabash": {"base": "item/calabash-dried"}, "tie": {"base": "game:item/resource/fibers"} }
   },
   "creativeinventory": { "general": ["*"], "items": ["*"] },
   "nutritionPropsByType": {
@@ -29,9 +29,9 @@
   "guiTransformByType": {
     "*-gourdpumpkin": {
       "translation": { "x": 4, "y": 2, "z": 0 },
-      "rotation": { "x": 106, "y": 39, "z": -8 },
+      "rotation": { "x": 42, "y": 39, "z": -8 },
       "origin": { "x": 1, "y": 0, "z": 1 },
-      "scale": 2.17
+      "scaleXyz": { "x": -2.17, "y": 2.17, "z": 2.17 }
     }
   },
   "fpHandTransformByType": {

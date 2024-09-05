@@ -1,5 +1,8 @@
 - Added calabash meal recipes
-- Added calabash expanded food recipes
-- Vomiting now drops vomit item if saturation lost is greater than 500
+- Added calabash expanded food compatibility:
+    - meals: gratin, pasta, pilaf, salad
+    - mixing: breaded calabash, trailmix, fruitbar, breadball
+- Vomiting now drops vomit item based on saturation lost
 - Vomit particle effect now plays when vomiting
-- Spilling water on stains now cleans them
+- Spilling water on stains or cave art now cleans them
+- Spring water no longer freezes

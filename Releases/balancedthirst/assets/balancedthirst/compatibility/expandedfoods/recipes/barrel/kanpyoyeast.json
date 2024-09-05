@@ -1,0 +1,9 @@
+{
+  "code": "wildyeastkanpyo",
+  "sealHours": 96,
+  "ingredients": [
+    { "type": "item", "code": "game:waterportion",  "litres": 1 },
+    { "type": "item", "code": "balancedthirst:dryvegetable-*", "quantity": 6}
+  ],
+  "output": { "type": "item", "code": "expandedfoods:yeastwaterportion", "litres": 1 }
+}

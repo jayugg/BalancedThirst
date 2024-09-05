@@ -3,11 +3,14 @@
 	"textureHeight": 16,
 	"textureSizes": {
 		"tie": [32, 32],
-		"fibers": [32, 32]
+		"calabash": [32, 32]
+	},
+	"textures": {
+		"tie": "game:block/transparent"
 	},
 	"elements": [
 		{
-			"name": "flaxfibers",
+			"name": "calabashstrips",
 			"rotationOrigin": [16, 8, 16],
 			"from": [0, 0, 0],
 			"to": [0, 0, 0],
@@ -44,7 +47,7 @@
 					"rotationOrigin": [8, 0, 8],
 					"from": [0, 0, 0],
 					"to": [0, 0, 0],
-					"parent": "flaxfibers",
+					"parent": "flaxcalabash",
 					"faces": {
 						"north": {
 							"texture": "#",
@@ -262,32 +265,32 @@
 											"rotationOrigin": [16, 0.8, 14.5],
 											"faces": {
 												"north": {
-													"texture": "#fibers",
+													"texture": "#calabash",
 													"uv": [11, 1.5, 12, 5.5],
 													"autoUv": false
 												},
 												"east": {
-													"texture": "#fibers",
+													"texture": "#calabash",
 													"uv": [10.5, 13, 12.5, 14],
 													"autoUv": false
 												},
 												"south": {
-													"texture": "#fibers",
+													"texture": "#calabash",
 													"uv": [10, 1, 11, 5],
 													"autoUv": false
 												},
 												"west": {
-													"texture": "#fibers",
+													"texture": "#calabash",
 													"uv": [3.5, 2, 5.5, 3],
 													"autoUv": false
 												},
 												"up": {
-													"texture": "#fibers",
+													"texture": "#calabash",
 													"uv": [7.5, 3, 9.5, 7],
 													"autoUv": false
 												},
 												"down": {
-													"texture": "#fibers",
+													"texture": "#calabash",
 													"uv": [13, 6.5, 15, 10.5],
 													"autoUv": false
 												}
@@ -302,32 +305,32 @@
 											"rotationOrigin": [16, 0.8, 16],
 											"faces": {
 												"north": {
-													"texture": "#fibers",
+													"texture": "#calabash",
 													"uv": [11, 1.5, 12, 5.5],
 													"autoUv": false
 												},
 												"east": {
-													"texture": "#fibers",
+													"texture": "#calabash",
 													"uv": [10.5, 13, 12.5, 14],
 													"autoUv": false
 												},
 												"south": {
-													"texture": "#fibers",
+													"texture": "#calabash",
 													"uv": [10, 1, 11, 5],
 													"autoUv": false
 												},
 												"west": {
-													"texture": "#fibers",
+													"texture": "#calabash",
 													"uv": [3.5, 2, 5.5, 3],
 													"autoUv": false
 												},
 												"up": {
-													"texture": "#fibers",
+													"texture": "#calabash",
 													"uv": [7.5, 3, 9.5, 7],
 													"autoUv": false
 												},
 												"down": {
-													"texture": "#fibers",
+													"texture": "#calabash",
 													"uv": [13, 6.5, 15, 10.5],
 													"autoUv": false
 												}
@@ -342,32 +345,32 @@
 											"rotationOrigin": [12.2, 0.8, 17.9],
 											"faces": {
 												"north": {
-													"texture": "#fibers",
+													"texture": "#calabash",
 													"uv": [4, 4.5, 5.5, 7.5],
 													"autoUv": false
 												},
 												"east": {
-													"texture": "#fibers",
+													"texture": "#calabash",
 													"uv": [14, 11, 15, 12.5],
 													"autoUv": false
 												},
 												"south": {
-													"texture": "#fibers",
+													"texture": "#calabash",
 													"uv": [0.5, 2.5, 2, 5.5],
 													"autoUv": false
 												},
 												"west": {
-													"texture": "#fibers",
+													"texture": "#calabash",
 													"uv": [0.5, 12, 1.5, 13.5],
 													"autoUv": false
 												},
 												"up": {
-													"texture": "#fibers",
+													"texture": "#calabash",
 													"uv": [10, 3, 11, 6],
 													"autoUv": false
 												},
 												"down": {
-													"texture": "#fibers",
+													"texture": "#calabash",
 													"uv": [12.5, 1, 13.5, 4],
 													"autoUv": false
 												}
@@ -383,32 +386,32 @@
 											"rotationOrigin": [14.85061, 0.7625, 15.03452],
 											"faces": {
 												"north": {
-													"texture": "#fibers",
+													"texture": "#calabash",
 													"uv": [2.5, 3, 3.5, 6],
 													"autoUv": false
 												},
 												"east": {
-													"texture": "#fibers",
+													"texture": "#calabash",
 													"uv": [9, 13, 10, 14],
 													"autoUv": false
 												},
 												"south": {
-													"texture": "#fibers",
+													"texture": "#calabash",
 													"uv": [3, 1.5, 4, 4.5],
 													"autoUv": false
 												},
 												"west": {
-													"texture": "#fibers",
+													"texture": "#calabash",
 													"uv": [10.5, 0, 11.5, 1],
 													"autoUv": false
 												},
 												"up": {
-													"texture": "#fibers",
+													"texture": "#calabash",
 													"uv": [12, 6, 13, 9],
 													"autoUv": false
 												},
 												"down": {
-													"texture": "#fibers",
+													"texture": "#calabash",
 													"uv": [6.5, 0, 7.5, 3],
 													"autoUv": false
 												}
@@ -424,32 +427,32 @@
 											"rotationOrigin": [14.4, 0.8, 16.5],
 											"faces": {
 												"north": {
-													"texture": "#fibers",
+													"texture": "#calabash",
 													"uv": [13.5, 10, 14.5, 13],
 													"autoUv": false
 												},
 												"east": {
-													"texture": "#fibers",
+													"texture": "#calabash",
 													"uv": [10, 6, 11, 7],
 													"autoUv": false
 												},
 												"south": {
-													"texture": "#fibers",
+													"texture": "#calabash",
 													"uv": [6, 0.5, 7, 3.5],
 													"autoUv": false
 												},
 												"west": {
-													"texture": "#fibers",
+													"texture": "#calabash",
 													"uv": [7.5, 9.5, 8.5, 10.5],
 													"autoUv": false
 												},
 												"up": {
-													"texture": "#fibers",
+													"texture": "#calabash",
 													"uv": [7, 4.5, 8, 7.5],
 													"autoUv": false
 												},
 												"down": {
-													"texture": "#fibers",
+													"texture": "#calabash",
 													"uv": [14, 2.5, 15, 5.5],
 													"autoUv": false
 												}
@@ -465,32 +468,32 @@
 											"rotationOrigin": [17.4, 0.8, 16.5],
 											"faces": {
 												"north": {
-													"texture": "#fibers",
+													"texture": "#calabash",
 													"uv": [13, 2, 14, 5],
 													"autoUv": false
 												},
 												"east": {
-													"texture": "#fibers",
+													"texture": "#calabash",
 													"uv": [7.5, 4.5, 8.5, 5.5],
 													"autoUv": false
 												},
 												"south": {
-													"texture": "#fibers",
+													"texture": "#calabash",
 													"uv": [0, 1, 1, 4],
 													"autoUv": false
 												},
 												"west": {
-													"texture": "#fibers",
+													"texture": "#calabash",
 													"uv": [13, 1, 14, 2],
 													"autoUv": false
 												},
 												"up": {
-													"texture": "#fibers",
+													"texture": "#calabash",
 													"uv": [12, 8.5, 13, 11.5],
 													"autoUv": false
 												},
 												"down": {
-													"texture": "#fibers",
+													"texture": "#calabash",
 													"uv": [1, 12.5, 2, 15.5],
 													"autoUv": false
 												}
@@ -506,32 +509,32 @@
 											"rotationOrigin": [12.2, 0.8, 14.7],
 											"faces": {
 												"north": {
-													"texture": "#fibers",
+													"texture": "#calabash",
 													"uv": [13, 12, 14, 13],
 													"autoUv": false
 												},
 												"east": {
-													"texture": "#fibers",
+													"texture": "#calabash",
 													"uv": [12.5, 11, 13.5, 14],
 													"autoUv": false
 												},
 												"south": {
-													"texture": "#fibers",
+													"texture": "#calabash",
 													"uv": [4, 6.5, 5, 7.5],
 													"autoUv": false
 												},
 												"west": {
-													"texture": "#fibers",
+													"texture": "#calabash",
 													"uv": [3.5, 12, 4.5, 15],
 													"autoUv": false
 												},
 												"up": {
-													"texture": "#fibers",
+													"texture": "#calabash",
 													"uv": [11.5, 6, 12.5, 9],
 													"autoUv": false
 												},
 												"down": {
-													"texture": "#fibers",
+													"texture": "#calabash",
 													"uv": [1.5, 5, 2.5, 8],
 													"autoUv": false
 												}
@@ -547,32 +550,32 @@
 											"rotationOrigin": [17.6, 0.8, 14.85],
 											"faces": {
 												"north": {
-													"texture": "#fibers",
+													"texture": "#calabash",
 													"uv": [0, 7.5, 1, 10.5],
 													"autoUv": false
 												},
 												"east": {
-													"texture": "#fibers",
+													"texture": "#calabash",
 													"uv": [2.5, 6.5, 3.5, 7.5],
 													"autoUv": false
 												},
 												"south": {
-													"texture": "#fibers",
+													"texture": "#calabash",
 													"uv": [12, 2.5, 13, 5.5],
 													"autoUv": false
 												},
 												"west": {
-													"texture": "#fibers",
+													"texture": "#calabash",
 													"uv": [3.5, 0.5, 4.5, 1.5],
 													"autoUv": false
 												},
 												"up": {
-													"texture": "#fibers",
+													"texture": "#calabash",
 													"uv": [4, 3, 5, 6],
 													"autoUv": false
 												},
 												"down": {
-													"texture": "#fibers",
+													"texture": "#calabash",
 													"uv": [6, 11, 7, 14],
 													"autoUv": false
 												}
