@@ -11,64 +11,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9363b40e-165c-4a01-a221-4b01f3a6d07c" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/compatibility/expandedfoods/recipes/barrel/kanpyoyeast.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/compatibility/expandedfoods/recipes/barrel/vinegarpickledcalabash.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/compatibility/expandedfoods/recipes/kneading/acorns/acornbreadedcalabash.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/compatibility/expandedfoods/recipes/kneading/breadedcalabash.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/compatibility/expandedfoods/recipes/patches/compatibility/acornbreadedvegetable.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/patches/compatibility/expandedfoods/acorns/acornbreadedball.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/patches/compatibility/expandedfoods/acorns/acornbreadedvegetable.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/patches/compatibility/expandedfoods/breadedball.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/patches/compatibility/expandedfoods/breadedvegetable.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/patches/compatibility/expandedfoods/fruitbar.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/patches/compatibility/expandedfoods/trailmix.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/patches/compatibility/expandedfoods/trailmixvegetarian.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Releases/balancedthirst/assets/balancedthirst/compatibility/expandedfoods/recipes/barrel/kanpyoyeast.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Releases/balancedthirst/assets/balancedthirst/compatibility/expandedfoods/recipes/barrel/vinegarpickledcalabash.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Releases/balancedthirst/assets/balancedthirst/compatibility/expandedfoods/recipes/kneading/acorns/acornbreadedcalabash.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Releases/balancedthirst/assets/balancedthirst/compatibility/expandedfoods/recipes/kneading/breadedcalabash.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Releases/balancedthirst/assets/balancedthirst/compatibility/expandedfoods/recipes/patches/compatibility/acornbreadedvegetable.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Releases/balancedthirst/assets/balancedthirst/patches/compatibility/expandedfoods/acorns/acornbreadedball.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Releases/balancedthirst/assets/balancedthirst/patches/compatibility/expandedfoods/acorns/acornbreadedvegetable.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Releases/balancedthirst/assets/balancedthirst/patches/compatibility/expandedfoods/breadedball.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Releases/balancedthirst/assets/balancedthirst/patches/compatibility/expandedfoods/breadedvegetable.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Releases/balancedthirst/assets/balancedthirst/patches/compatibility/expandedfoods/fruitbar.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Releases/balancedthirst/assets/balancedthirst/patches/compatibility/expandedfoods/meals/augratin.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Releases/balancedthirst/assets/balancedthirst/patches/compatibility/expandedfoods/meals/pastacold.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Releases/balancedthirst/assets/balancedthirst/patches/compatibility/expandedfoods/meals/pastahot.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Releases/balancedthirst/assets/balancedthirst/patches/compatibility/expandedfoods/meals/riceandbeans.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Releases/balancedthirst/assets/balancedthirst/patches/compatibility/expandedfoods/meals/salad.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Releases/balancedthirst/assets/balancedthirst/patches/compatibility/expandedfoods/trailmix.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Releases/balancedthirst/assets/balancedthirst/patches/compatibility/expandedfoods/trailmixvegetarian.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Releases/balancedthirst_0.0.43.zip" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.BalancedThirst/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.BalancedThirst/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/blocktypes/gourdpumpkin/fruit.json" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/blocktypes/gourdpumpkin/fruit.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/itemtypes/dryvegetable.json" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/itemtypes/dryvegetable.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/itemtypes/pickledvegetable.json" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/itemtypes/pickledvegetable.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/itemtypes/vegetable.json" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/itemtypes/vegetable.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/lang/en.json" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/lang/en.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/patches/compatibility/expandedfoods/augratin.json" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/patches/compatibility/expandedfoods/meals/augratin.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/patches/compatibility/expandedfoods/pastacold.json" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/patches/compatibility/expandedfoods/meals/pastacold.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/patches/compatibility/expandedfoods/pastahot.json" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/patches/compatibility/expandedfoods/meals/pastahot.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/patches/compatibility/expandedfoods/riceandbeans.json" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/patches/compatibility/expandedfoods/meals/riceandbeans.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/patches/compatibility/expandedfoods/salad.json" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/patches/compatibility/expandedfoods/meals/salad.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/shapes/item/vegetable/strips.json" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/shapes/item/vegetable/strips.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/textures/item/vomit/vomit-solids.png" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/textures/item/vomit/vomit-solids.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/textures/item/vomit/vomit-spill.png" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/textures/item/vomit/vomit-spill.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BalancedThirst/assets/game/blocktypes/purewater.json" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/assets/game/blocktypes/purewater.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/patches/compatibility/expandedfoods/breadedvegetable.json" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/patches/compatibility/expandedfoods/breadedvegetable.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BalancedThirst/changelog.txt" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/changelog.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BalancedThirst/modinfo.json" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/modinfo.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Releases/balancedthirst/assets/balancedthirst/blocktypes/gourdpumpkin/fruit.json" beforeDir="false" afterPath="$PROJECT_DIR$/Releases/balancedthirst/assets/balancedthirst/blocktypes/gourdpumpkin/fruit.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Releases/balancedthirst/assets/balancedthirst/itemtypes/dryvegetable.json" beforeDir="false" afterPath="$PROJECT_DIR$/Releases/balancedthirst/assets/balancedthirst/itemtypes/dryvegetable.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Releases/balancedthirst/assets/balancedthirst/itemtypes/pickledvegetable.json" beforeDir="false" afterPath="$PROJECT_DIR$/Releases/balancedthirst/assets/balancedthirst/itemtypes/pickledvegetable.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Releases/balancedthirst/assets/balancedthirst/itemtypes/vegetable.json" beforeDir="false" afterPath="$PROJECT_DIR$/Releases/balancedthirst/assets/balancedthirst/itemtypes/vegetable.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Releases/balancedthirst/assets/balancedthirst/lang/en.json" beforeDir="false" afterPath="$PROJECT_DIR$/Releases/balancedthirst/assets/balancedthirst/lang/en.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Releases/balancedthirst/assets/balancedthirst/patches/compatibility/expandedfoods/augratin.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Releases/balancedthirst/assets/balancedthirst/patches/compatibility/expandedfoods/pastacold.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Releases/balancedthirst/assets/balancedthirst/patches/compatibility/expandedfoods/pastahot.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Releases/balancedthirst/assets/balancedthirst/patches/compatibility/expandedfoods/riceandbeans.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Releases/balancedthirst/assets/balancedthirst/patches/compatibility/expandedfoods/salad.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Releases/balancedthirst/assets/balancedthirst/shapes/item/vegetable/strips.json" beforeDir="false" afterPath="$PROJECT_DIR$/Releases/balancedthirst/assets/balancedthirst/shapes/item/vegetable/strips.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Releases/balancedthirst/assets/balancedthirst/textures/item/vomit/vomit-solids.png" beforeDir="false" afterPath="$PROJECT_DIR$/Releases/balancedthirst/assets/balancedthirst/textures/item/vomit/vomit-solids.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Releases/balancedthirst/assets/balancedthirst/textures/item/vomit/vomit-spill.png" beforeDir="false" afterPath="$PROJECT_DIR$/Releases/balancedthirst/assets/balancedthirst/textures/item/vomit/vomit-spill.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Releases/balancedthirst/assets/game/blocktypes/purewater.json" beforeDir="false" afterPath="$PROJECT_DIR$/Releases/balancedthirst/assets/game/blocktypes/purewater.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Releases/balancedthirst_0.0.42.zip" beforeDir="false" afterPath="$PROJECT_DIR$/Releases/balancedthirst_0.0.42.zip" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Releases/balancedthirst/assets/balancedthirst/patches/compatibility/expandedfoods/breadedvegetable.json" beforeDir="false" afterPath="$PROJECT_DIR$/Releases/balancedthirst/assets/balancedthirst/patches/compatibility/expandedfoods/breadedvegetable.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Releases/balancedthirst/modinfo.json" beforeDir="false" afterPath="$PROJECT_DIR$/Releases/balancedthirst/modinfo.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Releases/balancedthirst_0.0.42.zip" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -290,32 +248,25 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;.NET Launch Settings Profile.BalancedThirst: Client.executor&quot;: &quot;Run&quot;,
-    &quot;.NET Launch Settings Profile.BalancedThirst: ClientDebug.executor&quot;: &quot;Run&quot;,
-    &quot;.NET Launch Settings Profile.BalancedThirst: Server.executor&quot;: &quot;Run&quot;,
-    &quot;.NET Launch Settings Profile.Client Debug.executor&quot;: &quot;Run&quot;,
-    &quot;.NET Project.CakeBuild.executor&quot;: &quot;Run&quot;,
-    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
-  },
-  &quot;keyToStringList&quot;: {
-    &quot;rider.external.source.directories&quot;: [
-      &quot;/Users/jacopouggeri/Library/Application Support/JetBrains/Rider2024.1/resharper-host/DecompilerCache&quot;,
-      &quot;/Users/jacopouggeri/Library/Application Support/JetBrains/Rider2024.1/resharper-host/SourcesCache&quot;,
-      &quot;/Users/jacopouggeri/Library/Application Support/Symbols/src&quot;
-    ]
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    ".NET Launch Settings Profile.BalancedThirst: Client.executor": "Run",
+    ".NET Launch Settings Profile.BalancedThirst: ClientDebug.executor": "Run",
+    ".NET Launch Settings Profile.BalancedThirst: Server.executor": "Run",
+    ".NET Launch Settings Profile.Client Debug.executor": "Run",
+    ".NET Project.CakeBuild.executor": "Run",
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "master",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RunManager" selected=".NET Project.CakeBuild">
     <configuration name="CakeBuild" type="DotNetProject" factoryName=".NET Project">
       <option name="EXE_PATH" value="" />
@@ -400,6 +351,16 @@
       <workItem from="1725477671482" duration="14164000" />
       <workItem from="1725543536955" duration="13014000" />
       <workItem from="1725572454150" duration="2718000" />
+      <workItem from="1725575274665" duration="243000" />
+      <workItem from="1725577064640" duration="6000" />
+      <workItem from="1725584282396" duration="1528000" />
+      <workItem from="1725652260810" duration="10412000" />
+      <workItem from="1726013260854" duration="609000" />
+      <workItem from="1726275633000" duration="2488000" />
+      <workItem from="1726422579402" duration="739000" />
+      <workItem from="1726958824678" duration="438000" />
+      <workItem from="1727011234056" duration="17000" />
+      <workItem from="1727125434641" duration="2213000" />
     </task>
     <task id="LOCAL-00001" summary="Working kettle, and smelting, demijohn">
       <option name="closed" value="true" />
@@ -577,7 +538,23 @@
       <option name="project" value="LOCAL" />
       <updated>1725491657958</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="Foods compat">
+      <option name="closed" value="true" />
+      <created>1725575295269</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1725575295269</updated>
+    </task>
+    <task id="LOCAL-00024" summary="Foods compat">
+      <option name="closed" value="true" />
+      <created>1725575403099</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1725575403099</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -598,6 +575,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <option name="LOCAL_CHANGES_DETAILS_PREVIEW_SHOWN" value="false" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
     <MESSAGE value="Working kettle, and smelting, demijohn" />
     <MESSAGE value="Working shape slicer" />
@@ -613,7 +591,8 @@
     <MESSAGE value="0.0.40" />
     <MESSAGE value="0.0.41" />
     <MESSAGE value="More recipes" />
-    <option name="LAST_COMMIT_MESSAGE" value="More recipes" />
+    <MESSAGE value="Foods compat" />
+    <option name="LAST_COMMIT_MESSAGE" value="Foods compat" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

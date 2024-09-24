@@ -1,5 +1,6 @@
 {
 	"code": "gourdpumpkin",
+	"storageFlags": "33",
 	"class": "Block",
 	"behaviors": [
 		{ "name": "GroundStorable", "properties": { "layout": "SingleCenter", "collisionBox": { "x1": 0.125, "y1": 0, "z1": 0.125,   "x2": 0.875, "y2": 0.75, "z2": 0.875 } } },

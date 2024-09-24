@@ -1,6 +1,7 @@
 {
   "code": "vegetable",
   "maxstacksize": 64,
+  "storageFlags": "33",
   "attributesByType": {
     "*-gourdpumpkin": {
       "inContainerTexture": { "base": "balancedthirst:block/barrel/raw-gourdpumpkin" },
