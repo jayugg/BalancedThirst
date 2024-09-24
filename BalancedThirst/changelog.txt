@@ -1,8 +1,2 @@
-- Added calabash meal recipes
-- Added calabash expanded food compatibility:
-    - meals: gratin, pasta, pilaf, salad
-    - mixing: breaded calabash, trailmix, fruitbar, breadball
-- Vomiting now drops vomit item based on saturation lost
-- Vomit particle effect now plays when vomiting
-- Spilling water on stains or cave art now cleans them
-- Spring water no longer freezes
+- Urine volume roughly matches consumed water
+- Buffed most hydration values, so that a player only needs to drink roughly 3.75 liters of water per thirst bar

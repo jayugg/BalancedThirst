@@ -87,7 +87,7 @@ public partial class DrinkNetwork
         else if (block is BlockLiquidContainerBase container )
         {
             var waterStack = new ItemStack(world.GetItem(new AssetLocation(BtCore.Modid+":urineportion")));
-            container.TryPutLiquid(request.Position, waterStack, 0.1f);
+            container.TryPutLiquid(request.Position, waterStack, ConfigSystem.ConfigServer.UrineDrainRate*3f/1500); // 3 liters per 1500 hydration
             container.DoLiquidMovedEffects(player, waterStack, waterStack.StackSize, BlockLiquidContainerBase.EnumLiquidDirection.Fill);
         }
         else if (block is BlockToolMold)
@@ -106,12 +106,12 @@ public partial class DrinkNetwork
         var x = rand % 6 + 1;
         var y = rand / 6 + 1;
         Block stain = world.GetBlock(new AssetLocation(BtCore.Modid, $"caveart-stain-urine-1-{x}-{y}"));
-        if (SuitablStainPosition(world.BlockAccessor, player.CurrentBlockSelection))
+        if (SuitableStainPosition(world.BlockAccessor, player.CurrentBlockSelection))
             world.BlockAccessor.SetDecor(stain, request.Position,
                 player.CurrentBlockSelection.ToDecorIndex());
     }
     
-    private void FertiliseFarmland(IWorldAccessor world, BlockPos position)
+    private static void FertiliseFarmland(IWorldAccessor world, BlockPos position)
     {
         if (position == null) return;
         var be = world.BlockAccessor.GetBlockEntity(position) as BlockEntityFarmland; 
@@ -145,14 +145,22 @@ public partial class DrinkNetwork
         
         if (color != null)
         {
-            var colors = ColorUtil.Hex2Doubles(color);
-            _waterParticles.Color = ColorUtil.ToRgba(120, (int)(colors[0]*255), (int)(colors[1]*255), (int)(colors[2]*255));
+            if (color == "gaymer")
+            {
+                // Make it change color over time using a sin wave in hsv space
+                _waterParticles.Color = ColorUtil.HsvToRgba((int)(Math.Sin(byEntity.World.ElapsedMilliseconds / 1000.0) * 0.5 + 0.5), 1, 1);
+            }
+            else
+            {
+                var colors = ColorUtil.Hex2Doubles(color);
+                _waterParticles.Color = ColorUtil.ToRgba(120, (int)(colors[0]*255), (int)(colors[1]*255), (int)(colors[2]*255));
+            }
         }
         
         byEntity.World.SpawnParticles(_waterParticles, byEntity is EntityPlayer entityPlayer ? entityPlayer.Player : null);
     }
     
-    private bool SuitablStainPosition(IBlockAccessor blockAccessor, BlockSelection blockSel)
+    private bool SuitableStainPosition(IBlockAccessor blockAccessor, BlockSelection blockSel)
     {
         Block block = blockAccessor.GetBlock(blockSel.Position);
         if (block.SideSolid[blockSel.Face.Index] || block is BlockMicroBlock && (blockAccessor.GetBlockEntity(blockSel.Position) is BlockEntityMicroBlock blockEntity ? (blockEntity.sideAlmostSolid[blockSel.Face.Index] ? 1 : 0) : 0) != 0)
