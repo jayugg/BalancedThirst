@@ -46,7 +46,7 @@
     }
   },
   "doNotRenderAtLod2": true,
-  "creativeinventory": { "general": ["*"], "decorative": ["*"] },
+  "creativeinventory": { "general": [""], "decorative": [""] },
   "blockmaterial": "Cloth",
   "replaceable": 900,
   "resistance": 1.5,

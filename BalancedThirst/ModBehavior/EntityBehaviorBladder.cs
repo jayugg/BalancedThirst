@@ -82,6 +82,14 @@ public class EntityBehaviorBladder : EntityBehavior
         this.CurrentLevel = Math.Clamp(this.CurrentLevel + fluidAmount, 0.0f, EffectiveCapacity);
     }
     
+    public override void OnEntityReceiveDamage(DamageSource damageSource, ref float damage)
+    {
+        if (damageSource.Type != EnumDamageType.Heal || damageSource.Source != EnumDamageSource.Revive)
+            return;
+        this.Capacity = 0f;
+        this.CapacityOverload = 0f;
+    }
+    
     public bool Drain(float multiplier = 1)
     {
         float currentLevel = this.CurrentLevel;

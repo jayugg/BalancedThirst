@@ -147,8 +147,10 @@ public partial class DrinkNetwork
         {
             if (color == "gaymer")
             {
-                // Make it change color over time using a sin wave in hsv space
-                _waterParticles.Color = ColorUtil.HsvToRgba((int)(Math.Sin(byEntity.World.ElapsedMilliseconds / 1000.0) * 0.5 + 0.5), 1, 1);
+                // Make it change color over time using a sine wave in hsv space
+                double hue = (Math.Sin(byEntity.World.ElapsedMilliseconds / 1000.0) * 0.5 + 0.5) * 255;
+                int rgbaColor = ColorUtil.HsvToRgba((int)hue, 255, 255);
+                _waterParticles.Color = (rgbaColor & 0x00FFFFFF) | (255 << 24); // Ensure alpha is set to 255
             }
             else
             {
@@ -163,6 +165,7 @@ public partial class DrinkNetwork
     private bool SuitableStainPosition(IBlockAccessor blockAccessor, BlockSelection blockSel)
     {
         Block block = blockAccessor.GetBlock(blockSel.Position);
+        if (block.decorBehaviorFlags != (byte) 0) return false;
         if (block.SideSolid[blockSel.Face.Index] || block is BlockMicroBlock && (blockAccessor.GetBlockEntity(blockSel.Position) is BlockEntityMicroBlock blockEntity ? (blockEntity.sideAlmostSolid[blockSel.Face.Index] ? 1 : 0) : 0) != 0)
         {
             EnumBlockMaterial blockMaterial = block.GetBlockMaterial(blockAccessor, blockSel.Position);

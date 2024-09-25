@@ -45,7 +45,7 @@
       "maxFillY": 5.9475,
       "storageType": 1,
       "liquidcontainer": true,
-      "capacityLitres": 16,
+      "capacityLitres": 8,
       "canhold": [ "water-*" ],
       "shelvable": true
     }

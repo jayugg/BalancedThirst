@@ -98,8 +98,8 @@ public class KettleInFirepitRenderer : IInFirepitRenderer
         rpi.GlToggleBlend(true);
 
         IStandardShaderProgram prog = rpi.PreparedStandardShader(_pos.X, _pos.Y, _pos.Z);
-
-        prog.Tex2D = _capi.BlockTextureAtlas.AtlasTextures[0].TextureId;
+        
+        rpi.RenderMultiTextureMesh(_kettleRef, "tex");
         prog.DontWarpVertices = 0;
         prog.AddRenderFlags = 0;
         prog.RgbaAmbientIn = rpi.AmbientColor;

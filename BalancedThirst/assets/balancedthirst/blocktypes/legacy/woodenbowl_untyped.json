@@ -57,20 +57,7 @@
   "heldTpIdleAnimation": "holdbothhands",
   "doNotRenderAtLod2": true,
   "blockmaterial": "Wood",
-  "creativeinventoryStacksByType": {
-    "*-raw":
-    [
-      {
-        "tabs": ["general", "decorative"],
-        "stacks": [
-          { "type": "block", "code": "balancedthirst:woodenbowl-raw", "attributes": { "ucontents": [{ "type": "item", "code": "game:waterportion", "makefull": true }] } },
-          { "type": "block", "code": "balancedthirst:woodenbowl-waxed", "attributes": { "ucontents": [{ "type": "item", "code": "game:honeyportion", "makefull": true }] } },
-          { "type": "block", "code": "balancedthirst:woodenbowl-raw" },
-          { "type": "block", "code": "balancedthirst:woodenbowl-waxed" }
-        ]
-      }
-    ]
-  },
+  "creativeinventory": { "general": [""], "decorative": [""] },
   "replaceable": 300,
   "liquidSelectable": 1,
   "resistance": 0.75,

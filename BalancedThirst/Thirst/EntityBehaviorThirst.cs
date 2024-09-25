@@ -27,7 +27,7 @@ namespace BalancedThirst.Thirst
 
     public float HydrationLossDelay
     {
-      get => this._thirstTree?.GetFloat("hydrationlossdelay") ?? 180;
+      get => this._thirstTree?.GetFloat("hydrationlossdelay") ?? 0f;
       set
       {
         this._thirstTree?.SetFloat("hydrationlossdelay", value);
@@ -90,7 +90,7 @@ namespace BalancedThirst.Thirst
         this.entity.WatchedAttributes.SetAttribute(AttributeKey, _thirstTree = new TreeAttribute());
         this.Hydration = typeAttributes["currenthydration"].AsFloat(ConfigSystem.ConfigServer.MaxHydration);
         this.MaxHydration = typeAttributes["maxhydration"].AsFloat(ConfigSystem.ConfigServer.MaxHydration);
-        this.HydrationLossDelay = 180.0f;
+        this.HydrationLossDelay = 0f;
         this.Euhydration = 0f;
         this.Dehydration = 0f;
       }

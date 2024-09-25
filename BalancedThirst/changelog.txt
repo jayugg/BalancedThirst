@@ -1,2 +1,28 @@
 - Urine volume roughly matches consumed water
 - Buffed most hydration values, so that a player only needs to drink roughly 3.75 liters of water per thirst bar
+- Fixed kettle in firepit renderer bug (texture atlas was bleeding onto the kettle)
+- "gaymer" color makes rainbow pee
+- Player now loses hydration from the start
+- Adjusted calabash transform and drying rate
+- TODO add vomit shader uniform (like the dehydration shader), remove particles
+- TODO vomit graphics configuration
+- TODO fix calabash plant (better growth)
+- TODO water filter
+- TODO water bucket pulley system
+- TODO metal barrel for liquid storage
+- TODO change kettle model
+- TODO fix gourd and calabash textures (?)
+
+// Next update
+- TODO soil moisture and water content based on chunk humidity
+- TODO water rises when beating a stick on the ground in humid soil
+- TODO consumables that allow to test rock for water content (like propick node for water)
+- TODO dowsing rod model change, directs player towards higher soil moisture (like propick density for water)
+- TODO water tubes to place in soil or rock with water content to extract water
+
+// Next update
+- TODO water proofing that allows to keep water on the ground, collecting from rain, or making wells
+
+// Next update
+- TODO make water properties depend on water location
+- TODO store water properties in itemStack attributes, for any item crafted with water!
