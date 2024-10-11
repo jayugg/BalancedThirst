@@ -1,5 +1,5 @@
 {
-  "code": "pressedmash",
+  "code": "game:pressedmash",
   "class": "ItemPressedMash",
   "maxstacksize": 64,
   "variantgroups": [
@@ -9,14 +9,14 @@
     "foodTags": ["fruitmash"],
     "juiceablePropertiesByType": {
       "*-calabash": {
-        "liquidStack": { "type": "item", "code": "balancedthirst:juiceportion-calabash", "stacksize": 1 },
-        "pressedStack": { "type": "item", "code": "balancedthirst:pressedmash-calabash", "stacksize": 1 }
+        "liquidStack": { "type": "item", "code": "game:juiceportion-calabash", "stacksize": 1 },
+        "pressedStack": { "type": "item", "code": "game:pressedmash-calabash", "stacksize": 1 }
       }
     }
   },
   "shape": { "base": "game:item/pressedmash" },
   "textures": {
-    "material": { "base": "block/pie/fill-gourdpumpkin" }
+    "material": { "base": "game:block/food/pie/fill-{fruit}" }
   },
   "creativeinventory": { "general": ["*"], "items": ["*"] },
   "transitionableProps": [{

@@ -1,7 +1,7 @@
 {
   "code": "dryvegetable",
   "maxstacksize": 64,
-  "storageFlags": "33",
+  "storageFlags": 33,
   "attributesByType": {
     "*-gourdpumpkin": {
       "inContainerTexture": {

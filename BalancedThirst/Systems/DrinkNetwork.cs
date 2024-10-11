@@ -156,7 +156,7 @@ public partial class DrinkNetwork : ModSystem
         HydrationProperties hydrationProps = block?.GetBlockHydrationProperties();
         //BtCore.Logger.Warning($"Player {player?.PlayerName} is drinking {block?.Code} at {pos} with hydration properties {hydrationProps}");
         if (hydrationProps == null) return;
-        if (block.IsRiverBlock(player.Entity.World, pos)) hydrationProps.Purity = EnumPurityLevel.Potable;
+        if (blockSel.IsRiverBlock(player.Entity.World)) hydrationProps.Purity = EnumPurityLevel.Potable;
         if (player.Entity?.HasBehavior<EntityBehaviorThirst>() ?? false)
         {
             player.Entity.GetBehavior<EntityBehaviorThirst>().ReceiveHydration(hydrationProps/5);

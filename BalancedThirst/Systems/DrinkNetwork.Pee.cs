@@ -1,6 +1,5 @@
 using System;
 using System.Linq;
-using BalancedThirst.Config;
 using BalancedThirst.ModBehavior;
 using BalancedThirst.Network;
 using BalancedThirst.Util;
@@ -8,6 +7,7 @@ using Vintagestory.API.Client;
 using Vintagestory.API.Common;
 using Vintagestory.API.Common.Entities;
 using Vintagestory.API.Config;
+using Vintagestory.API.Datastructures;
 using Vintagestory.API.MathTools;
 using Vintagestory.API.Server;
 using Vintagestory.GameContent;
@@ -84,6 +84,14 @@ public partial class DrinkNetwork
         {
             FertiliseFarmland(world, request.Position.DownCopy());
         }
+        else if (world.BlockAccessor.GetBlockEntity(request.Position) is IFarmlandBlockEntity)
+        {
+            FertiliseIFarmland(world, request.Position);
+        }
+        else if (world.BlockAccessor.GetBlockEntity(request.Position.DownCopy()) is IFarmlandBlockEntity)
+        {
+            FertiliseIFarmland(world, request.Position.DownCopy());
+        }
         else if (block is BlockLiquidContainerBase container )
         {
             var waterStack = new ItemStack(world.GetItem(new AssetLocation(BtCore.Modid+":urineportion")));
@@ -110,7 +118,30 @@ public partial class DrinkNetwork
             world.BlockAccessor.SetDecor(stain, request.Position,
                 player.CurrentBlockSelection.ToDecorIndex());
     }
-    
+
+    private void FertiliseIFarmland(IWorldAccessor world, BlockPos position)
+    {
+        if (position == null) return;
+        var be = world.BlockAccessor.GetBlockEntity(position);
+        var tree = new TreeAttribute();
+        be.ToTreeAttributes(tree);
+        if (!tree.HasAttribute("moistureLevel")) return;
+        var moistureLevel = tree.GetFloat("moistureLevel");
+        moistureLevel = Math.Min(1f, moistureLevel+ 0.05f / 2f);
+        tree.SetFloat("moistureLevel", moistureLevel);
+        if (ConfigSystem.ConfigServer.UrineNutrientChance > world.Rand.NextDouble())
+        {
+            var nutrients = ConfigSystem.ConfigServer.UrineNutrientLevels;
+            var n = tree.GetFloat("n") + nutrients[0];
+            var p = tree.GetFloat("p") + nutrients[(EnumSoilNutrient)1];
+            var k = tree.GetFloat("k") + nutrients[(EnumSoilNutrient)2];
+            tree.SetFloat("n", n);
+            tree.SetFloat("p", p);
+            tree.SetFloat("k", k);
+        }
+        be.FromTreeAttributes(tree, world);
+    }
+
     private static void FertiliseFarmland(IWorldAccessor world, BlockPos position)
     {
         if (position == null) return;
@@ -165,7 +196,7 @@ public partial class DrinkNetwork
     private bool SuitableStainPosition(IBlockAccessor blockAccessor, BlockSelection blockSel)
     {
         Block block = blockAccessor.GetBlock(blockSel.Position);
-        if (block.decorBehaviorFlags != (byte) 0) return false;
+        if (block.decorBehaviorFlags != 0) return false;
         if (block.SideSolid[blockSel.Face.Index] || block is BlockMicroBlock && (blockAccessor.GetBlockEntity(blockSel.Position) is BlockEntityMicroBlock blockEntity ? (blockEntity.sideAlmostSolid[blockSel.Face.Index] ? 1 : 0) : 0) != 0)
         {
             EnumBlockMaterial blockMaterial = block.GetBlockMaterial(blockAccessor, blockSel.Position);

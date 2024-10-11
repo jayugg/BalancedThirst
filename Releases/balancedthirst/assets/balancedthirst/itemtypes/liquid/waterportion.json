@@ -2,7 +2,7 @@
   "code": "waterportion",
   "class": "ItemLiquidPortion",
   "variantgroups": [
-    { "code": "type", "states": ["pure", "boiled", "stagnant", "distilled"] }
+    { "code": "type", "states": ["pure", "boiled", "stagnant", "distilled", "potable"] }
   ],
   "matterState": "liquid",
   "attributes": {
@@ -15,13 +15,22 @@
       "texture": { "base": "balancedthirst:block/liquid/waterportion-{type}" },
       "tintIndex": 1,
       "whenSpilled": {
-        "action": "DropContents",
-        "stack": { "type": "item", "code": "balancedthirst:waterportion-{type}" }
+        "action": "PlaceBlock",
+        "stack": { "type": "block", "code": "game:water-still-3" },
+        "stackByFillLevel": {
+          "2": { "type": "block", "code": "game:water-still-1" },
+          "3": { "type": "block", "code": "game:water-still-2" },
+          "5": { "type": "block", "code": "game:water-still-3" },
+          "6": { "type": "block", "code": "game:water-still-4" },
+          "7": { "type": "block", "code": "game:water-still-5" },
+          "8": { "type": "block", "code": "game:water-still-6" },
+          "10": { "type": "block", "code": "game:water-still-7" }
+        }
       }
     },
     "distillationProps": {
       "distilledStack": { "type": "item", "code": "balancedthirst:waterportion-distilled" },
-      "ratio": 1
+      "ratio": 1.0
     }
   },
   "transitionablePropsByType": {
@@ -39,7 +48,7 @@
       "transitionedStack": { "type": "item", "code": "game:rot" },
       "transitionRatio": 0.005
     }],
-    "*-boiled": [{
+    "@*-(boiled|potable)": [{
       "type": "Perish",
       "freshHours": { "avg": 84 },
       "transitionHours": { "avg": 0 },
@@ -51,7 +60,7 @@
   "textureByType": {
     "*-pure": { "base": "block/liquid/waterportion-pure" },
     "*-stagnant": { "base": "block/liquid/waterportion-stagnant" },
-    "*-boiled": { "base": "block/liquid/waterportion-boiled" },
+    "@*-(boiled|potable)": { "base": "block/liquid/waterportion-boiled" },
     "*": { "base": "game:block/liquid/waterportion" }
   },
   "creativeinventoryStacks": [ { "tabs": ["general", "liquids"],

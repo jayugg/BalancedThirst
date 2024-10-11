@@ -1,0 +1,75 @@
+{
+  "code": "expandedfoods:dehydratedfruit",
+  "maxstacksize": 64,
+  "storageFlags": "33",
+  "attributesByType": {
+    "*-calabash": {
+      "inContainerTexture": { "base": "balancedthirst:block/barrel/raw-gourdpumpkin" },
+      "nutritionPropsWhenInMeal": { "satiety": 80, "foodcategory": "Vegetable" },
+      "inPieProperties": { "texture": "game:block/food/pie/fill-{type}", "partType": "Filling" }
+    }
+  },
+  "variantgroups": [
+    { "code": "type", "states": ["calabash"] }
+  ],
+  "shapebytype": {
+    "*-calabash": { "base": "balancedthirst:item/vegetable/strips" }
+  },
+  "texturesbytype": {
+    "*-calabash": { "calabash": { "base": "balancedthirst:item/calabash" }, "tie": { "base": "game:block/transparent" } }
+  },
+  "creativeinventory": { "general": ["*"], "items": ["*"] },
+  "nutritionPropsByType": {
+    "*-calabash": { "satiety": 60, "foodcategory": "Vegetable" }
+  },
+  "transitionablePropsByType": {
+    "*-calabash": [
+      {
+        "type": "Perish",
+        "freshHours": { "avg": 216 },
+        "transitionHours": { "avg": 72 },
+        "transitionedStack": { "type": "item", "code": "game:rot" },
+        "transitionRatio": 0.5
+      },
+      {
+        "type": "Dry",
+        "freshHours": { "avg":  0 },
+        "transitionHours": { "avg": 72 },
+        "transitionedStack": { "type": "item", "code": "balancedthirst:dryvegetable-gourdpumpkin" },
+        "transitionRatio": 1
+      }
+    ]
+  },
+  "materialDensity": 600,
+  "guiTransformByType": {
+    "*-calabash": {
+      "translation": { "x": 4, "y": 2, "z": 0 },
+      "rotation": { "x": 42, "y": 39, "z": -8 },
+      "origin": { "x": 1, "y": 0, "z": 1 },
+      "scaleXyz": { "x": -2.17, "y": 2.17, "z": 2.17 }
+    }
+  },
+  "fpHandTransformByType": {
+    "*-calabash": {
+      "rotation": { "x": 110, "y": 92, "z": -30 },
+      "origin": { "x": 0.6, "y": 0.2, "z": 0.4 },
+      "scale": 1.1
+    }
+  },
+  "tpHandTransformByType": {
+    "*-calabash": {
+      "translation": { "x": -1.7, "y": -1.1, "z": -1.45 },
+      "rotation": { "x": 0, "y": 26, "z": -180 },
+      "origin": { "x": 0.3, "y": 0.3, "z": 0.7 },
+      "scale": 0.34
+    }
+  },
+  "groundTransformByType": {
+    "*-calabash": {
+      "translation": { "x": 0, "y": 0.18, "z": 0 },
+      "rotation": { "x": 1, "y": 0, "z": 0 },
+      "origin": { "x": 0.5, "y": 0.22, "z": 0.5299 },
+      "scale": 4
+    }
+  }
+}

@@ -193,7 +193,7 @@
   "replaceable": 500,
   "resistance": 1.5,
   "materialDensity": 7870,
-  "liquidSelectable": 1,
+  "liquidSelectable": true,
   "lightAbsorption": 0,
   "sounds": {
     "place": "game:block/ingot",

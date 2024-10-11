@@ -22,7 +22,7 @@ public static class Extensions
 {
     public static void EnsureAttributesNotNull(this CollectibleObject obj) => obj.Attributes ??= new JsonObject(new JObject());
     
-    public static HydrationProperties? GetHydrationProperties(
+    public static HydrationProperties GetHydrationProperties(
         this CollectibleObject collObj,
         IWorldAccessor world,
         ItemStack itemStack,
@@ -30,49 +30,49 @@ public static class Extensions
     {
         if (collObj is BlockMeal meal)
         {
-            ItemStack[]? contentStacks = meal.GetNonEmptyContents(world, itemStack);
+            ItemStack[] contentStacks = meal.GetNonEmptyContents(world, itemStack);
             var quantityServings = meal.GetQuantityServings(world, itemStack);
             return contentStacks?.GetHydrationProperties(world, byEntity) * (quantityServings == 0 ? 1 : quantityServings);
         }
         
         if (collObj is BlockCookedContainer)
         {
-            ItemStack[]? contentStacks = (itemStack.Collectible as BlockCookedContainer)?.GetNonEmptyContents(world, itemStack);
-            return contentStacks?.GetHydrationProperties(world, byEntity) ?? null;
+            ItemStack[] contentStacks = (itemStack.Collectible as BlockCookedContainer)?.GetNonEmptyContents(world, itemStack);
+            return contentStacks?.GetHydrationProperties(world, byEntity);
         }
         
         if (collObj is BlockCrock)
         {
-            ItemStack[]? contentStacks = (itemStack.Collectible as BlockCrock)?.GetNonEmptyContents(world, itemStack);
-            return contentStacks?.GetHydrationProperties(world, byEntity) ?? null;
+            ItemStack[] contentStacks = (itemStack.Collectible as BlockCrock)?.GetNonEmptyContents(world, itemStack);
+            return contentStacks?.GetHydrationProperties(world, byEntity);
         }
         
         if (collObj.HasBehavior<HydratingFoodBehavior>())
         {
             var behavior = collObj.GetBehavior<HydratingFoodBehavior>();
-            return behavior?.GetHydrationProperties(world, itemStack, byEntity) ?? null;
+            return behavior?.GetHydrationProperties(world, itemStack, byEntity);
         }
         
         if (collObj.HasBehavior<DrinkableBehavior>())
         {
             var behavior = collObj.GetBehavior<DrinkableBehavior>();
-            return behavior?.GetHydrationProperties(world, itemStack, byEntity) ?? null;
+            return behavior?.GetHydrationProperties(world, itemStack, byEntity);
         }
 
         if (collObj.HasBehavior<WaterContainerBehavior>())
         {
             var behavior = collObj.GetBehavior<WaterContainerBehavior>();
-            return behavior?.GetHydrationProperties(world, itemStack, byEntity) ?? null;
+            return behavior?.GetHydrationProperties(world, itemStack, byEntity);
         }
 
         return null;
     }
     
-    public static HydrationProperties? GetHydrationProperties(this ItemStack[] contentStacks, IWorldAccessor world, Entity? byEntity)
+    public static HydrationProperties GetHydrationProperties(this ItemStack[] contentStacks, IWorldAccessor world, Entity byEntity)
     {
         if (contentStacks == null || contentStacks.Length == 0 || world == null) return null;
 
-        HydrationProperties? totalProps = null;
+        HydrationProperties totalProps = null;
         foreach (ItemStack contentStack in contentStacks)
         {
             if (contentStack == null) continue;
@@ -89,7 +89,7 @@ public static class Extensions
         return totalProps;
     }
     
-    public static HydrationProperties? GetHydrationPropsPerLitre(
+    public static HydrationProperties GetHydrationPropsPerLitre(
         this BlockLiquidContainerBase container,
         IWorldAccessor world,
         ItemStack itemStack,
@@ -101,25 +101,25 @@ public static class Extensions
             HydrationProperties.FromNutrition(container.GetContent(itemStack).Collectible.GetNutritionProperties(world, itemStack, byEntity));
     }
     
-    public static HydrationProperties? GetBlockHydrationProperties(this Block block)
+    public static HydrationProperties GetBlockHydrationProperties(this Block block)
     {
         block.EnsureAttributesNotNull();
         JToken token = block.Attributes.Token;
-        HydrationProperties? hydrationProperties = token["hydrationProps"]?.ToObject<HydrationProperties>();
+        HydrationProperties hydrationProperties = token["hydrationProps"]?.ToObject<HydrationProperties>();
         return hydrationProperties;
     }
     
-    public static FoodNutritionProperties? GetNutritionProperties(this CollectibleObject collectible)
+    public static FoodNutritionProperties GetNutritionProperties(this CollectibleObject collectible)
     {
         collectible.EnsureAttributesNotNull();
         JToken token = collectible.Attributes.Token;
         var waterTightContainerProps = token["waterTightContainerProps"];
         if (waterTightContainerProps == null)
         {
-            FoodNutritionProperties? nutritionProperties = token["nutritionProps"]?.ToObject<FoodNutritionProperties>();
+            FoodNutritionProperties nutritionProperties = token["nutritionProps"]?.ToObject<FoodNutritionProperties>();
             if (nutritionProperties == null)
             {
-                Dictionary<string, FoodNutritionProperties>? nutritionPropsByType = token["nutritionPropsByType"]?.ToObject<Dictionary<string, FoodNutritionProperties>>();
+                Dictionary<string, FoodNutritionProperties> nutritionPropsByType = token["nutritionPropsByType"]?.ToObject<Dictionary<string, FoodNutritionProperties>>();
                 if (nutritionPropsByType != null)
                 {
                     nutritionProperties = nutritionPropsByType.Where(keyVal => collectible.MyWildCardMatch(keyVal.Key))
@@ -132,12 +132,18 @@ public static class Extensions
         }
         else
         {
-            FoodNutritionProperties? nutritionProperties = token["nutritionPropsPerLitre"]?.ToObject<FoodNutritionProperties>();
+            FoodNutritionProperties nutritionProperties = token["nutritionPropsPerLitre"]?.ToObject<FoodNutritionProperties>();
             return nutritionProperties;
         }
     }
 
-    public static bool IsRiverBlock(this Block block, IWorldAccessor world, BlockPos pos)
+    public static bool IsRiverBlock(this BlockSelection blockSel, IWorldAccessor world)
+    {
+        var pos = blockSel.Position;
+        return pos.IsRiverBlock(world);
+    }
+    
+    public static bool IsRiverBlock(this BlockPos pos, IWorldAccessor world)
     {
         IWorldChunk chunk = world.BlockAccessor.GetChunk(pos.X / 32, 0, pos.Z / 32);
         if (chunk == null) return false;
@@ -204,18 +210,16 @@ public static class Extensions
         {
             waterTightContainerProps["nutritionPropsPerLitre"] ??= JToken.FromObject(nutritionProperties);
         }
-        // Convert the JToken back to a JsonObject
         JsonObject newAttributes = new JsonObject(token);
-        // Assign the new JsonObject back to the collectible
         collectible.Attributes = newAttributes;
     }
 
-    public static float GetLitres(this ItemStack? stack)
+    public static float GetLitres(this ItemStack stack)
     {
         if (stack == null) return 0;
         var collectible = stack.Collectible;
         collectible?.EnsureAttributesNotNull();
-        JToken? token = collectible?.Attributes.Token;
+        JToken token = collectible?.Attributes.Token;
         if (token == null) return 0;
         var waterTightContainerProps = token["waterTightContainerProps"];
         if (waterTightContainerProps == null)
@@ -298,13 +302,13 @@ public static class Extensions
         }
     }
 
-    public static BlockSelection? GetLookLiquidBlockSelection(this IClientPlayer clientPlayer)
+    public static BlockSelection GetLookLiquidBlockSelection(this IClientPlayer clientPlayer)
     {
         var api = clientPlayer.Entity?.World.Api;
         if (api is not ICoreClientAPI capi || clientPlayer.Entity == null) return null;
         var game = capi.GetField<ClientMain>("game");
         if (game == null) return null;
-        BlockFilter bfilter = (pos, block) => block is not { RenderPass: EnumChunkRenderPass.Meta };
+        BlockFilter bfilter = (_, block) => block is not { RenderPass: EnumChunkRenderPass.Meta };
         EntityFilter efilter = (entity) => entity.IsInteractable;
         bool liquidSelectable = game.LiquidSelectable;
         game.SetInternalField("forceLiquidSelectable", true);
@@ -403,7 +407,7 @@ public static class Extensions
         }
     }
     
-    public static bool TryGetBeBehavior<T>(this IBlockAccessor blockAccessor, BlockPos pos, out T? behavior) where T : BlockEntityBehavior
+    public static bool TryGetBeBehavior<T>(this IBlockAccessor blockAccessor, BlockPos pos, out T behavior) where T : BlockEntityBehavior
     {
         behavior = blockAccessor.GetBlockEntity(pos)?.GetBehavior<T>();
         return behavior != null;
@@ -419,6 +423,11 @@ public static class Extensions
 
         if (!currentHydration.HasValue || !maxHydration.HasValue) return false;
         return currentHydration >= maxHydration;
+    }
+
+    public static int GetToolMode(this CollectibleObject collObj, ItemSlot itemslot, EntityPlayer player, BlockPos pos)
+    {
+        return collObj.GetToolMode(itemslot, player.Player, new BlockSelection() { Position = pos });
     }
 
 }

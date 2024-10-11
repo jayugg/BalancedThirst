@@ -1,0 +1,12 @@
+[
+  {
+    "op": "addmerge",
+    "path": "/attributes/distillationProps",
+    "value": {
+        "distilledStack": { "type": "item", "code": "balancedthirst:waterportion-distilled" },
+        "ratio": 1.0
+    },
+    "file": "game:itemtypes/liquid/waterportion.json",
+    "side": "Server"
+  }
+]

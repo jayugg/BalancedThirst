@@ -42,6 +42,8 @@ public class ConfigServer : SyncedConfig
     public Dictionary<string, HydrationProperties> HydratingBlocks { get; set; } = BtConstants.HydratingBlocks;
     public List<EnumBlockMaterial> UrineStainableMaterials { get; set; } = BtConstants.UrineStainableMaterials;
     
+    public Dictionary<string, float> DynamicWaterPurityWeights = BtConstants.DynamicWaterPurityWeights;
+    
     // Compatibility
     public bool UseHoDHydrationValues { get; set; }
     public float HoDClothingCoolingMultiplier { get; set; } = 1f; 
@@ -101,6 +103,7 @@ public class ConfigServer : SyncedConfig
         HydratingLiquids = previousConfig.HydratingLiquids;
         HydratingBlocks = previousConfig.HydratingBlocks;
         UrineStainableMaterials = previousConfig.UrineStainableMaterials;
+        DynamicWaterPurityWeights = previousConfig.DynamicWaterPurityWeights;
         
         UseHoDHydrationValues = previousConfig.UseHoDHydrationValues;
         HoDClothingCoolingMultiplier = previousConfig.HoDClothingCoolingMultiplier;

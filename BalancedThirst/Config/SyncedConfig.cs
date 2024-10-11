@@ -51,6 +51,8 @@ public class SyncedConfig : IModConfig
     
     [ProtoMember(16, IsRequired = true)]
     public bool ResetModBoosts { get; set; }
+
+    [ProtoMember(18, IsRequired = true)] public bool DynamicWaterPurity { get; set; } = true;
     
     public SyncedConfig() { }
 
@@ -76,6 +78,7 @@ public class SyncedConfig : IModConfig
         ThirstRatePerDegrees = previousConfig.ThirstRatePerDegrees;
         HarshHeatExponentialMultiplier = previousConfig.HarshHeatExponentialMultiplier;
         ResetModBoosts = previousConfig.ResetModBoosts;
+        DynamicWaterPurity = previousConfig.DynamicWaterPurity;
     }
 
     public SyncedConfig Clone()
@@ -96,7 +99,8 @@ public class SyncedConfig : IModConfig
             UnknownHydrationYield = UnknownHydrationYield,
             ThirstRatePerDegrees = ThirstRatePerDegrees,
             HarshHeatExponentialMultiplier = HarshHeatExponentialMultiplier,
-            ResetModBoosts = ResetModBoosts
+            ResetModBoosts = ResetModBoosts,
+            DynamicWaterPurity = DynamicWaterPurity
         };
     }
 }

@@ -81,7 +81,7 @@
     "*-porcelain": { "base": "block/kettle/empty" }
   },
   "doNotRenderAtLod2": true,
-  "creativeinventory": { "general": ["*"], "decorative": ["*"] },
+  "creativeinventory": { "general": [""], "decorative": [""] },
   "maxStackSizeByType": {
     "*": 1
   },

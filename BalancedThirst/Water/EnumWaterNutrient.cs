@@ -6,5 +6,5 @@ public enum EnumWaterNutrient
     Sulfate, // Hot spring water, less in sea and cave water
     Phosphate, // Cave water, bone broth
     Iodine, // Seawater, seaweed
-    Tartar // limewater / water in limestone regionjs
+    Tartar // limewater / water in limestone regions
 }

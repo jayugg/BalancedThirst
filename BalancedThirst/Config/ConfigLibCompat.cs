@@ -19,6 +19,7 @@ public class ConfigLibCompat
     
     private const string settingsSimple = "balancedthirst:Config.SettingsSimple";
     private const string settingsStatMultipliers = "balancedthirst:Config.SettingsStatMultipliers";
+    private const string settingsDynamicWaterPurityWeights = "balancedthirst:Config.SettingsDynamicWaterPurityWeights";
     private const string settingsAdvanced = "balancedthirst:Config.SettingsAdvanced";
     private const string settingsCompat = "balancedthirst:Config.SettingsCompat";
     private const string textSupportsWildcard = "balancedthirst:Config.Text.SupportsWildcard";
@@ -93,6 +94,7 @@ public class ConfigLibCompat
         {
             config.EnableThirst = OnCheckBox(id, config.EnableThirst, nameof(config.EnableThirst));
             config.EnableBladder = OnCheckBox(id, config.EnableBladder, nameof(config.EnableBladder));
+            config.DynamicWaterPurity = OnCheckBox(id, config.DynamicWaterPurity, nameof(config.DynamicWaterPurity));
             ImGui.Separator();
             config.SpillWashStains = OnCheckBox(id, config.SpillWashStains, nameof(config.SpillWashStains));
             config.UrineStains = OnCheckBox(id, config.UrineStains, nameof(config.UrineStains));
@@ -186,6 +188,12 @@ public class ConfigLibCompat
             if (ImGui.CollapsingHeader(Lang.Get(settingPrefix + nameof(config.UrineStainableMaterials)) + $"##settingUrineStainableMaterials"))
             {
                 config.UrineStainableMaterials = OnInputList(id, config.UrineStainableMaterials, nameof(config.UrineStainableMaterials));
+            }
+            if (ImGui.CollapsingHeader(Lang.Get(settingPrefix + nameof(config.DynamicWaterPurityWeights)) + $"##settingsDynamicWaterPurityWeights-{id}"))
+            {
+                ImGui.Indent();
+                DictionaryEditor(config.DynamicWaterPurityWeights, 0.2f);
+                ImGui.Unindent();
             }
             ImGui.Unindent();
         }

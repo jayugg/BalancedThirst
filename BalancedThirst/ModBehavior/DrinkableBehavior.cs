@@ -77,7 +77,7 @@ public class DrinkableBehavior : CollectibleBehavior
       if (content == null) return null;
       if (!content.Collectible.HasBehavior<DrinkableBehavior>()) return null;
       var behavior = content.Collectible.GetBehavior<DrinkableBehavior>();
-      HydrationProperties hydrationProperties = behavior.ExtractDirectHydrationProperties(new ItemStack(content.Item));
+      HydrationProperties hydrationProperties = behavior.ExtractDirectHydrationProperties(new ItemStack(content.Item) {Attributes = content.Attributes});
       return hydrationProperties;
     }
     

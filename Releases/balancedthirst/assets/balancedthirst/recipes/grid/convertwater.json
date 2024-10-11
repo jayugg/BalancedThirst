@@ -1,0 +1,62 @@
+[
+  {
+    ingredientPattern: "W",
+    ingredients: {
+      "W": {
+        type: "block",
+        code: "game:woodbucket"
+      },
+    },
+    width: 1,
+    height: 1,
+    attributes: {
+      liquidContainerProps: {
+        requiresContent: { type: "item", code: "balancedthirst:waterportion-*" },
+        requiresLitres: 10
+      }
+    },
+    name: "convertwater",
+    shapeless: true,
+    output: { type: "block", code: "game:woodbucket", attributes: { ucontents: [ { type:"item", code: "game:waterportion", makefull: true } ] } }
+  },
+  {
+    ingredientPattern: "W",
+    ingredients: {
+      "W": {
+        type: "block",
+        code: "game:bowl-fired"
+      },
+    },
+    width: 1,
+    height: 1,
+    attributes: {
+      liquidContainerProps: {
+        requiresContent: { type: "item", code: "balancedthirst:waterportion-*" },
+        requiresLitres: 3
+      }
+    },
+    name: "dough",
+    shapeless: true,
+    output: { type: "block", code: "game:bowl-fired", attributes: { ucontents: [ { type:"item", code: "game:waterportion", makefull: true } ] } }
+  },
+  {
+    ingredientPattern: "W",
+    ingredients: {
+      "W": {
+        type: "block",
+        code: "game:jug-*-fired"
+      },
+    },
+    width: 1,
+    height: 1,
+    attributes: {
+      liquidContainerProps: {
+        requiresContent: { type: "item", code: "balancedthirst:waterportion-*" },
+        requiresLitres: 10
+      }
+    },
+    name: "dough",
+    shapeless: true,
+    output: { type: "block", code: "game:jug-*-fired", attributes: { ucontents: [ { type:"item", code: "game:waterportion", makefull: true } ] } }
+  }
+]

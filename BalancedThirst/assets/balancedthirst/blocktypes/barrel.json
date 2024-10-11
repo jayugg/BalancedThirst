@@ -1,0 +1,67 @@
+{
+  code: "barrel",
+  class: "BlockLiquidContainerTopOpened",
+  behaviors: [ {name: "UnstableFalling"} ],
+  shape: { base: "game:block/clutter/barrel-metal1" },
+  "variantgroups": [
+    { "code": "metal", "states": ["copper", "brass", "tinbronze", "bismuthbronze", "blackbronze", "silver", "iron", "meteoriciron", "steel", "stainlesssteel"] }
+  ],
+  creativeinventory: { "general": ["*"], "decorative": ["*"] },
+  blockmaterial: "Metal",
+  replaceable: 900,
+  resistance: 1.5,
+  maxStackSize: 1,
+  lightAbsorption: 1,
+  textures: {
+    "all": { base: "game:block/metal/sheet/{metal}2", alternates: [ { base: "game:block/metal/sheet/{metal}1" }, { base: "game:block/metal/sheet/{metal}2" }, { base: "game:block/metal/sheet/{metal}3" }, { base: "game:block/metal/sheet/{metal}4" }] }
+  },
+  attributes: {
+    liquidContainerProps: {
+      capacityLitres: 50,
+      transferSizeLitres: 10,
+      emptyShapeLoc: "game:block/clutter/barrel-metal1",
+      opaqueContentShapeLoc: "shapes/block/wood/barrel/opaqueliquidcontents",
+      liquidContentShapeLoc: "shapes/block/wood/barrel/liquidcontents",
+      liquidMaxYTranslate: 15.5
+    },
+    partialAttachable: true
+  },
+  sideao: {
+    all: false
+  },
+  sidesolid: {
+    all: false
+  },
+  emitsideao: {
+    all: false
+  },
+  sideopaque: {
+    all: false
+  },
+  collisionbox: {
+    x1: 0, y1: 0, z1: 0,
+    x2: 1, y2: 0.9375, z2: 1
+  },
+  selectionbox: {
+    x1: 0, y1: 0, z1: 0,
+    x2: 1, y2: 0.9375, z2: 1
+  },
+  combustibleProps: {
+    burnTemperature: 600,
+    burnDuration: 20,
+  },
+  sounds: {
+    "place": "game:block/planks",
+    "hit": "game:block/planks",
+    "break": "game:block/planks",
+    "walk": "game:walk/wood"
+  },
+  materialDensity: 600,
+  heldTpIdleAnimation: "holdbothhandslarge", heldRightReadyAnimation: "heldblockready", heldTpUseAnimation: "twohandplaceblock",
+  tpHandTransform: {
+    translation: { x: -1.7, y: -0.95, z: -0.69 },
+    rotation: { x: 12, y: 14, z: -81 },
+    scale: 0.36
+  },
+  "enabled": false
+}

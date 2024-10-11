@@ -9,10 +9,13 @@ using BalancedThirst.HarmonyPatches.Crock;
 using BalancedThirst.HarmonyPatches.EntityFirepit;
 using BalancedThirst.HarmonyPatches.InvSmelting;
 using BalancedThirst.HarmonyPatches.Meal;
+using BalancedThirst.HarmonyPatches.RecipeLoaders;
 using HarmonyLib;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
+using Vintagestory.API.MathTools;
 using Vintagestory.GameContent;
+using Vintagestory.ServerMods;
 
 namespace BalancedThirst.Systems;
 
@@ -52,6 +55,25 @@ public class HarmonyPatches : ModSystem
                 nameof(InventorySmelting_GetOutputText_Patch.Postfix)));
         
         if (!configData?.EnableThirst ?? false) return;
+        
+        /*
+        HarmonyInstance.Patch(typeof(GridRecipeLoader).GetMethod(nameof(GridRecipeLoader.LoadRecipe)),
+            postfix: typeof(GridRecipeLoader_LoadRecipe_Patch).GetMethod(
+                nameof(GridRecipeLoader_LoadRecipe_Patch.Postfix)));
+        */
+        
+        HarmonyInstance.Patch(typeof(BlockLiquidContainerBase).GetMethod(
+                nameof(BlockLiquidContainerBase.TryFillFromBlock),
+                new[] { typeof(ItemSlot), typeof(EntityAgent), typeof(BlockPos) }),
+            postfix: typeof(BlockLiquidContainerBase_TryFillFromBlock_Patch).GetMethod(
+                nameof(BlockLiquidContainerBase_TryFillFromBlock_Patch.Postfix)));
+        
+        /*
+        HarmonyInstance.Patch(typeof(BlockLiquidContainerBase).GetMethod(nameof(BlockLiquidContainerBase.GetHeldInteractionHelp)),
+            postfix: typeof(BlockLiquidContainerBase_GetHeldInteractionHelp_Patch).GetMethod(
+                nameof(BlockLiquidContainerBase_GetHeldInteractionHelp_Patch.Postfix)));
+                */
+        
         HarmonyInstance.Patch(typeof(CollectibleObject).GetMethod("tryEatStop", BindingFlags.NonPublic | BindingFlags.Instance),
             prefix: typeof(CollectibleObject_tryEatStop_Patch).GetMethod(
                 nameof(CollectibleObject_tryEatStop_Patch.Prefix)),
@@ -77,7 +99,6 @@ public class HarmonyPatches : ModSystem
         HarmonyInstance.Patch(typeof(BlockPie).GetMethod(nameof(BlockPie.GetHeldItemInfo)),
             postfix: typeof(BlockCookedContainer_GetHeldItemInfo_Patch).GetMethod(
                 nameof(BlockCookedContainer_GetHeldItemInfo_Patch.Postfix)));
-        
         
         // Patch works atm but for some reason the generated description is not being displayed, will leave for other mod compatibility
         HarmonyInstance.Patch(typeof(BlockMeal).GetMethod(nameof(BlockMeal.GetContentNutritionFacts), new[] {

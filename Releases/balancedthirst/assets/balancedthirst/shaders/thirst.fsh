@@ -4,6 +4,7 @@ in vec2 uv;
 out vec4 outColor;
 
 uniform sampler2D primaryScene;
+uniform float vomitVignetting;
 
 void main(void)
 {
@@ -27,6 +28,20 @@ void main(void)
         vec3 vignetteColor = vec3(0.9 + gnoise(vec3(wx, -wy, 0)) / 15.0, 0.9 + gnoise(vec3(wx, wy, 0)) / 15.0, 0.95);
 
         outColor.rgb = mix(outColor.rgb, vignetteColor, max(0, str - g) + 0.5*str);
+    }
+    
+    if (vomitVignetting > 0) {
+        float str = clamp(1 - smoothstep(1.1 - vomitVignetting / 4, 0.75 - 0.45, length(position)), 0, 1) - grayvignette;
+        float g = 0;
+
+        g = gnoise(vec3(gl_FragCoord.x / 20.0, gl_FragCoord.y / 20.0, 0)) + 0.5;
+        g += gnoise(vec3(gl_FragCoord.x / 5.0, gl_FragCoord.y / 5.0, 0))/5;
+        g -= str*2;
+
+        g*=vomitVignetting;
+
+        vec3 vignetteColor = vec3(0.8 * vomitVignetting/2, 0.4, 0.4);
+        outColor.rgb = mix(outColor.rgb, vignetteColor, max(0, str - g));
     }
 
     outColor.rgb = mix(outColor.rgb, vec3(0), grayvignette);

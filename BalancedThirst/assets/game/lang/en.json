@@ -1,40 +1,6 @@
 {
-  "block-water-d-7": "Water",
-  "block-balancedthirst-purewater-still-7": "Still spring water",
-  "block-balancedthirst-purewater-d-7": "Spring water",
-  
   "When eaten: {0} sat, {1} hyd, {2} hp": "When eaten: {0} sat, {1} hyd, {2} hp",
   "When eaten: {0} sat, {1} hyd": "When eaten: {0} sat, {1} hyd",
   "When drank: {0} hyd, {1} hp": "When drank: {0} hyd, {1} hp",
-  "When drank: {0} hyd": "When drank: {0} hyd",
-
-
-  "recipeingredient-item-balancedthirst:pickledvegetable-gourdpumpkin": "pickled calabash",
-  "recipeingredient-block-balancedthirst:gourdpumpkin-fruit-4": "calabash",
-
-  "meal-ingredient-soup-primary-balancedthirst:vegetable-gourdpumpkin": "Calabash",
-  "meal-ingredient-soup-primary-balancedthirst:gourdpumpkin-fruit-4": "Calabash",
-  "meal-ingredient-soup-primary-balancedthirst:pickledvegetable-gourdpumpkin": "Pickled calabash",
-  "meal-ingredient-soup-primary-balancedthirst:pickledvegetable-gourdpumpkin-fruit-4": "Pickled calabash",
-  "meal-ingredient-soup-secondary-balancedthirst:vegetable-gourdpumpkin": "Calabash",
-  "meal-ingredient-soup-secondary-balancedthirst:gourdpumpkin-fruit-4": "Calabash",
-  "meal-ingredient-soup-secondary-balancedthirst:pickledvegetable-gourdpumpkin": "Pickled calabash",
-  "meal-ingredient-soup-secondary-balancedthirst:pickledvegetable-gourdpumpkin-fruit-4": "Pickled calabash",
-  "meal-ingredient-stew-primary-balancedthirst:vegetable-gourdpumpkin": "Calabash",
-  "meal-ingredient-stew-primary-balancedthirst:gourdpumpkin-fruit-4": "Calabash",
-  "meal-ingredient-stew-primary-balancedthirst:pickledvegetable-gourdpumpkin": "Pickled calabash",
-  "meal-ingredient-stew-primary-balancedthirst:pickledvegetable-gourdpumpkin-fruit-4": "Pickled calabash",
-  "meal-ingredient-stew-secondary-balancedthirst:vegetable-gourdpumpkin": "Calabash",
-  "meal-ingredient-stew-secondary-balancedthirst:gourdpumpkin-fruit-4": "Calabash",
-  "meal-ingredient-stew-secondary-balancedthirst:pickledvegetable-gourdpumpkin": "Pickled calabash",
-  "meal-ingredient-stew-secondary-balancedthirst:pickledvegetable-gourdpumpkin-fruit-4": "Pickled calabash",
-
-  "pie-single-balancedthirst:vegetable-gourdpumpkin-raw": "Calabash pie (raw)",
-  "pie-single-balancedthirst:pickledvegetable-gourdpumpkin-raw": "Pickled calabash pie (raw)",
-  "pie-single-balancedthirst:vegetable-pumpkin-partbaked": "Calabash pie (part-baked)",
-  "pie-single-balancedthirst:pickledvegetable-gourdpumpkin-partbaked": "Pickled calabash pie (part-baked)",
-  "pie-single-balancedthirst:vegetable-gourdpumpkin-perfect": "Calabash pie",
-  "pie-single-balancedthirst:pickledvegetable-gourdpumpkin-perfect": "Pickled calabash pie",
-  "pie-single-balancedthirst:vegetable-gourdpumpkin-charred": "Calabash pie (charred)",
-  "pie-single-balancedthirst:pickledvegetable-gourdpumpkin-charred": "Pickled calabash pie (charred)"
+  "When drank: {0} hyd": "When drank: {0} hyd"
 }

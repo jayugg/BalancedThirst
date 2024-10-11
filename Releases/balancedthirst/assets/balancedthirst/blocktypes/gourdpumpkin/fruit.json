@@ -56,7 +56,7 @@
 		"*-3": [
 			{
 				"type": "Dry",
-				"freshHours": { "avg":  96 },
+				"freshHours": { "avg":  24 },
 				"transitionHours": { "avg": 36 },
 				"transitionedStack": { "type": "block", "code": "balancedthirst:gourd-medium-dried" },
 				"transitionRatio": 1
@@ -65,7 +65,7 @@
 		"*-4": [
 			{
 				"type": "Dry",
-				"freshHours": { "avg":  96 },
+				"freshHours": { "avg":  24 },
 				"transitionHours": { "avg": 48 },
 				"transitionedStack": { "type": "block", "code": "balancedthirst:gourd-large-dried" },
 				"transitionRatio": 1
@@ -88,6 +88,7 @@
 		"scale": 0.6
 	},
 	"guiTransform": {
+		"rotation": { "x": -25, "y": 45, "z": 0 },
 		"origin": { "x": 0.5, "y": 0.3, "z": 0.5 },
 		"scale": 1.8
 	},

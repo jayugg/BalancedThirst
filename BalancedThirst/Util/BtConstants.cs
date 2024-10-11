@@ -44,7 +44,7 @@ public static class BtConstants
         { "@(.*):.*milkportion.*", new HydrationProperties { Hydration = 360 } },
         { "@(.*):.*honeyportion.*", new HydrationProperties { Hydration = 40 } },
         { "@(.*):.*vinegarportion.*", new HydrationProperties { Hydration = 280 } },
-        { "@(.*):.*dryfruit.*", new HydrationProperties { Hydration = 20, Dehydration = 0.05f } },
+        { "@(.*):.*dryfruit.*", new HydrationProperties { Hydration = 10, Dehydration = 0.05f } },
         
         // From expandedfoods but just in case
         { "@(.*):fruitsyrupportion.*", new HydrationProperties { Hydration = 80 } },
@@ -55,6 +55,7 @@ public static class BtConstants
         { "@(.*):potentspiritportion.*", new HydrationProperties { Hydration = -10, Dehydration = 0.35f } },
         { "@(.*):vegetablejuiceportion.*", new HydrationProperties { Hydration = 320 } },
         { "@(.*):potentwineportion.*", new HydrationProperties { Hydration = 120, Dehydration = 0.1f } },
+        { "@(.*):.*dehydratedfruit.*", new HydrationProperties { Hydration = 10, Dehydration = 0.01f } },
         { "@(.*):yogurt.*", new HydrationProperties { Hydration = 180 } },
         { "@(.*):yoghurt.*", new HydrationProperties { Hydration = 180 } }, // just in case
         
@@ -67,7 +68,7 @@ public static class BtConstants
         { "@(game):honeycomb", new HydrationProperties { Hydration = 40, Dehydration = 0.05f } },
         { "@(game):fat", new HydrationProperties { Hydration = 20, Dehydration = 0.1f } },
         { $"@({BtCore.Modid}):waterportion-pure", new HydrationProperties { Hydration = 400, Purity = EnumPurityLevel.Pure } },
-        { $"@({BtCore.Modid}):waterportion-boiled", new HydrationProperties { Hydration = 400, Purity = EnumPurityLevel.Potable } },
+        { $"@({BtCore.Modid}):waterportion-(boiled|potable)", new HydrationProperties { Hydration = 400, Purity = EnumPurityLevel.Potable } },
         { $"@({BtCore.Modid}):waterportion-stagnant", new HydrationProperties { Hydration = 400, Purity = EnumPurityLevel.Stagnant } },
         { $"@({BtCore.Modid}):waterportion-distilled", new HydrationProperties { Hydration = 400, Purity = EnumPurityLevel.Distilled, EuhydrationWeight = 0f } },
         { $"@({BtCore.Modid}):urineportion", new HydrationProperties { Hydration = 240, Purity = EnumPurityLevel.Pure, EuhydrationWeight = -0.5f, Dehydration = 1 } },
@@ -152,4 +153,15 @@ public static class BtConstants
     public static string PeeKeyCode = BtCore.Modid + ":hotkey-pee";
 
     public static string DehydratedEffectId = $"{BtCore.Modid}:dehydrated";
+    
+    public static Dictionary<string, float> DynamicWaterPurityWeights = new()
+    {
+        { "temperature", 0.45f },
+        { "rainfall", 0.3f },
+        { "fertility", 0.1f },
+        { "forestDensity", 0.2f },
+        { "geologicActivity", 0.2f },
+        { "altitude", 0.1f },
+        { "flowingWater", 0.3f }
+    };
 }

@@ -140,8 +140,8 @@
   "replaceable": 500,
   "resistance": 1.5,
   "materialDensity": 7870,
-  "liquidSelectable": 1,
-  "lightAbsorption": 1,
+  "liquidSelectable": true,
+  "lightAbsorption": 0,
   "sounds": {
     "place": "game:walk/stone",
     "hit": "game:walk/stone",

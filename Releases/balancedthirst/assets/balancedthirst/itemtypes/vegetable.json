@@ -10,8 +10,8 @@
       "juiceablePropertiesByType": {
         "*-gourdpumpkin": {
           "litresPerItem": 0.3125,
-          "liquidStack": { "type": "item", "code": "balancedthirst:juiceportion-calabash", "stacksize": 1 },
-          "pressedStack": { "type": "item", "code": "balancedthirst:pressedmash-calabash", "stacksize": 1 }
+          "liquidStack": { "type": "item", "code": "game:juiceportion-calabash", "stacksize": 1 },
+          "pressedStack": { "type": "item", "code": "game:pressedmash-calabash", "stacksize": 1 }
         }
       }
     }

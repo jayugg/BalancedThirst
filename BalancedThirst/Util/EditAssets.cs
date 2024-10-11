@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using BalancedThirst.ModBehavior;
 using BalancedThirst.Systems;
@@ -9,6 +10,7 @@ namespace BalancedThirst.Util;
 
 public static class EditAssets
 {
+    
     public static void AddHydrationToCollectibles(ICoreAPI api)
     {
         foreach (var collectible in api.World.Collectibles.Where(c => c?.Code != null))
