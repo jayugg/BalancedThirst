@@ -19,7 +19,6 @@ public class ConfigLibCompat
     
     private const string settingsSimple = "balancedthirst:Config.SettingsSimple";
     private const string settingsStatMultipliers = "balancedthirst:Config.SettingsStatMultipliers";
-    private const string settingsDynamicWaterPurityWeights = "balancedthirst:Config.SettingsDynamicWaterPurityWeights";
     private const string settingsAdvanced = "balancedthirst:Config.SettingsAdvanced";
     private const string settingsCompat = "balancedthirst:Config.SettingsCompat";
     private const string textSupportsWildcard = "balancedthirst:Config.Text.SupportsWildcard";
@@ -108,6 +107,7 @@ public class ConfigLibCompat
             config.UnknownHydrationYield = OnInputFloat(id, config.UnknownHydrationYield, nameof(config.UnknownHydrationYield));
             ImGui.Separator();
             config.DowsingRodRadius = OnInputFloat(id, config.DowsingRodRadius, nameof(config.DowsingRodRadius));
+            config.HauntingKettleDays = OnInputInt(id, config.HauntingKettleDays, nameof(config.HauntingKettleDays));
         }
     }
 
@@ -168,6 +168,7 @@ public class ConfigLibCompat
             ImGui.Separator();
             config.DowsingRodRadius = OnInputFloat(id, config.DowsingRodRadius, nameof(config.DowsingRodRadius));
             config.GushingSpringWater = OnCheckBox(id, config.GushingSpringWater, nameof(config.GushingSpringWater));
+            config.HauntingKettleDays = OnInputInt(id, config.HauntingKettleDays, nameof(config.HauntingKettleDays));
         }
         if (ImGui.CollapsingHeader(Lang.Get(settingsAdvanced) + $"##settingAdvanced-{id}"))
         {

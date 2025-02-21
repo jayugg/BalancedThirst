@@ -1,0 +1,10 @@
+[
+  {
+    "file": "balancedthirst:itemtypes/compatibility/expandedfoods/breadedvegetable.json",
+    "op": "addeach",
+    "path": "/skipVariants/-",
+    "value": [ "*breadedvegetable-acorn-*"],
+    "side": "server",
+    "dependsOn": [{ "modid": "expandedfoods" }, { "modid": "wildcraftfruit", "invert": true }]
+  }
+]

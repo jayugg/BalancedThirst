@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using BalancedThirst.BlockEntities;
+using BalancedThirst.HarmonyPatches.BlockLiquidContainer;
 using BalancedThirst.Systems;
 using BalancedThirst.Util;
 using Vintagestory.API.Client;
@@ -336,6 +337,7 @@ public class BlockLiquidContainerSealable : BlockLiquidContainerBase
         int moved = splitStackAndPerformAction(byEntity, containerSlot, (stack) => { SetContent(stack, null); return contentStack.StackSize; });
 
         DoLiquidMovedEffects(byPlayer, contentStack, moved, EnumLiquidDirection.Pour);
+        BlockLiquidContainerBase_SpillContents_Patch.Postfix(this, true, containerSlot, byEntity, blockSel);
         return true;
     }
 

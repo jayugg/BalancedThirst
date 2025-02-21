@@ -1,0 +1,10 @@
+[
+  {
+    "file": "balancedthirst:itemtypes/compatibility/expandedfoods/breadedvegetable.json",
+    "op": "addeach",
+    "path": "/skipVariants/-",
+    "value": [ "*breadedvegetable-birch-*", "*breadedvegetable-pine-*", "*breadedvegetable-maple-*"],
+    "side": "server",
+    "dependsOn": [{ "modid": "expandedfoods" }, { "modid": "ancienttools", "invert": true }]
+  }
+]

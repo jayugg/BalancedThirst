@@ -1,7 +1,7 @@
 [
   {
     "op": "addeach",
-    "path": "/attributes/tradeProps/selling/list/-",
+    "path": "/selling/list/-",
     "value": [
       {
         "code": "balancedthirst:kettle-clay-fired",
@@ -43,11 +43,11 @@
         }
       }
     ],
-    "file": "game:entities/humanoid/trader-survivalgoods.json"
+    "file": "game:config/tradelists/trader-survivalgoods.json"
   },
   {
     "op": "addeach",
-    "path": "/attributes/tradeProps/buying/list/-",
+    "path": "/buying/list/-",
     "value": [
       {
         "code": "balancedthirst:kettle-clay-fired",
@@ -89,6 +89,6 @@
         }
       }
     ],
-    "file": "game:entities/humanoid/trader-survivalgoods.json"
+    "file": "game:config/tradelists/trader-survivalgoods.json"
   }
 ]

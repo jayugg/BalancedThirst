@@ -1,7 +1,7 @@
 [
   {
     "op": "addeach",
-    "path": "/attributes/tradeProps/selling/list/-",
+    "path": "/selling/list/-",
     "value": [
       {
         "code": "balancedthirst:chamberpot-porcelain",
@@ -30,11 +30,11 @@
         }
       }
     ],
-    "file": "game:entities/humanoid/trader-luxuries.json"
+    "file": "game:config/tradelists/trader-luxuries.json"
   },
   {
     "op": "addeach",
-    "path": "/attributes/tradeProps/buying/list/-",
+    "path": "/buying/list/-",
     "value": [
       {
         "code": "balancedthirst:chamberpot-porcelain",
@@ -63,6 +63,6 @@
         }
       }
     ],
-    "file": "game:entities/humanoid/trader-luxuries.json"
+    "file": "game:config/tradelists/trader-luxuries.json"
   }
 ]

@@ -12,6 +12,7 @@ using Vintagestory.API.Common.Entities;
 using Vintagestory.API.Config;
 using Vintagestory.API.Datastructures;
 using Vintagestory.API.MathTools;
+using Vintagestory.API.Server;
 using Vintagestory.API.Util;
 using Vintagestory.Client.NoObf;
 using Vintagestory.GameContent;
@@ -140,14 +141,13 @@ public static class Extensions
     public static bool IsRiverBlock(this BlockSelection blockSel, IWorldAccessor world)
     {
         var pos = blockSel.Position;
-        return pos.IsRiverBlock(world);
+        return pos != null && pos.IsRiverBlock(world);
     }
     
     public static bool IsRiverBlock(this BlockPos pos, IWorldAccessor world)
     {
         IWorldChunk chunk = world.BlockAccessor.GetChunk(pos.X / 32, 0, pos.Z / 32);
-        if (chunk == null) return false;
-        float[] moddata = chunk.GetModdata<float[]>("flowVectors");
+        float[] moddata = chunk?.GetModdata<float[]>("flowVectors");
         if (moddata == null) return false;
         var localX = pos.X % 32;
         var localZ = pos.Z % 32;
@@ -302,6 +302,7 @@ public static class Extensions
         }
     }
 
+    [Obsolete("Use Raycast.RaycastForFluidBlocks instead")]
     public static BlockSelection GetLookLiquidBlockSelection(this IClientPlayer clientPlayer)
     {
         var api = clientPlayer.Entity?.World.Api;
@@ -311,7 +312,7 @@ public static class Extensions
         BlockFilter bfilter = (_, block) => block is not { RenderPass: EnumChunkRenderPass.Meta };
         EntityFilter efilter = (entity) => entity.IsInteractable;
         bool liquidSelectable = game.LiquidSelectable;
-        game.SetInternalField("forceLiquidSelectable", true);
+        game.forceLiquidSelectable = true;
         var blockSel = clientPlayer.Entity.BlockSelection?.Clone();
         var entitySel = clientPlayer.Entity.EntitySelection?.Clone();
         if (!game.MouseGrabbed)
@@ -321,7 +322,7 @@ public static class Extensions
             Ray mouseCoordinates = pickingRayUtil.GetPickingRayByMouseCoordinates(game);
             if (mouseCoordinates == null)
             {
-                game.SetInternalField("forceLiquidSelectable", liquidSelectable);
+                game.forceLiquidSelectable = liquidSelectable;
                 return null;
             }
             game.RayTraceForSelection(mouseCoordinates, ref blockSel, ref entitySel, bfilter, efilter);
@@ -329,7 +330,7 @@ public static class Extensions
         else
             game.RayTraceForSelection(clientPlayer, ref blockSel, ref entitySel, bfilter, efilter);
         if (blockSel == null) return null;
-        game.SetInternalField("forceLiquidSelectable", false);
+        game.forceLiquidSelectable = liquidSelectable;
         return blockSel;
     }
     
@@ -343,7 +344,7 @@ public static class Extensions
 
     public static bool IsLookingAtDrinkableBlock(this IClientPlayer clientPlayer)
     {
-        var liquidSel = clientPlayer.GetLookLiquidBlockSelection();
+        var liquidSel = Raycast.RayCastForFluidBlocks(clientPlayer);
         return liquidSel?.Block?.GetBlockHydrationProperties() != null;
     }
     
@@ -372,7 +373,7 @@ public static class Extensions
     // From DanaTweaks
     public static void CoolWithWater(this BlockEntityToolMold mold)
     {
-        ItemStack stack = mold.metalContent;
+        ItemStack stack = mold.MetalContent;
         if (stack != null)
         {
             // No clue why this doesn't work either
@@ -387,8 +388,8 @@ public static class Extensions
     // From DanaTweaks
     public static void CoolWithWater(this BlockEntityIngotMold mold)
     {
-        ItemStack rightStack = mold.contentsRight;
-        ItemStack leftStack = mold.contentsLeft;
+        ItemStack rightStack = mold.ContentsRight;
+        ItemStack leftStack = mold.ContentsLeft;
         if (rightStack != null)
         {
             //BtCore.Logger.Warning("Temperature: " + rightStack.Collectible.GetTemperature(mold.Api.World, rightStack));
@@ -423,6 +424,14 @@ public static class Extensions
 
         if (!currentHydration.HasValue || !maxHydration.HasValue) return false;
         return currentHydration >= maxHydration;
+    }
+    
+    public static bool IsHeadInWater(this IServerPlayer player)
+    {
+        var headPos = player.Entity.ServerPos.XYZ.Add(0, player.Entity.LocalEyePos.Y, 0);
+        var headBlockPos = new BlockPos((int)headPos.X, (int)headPos.Y, (int)headPos.Z, (int)headPos.Y/32768);
+        var block = player.Entity.World.BlockAccessor.GetBlock(headBlockPos);
+        return block.BlockMaterial == EnumBlockMaterial.Liquid;
     }
 
     public static int GetToolMode(this CollectibleObject collObj, ItemSlot itemslot, EntityPlayer player, BlockPos pos)

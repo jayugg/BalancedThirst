@@ -52,7 +52,11 @@ public class SyncedConfig : IModConfig
     [ProtoMember(16, IsRequired = true)]
     public bool ResetModBoosts { get; set; }
 
-    [ProtoMember(18, IsRequired = true)] public bool DynamicWaterPurity { get; set; } = true;
+    [ProtoMember(18, IsRequired = true)]
+    public bool DynamicWaterPurity { get; set; } = true;
+    
+    [ProtoMember(19, IsRequired = true)] 
+    public int HauntingKettleDays { get; set; } = 1;
     
     public SyncedConfig() { }
 
@@ -79,6 +83,7 @@ public class SyncedConfig : IModConfig
         HarshHeatExponentialMultiplier = previousConfig.HarshHeatExponentialMultiplier;
         ResetModBoosts = previousConfig.ResetModBoosts;
         DynamicWaterPurity = previousConfig.DynamicWaterPurity;
+        HauntingKettleDays = previousConfig.HauntingKettleDays;
     }
 
     public SyncedConfig Clone()
@@ -100,7 +105,8 @@ public class SyncedConfig : IModConfig
             ThirstRatePerDegrees = ThirstRatePerDegrees,
             HarshHeatExponentialMultiplier = HarshHeatExponentialMultiplier,
             ResetModBoosts = ResetModBoosts,
-            DynamicWaterPurity = DynamicWaterPurity
+            DynamicWaterPurity = DynamicWaterPurity,
+            HauntingKettleDays = HauntingKettleDays
         };
     }
 }

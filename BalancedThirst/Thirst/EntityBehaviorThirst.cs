@@ -37,24 +37,34 @@ namespace BalancedThirst.Thirst
 
     public float Hydration
     {
-      get => this._thirstTree?.GetFloat("currenthydration") ?? ConfigSystem.ConfigServer.MaxHydration;
+      get => Math.Min(this._thirstTree?.GetFloat("currenthydration") ?? MaxHydration, MaxHydration);
       set
       {
-        this._thirstTree?.SetFloat("currenthydration", value);
-        this.entity.WatchedAttributes.MarkPathDirty(AttributeKey);
-      }
-    }
-
-    public float MaxHydration
-    {
-      get => this._thirstTree?.GetFloat("maxhydration") ?? ConfigSystem.ConfigServer.MaxHydration;
-      set
-      {
-        this._thirstTree?.SetFloat("maxhydration", value);
+        this._thirstTree?.SetFloat("currenthydration", Math.Min(value, MaxHydration));
         this.entity.WatchedAttributes.MarkPathDirty(AttributeKey);
       }
     }
     
+    public float MaxHydrationModifier
+    {
+      get => this._thirstTree?.GetFloat("maxhydrationmodifier") ?? 1;
+      set
+      {
+        this._thirstTree?.SetFloat("maxhydrationmodifier", value);
+        this.entity.WatchedAttributes.MarkPathDirty(AttributeKey);
+      }
+    }
+
+    public float MaxHydration {
+      get
+      {
+        var maxHydration = (float) Math.Round(MaxHydrationModifier*ConfigSystem.ConfigServer.MaxHydration);
+        this._thirstTree?.SetFloat("maxhydration", maxHydration);
+        this.entity.WatchedAttributes.MarkPathDirty(AttributeKey);
+        return maxHydration;
+      }
+    }
+
     public float Euhydration
     {
       get => this._thirstTree?.GetFloat("euhydration") ?? 0f;
@@ -88,8 +98,8 @@ namespace BalancedThirst.Thirst
       if (this._thirstTree == null || this._thirstTree.GetFloat("maxhydration") == 0)
       {
         this.entity.WatchedAttributes.SetAttribute(AttributeKey, _thirstTree = new TreeAttribute());
-        this.Hydration = typeAttributes["currenthydration"].AsFloat(ConfigSystem.ConfigServer.MaxHydration);
-        this.MaxHydration = typeAttributes["maxhydration"].AsFloat(ConfigSystem.ConfigServer.MaxHydration);
+        this.MaxHydrationModifier = typeAttributes["maxhydrationmodifier"].AsFloat(1);
+        this.Hydration = Math.Min(typeAttributes["currenthydration"].AsFloat(MaxHydration), MaxHydration);
         this.HydrationLossDelay = 0f;
         this.Euhydration = 0f;
         this.Dehydration = 0f;

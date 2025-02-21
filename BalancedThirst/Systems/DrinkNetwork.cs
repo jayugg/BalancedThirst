@@ -78,7 +78,6 @@ public partial class DrinkNetwork : ModSystem
     {
         if (action != EnumEntityAction.InWorldRightMouseDown)
         {
-            handled = EnumHandling.PassThrough;
             return;
         }
         var world = _capi.World;
@@ -87,19 +86,21 @@ public partial class DrinkNetwork : ModSystem
             && player.RightHandItemSlot.Empty
             && !player.IsHydrationMaxed()
             && player.Player is IClientPlayer clientPlayer &&
-            !clientPlayer.IsLookingAtInteractable())
+            !clientPlayer.IsLookingAtInteractable()
+            && clientPlayer.IsLookingAtDrinkableBlock())
         {
-            var blockSel = clientPlayer.GetLookLiquidBlockSelection();
+            var blockSel = Raycast.RayCastForFluidBlocks(player.Player);
             var waterPos = blockSel?.Position;
-            if (waterPos == null) return;
-            if (world.BlockAccessor?.GetBlock(waterPos)?.GetBlockHydrationProperties() != null)
+            if (waterPos != null)
             {
-                _clientChannel.SendPacket(new DrinkMessage.Request() { Position = waterPos });
-                handled = EnumHandling.Handled;
-                return;
+                if (world.BlockAccessor?.GetBlock(waterPos)?.GetBlockHydrationProperties() != null)
+                {
+                    _clientChannel.SendPacket(new DrinkMessage.Request() { Position = waterPos });
+                    handled = EnumHandling.Handled;
+                    return;
+                }
             }
         }
-        
         if (ConfigSystem.SyncedConfigData.EnableBladder &&
             (player.Player.IsBladderOverloaded() || world.ElapsedMilliseconds - _lastPeeTime < 2000) && 
             !player.Controls.TriesToMove && player.Controls.CtrlKey &&
@@ -149,21 +150,19 @@ public partial class DrinkNetwork : ModSystem
     
     private void HandleDrinkAction(IServerPlayer player, DrinkMessage.Request request)
     {
-        BlockSelection blockSel = Raycast.RayCastForFluidBlocks(player);
-        var pos = blockSel != null ? blockSel.Position : request?.Position;
+        var pos = request.Position;
+        var blockSel = Raycast.RayCastForFluidBlocks(player);
         if (pos == null) return;
-        Block block = player?.Entity?.World?.BlockAccessor?.GetBlock(pos);
+        Block block = player?.Entity?.World?.BlockAccessor?.GetBlock(pos, BlockLayersAccess.Fluid);
         HydrationProperties hydrationProps = block?.GetBlockHydrationProperties();
         //BtCore.Logger.Warning($"Player {player?.PlayerName} is drinking {block?.Code} at {pos} with hydration properties {hydrationProps}");
         if (hydrationProps == null) return;
-        if (blockSel.IsRiverBlock(player.Entity.World)) hydrationProps.Purity = EnumPurityLevel.Potable;
-        if (player.Entity?.HasBehavior<EntityBehaviorThirst>() ?? false)
-        {
-            player.Entity.GetBehavior<EntityBehaviorThirst>().ReceiveHydration(hydrationProps/5);
-            DrinkableBehavior.PlayDrinkSound(player.Entity, 2);
-            SpawnDrinkParticles(player.Entity, blockSel != null? blockSel.HitPosition : request.Position.ToVec3d());
-            _serverChannel.SendPacket(new DrinkMessage.Response() { Position = blockSel?.HitPosition }, player);
-        }
+        if (pos.IsRiverBlock(player.Entity.World)) hydrationProps.Purity = EnumPurityLevel.Potable;
+        if (!(player.Entity?.HasBehavior<EntityBehaviorThirst>() ?? false)) return;
+        player.Entity.GetBehavior<EntityBehaviorThirst>().ReceiveHydration(hydrationProps/5);
+        DrinkableBehavior.PlayDrinkSound(player.Entity, 2);
+        SpawnDrinkParticles(player.Entity,blockSel.HitPosition);
+        _serverChannel.SendPacket(new DrinkMessage.Response() { Position = blockSel.HitPosition }, player);
     }
     
     #endregion

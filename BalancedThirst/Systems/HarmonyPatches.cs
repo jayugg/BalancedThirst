@@ -22,13 +22,13 @@ namespace BalancedThirst.Systems;
 public class HarmonyPatches : ModSystem
 {
     private ICoreAPI _api;
-    private Harmony HarmonyInstance;
+    private static Harmony HarmonyInstance;
 
     public override double ExecuteOrder() => 0.03;
     public override void Start(ICoreAPI api)
     {
         this._api = api;
-        HarmonyInstance = new Harmony(Mod.Info.ModID);
+        Patch();
         var configData = ConfigSystem.SyncedConfigData;
 
         if (Math.Abs(configData.ContainerDrinkSpeed - 1) > 0.0001)
@@ -40,10 +40,12 @@ public class HarmonyPatches : ModSystem
                     nameof(BlockLiquidContainerBase_tryEatStop_Transpiler.Transpiler)));
         }
         
-        HarmonyInstance.Patch(typeof(BlockLiquidContainerBase).GetMethod("SpillContents", BindingFlags.NonPublic | BindingFlags.Instance),
-            postfix: typeof(BlockLiquidContainerBase_SpillContents_Patch).GetMethod(
-                nameof(BlockLiquidContainerBase_SpillContents_Patch.Postfix)));
-
+        HarmonyInstance.Patch(
+            typeof(BlockLiquidContainerBase).GetMethod("SpillContents", BindingFlags.NonPublic | BindingFlags.Instance),
+            postfix: new HarmonyMethod(typeof(BlockLiquidContainerBase_SpillContents_Patch).GetMethod(
+                nameof(BlockLiquidContainerBase_SpillContents_Patch.Postfix)))
+        );
+        
         HarmonyInstance.Patch(typeof(BlockEntityFirepit).GetMethod("GetTemp", BindingFlags.NonPublic | BindingFlags.Instance),
             postfix: typeof(BlockEntityFirepit_Temp_Patch).GetMethod(
                 nameof(BlockEntityFirepit_Temp_Patch.GetTemp)));
@@ -55,12 +57,6 @@ public class HarmonyPatches : ModSystem
                 nameof(InventorySmelting_GetOutputText_Patch.Postfix)));
         
         if (!configData?.EnableThirst ?? false) return;
-        
-        /*
-        HarmonyInstance.Patch(typeof(GridRecipeLoader).GetMethod(nameof(GridRecipeLoader.LoadRecipe)),
-            postfix: typeof(GridRecipeLoader_LoadRecipe_Patch).GetMethod(
-                nameof(GridRecipeLoader_LoadRecipe_Patch.Postfix)));
-        */
         
         HarmonyInstance.Patch(typeof(BlockLiquidContainerBase).GetMethod(
                 nameof(BlockLiquidContainerBase.TryFillFromBlock),
@@ -85,7 +81,6 @@ public class HarmonyPatches : ModSystem
                 nameof(BlockMeal_tryFinishEatMeal_Patch.Prefix)),
             postfix: typeof(BlockMeal_tryFinishEatMeal_Patch).GetMethod(
                 nameof(BlockMeal_tryFinishEatMeal_Patch.Postfix)));
-        
         
         HarmonyInstance.Patch(typeof(BlockMeal).GetMethod(nameof(BlockMeal.GetHeldItemInfo)),
             postfix: typeof(BlockMeal_GetHeldItemInfo_Patch).GetMethod(
@@ -138,7 +133,20 @@ public class HarmonyPatches : ModSystem
     }
 
     public override void Dispose() {
-        HarmonyInstance?.UnpatchAll(Mod.Info.ModID);
+        Unpatch();
+    }
+    
+    public static void Patch()
+    {
+        if (HarmonyInstance != null) return;
+        HarmonyInstance = new Harmony(BtCore.Modid);
+    }
+
+    public static void Unpatch()
+    {
+        if (HarmonyInstance == null) return;
+        HarmonyInstance.UnpatchAll();
+        HarmonyInstance = null;
     }
     
 }

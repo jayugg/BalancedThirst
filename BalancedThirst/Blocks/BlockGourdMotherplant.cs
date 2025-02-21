@@ -3,7 +3,6 @@ using BalancedThirst.BlockEntities;
 using BalancedThirst.ModBehavior;
 using BalancedThirst.Systems;
 using Vintagestory.API.Common;
-using Vintagestory.API.Common.Entities;
 using Vintagestory.API.MathTools;
 using Vintagestory.API.Server;
 using Vintagestory.GameContent;
@@ -86,7 +85,8 @@ public class BlockGourdMotherplant : BlockCrop
         IBlockAccessor blockAccessor,
         BlockPos pos,
         BlockFacing onBlockFace,
-        LCGRandom worldGenRand)
+        IRandom worldGenRand,
+        BlockPatchAttributes attributes = null)
     {
         if (blockAccessor.GetBlock(pos.X, pos.Y - 1, pos.Z).Fertility == 0)
             return false;

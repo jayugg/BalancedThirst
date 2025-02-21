@@ -1,20 +1,6 @@
-- Urine volume roughly matches consumed water
-- Buffed most hydration values, so that a player only needs to drink roughly 3.75 liters of water per thirst bar
-- Fixed kettle in firepit renderer bug (texture atlas was bleeding onto the kettle)
-- "gaymer" color in client config makes rainbow pee
-- Player now loses hydration from the start
-- Adjusted calabash transform and drying rate
-- Added calabash wine and brandy, (+ dehydrated calabash for expanded foods)
-- Added zh-cn translation (thanks to MystiVaid) (including new items)
-- Removed pure water underground spawns (now only in rivers), in preparation for changes to dowsing mechanics
-- Fixed clay kettle absorbing surrounding light when placed
-- Dynamic water purity allocation based on location (river, altitude, temperature, soil fertility, forest density)
-- NOTE: I want to transition to an attribute based system for water, which will reduce the number of water types,
-and allow all water types to be used in recipes from other mods. However, I couldn't do it all in one go. Currently,
-the custom water types cannot be used in recipes. This won't be a problem when I complete the switch, but in the meantime,
-I adopted a stopgap solution: containes have tool modes, allowing players to choose whether they want the purer water type,
-or to pick dirtier vanilla water. This will not be possible with sources that give stagnant water, but it will be with all other water types,
-giving a source of water for recipes that require it. This is a temporary solution, and will be removed when the attribute system is implemented.
+- [Fix] 1.20 trader trades
+- [Rework] Source drinking - no more weird solid water interaction, possibly better performance
+- [Fix] Urinating in containers (still needs some balancing)
 
 - Expandedfoods items: candied calabash, calabash jelly, fine wine, fine spirit
 - TODO add vomit shader uniform (like the dehydration shader), remove particles
@@ -23,7 +9,6 @@ giving a source of water for recipes that require it. This is a temporary soluti
 - TODO water filter
 - TODO water bucket pulley system
 - TODO metal barrel for liquid storage
-- TODO change kettle model
 - TODO fix gourd and calabash textures (?)
 
 // Next update

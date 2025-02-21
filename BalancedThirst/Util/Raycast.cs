@@ -2,28 +2,29 @@ using System;
 using BalancedThirst.Systems;
 using Vintagestory.API.Common;
 using Vintagestory.API.MathTools;
+using Vintagestory.API.Server;
 
 namespace BalancedThirst.Util;
 
 public static class Raycast
 {
-    public static BlockSelection RayCastForFluidBlocks(IPlayer player, float range = 4)
+    public static BlockSelection RayCastForFluidBlocks(IPlayer player)
     {
-        var fromPos = player.Entity.ServerPos.XYZ.Add(0, player.Entity.LocalEyePos.Y, 0);
-        var toPos = fromPos.AheadCopy(range, player.Entity.ServerPos.Pitch, player.Entity.ServerPos.Yaw);
-        var step = toPos.Sub(fromPos).Normalize().Mul(0.5); // Reduced step size for finer granularity
+        var fromPos = player.Entity.SidedPos.Copy().XYZ.Add(0, player.Entity.LocalEyePos.Y, 0);
+        var toPos = fromPos.AheadCopy(5, player.Entity.SidedPos.Copy().Pitch, player.Entity.SidedPos.Copy().Yaw);
+        var step = toPos.Sub(fromPos).Normalize().Mul(0.5);
         var currentPos = fromPos.Clone();
-
-        while (currentPos.SquareDistanceTo(fromPos) <= range * range)
+        
+        while (currentPos.SquareDistanceTo(fromPos) <= 25)
         {
             var blockPos = new BlockPos((int)currentPos.X, (int)currentPos.Y, (int)currentPos.Z);
-            var block = player.Entity.World.BlockAccessor.GetBlock(blockPos);
-        
-            if (block.BlockMaterial == EnumBlockMaterial.Liquid)
+            var block = player.Entity.World.BlockAccessor.GetBlock(blockPos, BlockLayersAccess.FluidOrSolid);
+            
+            if (block is { BlockMaterial: EnumBlockMaterial.Liquid })
             {
-                return new BlockSelection { Position = blockPos.Copy(), HitPosition = currentPos.Clone() };
+                return new BlockSelection { Position = blockPos, HitPosition = currentPos.Clone(), Block = block};
             }
-            if (block.BlockMaterial != EnumBlockMaterial.Air)
+            if (block != null && block.BlockMaterial != EnumBlockMaterial.Air)
             {
                 return null;
             }

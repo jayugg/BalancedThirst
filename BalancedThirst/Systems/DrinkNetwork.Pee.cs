@@ -76,7 +76,13 @@ public partial class DrinkNetwork
         var world = player.Entity.World;
         var block = world.BlockAccessor.GetBlock(request.Position);
         _serverChannel.SendPacket(new PeeMessage.Response() { Position = request.Position }, player);
-        if (block is BlockFarmland)
+        if (block is BlockLiquidContainerBase container)
+        {
+            var waterStack = new ItemStack(world.GetItem(new AssetLocation(BtCore.Modid+":urineportion")));
+            var desiredLiters = ConfigSystem.ConfigServer.UrineDrainRate*3f/150; // 3 liters per 1500 hydration
+            container.TryPutLiquid(request.Position, waterStack, desiredLiters); // 3 liters per 1500 hydration
+            container.DoLiquidMovedEffects(player, waterStack, waterStack.StackSize, BlockLiquidContainerBase.EnumLiquidDirection.Fill);
+        } else if (block is BlockFarmland)
         {
             FertiliseFarmland(world, request.Position);
         } 
@@ -91,12 +97,6 @@ public partial class DrinkNetwork
         else if (world.BlockAccessor.GetBlockEntity(request.Position.DownCopy()) is IFarmlandBlockEntity)
         {
             FertiliseIFarmland(world, request.Position.DownCopy());
-        }
-        else if (block is BlockLiquidContainerBase container )
-        {
-            var waterStack = new ItemStack(world.GetItem(new AssetLocation(BtCore.Modid+":urineportion")));
-            container.TryPutLiquid(request.Position, waterStack, ConfigSystem.ConfigServer.UrineDrainRate*3f/1500); // 3 liters per 1500 hydration
-            container.DoLiquidMovedEffects(player, waterStack, waterStack.StackSize, BlockLiquidContainerBase.EnumLiquidDirection.Fill);
         }
         else if (block is BlockToolMold)
         {

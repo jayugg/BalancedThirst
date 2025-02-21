@@ -117,6 +117,7 @@
     "Config.Setting.VomitEuhydrationMultiplier": "Euhydration reduction when vomiting",
 
     "Config.Setting.EnableBladder": "Enable bladder",
+    "Config.Setting.BladderCapacityOverload": "How much can the bladder be overloaded?",
     "Config.Setting.SpillWashStains": "Spilling water washes stains",
     "Config.Setting.BladderWalkSpeedDebuff": "Walk speed debuff at full bladder",
     "Config.Setting.UrineNutrientChance": "Chance of urine giving nutrients to farmland (0 to disable)",
@@ -148,6 +149,7 @@
     "Config.Setting.DowsingRodRadius": "Dowsing rod range",
     "Config.Setting.BoilWaterInFirepits": "Boil water in firepits",
     "Config.Setting.GushingSpringWater": "Gushing spring water",
+    "Config.Setting.HauntingKettleDays": "How many days before spooky day does the haunted kettle awaken (0 to disable)",
     "Config.SettingsAdvanced": "Advanced Settings",
     "Config.Setting.HeatableLiquidContainers": "Heatable Liquid Containers",
     "Config.Setting.WaterPortions": "Water Portions",

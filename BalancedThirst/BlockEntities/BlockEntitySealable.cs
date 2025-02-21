@@ -19,6 +19,14 @@ public class BlockEntitySealable : BlockEntityBucket
         base.Initialize(api);
 
         _ownBlock = Block as BlockLiquidContainerSealable;
+        container.Inventory.OnAcquireTransitionSpeed += (type, stack, mul) =>
+        {
+            if (type == EnumTransitionType.Perish)
+            {
+                return mul * (IsSealed ? Block.Attributes["lidPerishRate"].AsFloat(0.5f) : 1f);
+            }
+            return mul;
+        };
 
 
         if (Api.Side == EnumAppSide.Client)
@@ -93,10 +101,5 @@ public class BlockEntitySealable : BlockEntityBucket
         {
             _currentRightMesh = GenRightMesh();
         }
-    }
-
-    public override float GetPerishRate()
-    {
-        return base.GetPerishRate() * (IsSealed ? Block.Attributes["lidPerishRate"].AsFloat(0.5f) : 1f);
     }
 }

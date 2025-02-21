@@ -43,7 +43,7 @@ public class XSkillsCompat : ModSystem
         if (behavior == null)
             return;
         var factor = 1f + (float) ((double) playerAbility.Value(0)/500)*ConfigSystem.ConfigServer.CamelHumpMaxHydrationMultiplier;
-        behavior.MaxHydration = (float) Math.Round(ConfigSystem.ConfigServer.MaxHydration*factor);
+        behavior.MaxHydrationModifier *= factor;
         behavior.Hydration *= factor;
         behavior.UpdateThirstBoosts();
     }
@@ -61,8 +61,7 @@ public class XSkillsCompat : ModSystem
         if (behavior == null)
             return;
         var factor = 1f + (float) ((double) playerAbility.Value(0)/750)*ConfigSystem.ConfigServer.ElephantBladderCapacityMultiplier;
-        behavior.Capacity = (float) Math.Round(ConfigSystem.ConfigServer.MaxHydration * factor);
-        behavior.CapacityOverload = (float) Math.Round(ConfigSystem.ConfigServer.BladderCapacityOverload*ConfigSystem.ConfigServer.MaxHydration*factor);
+        behavior.CapacityModifier *= factor;
     }
     
 }
