@@ -11,56 +11,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9363b40e-165c-4a01-a221-4b01f3a6d07c" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/BalancedThirst/HarmonyPatches/BlockLiquidContainer/BlockLiquidContainerBase_Spillcontents_Transpiler.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BalancedThirst/Util/DateUtil.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/itemtypes/compatibility/expandedfoods/breadedvegetable.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/patches/compatibility/expandedfoods/compatibility/ancienttools/breadedvegetable.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/patches/compatibility/expandedfoods/compatibility/wildcraftfruit/breadedvegetable.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Releases/balancedthirst/assets/balancedthirst/itemtypes/compatibility/expandedfoods/breadedvegetable.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Releases/balancedthirst/assets/balancedthirst/patches/compatibility/expandedfoods/compatibility/ancienttools/breadedvegetable.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Releases/balancedthirst/assets/balancedthirst/patches/compatibility/expandedfoods/compatibility/wildcraftfruit/breadedvegetable.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Releases/balancedthirst_0.0.44.zip" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.BalancedThirst/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.BalancedThirst/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BalancedThirst.sln.DotSettings.user" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst.sln.DotSettings.user" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BalancedThirst/BalancedThirst.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/BalancedThirst.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BalancedThirst/BlockEntities/BlockEntitySealable.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/BlockEntities/BlockEntitySealable.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BalancedThirst/Blocks/BlockGourdMotherplant.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/Blocks/BlockGourdMotherplant.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BalancedThirst/Blocks/BlockLiquidContainerSealable.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/Blocks/BlockLiquidContainerSealable.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BalancedThirst/Blocks/KettleInFirepitRenderer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/Blocks/KettleInFirepitRenderer.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BalancedThirst/Compatibility/XSkillsCompat.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/Compatibility/XSkillsCompat.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BalancedThirst/Config/ConfigLibCompat.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/Config/ConfigLibCompat.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BalancedThirst/Config/SyncedConfig.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/Config/SyncedConfig.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BalancedThirst/HarmonyPatches/BlockLiquidContainer/BlockLiquidContainerBase_SpillContents_Patch.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/HarmonyPatches/BlockLiquidContainer/BlockLiquidContainerBase_SpillContents_Patch.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BalancedThirst/ModBehavior/EntityBehaviorBladder.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/ModBehavior/EntityBehaviorBladder.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BalancedThirst/Properties/launchSettings.json" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/Properties/launchSettings.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BalancedThirst/Systems/BtCore.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/Systems/BtCore.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BalancedThirst/Systems/DrinkNetwork.Pee.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/Systems/DrinkNetwork.Pee.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BalancedThirst/Systems/DrinkNetwork.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/Systems/DrinkNetwork.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BalancedThirst/Systems/HarmonyPatches.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/Systems/HarmonyPatches.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BalancedThirst/Thirst/EntityBehaviorThirst.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/Thirst/EntityBehaviorThirst.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BalancedThirst/Util/Extensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/Util/Extensions.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BalancedThirst/Util/Raycast.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/Util/Raycast.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/compatibility/expandedfoods/recipes/kneading/acorns/acornbreadedcalabash.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/compatibility/expandedfoods/recipes/patches/compatibility/acornbreadedvegetable.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/lang/en.json" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/lang/en.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/patches/commoditytrades.json" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/patches/commoditytrades.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/patches/compatibility/expandedfoods/acorns/acornbreadedball.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/patches/compatibility/expandedfoods/acorns/acornbreadedvegetable.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/patches/compatibility/expandedfoods/breadedvegetable.json" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/patches/compatibility/expandedfoods/breadedvegetable.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/patches/luxurytrades.json" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/patches/luxurytrades.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/patches/survivaltrades.json" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/patches/survivaltrades.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BalancedThirst/changelog.txt" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/changelog.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BalancedThirst/modinfo.json" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/modinfo.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Releases/balancedthirst/BalancedThirst.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Releases/balancedthirst/BalancedThirst.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Releases/balancedthirst/BalancedThirst.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Releases/balancedthirst/BalancedThirst.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Releases/balancedthirst/assets/balancedthirst/compatibility/expandedfoods/recipes/kneading/acorns/acornbreadedcalabash.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Releases/balancedthirst/assets/balancedthirst/compatibility/expandedfoods/recipes/patches/compatibility/acornbreadedvegetable.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Releases/balancedthirst/assets/balancedthirst/lang/en.json" beforeDir="false" afterPath="$PROJECT_DIR$/Releases/balancedthirst/assets/balancedthirst/lang/en.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Releases/balancedthirst/assets/balancedthirst/patches/compatibility/expandedfoods/acorns/acornbreadedball.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Releases/balancedthirst/assets/balancedthirst/patches/compatibility/expandedfoods/acorns/acornbreadedvegetable.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Releases/balancedthirst/assets/balancedthirst/patches/compatibility/expandedfoods/breadedvegetable.json" beforeDir="false" afterPath="$PROJECT_DIR$/Releases/balancedthirst/assets/balancedthirst/patches/compatibility/expandedfoods/breadedvegetable.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Releases/balancedthirst/modinfo.json" beforeDir="false" afterPath="$PROJECT_DIR$/Releases/balancedthirst/modinfo.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Releases/balancedthirst_0.0.43.zip" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -492,7 +443,7 @@
       <workItem from="1730321353483" duration="2234000" />
       <workItem from="1730330435043" duration="608000" />
       <workItem from="1740089702802" duration="1658000" />
-      <workItem from="1740175044667" duration="6529000" />
+      <workItem from="1740175044667" duration="7421000" />
     </task>
     <task id="LOCAL-00001" summary="Working kettle, and smelting, demijohn">
       <option name="closed" value="true" />
@@ -702,7 +653,15 @@
       <option name="project" value="LOCAL" />
       <updated>1727221858789</updated>
     </task>
-    <option name="localTasksCounter" value="27" />
+    <task id="LOCAL-00027" summary="Unstable release">
+      <option name="closed" value="true" />
+      <created>1740182239412</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1740182239412</updated>
+    </task>
+    <option name="localTasksCounter" value="28" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -741,24 +700,12 @@
     <MESSAGE value="Foods compat" />
     <MESSAGE value="0.0.43" />
     <MESSAGE value="Fix urine volum and buff hydration" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix urine volum and buff hydration" />
+    <MESSAGE value="Unstable release" />
+    <option name="LAST_COMMIT_MESSAGE" value="Unstable release" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/db47eeeb90324f0c8c1710156b26ea682b6e00/bc/a7f590dd/BlockLiquidContainerBase.cs</url>
-          <line>409</line>
-          <properties documentPath="$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/db47eeeb90324f0c8c1710156b26ea682b6e00/bc/a7f590dd/BlockLiquidContainerBase.cs" containingFunctionPresentation="Method 'TryPutLiquid'">
-            <startOffsets>
-              <option value="17265" />
-            </startOffsets>
-            <endOffsets>
-              <option value="17331" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="33" />
-        </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/BalancedThirst/Systems/DrinkNetwork.Pee.cs</url>
           <line>82</line>
