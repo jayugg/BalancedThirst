@@ -20,7 +20,7 @@ public class BlockLiquidContainerBase_TryFillFromBlock_Patch
         BlockPos pos
         )
     {
-        if (ConfigSystem.SyncedConfigData.DynamicWaterPurity == false) return;
+        if (ConfigSystem.ConfigServer.DynamicWaterPurity == false) return;
         if (__result == false) return;
         if (byEntity is not EntityPlayer player) return;
         var contentStack = __instance.GetContent(itemslot.Itemstack);

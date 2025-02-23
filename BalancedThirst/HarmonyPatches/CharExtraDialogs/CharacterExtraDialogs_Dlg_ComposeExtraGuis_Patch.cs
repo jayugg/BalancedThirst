@@ -12,7 +12,7 @@ namespace BalancedThirst.HarmonyPatches.CharExtraDialogs;
 
 public class CharacterExtraDialogs_Dlg_ComposeExtraGuis_Patch
 {
-    public static bool ShouldSkipPatch() => !ConfigSystem.SyncedConfigData.EnableThirst;
+    public static bool ShouldSkipPatch() => !ConfigSystem.ConfigServer.EnableThirst;
     public static void Postfix(CharacterExtraDialogs __instance)
     {
         if (ShouldSkipPatch()) return;

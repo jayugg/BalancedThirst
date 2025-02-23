@@ -29,7 +29,7 @@ public class HarmonyPatches : ModSystem
     {
         this._api = api;
         Patch();
-        var configData = ConfigSystem.SyncedConfigData;
+        var configData = ConfigSystem.ConfigServer;
 
         if (Math.Abs(configData.ContainerDrinkSpeed - 1) > 0.0001)
         {

@@ -12,7 +12,7 @@ namespace BalancedThirst.HarmonyPatches.CollObj;
 
 public class CollectibleObject_OnHeldInteractStop_Patch
 {
-    private static bool ShouldSkipPatch => !ConfigSystem.SyncedConfigData.EnableThirst;
+    private static bool ShouldSkipPatch => !ConfigSystem.ConfigServer.EnableThirst;
     
     static bool _alreadyCalled = false;
     private static Dictionary<string, Tuple<ItemSlot, float, float>> _capturedSlot = new();

@@ -11,7 +11,7 @@ namespace BalancedThirst.HarmonyPatches.CookedContainer;
 
 public class BlockCookedContainer_GetHeldItemInfo_Patch
 {
-    private static bool ShouldSkipPatch => !ConfigSystem.SyncedConfigData.EnableThirst;
+    private static bool ShouldSkipPatch => !ConfigSystem.ConfigServer.EnableThirst;
     
     public static void Postfix(ItemSlot inSlot, StringBuilder dsc, IWorldAccessor world, bool withDebugInfo)
     {

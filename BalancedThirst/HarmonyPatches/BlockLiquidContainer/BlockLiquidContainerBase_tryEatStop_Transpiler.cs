@@ -15,7 +15,7 @@ public static class BlockLiquidContainerBase_tryEatStop_Transpiler
         {
             // Look for the ldc.r4 opcode which loads a float32 (in this case, 1f) onto the evaluation stack
             if (codeInstruction.opcode != OpCodes.Ldc_R4 || !(Math.Abs((float)codeInstruction.operand - 1f) < 0.0001)) continue;
-            codeInstruction.operand = ConfigSystem.SyncedConfigData.ContainerDrinkSpeed;
+            codeInstruction.operand = ConfigSystem.ConfigServer.ContainerDrinkSpeed;
             break; // Only one occurrence needs to be changed
         }
         return codes;

@@ -99,9 +99,6 @@ public class KettleInFirepitRenderer : IInFirepitRenderer
 
         IStandardShaderProgram prog = rpi.PreparedStandardShader(_pos.X, _pos.Y, _pos.Z);
         
-        // Haunting Kettle bug easter egg for Halloween
-        if (DateUtil.IsHauntingKettleTime()) rpi.RenderMultiTextureMesh(_kettleRef, "tex");
-        
         prog.DontWarpVertices = 0;
         prog.AddRenderFlags = 0;
         prog.RgbaAmbientIn = rpi.AmbientColor;
@@ -126,7 +123,7 @@ public class KettleInFirepitRenderer : IInFirepitRenderer
         prog.ViewMatrix = rpi.CameraMatrixOriginf;
         prog.ProjectionMatrix = rpi.CurrentProjectionMatrix;
         
-        rpi.RenderMultiTextureMesh(_kettleRef, DateUtil.IsHauntingKettleTime()? null : "tex");
+        rpi.RenderMultiTextureMesh(_kettleRef, "tex");
 
         if (!_isInOutputSlot)
         {
@@ -149,11 +146,11 @@ public class KettleInFirepitRenderer : IInFirepitRenderer
             prog.ProjectionMatrix = rpi.CurrentProjectionMatrix;
 
 
-            rpi.RenderMultiTextureMesh(_topRef, DateUtil.IsHauntingKettleTime()? null : "tex");
+            rpi.RenderMultiTextureMesh(_topRef, "tex");
         }
         else if (_contentRef != null)
         {
-            rpi.RenderMultiTextureMesh(_contentRef, DateUtil.IsHauntingKettleTime()? null : "tex");
+            rpi.RenderMultiTextureMesh(_contentRef, "tex");
         }
 
         prog.Stop();

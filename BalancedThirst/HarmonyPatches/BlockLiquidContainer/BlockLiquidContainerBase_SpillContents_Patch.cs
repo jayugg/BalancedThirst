@@ -19,7 +19,7 @@ public class BlockLiquidContainerBase_SpillContents_Patch
         var world = byEntity.World;
         world.BlockAccessor.GetBlockEntity(blockSel.Position.AddCopy(blockSel.Face))?.GetBehavior<BEBehaviorBurning>()?.KillFire(false);
         world.BlockAccessor.GetBlockEntity(blockSel.Position)?.GetBehavior<BEBehaviorBurning>()?.KillFire(false);
-        if (!ConfigSystem.SyncedConfigData.SpillWashStains) return;
+        if (!ConfigSystem.ConfigServer.SpillWashStains) return;
         Vec3i voxelPos = new Vec3i();
         for (int index1 = -2; index1 < 2; ++index1)
         {

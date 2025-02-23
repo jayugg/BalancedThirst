@@ -17,8 +17,8 @@ namespace BalancedThirst.Hud
         private float _lastBladderLevel;
         private float _lastBladderCapacity;
         
-        bool ShouldShowBladderBar => ConfigSystem.ConfigClient.BladderBarVisible && ConfigSystem.SyncedConfigData.EnableBladder;
-        bool ShouldShowThirstBar => ConfigSystem.SyncedConfigData.EnableThirst;
+        bool ShouldShowBladderBar => ConfigSystem.ConfigClient.BladderBarVisible && ConfigSystem.ConfigServer.EnableBladder;
+        bool ShouldShowThirstBar => ConfigSystem.ConfigServer.EnableThirst;
         public double[] ThirstBarColor => ModGuiStyle.FromHex(ConfigSystem.ConfigClient.ThirstBarColor);
         public double[] BladderBarColor => ModGuiStyle.FromHex(ConfigSystem.ConfigClient.BladderBarColor);
         public bool FirstComposed { get; private set; }

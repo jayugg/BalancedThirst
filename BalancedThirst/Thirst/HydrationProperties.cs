@@ -42,28 +42,28 @@ public class HydrationProperties
         switch (nutritionProps.FoodCategory)
         {
             case EnumFoodCategory.Fruit:
-                hydrationProps.Hydration = ConfigSystem.SyncedConfigData.FruitHydrationYield * saturation;
+                hydrationProps.Hydration = ConfigSystem.ConfigServer.FruitHydrationYield * saturation;
                 break;
             case EnumFoodCategory.Vegetable:
-                hydrationProps.Hydration = ConfigSystem.SyncedConfigData.VegetableHydrationYield * saturation;
+                hydrationProps.Hydration = ConfigSystem.ConfigServer.VegetableHydrationYield * saturation;
                 break;
             case EnumFoodCategory.Dairy:
-                hydrationProps.Hydration = ConfigSystem.SyncedConfigData.DairyHydrationYield * saturation;
+                hydrationProps.Hydration = ConfigSystem.ConfigServer.DairyHydrationYield * saturation;
                 break;
             case EnumFoodCategory.Protein:
-                hydrationProps.Hydration = ConfigSystem.SyncedConfigData.ProteinHydrationYield * saturation;
+                hydrationProps.Hydration = ConfigSystem.ConfigServer.ProteinHydrationYield * saturation;
                 break;
             case EnumFoodCategory.Grain:
-                hydrationProps.Hydration = ConfigSystem.SyncedConfigData.GrainHydrationYield * saturation;
+                hydrationProps.Hydration = ConfigSystem.ConfigServer.GrainHydrationYield * saturation;
                 hydrationProps.Dehydration = 0.05f;
                 break;
             case EnumFoodCategory.NoNutrition:
-                if (ConfigSystem.SyncedConfigData.NoNutritionHydrationYield == 0) return null;
-                hydrationProps.Hydration = ConfigSystem.SyncedConfigData.NoNutritionHydrationYield * saturation;
+                if (ConfigSystem.ConfigServer.NoNutritionHydrationYield == 0) return null;
+                hydrationProps.Hydration = ConfigSystem.ConfigServer.NoNutritionHydrationYield * saturation;
                 break;
             case EnumFoodCategory.Unknown:
-                if (ConfigSystem.SyncedConfigData.UnknownHydrationYield == 0) return null;
-                hydrationProps.Hydration = ConfigSystem.SyncedConfigData.UnknownHydrationYield * saturation;
+                if (ConfigSystem.ConfigServer.UnknownHydrationYield == 0) return null;
+                hydrationProps.Hydration = ConfigSystem.ConfigServer.UnknownHydrationYield * saturation;
                 break;
             default:
                 return null;

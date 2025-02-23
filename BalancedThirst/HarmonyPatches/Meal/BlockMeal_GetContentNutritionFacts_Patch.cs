@@ -10,7 +10,7 @@ namespace BalancedThirst.HarmonyPatches.Meal;
 
 public class BlockMeal_GetContentNutritionFacts_Patch
 {
-    private static bool ShouldSkipPatch => !ConfigSystem.SyncedConfigData.EnableThirst;
+    private static bool ShouldSkipPatch => !ConfigSystem.ConfigServer.EnableThirst;
     
     public static void Postfix(
         string __result,

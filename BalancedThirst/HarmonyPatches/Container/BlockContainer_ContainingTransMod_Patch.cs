@@ -11,7 +11,7 @@ namespace BalancedThirst.HarmonyPatches.Container;
 
 public class BlockContainer_GetContainingTransitionModifier
 {
-    public static bool ShouldSkipPatch => !ConfigSystem.SyncedConfigData.EnableThirst;
+    public static bool ShouldSkipPatch => !ConfigSystem.ConfigServer.EnableThirst;
     
     public static void Contained_Postfix(
         BlockContainer __instance,

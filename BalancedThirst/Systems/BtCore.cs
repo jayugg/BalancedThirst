@@ -2,7 +2,6 @@
 using BalancedThirst.Blocks;
 using BalancedThirst.Config;
 using BalancedThirst.Hud;
-using BalancedThirst.Items;
 using BalancedThirst.ModBehavior;
 using BalancedThirst.ModBlockBehavior;
 using BalancedThirst.Shader;
@@ -11,10 +10,8 @@ using BalancedThirst.Util;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
 using Vintagestory.API.Common.Entities;
-using Vintagestory.API.Config;
 using Vintagestory.API.Datastructures;
 using Vintagestory.API.Server;
-using Vintagestory.Client.NoObf;
 
 namespace BalancedThirst.Systems;
 
@@ -54,9 +51,7 @@ public class BtCore : ModSystem
         api.RegisterBlockEntityClass($"{Modid}.{nameof(BlockEntityGourdVine)}", typeof(BlockEntityGourdVine));
         api.RegisterBlockEntityClass($"{Modid}.{nameof(BlockEntityGourdMotherplant)}", typeof(BlockEntityGourdMotherplant));
         api.RegisterBlockEntityClass($"{Modid}.{nameof(BlockEntityStain)}", typeof(BlockEntityStain));
-        api.RegisterItemClass($"{Modid}.{nameof(ItemDowsingRod)}", typeof(ItemDowsingRod));
         api.RegisterCropBehavior($"{Modid}:GourdPumpkin", typeof(GourdCropBehavior));
-        api.RegisterBlockBehaviorClass($"{Modid}:GushingLiquid", typeof(BlockBehaviorGushingLiquid));
         api.RegisterBlockBehaviorClass($"{Modid}:PureWater", typeof(BlockBehaviorPureWater));
         api.RegisterEntityBehaviorClass($"{Modid}:thirst", typeof(EntityBehaviorThirst));
         api.RegisterEntityBehaviorClass($"{Modid}:bladder", typeof(EntityBehaviorBladder));
@@ -74,7 +69,6 @@ public class BtCore : ModSystem
         sapi.Event.PlayerJoin += (player) => OnPlayerJoin(player.Entity);
         sapi.Event.RegisterEventBusListener(OnConfigReloaded, filterByEventName:EventIds.ConfigReloaded);
         BtCommands.Register(sapi);
-        ConfigSystem.StartServerSide(sapi);
     }
     
     public bool LoadShaders()
@@ -105,7 +99,6 @@ public class BtCore : ModSystem
         {
             new ThirstBarHudElement(capi)
         });
-        ConfigSystem.StartClientSide(capi);
         //capi.Event.ReloadShader += LoadShaders;
         //LoadShaders();
 

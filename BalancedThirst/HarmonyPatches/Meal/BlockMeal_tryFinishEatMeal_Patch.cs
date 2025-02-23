@@ -10,7 +10,7 @@ namespace BalancedThirst.HarmonyPatches.Meal;
 
 public class BlockMeal_tryFinishEatMeal_Patch
 {
-    private static bool ShouldSkipPatch => !ConfigSystem.SyncedConfigData.EnableThirst;
+    private static bool ShouldSkipPatch => !ConfigSystem.ConfigServer.EnableThirst;
     
     static bool _alreadyCalled = false;
     private static Dictionary<string, HydrationProperties> _capturedProperties = new();

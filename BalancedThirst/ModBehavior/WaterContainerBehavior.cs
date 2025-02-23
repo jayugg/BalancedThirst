@@ -26,7 +26,7 @@ public class WaterContainerBehavior : DrinkableBehavior
     public override WorldInteraction[] GetHeldInteractionHelp(ItemSlot inSlot, ref EnumHandling handling)
     {
         
-        if (ConfigSystem.SyncedConfigData.DynamicWaterPurity == false ||
+        if (ConfigSystem.ConfigServer.DynamicWaterPurity == false ||
             inSlot.Itemstack.Collectible is not BlockLiquidContainerBase container
             || inSlot.Itemstack.Attributes?.GetInt("toolMode") != DirtyWaterMode) return base.GetHeldInteractionHelp(inSlot, ref handling);
         var result = base.GetHeldInteractionHelp(inSlot, ref handling);
@@ -44,7 +44,7 @@ public class WaterContainerBehavior : DrinkableBehavior
 
     public override void OnLoaded(ICoreAPI api)
     {
-        if (ConfigSystem.SyncedConfigData.DynamicWaterPurity == false) return;
+        if (ConfigSystem.ConfigServer.DynamicWaterPurity == false) return;
         modes = new SkillItem[2]
         {
             new SkillItem
@@ -82,13 +82,13 @@ public class WaterContainerBehavior : DrinkableBehavior
         BlockSelection blockSel,
         int toolMode)
     {
-        if (ConfigSystem.SyncedConfigData.DynamicWaterPurity == false) return;
+        if (ConfigSystem.ConfigServer.DynamicWaterPurity == false) return;
         slot.Itemstack.Attributes.SetInt(nameof (toolMode), toolMode);
     }
     
     public override SkillItem[] GetToolModes(ItemSlot slot, IClientPlayer forPlayer, BlockSelection blockSel)
     {
-        if (ConfigSystem.SyncedConfigData.DynamicWaterPurity == false) return base.GetToolModes(slot, forPlayer, blockSel);
+        if (ConfigSystem.ConfigServer.DynamicWaterPurity == false) return base.GetToolModes(slot, forPlayer, blockSel);
         return IsEmpty(slot.Itemstack) ? modes : null;
     }
 
@@ -184,7 +184,7 @@ public class WaterContainerBehavior : DrinkableBehavior
     public override void GetHeldItemInfo(ItemSlot inSlot, StringBuilder dsc, IWorldAccessor world, bool withDebugInfo)
     {
         base.GetHeldItemInfo(inSlot, dsc, world, withDebugInfo);
-        if (ConfigSystem.SyncedConfigData.DynamicWaterPurity == false) return;
+        if (ConfigSystem.ConfigServer.DynamicWaterPurity == false) return;
         if (inSlot.Itemstack.Collectible.IsWaterContainer())
         {
             dsc.AppendLine(Lang.Get($"{BtCore.Modid}:iteminfo-storedwater", GetTransitionRateMul(collObj, EnumTransitionType.Perish)));

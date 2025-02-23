@@ -52,12 +52,12 @@ public partial class DrinkNetwork : ModSystem
     private void OnClientTick(float dt)
     {
         var player = _capi.World.Player;
-        if (ConfigSystem.SyncedConfigData.EnableThirst && !player.IsLookingAtInteractable() &&
+        if (ConfigSystem.ConfigServer.EnableThirst && !player.IsLookingAtInteractable() &&
             player.IsLookingAtDrinkableBlock() && player.Entity.RightHandItemSlot.Empty && !player.Entity.IsHydrationMaxed())
             _capi.Event.PushEvent(EventIds.Interaction,
                 new StringAttribute(BtConstants.InteractionIds.Drink));
         
-        if (!ConfigSystem.SyncedConfigData.EnableBladder) return;
+        if (!ConfigSystem.ConfigServer.EnableBladder) return;
         if (!(player.IsBladderOverloaded() || _capi.World.ElapsedMilliseconds - _lastPeeTime < 2000 ) || !player.Entity.RightHandItemSlot.Empty) return;
         if (ConfigSystem.ConfigClient.PeeMode.IsSitting())
             _capi.Event.PushEvent(EventIds.Interaction,
@@ -82,7 +82,7 @@ public partial class DrinkNetwork : ModSystem
         }
         var world = _capi.World;
         EntityPlayer player = world.Player.Entity;
-        if (ConfigSystem.SyncedConfigData.EnableThirst
+        if (ConfigSystem.ConfigServer.EnableThirst
             && player.RightHandItemSlot.Empty
             && !player.IsHydrationMaxed()
             && player.Player is IClientPlayer clientPlayer &&
@@ -101,13 +101,13 @@ public partial class DrinkNetwork : ModSystem
                 }
             }
         }
-        if (ConfigSystem.SyncedConfigData.EnableBladder &&
+        if (ConfigSystem.ConfigServer.EnableBladder &&
             (player.Player.IsBladderOverloaded() || world.ElapsedMilliseconds - _lastPeeTime < 2000) && 
             !player.Controls.TriesToMove && player.Controls.CtrlKey &&
             player.RightHandItemSlot.Empty && 
             ConfigSystem.ConfigClient.PeeMode.IsStanding() ||
             (player.Controls.FloorSitting &&
-            ConfigSystem.ConfigClient.PeeMode.IsSitting()))
+             ConfigSystem.ConfigClient.PeeMode.IsSitting()))
         {
             _lastPeeTime = world.ElapsedMilliseconds;
             _clientChannel.SendPacket(new PeeMessage.Request()
