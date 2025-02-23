@@ -1,6 +1,4 @@
-- [Fix] 1.20 trader trades
-- [Rework] Source drinking - no more weird solid water interaction, possibly better performance
-- [Fix] Urinating in containers (still needs some balancing)
+- [Fix] Rebuild to newer configlib and XLib versions
 
 - Expandedfoods items: candied calabash, calabash jelly, fine wine, fine spirit
 - TODO add vomit shader uniform (like the dehydration shader), remove particles
