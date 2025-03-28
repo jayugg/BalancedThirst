@@ -12,6 +12,14 @@
   <component name="ChangeListManager">
     <list default="true" id="9363b40e-165c-4a01-a221-4b01f3a6d07c" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.BalancedThirst/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.BalancedThirst/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BalancedThirst/BalancedThirst.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/BalancedThirst.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BalancedThirst/Util/BtConstants.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/Util/BtConstants.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/itemtypes/liquid/lantportion.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/itemtypes/liquid/urineportion.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/recipes/barrel/lantportion.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/recipes/barrel/soakedhidelant.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/recipes/smithing/dowsingrod.json" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/recipes/smithing/dowsingrod.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BalancedThirst/assets/game/blocktypes/purewater.json" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/assets/game/blocktypes/purewater.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -157,6 +165,7 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/542ba26bb8aa4ea49b5afc99fb8541f2246200/fc/c0b5d5be/BlockEntityDeadCrop.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/542ba26bb8aa4ea49b5afc99fb8541f2246200/fc/c0ccb487/PumpkinCropBehavior.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/6c0b9dbc23c247b392d18f1a652b5a1b58800/90/a46cdf3c/ConfigLibModSystem.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/6ecc8bbd4794444d9ae7da87870ec5ce1d7600/11/6be88c2d/IModLoader.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/6ecc8bbd4794444d9ae7da87870ec5ce1d7600/26/5f353418/BlockEntity.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/6ecc8bbd4794444d9ae7da87870ec5ce1d7600/2c/25fa91ee/BlockLayersAccess.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/6ecc8bbd4794444d9ae7da87870ec5ce1d7600/49/08525c9f/CustomGetTransitionSpeedMulDelegate.cs" root0="SKIP_HIGHLIGHTING" />
@@ -164,7 +173,7 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/6ecc8bbd4794444d9ae7da87870ec5ce1d7600/85/94f84eda/BlockSelection.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/6ecc8bbd4794444d9ae7da87870ec5ce1d7600/88/026a6be9/IWorldAccessor.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/6ecc8bbd4794444d9ae7da87870ec5ce1d7600/a9/3f2798f9/IBlockEntityContainer.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/6ecc8bbd4794444d9ae7da87870ec5ce1d7600/ec/f55a5811/IBlockAccessor.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/6ecc8bbd4794444d9ae7da87870ec5ce1d7600/ec/f55a5811/IBlockAccessor.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/84f27e81d3694907913d7960f70f359ebc00/26/33f902a6/GLFW.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/b4dd82ebff7a472d87d85df3653210b290200/03/6f08af15/EntityBehaviorHunger.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/b4dd82ebff7a472d87d85df3653210b290200/2b/c94685fe/GridRecipeLoader.cs" root0="FORCE_HIGHLIGHTING" />
@@ -276,10 +285,10 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/db47eeeb90324f0c8c1710156b26ea682b6e00/0b/9ecb4310/BlockEntityLiquidContainer.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/db47eeeb90324f0c8c1710156b26ea682b6e00/29/ece51184/BlockCrop.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/db47eeeb90324f0c8c1710156b26ea682b6e00/38/34848ced/BlockEntityBucket.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/db47eeeb90324f0c8c1710156b26ea682b6e00/3a/8f8881c6/BlockBucket.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/db47eeeb90324f0c8c1710156b26ea682b6e00/3a/8f8881c6/BlockBucket.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/db47eeeb90324f0c8c1710156b26ea682b6e00/6c/2a58f362/BlockEntityContainer.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/db47eeeb90324f0c8c1710156b26ea682b6e00/bc/a7f590dd/BlockLiquidContainerBase.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/db47eeeb90324f0c8c1710156b26ea682b6e00/c1/9bc328ab/BlockLiquidContainerTopOpened.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/db47eeeb90324f0c8c1710156b26ea682b6e00/bc/a7f590dd/BlockLiquidContainerBase.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/db47eeeb90324f0c8c1710156b26ea682b6e00/c1/9bc328ab/BlockLiquidContainerTopOpened.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/e8f4ffd5a64d45c3a25139d7e73d8e6f3ba00/7e/b17e8c12/Harmony.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/e8f4ffd5a64d45c3a25139d7e73d8e6f3ba00/d6/f269e754/PatchProcessor.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/27ebb9dba057336696da6e2e2c8b7cd73c515b284a6ab731c1e0e31b5deb/Type.cs" root0="SKIP_HIGHLIGHTING" />
@@ -290,7 +299,7 @@
   </component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
   <component name="ProblemsViewState">
-    <option name="selectedTabId" value="CurrentFile" />
+    <option name="selectedTabId" value="SWEA" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 0
@@ -305,7 +314,7 @@
   </component>
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
-    &quot;.NET Launch Settings Profile.BalancedThirst: Client.executor&quot;: &quot;Debug&quot;,
+    &quot;.NET Launch Settings Profile.BalancedThirst: Client.executor&quot;: &quot;Run&quot;,
     &quot;.NET Launch Settings Profile.BalancedThirst: ClientDebug.executor&quot;: &quot;Run&quot;,
     &quot;.NET Launch Settings Profile.BalancedThirst: Server.executor&quot;: &quot;Run&quot;,
     &quot;.NET Launch Settings Profile.Client Debug.executor&quot;: &quot;Run&quot;,
@@ -323,7 +332,7 @@
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
-  <component name="RunManager" selected=".NET Project.CakeBuild">
+  <component name="RunManager" selected=".NET Launch Settings Profile.BalancedThirst: Client">
     <configuration name="CakeBuild" type="DotNetProject" factoryName=".NET Project">
       <option name="EXE_PATH" value="" />
       <option name="PROGRAM_PARAMETERS" value="" />
@@ -444,6 +453,9 @@
       <workItem from="1730330435043" duration="608000" />
       <workItem from="1740089702802" duration="1658000" />
       <workItem from="1740175044667" duration="7421000" />
+      <workItem from="1740330221681" duration="16964000" />
+      <workItem from="1741571100050" duration="1493000" />
+      <workItem from="1741923219496" duration="18000" />
     </task>
     <task id="LOCAL-00001" summary="Working kettle, and smelting, demijohn">
       <option name="closed" value="true" />
@@ -661,7 +673,23 @@
       <option name="project" value="LOCAL" />
       <updated>1740182239412</updated>
     </task>
-    <option name="localTasksCounter" value="28" />
+    <task id="LOCAL-00028" summary="[Fix] Rebuild to newer configlib and XLib versions">
+      <option name="closed" value="true" />
+      <created>1740335420402</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1740335420402</updated>
+    </task>
+    <task id="LOCAL-00029" summary="Config dejank">
+      <option name="closed" value="true" />
+      <created>1740344037081</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1740344037081</updated>
+    </task>
+    <option name="localTasksCounter" value="30" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -701,7 +729,9 @@
     <MESSAGE value="0.0.43" />
     <MESSAGE value="Fix urine volum and buff hydration" />
     <MESSAGE value="Unstable release" />
-    <option name="LAST_COMMIT_MESSAGE" value="Unstable release" />
+    <MESSAGE value="[Fix] Rebuild to newer configlib and XLib versions" />
+    <MESSAGE value="Config dejank" />
+    <option name="LAST_COMMIT_MESSAGE" value="Config dejank" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -711,10 +741,10 @@
           <line>82</line>
           <properties documentPath="$PROJECT_DIR$/BalancedThirst/Systems/DrinkNetwork.Pee.cs" containingFunctionPresentation="Method 'HandlePeeAction'">
             <startOffsets>
-              <option value="3373" />
+              <option value="3369" />
             </startOffsets>
             <endOffsets>
-              <option value="3441" />
+              <option value="3437" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="34" />

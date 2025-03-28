@@ -16,9 +16,9 @@ namespace BalancedThirst.Hud
         
         private float _lastBladderLevel;
         private float _lastBladderCapacity;
-        
-        bool ShouldShowBladderBar => ConfigSystem.ConfigClient.BladderBarVisible && ConfigSystem.ConfigServer.EnableBladder;
-        bool ShouldShowThirstBar => ConfigSystem.ConfigServer.EnableThirst;
+
+        private bool ShouldShowBladderBar => ConfigSystem.ConfigClient.BladderBarVisible && ConfigSystem.ConfigServer.EnableBladder;
+        private bool ShouldShowThirstBar => ConfigSystem.ConfigServer.EnableThirst;
         public double[] ThirstBarColor => ModGuiStyle.FromHex(ConfigSystem.ConfigClient.ThirstBarColor);
         public double[] BladderBarColor => ModGuiStyle.FromHex(ConfigSystem.ConfigClient.BladderBarColor);
         public bool FirstComposed { get; private set; }
@@ -61,13 +61,13 @@ namespace BalancedThirst.Hud
             var thirstTree = capi.World.Player.Entity.WatchedAttributes.GetTreeAttribute(BtCore.Modid+":thirst");
             if (thirstTree == null || _thirstBar == null) return;
 
-            float? currentHydration = thirstTree.TryGetFloat("currenthydration");
-            float? maxHydration = thirstTree.TryGetFloat("maxhydration");
+            var currentHydration = thirstTree.TryGetFloat("currenthydration");
+            var maxHydration = thirstTree.TryGetFloat("maxhydration");
 
             if (!currentHydration.HasValue || !maxHydration.HasValue) return;
 
-            bool isHydrationChanged = Math.Abs(_lastHydration - currentHydration.Value) >= 0.1;
-            bool isMaxHydrationChanged = Math.Abs(_lastMaxHydration - maxHydration.Value) >= 0.1;
+            var isHydrationChanged = Math.Abs(_lastHydration - currentHydration.Value) >= 0.1;
+            var isMaxHydrationChanged = Math.Abs(_lastMaxHydration - maxHydration.Value) >= 0.1;
 
             if (!isHydrationChanged && !isMaxHydrationChanged && !forceReload) return;
 
@@ -83,13 +83,13 @@ namespace BalancedThirst.Hud
             var bladderTree = this.capi.World.Player.Entity.WatchedAttributes.GetTreeAttribute(BtCore.Modid+":bladder");
             if (bladderTree == null || _bladderBar == null) return;
 
-            float? currentLevel = bladderTree.TryGetFloat("currentlevel");
-            float? capacity = bladderTree.TryGetFloat("capacity");
+            var currentLevel = bladderTree.TryGetFloat("currentlevel");
+            var capacity = bladderTree.TryGetFloat("capacity");
 
             if (!currentLevel.HasValue || !capacity.HasValue) return;
 
-            bool isLevelChanged = Math.Abs(_lastBladderLevel - currentLevel.Value) >= 0.1;
-            bool isCapacityChanged = Math.Abs(_lastBladderCapacity - capacity.Value) >= 0.1;
+            var isLevelChanged = Math.Abs(_lastBladderLevel - currentLevel.Value) >= 0.1;
+            var isCapacityChanged = Math.Abs(_lastBladderCapacity - capacity.Value) >= 0.1;
 
             if (!isLevelChanged && !isCapacityChanged && !forceReload) return;
 
@@ -106,17 +106,17 @@ namespace BalancedThirst.Hud
             var bladderTree  = this.capi.World.Player.Entity.WatchedAttributes.GetTreeAttribute(BtCore.Modid+":bladder");
             if (thirstTree != null && this._thirstBar != null) 
             {
-                float? nullable2 = thirstTree.TryGetFloat("currenthydration");
-                float? nullable1 = thirstTree.TryGetFloat("maxhydration");
-                double? nullable3 = nullable2.HasValue & nullable1.HasValue ? nullable2.GetValueOrDefault() / (double) nullable1.GetValueOrDefault() : new double?();
-                double num = 0.2;
+                var nullable2 = thirstTree.TryGetFloat("currenthydration");
+                var nullable1 = thirstTree.TryGetFloat("maxhydration");
+                var nullable3 = nullable2.HasValue & nullable1.HasValue ? nullable2.GetValueOrDefault() / (double) nullable1.GetValueOrDefault() : new double?();
+                var num = 0.2;
                 if (nullable3.GetValueOrDefault() < num & nullable3.HasValue) 
                     this._thirstBar.ShouldFlash = true;
                 if (bladderTree != null && ShouldShowBladderBar)
                 {
-                    float? currentlevel = bladderTree.TryGetFloat("currentlevel");
-                    float? capacity = bladderTree.TryGetFloat("capacity");
-                    double? ratio = currentlevel.HasValue & capacity.HasValue
+                    var currentlevel = bladderTree.TryGetFloat("currentlevel");
+                    var capacity = bladderTree.TryGetFloat("capacity");
+                    var ratio = currentlevel.HasValue & capacity.HasValue
                         ? currentlevel.GetValueOrDefault() / (double)capacity.GetValueOrDefault()
                         : new double?();
                     if (ratio.GetValueOrDefault() > 1 & ratio.HasValue)
@@ -126,9 +126,9 @@ namespace BalancedThirst.Hud
             
             if (bladderTree != null && !ShouldShowBladderBar && this._bladderBar != null)
             {
-                float? currentlevel = bladderTree.TryGetFloat("currentlevel");
-                float? capacity = bladderTree.TryGetFloat("capacity");
-                double? ratio = currentlevel.HasValue & capacity.HasValue
+                var currentlevel = bladderTree.TryGetFloat("currentlevel");
+                var capacity = bladderTree.TryGetFloat("capacity");
+                var ratio = currentlevel.HasValue & capacity.HasValue
                     ? currentlevel.GetValueOrDefault() / (double)capacity.GetValueOrDefault()
                     : new double?();
                 if (ratio.GetValueOrDefault() > 1 & ratio.HasValue)
@@ -140,10 +140,10 @@ namespace BalancedThirst.Hud
         {
             FirstComposed = true;
             var num = 850f;
-            ElementBounds parentBounds = GenParentBounds();
+            var parentBounds = GenParentBounds();
             if (ShouldShowThirstBar)
             {
-                ElementBounds thirstBarBounds = ElementStdBounds.Statbar(EnumDialogArea.RightBottom, num * 0.41)
+                var thirstBarBounds = ElementStdBounds.Statbar(EnumDialogArea.RightBottom, num * 0.41)
                     .WithFixedAlignmentOffset(-2.0 + ConfigSystem.ConfigClient.ThirstBarX,
                         21 + ConfigSystem.ConfigClient.ThirstBarY);
                 thirstBarBounds.WithFixedHeight(10.0);
@@ -163,7 +163,7 @@ namespace BalancedThirst.Hud
 
             if (ShouldShowBladderBar)
             {
-                ElementBounds bladderBarBounds = ElementStdBounds.Statbar(EnumDialogArea.RightBottom, num * 0.41)
+                var bladderBarBounds = ElementStdBounds.Statbar(EnumDialogArea.RightBottom, num * 0.41)
                     .WithFixedAlignmentOffset(-2.0 + ConfigSystem.ConfigClient.ThirstBarX,
                         10 + ConfigSystem.ConfigClient.ThirstBarY);
                 bladderBarBounds.WithFixedHeight(6.0);

@@ -25,7 +25,7 @@ public class BtCore : ModSystem
     
     private IShaderProgram _thirstShaderProgram;
     public IShaderProgram ThirstShaderProgram => _thirstShaderProgram;
-    ThirstShaderRenderer renderer;
+    private ThirstShaderRenderer renderer;
     
     public override void StartPre(ICoreAPI api)
     {
@@ -131,7 +131,7 @@ public class BtCore : ModSystem
     
     private void OnConfigReloaded(string eventname, ref EnumHandling handling, IAttribute data)
     {
-        foreach (IPlayer player in _api.World.AllPlayers)
+        foreach (var player in _api.World.AllPlayers)
         {
             if (player.Entity == null) continue;
             RemoveEntityBehaviors(player.Entity);

@@ -1,4 +1,5 @@
 {
+  "enabled": false,
   "code": "balancedthirst-purewater",
   "__comment": "BlockGushingWater contains code to rise up when discovered",
   "classByType": {

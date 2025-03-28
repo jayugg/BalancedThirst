@@ -17,7 +17,7 @@ public class GridRecipeLoader_LoadRecipe_Patch
             return;
         }
 
-        ICoreServerAPI api = __instance.GetField<ICoreServerAPI>("api");
+        var api = __instance.GetField<ICoreServerAPI>("api");
         if (!recipe.Ingredients.Any(ing =>
                 (ing.Value.Attributes?["ucontents"]?.AsObject<ItemStack[]>() is { } contents && contents.Any(content =>
                     content.Collectible.Code.PathStartsWith("game:waterportion"))) ||

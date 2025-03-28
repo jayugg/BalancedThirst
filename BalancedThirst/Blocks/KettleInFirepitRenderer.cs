@@ -15,19 +15,19 @@ public class KettleInFirepitRenderer : IInFirepitRenderer
     public float Origx;
     public float Origz;
 
-    ICoreClientAPI _capi;
-    ItemStack _stack;
+    private ICoreClientAPI _capi;
+    private ItemStack _stack;
 
-    MultiTextureMeshRef _kettleRef;
-    MultiTextureMeshRef _contentRef;
-    MultiTextureMeshRef _topRef;
-    BlockPos _pos;
-    float _temp;
+    private MultiTextureMeshRef _kettleRef;
+    private MultiTextureMeshRef _contentRef;
+    private MultiTextureMeshRef _topRef;
+    private BlockPos _pos;
+    private float _temp;
 
-    ILoadedSound _cookingSound;
+    private ILoadedSound _cookingSound;
 
-    bool _isInOutputSlot;
-    Matrixf _newModelMat = new Matrixf();
+    private bool _isInOutputSlot;
+    private Matrixf _newModelMat = new Matrixf();
 
     public KettleInFirepitRenderer(ICoreClientAPI capi, ItemStack stack, BlockPos pos, bool isInOutputSlot)
     {
@@ -38,7 +38,7 @@ public class KettleInFirepitRenderer : IInFirepitRenderer
 
         var variant = stack.Collectible.Code.EndVariant();
 
-        BlockKettle kettleBlock =
+        var kettleBlock =
             capi.World.GetBlock(stack.Collectible.CodeWithVariant("metal", variant)) as BlockKettle;
         if (kettleBlock == null) return;
 
@@ -58,11 +58,11 @@ public class KettleInFirepitRenderer : IInFirepitRenderer
         
         if (stack.Collectible is not BlockKettle kettle) return;
         var contentStack = kettle.GetContent(stack);
-        WaterTightContainableProps props = BlockLiquidContainerSealable.GetInContainerProps(contentStack);
+        var props = BlockLiquidContainerSealable.GetInContainerProps(contentStack);
         if (props?.Texture == null) return;
-        ContainerTextureSource contentSource = new ContainerTextureSource(capi, contentStack, props.Texture);
+        var contentSource = new ContainerTextureSource(capi, contentStack, props.Texture);
         MeshData contentMesh;
-        float fullness = contentStack?.StackSize / (props.ItemsPerLitre * kettleBlock?.CapacityLitres) ?? 0;
+        var fullness = contentStack?.StackSize / (props.ItemsPerLitre * kettleBlock?.CapacityLitres) ?? 0;
         
         var contentShape = capi.Assets.TryGet($"{BtCore.Modid}:shapes/block/{kettleBlock?.FirstCodePart()}/contents.json").ToObject<Shape>();
             
@@ -91,13 +91,13 @@ public class KettleInFirepitRenderer : IInFirepitRenderer
             return;
         }
         
-        IRenderAPI rpi = _capi.Render;
-        Vec3d camPos = _capi.World.Player.Entity.CameraPos;
+        var rpi = _capi.Render;
+        var camPos = _capi.World.Player.Entity.CameraPos;
 
         rpi.GlDisableCullFace();
         rpi.GlToggleBlend(true);
 
-        IStandardShaderProgram prog = rpi.PreparedStandardShader(_pos.X, _pos.Y, _pos.Z);
+        var prog = rpi.PreparedStandardShader(_pos.X, _pos.Y, _pos.Z);
         
         prog.DontWarpVertices = 0;
         prog.AddRenderFlags = 0;
@@ -130,7 +130,7 @@ public class KettleInFirepitRenderer : IInFirepitRenderer
              Origx = GameMath.Sin(_capi.World.ElapsedMilliseconds / 300f) * 8 / 16f;
              Origz = GameMath.Cos(_capi.World.ElapsedMilliseconds / 300f) * 8 / 16f;
 
-            float cookIntensity = GameMath.Clamp((_temp - 50) / 50, 0, 1);
+            var cookIntensity = GameMath.Clamp((_temp - 50) / 50, 0, 1);
 
             prog.ModelMatrix = _newModelMat
                 .Identity()
@@ -160,7 +160,7 @@ public class KettleInFirepitRenderer : IInFirepitRenderer
     {
         _temp = temperature;
 
-        float soundIntensity = GameMath.Clamp((_temp - 50) / 50, 0, 1);
+        var soundIntensity = GameMath.Clamp((_temp - 50) / 50, 0, 1);
         SetCookingSoundVolume(_isInOutputSlot ? 0 : soundIntensity);
     }
 

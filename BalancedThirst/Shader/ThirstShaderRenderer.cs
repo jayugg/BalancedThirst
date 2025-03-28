@@ -4,8 +4,8 @@ namespace BalancedThirst.Shader;
 
 public class ThirstShaderRenderer : IRenderer
 {
-    MeshRef quadRef;
-    ICoreClientAPI capi;
+    private MeshRef quadRef;
+    private ICoreClientAPI capi;
     public IShaderProgram overlayShaderProg;
 
     public ThirstShaderRenderer(ICoreClientAPI capi, IShaderProgram overlayShaderProg)
@@ -13,7 +13,7 @@ public class ThirstShaderRenderer : IRenderer
         this.capi = capi;
         this.overlayShaderProg = overlayShaderProg;
 
-        MeshData quadMesh = QuadMeshUtil.GetCustomQuadModelData(-1, -1, 0, 2, 2);
+        var quadMesh = QuadMeshUtil.GetCustomQuadModelData(-1, -1, 0, 2, 2);
         quadMesh.Rgba = null;
 
         quadRef = capi.Render.UploadMesh(quadMesh);
@@ -31,7 +31,7 @@ public class ThirstShaderRenderer : IRenderer
 
     public void OnRenderFrame(float deltaTime, EnumRenderStage stage)
     {
-        IShaderProgram curShader = capi.Render.CurrentActiveShader;
+        var curShader = capi.Render.CurrentActiveShader;
         curShader?.Stop();
         overlayShaderProg?.Use();
         capi.Render.GlToggleBlend(true);

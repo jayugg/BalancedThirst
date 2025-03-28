@@ -31,20 +31,20 @@ public static class Extensions
     {
         if (collObj is BlockMeal meal)
         {
-            ItemStack[] contentStacks = meal.GetNonEmptyContents(world, itemStack);
+            var contentStacks = meal.GetNonEmptyContents(world, itemStack);
             var quantityServings = meal.GetQuantityServings(world, itemStack);
             return contentStacks?.GetHydrationProperties(world, byEntity) * (quantityServings == 0 ? 1 : quantityServings);
         }
         
         if (collObj is BlockCookedContainer)
         {
-            ItemStack[] contentStacks = (itemStack.Collectible as BlockCookedContainer)?.GetNonEmptyContents(world, itemStack);
+            var contentStacks = (itemStack.Collectible as BlockCookedContainer)?.GetNonEmptyContents(world, itemStack);
             return contentStacks?.GetHydrationProperties(world, byEntity);
         }
         
         if (collObj is BlockCrock)
         {
-            ItemStack[] contentStacks = (itemStack.Collectible as BlockCrock)?.GetNonEmptyContents(world, itemStack);
+            var contentStacks = (itemStack.Collectible as BlockCrock)?.GetNonEmptyContents(world, itemStack);
             return contentStacks?.GetHydrationProperties(world, byEntity);
         }
         
@@ -74,7 +74,7 @@ public static class Extensions
         if (contentStacks == null || contentStacks.Length == 0 || world == null) return null;
 
         HydrationProperties totalProps = null;
-        foreach (ItemStack contentStack in contentStacks)
+        foreach (var contentStack in contentStacks)
         {
             if (contentStack == null) continue;
             if (contentStack.Collectible == null)
@@ -105,22 +105,22 @@ public static class Extensions
     public static HydrationProperties GetBlockHydrationProperties(this Block block)
     {
         block.EnsureAttributesNotNull();
-        JToken token = block.Attributes.Token;
-        HydrationProperties hydrationProperties = token["hydrationProps"]?.ToObject<HydrationProperties>();
+        var token = block.Attributes.Token;
+        var hydrationProperties = token["hydrationProps"]?.ToObject<HydrationProperties>();
         return hydrationProperties;
     }
     
     public static FoodNutritionProperties GetNutritionProperties(this CollectibleObject collectible)
     {
         collectible.EnsureAttributesNotNull();
-        JToken token = collectible.Attributes.Token;
+        var token = collectible.Attributes.Token;
         var waterTightContainerProps = token["waterTightContainerProps"];
         if (waterTightContainerProps == null)
         {
-            FoodNutritionProperties nutritionProperties = token["nutritionProps"]?.ToObject<FoodNutritionProperties>();
+            var nutritionProperties = token["nutritionProps"]?.ToObject<FoodNutritionProperties>();
             if (nutritionProperties == null)
             {
-                Dictionary<string, FoodNutritionProperties> nutritionPropsByType = token["nutritionPropsByType"]?.ToObject<Dictionary<string, FoodNutritionProperties>>();
+                var nutritionPropsByType = token["nutritionPropsByType"]?.ToObject<Dictionary<string, FoodNutritionProperties>>();
                 if (nutritionPropsByType != null)
                 {
                     nutritionProperties = nutritionPropsByType.Where(keyVal => collectible.MyWildCardMatch(keyVal.Key))
@@ -133,7 +133,7 @@ public static class Extensions
         }
         else
         {
-            FoodNutritionProperties nutritionProperties = token["nutritionPropsPerLitre"]?.ToObject<FoodNutritionProperties>();
+            var nutritionProperties = token["nutritionPropsPerLitre"]?.ToObject<FoodNutritionProperties>();
             return nutritionProperties;
         }
     }
@@ -146,8 +146,8 @@ public static class Extensions
     
     public static bool IsRiverBlock(this BlockPos pos, IWorldAccessor world)
     {
-        IWorldChunk chunk = world.BlockAccessor.GetChunk(pos.X / 32, 0, pos.Z / 32);
-        float[] moddata = chunk?.GetModdata<float[]>("flowVectors");
+        var chunk = world.BlockAccessor.GetChunk(pos.X / 32, 0, pos.Z / 32);
+        var moddata = chunk?.GetModdata<float[]>("flowVectors");
         if (moddata == null) return false;
         var localX = pos.X % 32;
         var localZ = pos.Z % 32;
@@ -187,10 +187,10 @@ public static class Extensions
     public static void SetAttribute(this CollectibleObject collectible, string name, object obj)
     {
         collectible.EnsureAttributesNotNull();
-        JToken token = collectible.Attributes.Token;
+        var token = collectible.Attributes.Token;
         token[name] = JToken.FromObject(obj);
         // Convert the JToken back to a JsonObject
-        JsonObject newAttributes = new JsonObject(token);
+        var newAttributes = new JsonObject(token);
         // Assign the new JsonObject back to the collectible
         collectible.Attributes = newAttributes;
     }
@@ -198,7 +198,7 @@ public static class Extensions
     public static void SetHydrationProperties(this CollectibleObject collectible, HydrationProperties hydrationProperties)
     {
         collectible.EnsureAttributesNotNull();
-        JToken token = collectible.Attributes.Token;
+        var token = collectible.Attributes.Token;
         token["hydrationProps"] = JToken.FromObject(hydrationProperties);
         FoodNutritionProperties nutritionProperties = new() { Satiety = 0, FoodCategory = EnumFoodCategory.NoNutrition };
         var waterTightContainerProps = token["waterTightContainerProps"];
@@ -210,7 +210,7 @@ public static class Extensions
         {
             waterTightContainerProps["nutritionPropsPerLitre"] ??= JToken.FromObject(nutritionProperties);
         }
-        JsonObject newAttributes = new JsonObject(token);
+        var newAttributes = new JsonObject(token);
         collectible.Attributes = newAttributes;
     }
 
@@ -219,7 +219,7 @@ public static class Extensions
         if (stack == null) return 0;
         var collectible = stack.Collectible;
         collectible?.EnsureAttributesNotNull();
-        JToken token = collectible?.Attributes.Token;
+        var token = collectible?.Attributes.Token;
         if (token == null) return 0;
         var waterTightContainerProps = token["waterTightContainerProps"];
         if (waterTightContainerProps == null)
@@ -311,7 +311,7 @@ public static class Extensions
         if (game == null) return null;
         BlockFilter bfilter = (_, block) => block is not { RenderPass: EnumChunkRenderPass.Meta };
         EntityFilter efilter = (entity) => entity.IsInteractable;
-        bool liquidSelectable = game.LiquidSelectable;
+        var liquidSelectable = game.LiquidSelectable;
         game.forceLiquidSelectable = true;
         var blockSel = clientPlayer.Entity.BlockSelection?.Clone();
         var entitySel = clientPlayer.Entity.EntitySelection?.Clone();
@@ -319,7 +319,7 @@ public static class Extensions
         {
             var pickingRayUtil = game.GetField<PickingRayUtil>("pickingRayUtil");
             if (pickingRayUtil == null) return null;
-            Ray mouseCoordinates = pickingRayUtil.GetPickingRayByMouseCoordinates(game);
+            var mouseCoordinates = pickingRayUtil.GetPickingRayByMouseCoordinates(game);
             if (mouseCoordinates == null)
             {
                 game.forceLiquidSelectable = liquidSelectable;
@@ -363,8 +363,8 @@ public static class Extensions
         var bladderTree = player.Entity.WatchedAttributes.GetTreeAttribute(BtCore.Modid+":bladder");
         if (bladderTree == null) return false;
 
-        float? currentLevel = bladderTree.TryGetFloat("currentlevel");
-        float? capacity = bladderTree.TryGetFloat("capacity");
+        var currentLevel = bladderTree.TryGetFloat("currentlevel");
+        var capacity = bladderTree.TryGetFloat("capacity");
 
         if (!currentLevel.HasValue || !capacity.HasValue) return false;
         return currentLevel > capacity;
@@ -373,12 +373,12 @@ public static class Extensions
     // From DanaTweaks
     public static void CoolWithWater(this BlockEntityToolMold mold)
     {
-        ItemStack stack = mold.MetalContent;
+        var stack = mold.MetalContent;
         if (stack != null)
         {
             // No clue why this doesn't work either
             //BtCore.Logger.Warning("Temperature: " + stack.Collectible.GetTemperature(mold.Api.World, stack));
-            float temperature = stack.Collectible.GetTemperature(mold.Api.World, stack);
+            var temperature = stack.Collectible.GetTemperature(mold.Api.World, stack);
             stack.Collectible.SetTemperature(mold.Api.World, stack, Math.Max(20f, temperature - ConfigSystem.ConfigServer.UrineDrainRate));
             //BtCore.Logger.Warning("Temperature: " + stack.Collectible.GetTemperature(mold.Api.World, stack));
             mold.Api.World.PlaySoundAt(new AssetLocation("sounds/effect/extinguish2"), mold.Pos.X, mold.Pos.Y, mold.Pos.Z);
@@ -388,12 +388,12 @@ public static class Extensions
     // From DanaTweaks
     public static void CoolWithWater(this BlockEntityIngotMold mold)
     {
-        ItemStack rightStack = mold.ContentsRight;
-        ItemStack leftStack = mold.ContentsLeft;
+        var rightStack = mold.ContentsRight;
+        var leftStack = mold.ContentsLeft;
         if (rightStack != null)
         {
             //BtCore.Logger.Warning("Temperature: " + rightStack.Collectible.GetTemperature(mold.Api.World, rightStack));
-            float temperature = rightStack.Collectible.GetTemperature(mold.Api.World, rightStack);
+            var temperature = rightStack.Collectible.GetTemperature(mold.Api.World, rightStack);
             rightStack.Collectible.SetTemperature(mold.Api.World, rightStack, Math.Max(20f, temperature - ConfigSystem.ConfigServer.UrineDrainRate));
             mold.Api.World.PlaySoundAt(new AssetLocation("sounds/effect/extinguish1"), mold.Pos.X, mold.Pos.Y, mold.Pos.Z);
             //BtCore.Logger.Warning("Temperature: " + rightStack.Collectible.GetTemperature(mold.Api.World, rightStack));
@@ -401,7 +401,7 @@ public static class Extensions
         if (leftStack != null)
         {
             //BtCore.Logger.Warning("Temperature: " + leftStack.Collectible.GetTemperature(mold.Api.World, rightStack));
-            float temperature = leftStack.Collectible.GetTemperature(mold.Api.World, leftStack);
+            var temperature = leftStack.Collectible.GetTemperature(mold.Api.World, leftStack);
             leftStack.Collectible.SetTemperature(mold.Api.World, leftStack, Math.Max(20f, temperature - ConfigSystem.ConfigServer.UrineDrainRate));
             mold.Api.World.PlaySoundAt(new AssetLocation("sounds/effect/extinguish1"), mold.Pos.X, mold.Pos.Y, mold.Pos.Z);
             //BtCore.Logger.Warning("Temperature: " + leftStack.Collectible.GetTemperature(mold.Api.World, rightStack));
@@ -419,8 +419,8 @@ public static class Extensions
         var thirstTree = entity.WatchedAttributes.GetTreeAttribute(BtCore.Modid+":thirst");
         if (thirstTree == null) return false;
 
-        float? currentHydration = thirstTree.TryGetFloat("currenthydration");
-        float? maxHydration = thirstTree.TryGetFloat("maxhydration");
+        var currentHydration = thirstTree.TryGetFloat("currenthydration");
+        var maxHydration = thirstTree.TryGetFloat("maxhydration");
 
         if (!currentHydration.HasValue || !maxHydration.HasValue) return false;
         return currentHydration >= maxHydration;

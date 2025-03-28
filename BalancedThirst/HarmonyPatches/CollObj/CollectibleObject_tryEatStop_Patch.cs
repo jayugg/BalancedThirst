@@ -10,8 +10,8 @@ namespace BalancedThirst.HarmonyPatches.CollObj;
 public class CollectibleObject_tryEatStop_Patch
 {
     private static bool ShouldSkipPatch => !ConfigSystem.ConfigServer.EnableThirst;
-    
-    static bool _alreadyCalled = false;
+
+    private static bool _alreadyCalled = false;
     private static Dictionary<string, HydrationProperties> _capturedProperties = new();
     
     public static void Prefix(float secondsUsed, ItemSlot slot, EntityAgent byEntity)
@@ -22,11 +22,11 @@ public class CollectibleObject_tryEatStop_Patch
         if (api is not { Side: EnumAppSide.Server } || slot?.Itemstack == null) return;
         var collObj = slot.Itemstack.Collectible;
         if (!(secondsUsed >= 0.95f)) return;
-        HydrationProperties hydrationProps = collObj.GetHydrationProperties(byEntity.World, slot.Itemstack, byEntity);
+        var hydrationProps = collObj.GetHydrationProperties(byEntity.World, slot.Itemstack, byEntity);
         if (hydrationProps == null || byEntity is not EntityPlayer player) return;
-        TransitionState transitionState = collObj.UpdateAndGetTransitionState(byEntity.Api.World, slot, EnumTransitionType.Perish);
-        double spoilState = transitionState?.TransitionLevel ?? 0.0;
-        float num1 = GlobalConstants.FoodSpoilageSatLossMul((float) spoilState, slot.Itemstack, byEntity);
+        var transitionState = collObj.UpdateAndGetTransitionState(byEntity.Api.World, slot, EnumTransitionType.Perish);
+        var spoilState = transitionState?.TransitionLevel ?? 0.0;
+        var num1 = GlobalConstants.FoodSpoilageSatLossMul((float) spoilState, slot.Itemstack, byEntity);
         hydrationProps *= num1;
         hydrationProps.EuhydrationWeight *= num1;
         _capturedProperties[player.PlayerUID] = hydrationProps;

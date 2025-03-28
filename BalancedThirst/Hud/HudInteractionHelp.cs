@@ -74,7 +74,7 @@ public class HudInteractionHelp : HudElement
         return;
       float frameWidth = this.capi.Render.FrameWidth;
       float frameHeight = this.capi.Render.FrameHeight;
-      ElementBounds bounds = this.wiUtil.Composer?.Bounds;
+      var bounds = this.wiUtil.Composer?.Bounds;
       if (bounds != null)
       {
         bounds.Alignment = EnumDialogArea.None;

@@ -1,8 +1,0 @@
-{
-  "code": "balancedthirst:lantportion",
-  "sealHours": 240,
-  "ingredients": [
-    { "type": "item", "code": "balancedthirst:urineportion",  "litres": 1 }
-  ],
-  "output": { "type": "item", "code": "balancedthirst:lantportion", "litres": 1 }
-}

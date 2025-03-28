@@ -11,7 +11,6 @@ public static class BtConstants
     public static readonly float DowsingRodRadius = 50f;
     public static readonly string ConfigServerName = "BalancedThirst/balancedthirst" + ".json";
     public static readonly string ConfigClientName = "BalancedThirst/balancedthirst_client" + ".json";
-    public static readonly string SyncedConfigName = "BalancedThirst/balancedthirst_sync" + ".json";
 
     public static readonly List<string> WaterPortions = new()
     {

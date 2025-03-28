@@ -11,8 +11,8 @@ namespace BalancedThirst.HarmonyPatches.Meal;
 public class BlockMeal_tryFinishEatMeal_Patch
 {
     private static bool ShouldSkipPatch => !ConfigSystem.ConfigServer.EnableThirst;
-    
-    static bool _alreadyCalled = false;
+
+    private static bool _alreadyCalled = false;
     private static Dictionary<string, HydrationProperties> _capturedProperties = new();
     private static Dictionary<string, float> _capturedServings = new();
     
@@ -24,11 +24,11 @@ public class BlockMeal_tryFinishEatMeal_Patch
         if (api is not { Side: EnumAppSide.Server } || slot?.Itemstack == null) return;
         var collObj = slot.Itemstack.Collectible;
         if (collObj is not Vintagestory.GameContent.BlockMeal meal || !(secondsUsed >= 0.95f)) return;
-        HydrationProperties hydrationProps = meal.GetHydrationProperties(byEntity.World, slot.Itemstack, byEntity);
+        var hydrationProps = meal.GetHydrationProperties(byEntity.World, slot.Itemstack, byEntity);
         if (hydrationProps == null || byEntity is not EntityPlayer player) return;
-        TransitionState transitionState = collObj.UpdateAndGetTransitionState(byEntity.Api.World, slot, EnumTransitionType.Perish);
-        double spoilState = transitionState?.TransitionLevel ?? 0.0;
-        float num1 = GlobalConstants.FoodSpoilageSatLossMul((float) spoilState, slot.Itemstack, byEntity);
+        var transitionState = collObj.UpdateAndGetTransitionState(byEntity.Api.World, slot, EnumTransitionType.Perish);
+        var spoilState = transitionState?.TransitionLevel ?? 0.0;
+        var num1 = GlobalConstants.FoodSpoilageSatLossMul((float) spoilState, slot.Itemstack, byEntity);
         hydrationProps.Hydration *= num1;
         hydrationProps.EuhydrationWeight *= num1;
         hydrationProps.HydrationLossDelay *= num1;
@@ -43,9 +43,9 @@ public class BlockMeal_tryFinishEatMeal_Patch
         if (byEntity is not EntityPlayer player || !_capturedProperties.ContainsKey(player.PlayerUID)) return;
         var api = byEntity.World?.Api;
         if (api is not { Side: EnumAppSide.Server }) return;
-        float servingsBeforeConsume = _capturedServings[player.PlayerUID];
-        float servingsAfterConsume = (slot?.Itemstack?.Collectible as BlockMeal)?.GetQuantityServings(byEntity.World, slot.Itemstack) ?? 0;
-        float servingsConsumed = servingsBeforeConsume - servingsAfterConsume;
+        var servingsBeforeConsume = _capturedServings[player.PlayerUID];
+        var servingsAfterConsume = (slot?.Itemstack?.Collectible as BlockMeal)?.GetQuantityServings(byEntity.World, slot.Itemstack) ?? 0;
+        var servingsConsumed = servingsBeforeConsume - servingsAfterConsume;
         if (servingsConsumed <= 0) return;
         byEntity.ReceiveHydration(_capturedProperties[player.PlayerUID] * servingsConsumed / servingsBeforeConsume);
         _capturedProperties.Remove(player.PlayerUID);

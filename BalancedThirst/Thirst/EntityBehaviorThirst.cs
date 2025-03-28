@@ -164,8 +164,8 @@ namespace BalancedThirst.Thirst
     public void ReceiveHydration(HydrationProperties hydrationProperties)
     {
       if (_api.Side == EnumAppSide.Client) return;
-      float maxHydration = this.MaxHydration;
-      bool isHydrationMaxed = this.Hydration >= maxHydration;
+      var maxHydration = this.MaxHydration;
+      var isHydrationMaxed = this.Hydration >= maxHydration;
       this.Hydration = Math.Clamp(this.Hydration + hydrationProperties.Hydration, 0, maxHydration);
       if (!isHydrationMaxed) this.HydrationLossDelay = Math.Max(this.HydrationLossDelay, hydrationProperties.HydrationLossDelay);
       if (ConfigSystem.ConfigServer.EnableDehydration)
@@ -189,7 +189,7 @@ namespace BalancedThirst.Thirst
       if (this.entity is EntityPlayer player)
       {
         var tree = player.WatchedAttributes.GetTreeAttribute(AttributeKey);
-        EnumGameMode currentGameMode = player.World.PlayerByUid(player.PlayerUID).WorldData.CurrentGameMode;
+        var currentGameMode = player.World.PlayerByUid(player.PlayerUID).WorldData.CurrentGameMode;
         if (currentGameMode is EnumGameMode.Creative or EnumGameMode.Spectator)
           return;
         if (player.Controls.TriesToMove || player.Controls.Jump || player.Controls.LeftMouseDown || player.Controls.RightMouseDown)
@@ -200,9 +200,9 @@ namespace BalancedThirst.Thirst
       this._thirstCounter += deltaTime;
       if ( this._thirstCounter <= 10.0)
         return;
-      int num1 = this.entity.World.ElapsedMilliseconds - this._lastMoveMs > 3000L ? 1 : 0;
-      float num2 = this.entity.Api.World.Calendar.SpeedOfTime * this.entity.Api.World.Calendar.CalendarSpeedMul;
-      float num3 = GlobalConstants.HungerSpeedModifier / 30f;
+      var num1 = this.entity.World.ElapsedMilliseconds - this._lastMoveMs > 3000L ? 1 : 0;
+      var num2 = this.entity.Api.World.Calendar.SpeedOfTime * this.entity.Api.World.Calendar.CalendarSpeedMul;
+      var num3 = GlobalConstants.HungerSpeedModifier / 30f;
       if (num1 != 0)
         num3 /= 4f;
       this.ReduceHydration(num3 * (float) (1.2000000476837158 * (8.0 + this._sprintCounter / 15.0) / 10.0) * this.entity.Stats.GetBlended("thirstrate") * num2);
@@ -212,7 +212,7 @@ namespace BalancedThirst.Thirst
 
     private bool ReduceHydration(float satLossMultiplier)
     {
-      bool flag = false;
+      var flag = false;
       satLossMultiplier *= GetThirstSpeedModifier;
       if (this.HydrationLossDelay > 0.0)
       {
@@ -226,7 +226,7 @@ namespace BalancedThirst.Thirst
         this._thirstCounter -= 10f;
         return true;
       }
-      float hydration = this.Hydration;
+      var hydration = this.Hydration;
       if (hydration > 0.0)
       {
         this.Hydration = Math.Max(0.0f, hydration - satLossMultiplier * 10f);
@@ -247,7 +247,7 @@ namespace BalancedThirst.Thirst
     {
       foreach (var stat in ConfigSystem.ConfigServer.ThirstStatMultipliers.Keys)
       {
-        StatMultiplier multiplier = ConfigSystem.ConfigServer.ThirstStatMultipliers[stat];
+        var multiplier = ConfigSystem.ConfigServer.ThirstStatMultipliers[stat];
         if (multiplier.Multiplier == 0) continue;
         var multiplierVal = ConfigSystem.ConfigServer.ThirstStatMultipliers[stat].CalcModifier(Hydration/MaxHydration);
         this.entity.Stats?.Set(stat, BtCore.Modid + ":thirsty", multiplierVal);
@@ -257,7 +257,7 @@ namespace BalancedThirst.Thirst
     
     public void UpdateThirstHealthBoost()
     {
-      EntityBehaviorHealth behavior = this.entity.GetBehavior<EntityBehaviorHealth>();
+      var behavior = this.entity.GetBehavior<EntityBehaviorHealth>();
       behavior.MaxHealthModifiers[BtCore.Modid+"thirstHealthMod"] = Euhydration / this.MaxHydration;
       behavior.MarkDirty();
     }
@@ -300,10 +300,10 @@ namespace BalancedThirst.Thirst
       
       if (climate.Temperature > ConfigSystem.ConfigServer.HotTemperatureThreshold)
       {
-        float temperatureDifference = climate.Temperature - ConfigSystem.ConfigServer.HotTemperatureThreshold;
+        var temperatureDifference = climate.Temperature - ConfigSystem.ConfigServer.HotTemperatureThreshold;
         if (BtCore.IsHoDLoaded)
         {
-          float coolingFactor = entity.WatchedAttributes.GetFloat("currentCoolingHot", 0f);
+          var coolingFactor = entity.WatchedAttributes.GetFloat("currentCoolingHot", 0f);
           temperatureDifference -= coolingFactor;
         }
 
@@ -311,11 +311,11 @@ namespace BalancedThirst.Thirst
         {
           var behavior = this.entity.GetBehavior<EntityBehaviorBodyTemperature>();
           var clothingPenalty = (float) (behavior.GetField<float>("clothingBonus") * 1/ (1 + Math.Exp(-temperatureDifference)));
-          float wetnessBonus = (float) Math.Max(0.0, behavior.Wetness - 0.1) * 15f;
+          var wetnessBonus = (float) Math.Max(0.0, behavior.Wetness - 0.1) * 15f;
           temperatureDifference += clothingPenalty - wetnessBonus;
         }
         
-        float temperatureFactor = 0.01f*temperatureDifference*ConfigSystem.ConfigServer.ThirstRatePerDegrees/(1 + (float)Math.Exp(-temperatureDifference));
+        var temperatureFactor = 0.01f*temperatureDifference*ConfigSystem.ConfigServer.ThirstRatePerDegrees/(1 + (float)Math.Exp(-temperatureDifference));
         var thirstRateUpdate = this.entity.World.Api.ModLoader.GetModSystem<RoomRegistry>()
           .GetRoomForPosition(this.entity.Pos.AsBlockPos)
           .ExitCount == 0
