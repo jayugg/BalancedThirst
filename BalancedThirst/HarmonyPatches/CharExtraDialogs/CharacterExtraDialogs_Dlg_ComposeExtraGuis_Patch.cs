@@ -16,7 +16,7 @@ public class CharacterExtraDialogs_Dlg_ComposeExtraGuis_Patch
     public static void Postfix(CharacterExtraDialogs __instance)
     {
         if (ShouldSkipPatch()) return;
-        Traverse traverse = Traverse.Create(__instance);
+        var traverse = Traverse.Create(__instance);
         var api = traverse.Field("capi").GetValue();
         if (api is not ICoreClientAPI capi) return;
         var dlg = traverse.Field("dlg").GetValue() as GuiDialogCharacterBase;
@@ -24,21 +24,21 @@ public class CharacterExtraDialogs_Dlg_ComposeExtraGuis_Patch
         var composers = dlg.Composers;
         var entity = capi.World.Player.Entity;
         
-        float blended = entity.Stats.GetBlended(BtCore.Modid+":thirstrate");
+        var blended = entity.Stats.GetBlended(BtCore.Modid+":thirstrate");
         var num3 = (int) Math.Round(100.0 * blended);
-        string text2 = num3 + "%";
+        var text2 = num3 + "%";
         
-        ElementBounds bounds1 = composers["playercharacter"].Bounds;
-        ElementBounds bounds2 = composers["environment"].Bounds;
-        ElementBounds elementBounds1 = ElementBounds.Fixed(0.0, 25.0, 90.0, 20.0);
-        ElementBounds elementBounds2 = ElementBounds.Fixed(120.0, 30.0, 120.0, 8.0);
-        ElementBounds leftColumnBoundsW = ElementBounds.Fixed(0.0, 0.0, 140.0, 20.0);
-        ElementBounds elementBounds3 = ElementBounds.Fixed(165.0, 0.0, 120.0, 20.0);
+        var bounds1 = composers["playercharacter"].Bounds;
+        var bounds2 = composers["environment"].Bounds;
+        var elementBounds1 = ElementBounds.Fixed(0.0, 25.0, 90.0, 20.0);
+        var elementBounds2 = ElementBounds.Fixed(120.0, 30.0, 120.0, 8.0);
+        var leftColumnBoundsW = ElementBounds.Fixed(0.0, 0.0, 140.0, 20.0);
+        var elementBounds3 = ElementBounds.Fixed(165.0, 0.0, 120.0, 20.0);
 
-        double num1 = bounds2.InnerHeight / RuntimeEnv.GUIScale + 10.0;
+        var num1 = bounds2.InnerHeight / RuntimeEnv.GUIScale + 10.0;
         var statsHeight = bounds1.InnerHeight / RuntimeEnv.GUIScale - GuiStyle.ElementToDialogPadding - 20.0 + num1;
-        ElementBounds bounds3 = ElementBounds.Fixed(0.0, 3.0, 235.0, 0.15*statsHeight).WithFixedPadding(GuiStyle.ElementToDialogPadding);
-        ElementBounds bounds4 = bounds3.ForkBoundingParent().WithAlignment(EnumDialogArea.LeftMiddle).WithFixedAlignmentOffset((bounds1.renderX + bounds1.OuterWidth + 10.0) / RuntimeEnv.GUIScale, num1 / 2.0).WithFixedOffset(0, 0.42*statsHeight);
+        var bounds3 = ElementBounds.Fixed(0.0, 3.0, 235.0, 0.15*statsHeight).WithFixedPadding(GuiStyle.ElementToDialogPadding);
+        var bounds4 = bounds3.ForkBoundingParent().WithAlignment(EnumDialogArea.LeftMiddle).WithFixedAlignmentOffset((bounds1.renderX + bounds1.OuterWidth + 10.0) / RuntimeEnv.GUIScale, num1 / 2.0).WithFixedOffset(0, 0.42*statsHeight);
         
         float? hydration;
         float? maxHydration;
@@ -70,7 +70,7 @@ public class CharacterExtraDialogs_Dlg_ComposeExtraGuis_Patch
     {
         hydration = new float?();
         maxHydration = new float?();
-        ITreeAttribute treeAttribute1 = entity.WatchedAttributes.GetTreeAttribute("balancedthirst:thirst");
+        var treeAttribute1 = entity.WatchedAttributes.GetTreeAttribute("balancedthirst:thirst");
         if (treeAttribute1 != null)
         {
             hydration = treeAttribute1.TryGetFloat("currenthydration");

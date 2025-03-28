@@ -25,7 +25,7 @@ public class BlockContainer_GetContainingTransitionModifier
         var contentStack = container.GetContent(inSlot.Itemstack);
         if (!contentStack.Collectible.IsWaterPortion()) return;
         var exp = IsSinglePlayer(world) ? 0.5f : 1f; // Have to adjust because somehow it gets applied twice in single player
-        float multiplier = (float) Math.Pow(WaterContainerBehavior.GetTransitionRateMul(container, transType), exp);
+        var multiplier = (float) Math.Pow(WaterContainerBehavior.GetTransitionRateMul(container, transType), exp);
         __result *= multiplier;
     }
     
@@ -41,7 +41,7 @@ public class BlockContainer_GetContainingTransitionModifier
         var contentStack = container.GetContent(pos);
         if (!contentStack.Collectible.IsWaterPortion()) return;
         var exp = IsSinglePlayer(world) ? 0.5f : 1f; // Have to adjust because somehow it gets applied twice in single player
-        float multiplier = (float) Math.Pow(WaterContainerBehavior.GetTransitionRateMul(container, transType), exp);
+        var multiplier = (float) Math.Pow(WaterContainerBehavior.GetTransitionRateMul(container, transType), exp);
         __result *= multiplier;
     }
 

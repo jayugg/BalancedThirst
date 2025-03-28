@@ -19,7 +19,7 @@ public class BlockEntitySealable : BlockEntityBucket
         base.Initialize(api);
 
         _ownBlock = Block as BlockLiquidContainerSealable;
-        container.Inventory.OnAcquireTransitionSpeed += (type, stack, mul) =>
+        container.Inventory.OnAcquireTransitionSpeed += (type, _, mul) =>
         {
             if (type == EnumTransitionType.Perish)
             {
@@ -66,7 +66,7 @@ public class BlockEntitySealable : BlockEntityBucket
     public override void ToTreeAttributes(ITreeAttribute tree)
     {
         base.ToTreeAttributes(tree);
-        tree.SetFloat("meshAngle", this.MeshAngle);
+        tree.SetFloat("meshAngle", MeshAngle);
         tree.SetBool("isSealed", IsSealed);
     }
 
@@ -74,11 +74,11 @@ public class BlockEntitySealable : BlockEntityBucket
     {
         //if (ownBlock == null || ownBlock.Code.Path.Contains("clay")) return null;
 
-        MeshData mesh = _ownBlock?.GenRightMesh(Api as ICoreClientAPI, GetContent(), Pos, IsSealed);
+        var mesh = _ownBlock?.GenRightMesh(Api as ICoreClientAPI, GetContent(), Pos, IsSealed);
 
         if (mesh?.CustomInts != null)
         {
-            for (int i = 0; i < mesh.CustomInts.Count; i++)
+            for (var i = 0; i < mesh.CustomInts.Count; i++)
             {
                 mesh.CustomInts.Values[i] |= 1 << 27; // Disable water wavy
                 mesh.CustomInts.Values[i] |= 1 << 26; // Enabled weak foam
@@ -90,8 +90,8 @@ public class BlockEntitySealable : BlockEntityBucket
     
     public override bool OnTesselation(ITerrainMeshPool mesher, ITesselatorAPI tesselator)
     {
-        if (this._currentRightMesh != null)
-            mesher.AddMeshData(this._currentRightMesh.Clone().Rotate(new Vec3f(0.5f, 0.5f, 0.5f), 0.0f, this.MeshAngle, 0.0f));
+        if (_currentRightMesh != null)
+            mesher.AddMeshData(_currentRightMesh.Clone().Rotate(new Vec3f(0.5f, 0.5f, 0.5f), 0.0f, MeshAngle, 0.0f));
         return true;
     }
 

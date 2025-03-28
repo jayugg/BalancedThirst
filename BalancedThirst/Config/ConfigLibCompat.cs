@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using BalancedThirst.Systems;
 using BalancedThirst.Thirst;
 using BalancedThirst.Util;
@@ -15,14 +12,13 @@ namespace BalancedThirst.Config;
 // From https://github.com/Craluminum-Mods/DanaTweaks/
 public partial class ConfigLibCompat
 {
-    private const string settingPrefix = "balancedthirst:Config.Setting.";
-    
-    private const string settingsSimple = "balancedthirst:Config.SettingsSimple";
-    private const string settingsStatMultipliers = "balancedthirst:Config.SettingsStatMultipliers";
-    private const string settingsAdvanced = "balancedthirst:Config.SettingsAdvanced";
-    private const string settingsCompat = "balancedthirst:Config.SettingsCompat";
-    private const string textSupportsWildcard = "balancedthirst:Config.Text.SupportsWildcard";
-    private const string textSupportsHex = "balancedthirst:Config.Text.SupportsHex";
+    private const string SettingPrefix = "balancedthirst:Config.Setting.";
+    private const string SettingsSimple = "balancedthirst:Config.SettingsSimple";
+    private const string SettingsStatMultipliers = "balancedthirst:Config.SettingsStatMultipliers";
+    private const string SettingsAdvanced = "balancedthirst:Config.SettingsAdvanced";
+    private const string SettingsCompat = "balancedthirst:Config.SettingsCompat";
+    private const string TextSupportsWildcard = "balancedthirst:Config.Text.SupportsWildcard";
+    private const string TextSupportsHex = "balancedthirst:Config.Text.SupportsHex";
 
     public ConfigLibCompat(ICoreAPI api)
     {
@@ -44,14 +40,7 @@ public partial class ConfigLibCompat
     {
         config.ThirstBarX = OnInputFloat(id, config.ThirstBarX, nameof(config.ThirstBarX), -float.MaxValue);
         config.ThirstBarY = OnInputFloat(id, config.ThirstBarY, nameof(config.ThirstBarY), -float.MaxValue);
-        ImGui.Separator();
-        config.PeeMode = OnInputEnum(id, config.PeeMode, nameof(config.PeeMode));
-        config.BladderBarVisible = OnCheckBox(id, config.BladderBarVisible, nameof(config.BladderBarVisible));
-        config.HideBladderBarAt = OnInputFloat(id, config.HideBladderBarAt, nameof(config.HideBladderBarAt));
-        ImGui.Separator();
         config.ThirstBarColor = OnInputHex(id, config.ThirstBarColor, nameof(config.ThirstBarColor));
-        config.BladderBarColor = OnInputHex(id, config.BladderBarColor, nameof(config.BladderBarColor));
-        config.UrineColor = OnInputText(id, config.UrineColor, nameof(config.UrineColor));
     }
 
     private void EditConfigServer(string id, ControlButtons buttons, ICoreAPI api)
@@ -64,7 +53,7 @@ public partial class ConfigLibCompat
     
     private void BuildSettingsServer(ConfigServer config, string id)
     {
-        if (ImGui.CollapsingHeader(Lang.Get(settingsSimple) + $"##settingSimple-{id}"))
+        if (ImGui.CollapsingHeader(Lang.Get(SettingsSimple) + $"##settingSimple-{id}"))
         {
             config.EnableThirst = OnCheckBox(id, config.EnableThirst, nameof(config.EnableThirst));
             config.MaxHydration = OnInputFloat(id, config.MaxHydration, nameof(config.MaxHydration));
@@ -76,16 +65,7 @@ public partial class ConfigLibCompat
             config.VomitHydrationMultiplier = OnInputFloat(id, config.VomitHydrationMultiplier, nameof(config.VomitHydrationMultiplier));
             config.VomitEuhydrationMultiplier = OnInputFloat(id, config.VomitEuhydrationMultiplier, nameof(config.VomitEuhydrationMultiplier));
             ImGui.Separator();
-            config.EnableBladder = OnCheckBox(id, config.EnableBladder, nameof(config.EnableBladder));
-            config.SpillWashStains = OnCheckBox(id, config.SpillWashStains, nameof(config.SpillWashStains));
-            config.UrineStains = OnCheckBox(id, config.UrineStains, nameof(config.UrineStains));
-            config.BladderWalkSpeedDebuff = OnInputFloat(id, config.BladderWalkSpeedDebuff, nameof(config.BladderWalkSpeedDebuff));
-            config.BladderCapacityOverload = OnInputFloat(id, config.BladderCapacityOverload, nameof(config.BladderCapacityOverload));
-            config.UrineNutrientChance = OnInputFloat(id, config.UrineNutrientChance, nameof(config.UrineNutrientChance));
-            config.UrineDrainRate = OnInputFloat(id, config.UrineDrainRate, nameof(config.UrineDrainRate));
-            DisplayEnumFloatDictionary(config.UrineNutrientLevels, nameof(config.UrineNutrientLevels), id);
-            ImGui.Separator();
-            if (ImGui.CollapsingHeader(Lang.Get(settingsStatMultipliers) + $"##settingStatMultipliers-{id}"))
+            if (ImGui.CollapsingHeader(Lang.Get(SettingsStatMultipliers) + $"##settingStatMultipliers-{id}"))
             {
                 ImGui.Indent();
                 DictionaryEditor(config.ThirstStatMultipliers, new StatMultiplier());
@@ -108,29 +88,24 @@ public partial class ConfigLibCompat
             config.UnknownHydrationYield = OnInputFloat(id, config.UnknownHydrationYield, nameof(config.UnknownHydrationYield));
             ImGui.Separator();
             config.DowsingRodRadius = OnInputFloat(id, config.DowsingRodRadius, nameof(config.DowsingRodRadius));
-            config.GushingSpringWater = OnCheckBox(id, config.GushingSpringWater, nameof(config.GushingSpringWater));
         }
-        if (ImGui.CollapsingHeader(Lang.Get(settingsAdvanced) + $"##settingAdvanced-{id}"))
+        if (ImGui.CollapsingHeader(Lang.Get(SettingsAdvanced) + $"##settingAdvanced-{id}"))
         {
             ImGui.Indent();
-            if (ImGui.CollapsingHeader(Lang.Get(settingPrefix + nameof(config.WaterPortions)) + $"##settingWaterPortions")) {
+            if (ImGui.CollapsingHeader(Lang.Get(SettingPrefix + nameof(config.WaterPortions)) + $"##settingWaterPortions")) {
                 config.WaterPortions = OnInputList(id, config.WaterPortions, nameof(config.WaterPortions));
             }
-            if (ImGui.CollapsingHeader(Lang.Get(settingPrefix + nameof(config.WaterContainers)) + $"##settingWaterContainers")) {
-                DictionaryEditor(config.WaterContainers, 1.0f, Lang.Get(textSupportsWildcard));
+            if (ImGui.CollapsingHeader(Lang.Get(SettingPrefix + nameof(config.WaterContainers)) + $"##settingWaterContainers")) {
+                DictionaryEditor(config.WaterContainers, 1.0f, Lang.Get(TextSupportsWildcard));
             }
-            if (ImGui.CollapsingHeader(Lang.Get(settingPrefix + nameof(config.HydratingLiquids)) + $"##settingHydratingLiquids")) {
-                DictionaryEditor(config.HydratingLiquids, new HydrationProperties(), Lang.Get(textSupportsWildcard));
+            if (ImGui.CollapsingHeader(Lang.Get(SettingPrefix + nameof(config.HydratingLiquids)) + $"##settingHydratingLiquids")) {
+                DictionaryEditor(config.HydratingLiquids, new HydrationProperties(), Lang.Get(TextSupportsWildcard));
             }
-            if (ImGui.CollapsingHeader(Lang.Get(settingPrefix + nameof(config.HydratingBlocks)) + $"##settingHydratingBlocks"))
+            if (ImGui.CollapsingHeader(Lang.Get(SettingPrefix + nameof(config.HydratingBlocks)) + $"##settingHydratingBlocks"))
             {
-                DictionaryEditor(config.HydratingBlocks, new HydrationProperties(), Lang.Get(textSupportsWildcard));
+                DictionaryEditor(config.HydratingBlocks, new HydrationProperties(), Lang.Get(TextSupportsWildcard));
             }
-            if (ImGui.CollapsingHeader(Lang.Get(settingPrefix + nameof(config.UrineStainableMaterials)) + $"##settingUrineStainableMaterials"))
-            {
-                config.UrineStainableMaterials = OnInputList(id, config.UrineStainableMaterials, nameof(config.UrineStainableMaterials));
-            }
-            if (ImGui.CollapsingHeader(Lang.Get(settingPrefix + nameof(config.DynamicWaterPurityWeights)) + $"##settingsDynamicWaterPurityWeights-{id}"))
+            if (ImGui.CollapsingHeader(Lang.Get(SettingPrefix + nameof(config.DynamicWaterPurityWeights)) + $"##settingsDynamicWaterPurityWeights-{id}"))
             {
                 ImGui.Indent();
                 DictionaryEditor(config.DynamicWaterPurityWeights, 0.2f);
@@ -138,12 +113,11 @@ public partial class ConfigLibCompat
             }
             ImGui.Unindent();
         }
-        if (ImGui.CollapsingHeader(Lang.Get(settingsCompat) + $"##settingCompat-{id}"))
+        if (ImGui.CollapsingHeader(Lang.Get(SettingsCompat) + $"##settingCompat-{id}"))
         {
             ImGui.Indent();
             config.HoDClothingCoolingMultiplier = OnInputFloat(id, config.HoDClothingCoolingMultiplier, nameof(config.HoDClothingCoolingMultiplier));
             config.CamelHumpMaxHydrationMultiplier = OnInputFloat(id, config.CamelHumpMaxHydrationMultiplier, nameof(config.CamelHumpMaxHydrationMultiplier));
-            config.ElephantBladderCapacityMultiplier = OnInputFloat(id, config.ElephantBladderCapacityMultiplier, nameof(config.ElephantBladderCapacityMultiplier));
             ImGui.Unindent();
         }
     }

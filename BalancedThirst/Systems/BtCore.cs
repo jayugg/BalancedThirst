@@ -54,7 +54,6 @@ public class BtCore : ModSystem
         api.RegisterCropBehavior($"{Modid}:GourdPumpkin", typeof(GourdCropBehavior));
         api.RegisterBlockBehaviorClass($"{Modid}:PureWater", typeof(BlockBehaviorPureWater));
         api.RegisterEntityBehaviorClass($"{Modid}:thirst", typeof(EntityBehaviorThirst));
-        api.RegisterEntityBehaviorClass($"{Modid}:bladder", typeof(EntityBehaviorBladder));
         api.RegisterCollectibleBehaviorClass($"{Modid}:Drinkable", typeof(DrinkableBehavior));
         api.RegisterCollectibleBehaviorClass($"{Modid}:WaterContainer", typeof(WaterContainerBehavior));
         api.RegisterCollectibleBehaviorClass($"{Modid}:HydratingFood", typeof(HydratingFoodBehavior));
@@ -116,8 +115,6 @@ public class BtCore : ModSystem
         RemoveEntityBehaviors(entity);
         if (ConfigSystem.ConfigServer.EnableThirst)
             entity.AddBehavior(new EntityBehaviorThirst(entity));
-        if (ConfigSystem.ConfigServer.EnableBladder)
-            entity.AddBehavior(new EntityBehaviorBladder(entity));
     }
     
     private void RemoveEntityBehaviors(Entity entity)
@@ -125,8 +122,6 @@ public class BtCore : ModSystem
         if (entity is not EntityPlayer) return;
         if (!ConfigSystem.ConfigServer!.EnableThirst && entity.HasBehavior<EntityBehaviorThirst>())
             entity.RemoveBehavior(entity.GetBehavior<EntityBehaviorThirst>());
-        if (!ConfigSystem.ConfigServer.EnableBladder && entity.HasBehavior<EntityBehaviorBladder>())
-            entity.RemoveBehavior(entity.GetBehavior<EntityBehaviorBladder>());
     }
     
     private void OnConfigReloaded(string eventname, ref EnumHandling handling, IAttribute data)

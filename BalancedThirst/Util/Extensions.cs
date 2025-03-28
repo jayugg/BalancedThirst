@@ -29,25 +29,26 @@ public static class Extensions
         ItemStack itemStack,
         Entity byEntity)
     {
-        if (collObj is BlockMeal meal)
+        switch (collObj)
         {
-            var contentStacks = meal.GetNonEmptyContents(world, itemStack);
-            var quantityServings = meal.GetQuantityServings(world, itemStack);
-            return contentStacks?.GetHydrationProperties(world, byEntity) * (quantityServings == 0 ? 1 : quantityServings);
+            case BlockMeal meal:
+            {
+                var contentStacks = meal.GetNonEmptyContents(world, itemStack);
+                var quantityServings = meal.GetQuantityServings(world, itemStack);
+                return contentStacks?.GetHydrationProperties(world, byEntity) * (quantityServings == 0 ? 1 : quantityServings);
+            }
+            case BlockCookedContainer:
+            {
+                var contentStacks = (itemStack.Collectible as BlockCookedContainer)?.GetNonEmptyContents(world, itemStack);
+                return contentStacks?.GetHydrationProperties(world, byEntity);
+            }
+            case BlockCrock:
+            {
+                var contentStacks = (itemStack.Collectible as BlockCrock)?.GetNonEmptyContents(world, itemStack);
+                return contentStacks?.GetHydrationProperties(world, byEntity);
+            }
         }
-        
-        if (collObj is BlockCookedContainer)
-        {
-            var contentStacks = (itemStack.Collectible as BlockCookedContainer)?.GetNonEmptyContents(world, itemStack);
-            return contentStacks?.GetHydrationProperties(world, byEntity);
-        }
-        
-        if (collObj is BlockCrock)
-        {
-            var contentStacks = (itemStack.Collectible as BlockCrock)?.GetNonEmptyContents(world, itemStack);
-            return contentStacks?.GetHydrationProperties(world, byEntity);
-        }
-        
+
         if (collObj.HasBehavior<HydratingFoodBehavior>())
         {
             var behavior = collObj.GetBehavior<HydratingFoodBehavior>();
@@ -270,37 +271,6 @@ public static class Extensions
     {
         return WildcardUtil.Match(regex, collectible.Code.ToString());
     }
-    
-    public static void ReceiveCapacity(this Entity entity, float capacity)
-    {
-        if (!entity.HasBehavior<EntityBehaviorBladder>()) return;
-        entity.GetBehavior<EntityBehaviorBladder>().ReceiveFluid(capacity);
-    }
-    
-    public static void IncreaseNutrients(this BlockEntityFarmland be, Dictionary<EnumSoilNutrient, float> addNutrients)
-    {
-        var nutrientInfo = typeof(BlockEntityFarmland).GetField("nutrients",
-            BindingFlags.NonPublic | BindingFlags.Instance);
-        if (nutrientInfo?.GetValue(be) is float[] nutrients)
-        {
-            foreach (var pair in addNutrients)
-            {
-                switch (pair.Key)
-                {
-                    case EnumSoilNutrient.N:
-                        nutrients[0] += pair.Value;
-                        break;
-                    case EnumSoilNutrient.P:
-                        nutrients[1] += pair.Value;
-                        break;
-                    case EnumSoilNutrient.K:
-                        nutrients[2] += pair.Value;
-                        break;
-                }
-            }
-            be.MarkDirty(true);
-        }
-    }
 
     [Obsolete("Use Raycast.RaycastForFluidBlocks instead")]
     public static BlockSelection GetLookLiquidBlockSelection(this IClientPlayer clientPlayer)
@@ -368,44 +338,6 @@ public static class Extensions
 
         if (!currentLevel.HasValue || !capacity.HasValue) return false;
         return currentLevel > capacity;
-    }
-    
-    // From DanaTweaks
-    public static void CoolWithWater(this BlockEntityToolMold mold)
-    {
-        var stack = mold.MetalContent;
-        if (stack != null)
-        {
-            // No clue why this doesn't work either
-            //BtCore.Logger.Warning("Temperature: " + stack.Collectible.GetTemperature(mold.Api.World, stack));
-            var temperature = stack.Collectible.GetTemperature(mold.Api.World, stack);
-            stack.Collectible.SetTemperature(mold.Api.World, stack, Math.Max(20f, temperature - ConfigSystem.ConfigServer.UrineDrainRate));
-            //BtCore.Logger.Warning("Temperature: " + stack.Collectible.GetTemperature(mold.Api.World, stack));
-            mold.Api.World.PlaySoundAt(new AssetLocation("sounds/effect/extinguish2"), mold.Pos.X, mold.Pos.Y, mold.Pos.Z);
-        }
-    }
-    
-    // From DanaTweaks
-    public static void CoolWithWater(this BlockEntityIngotMold mold)
-    {
-        var rightStack = mold.ContentsRight;
-        var leftStack = mold.ContentsLeft;
-        if (rightStack != null)
-        {
-            //BtCore.Logger.Warning("Temperature: " + rightStack.Collectible.GetTemperature(mold.Api.World, rightStack));
-            var temperature = rightStack.Collectible.GetTemperature(mold.Api.World, rightStack);
-            rightStack.Collectible.SetTemperature(mold.Api.World, rightStack, Math.Max(20f, temperature - ConfigSystem.ConfigServer.UrineDrainRate));
-            mold.Api.World.PlaySoundAt(new AssetLocation("sounds/effect/extinguish1"), mold.Pos.X, mold.Pos.Y, mold.Pos.Z);
-            //BtCore.Logger.Warning("Temperature: " + rightStack.Collectible.GetTemperature(mold.Api.World, rightStack));
-        }
-        if (leftStack != null)
-        {
-            //BtCore.Logger.Warning("Temperature: " + leftStack.Collectible.GetTemperature(mold.Api.World, rightStack));
-            var temperature = leftStack.Collectible.GetTemperature(mold.Api.World, leftStack);
-            leftStack.Collectible.SetTemperature(mold.Api.World, leftStack, Math.Max(20f, temperature - ConfigSystem.ConfigServer.UrineDrainRate));
-            mold.Api.World.PlaySoundAt(new AssetLocation("sounds/effect/extinguish1"), mold.Pos.X, mold.Pos.Y, mold.Pos.Z);
-            //BtCore.Logger.Warning("Temperature: " + leftStack.Collectible.GetTemperature(mold.Api.World, rightStack));
-        }
     }
     
     public static bool TryGetBeBehavior<T>(this IBlockAccessor blockAccessor, BlockPos pos, out T behavior) where T : BlockEntityBehavior

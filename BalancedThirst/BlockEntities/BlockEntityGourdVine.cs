@@ -34,62 +34,62 @@ public class BlockEntityGourdVine : BlockEntity
 
     public BlockEntityGourdVine()
     {
-      foreach (BlockFacing key in BlockFacing.HORIZONTALS)
+      foreach (var key in BlockFacing.HORIZONTALS)
       {
-        this.pumpkinTotalHoursForNextStage.Add(key, 0.0);
+        pumpkinTotalHoursForNextStage.Add(key, 0.0);
       }
     }
     
     public override void Initialize(ICoreAPI api)
     {
         base.Initialize(api);
-        this.stage1VineBlock = api.World.GetBlock(new AssetLocation($"{BtCore.Modid}:gourdpumpkin-vine-1-normal"));
-        this.pumpkinBlock = api.World.GetBlock(new AssetLocation($"{BtCore.Modid}:gourdpumpkin-fruit-1"));
+        stage1VineBlock = api.World.GetBlock(new AssetLocation($"{BtCore.Modid}:gourdpumpkin-vine-1-normal"));
+        pumpkinBlock = api.World.GetBlock(new AssetLocation($"{BtCore.Modid}:gourdpumpkin-fruit-1"));
         if (!(api is ICoreServerAPI))
             return;
-        this.growListenerId = this.RegisterGameTickListener(this.TryGrow, 2000);
-        var prob = this.Block.Attributes["largeFruitChance"].AsFloat(0.1f);
-        foreach (BlockFacing key in BlockFacing.HORIZONTALS)
+        growListenerId = RegisterGameTickListener(TryGrow, 2000);
+        var prob = Block.Attributes["largeFruitChance"].AsFloat(0.1f);
+        foreach (var key in BlockFacing.HORIZONTALS)
         {
-          this.pumpkinGrowthPotential.Add(key, api.World.Rand.NextDouble() < prob ? 4 : 3 );
+          pumpkinGrowthPotential.Add(key, api.World.Rand.NextDouble() < prob ? 4 : 3 );
         }
     }
     
     private void TryGrow(float dt)
     {
-        if (this.DieIfParentDead())
+        if (DieIfParentDead())
             return;
-        for (; this.Api.World.Calendar.TotalHours > this.totalHoursForNextStage; this.totalHoursForNextStage +=  vineHoursToGrow)
-            this.GrowVine();
-        this.TryGrowPumpkins();
+        for (; Api.World.Calendar.TotalHours > totalHoursForNextStage; totalHoursForNextStage +=  vineHoursToGrow)
+            GrowVine();
+        TryGrowPumpkins();
     }
     
     private void TryGrowPumpkins()
     {
-      foreach (BlockFacing blockFacing in BlockFacing.HORIZONTALS)
+      foreach (var blockFacing in BlockFacing.HORIZONTALS)
       {
-        double hoursToGrow = this.pumpkinTotalHoursForNextStage[blockFacing];
-        while (hoursToGrow > 0.0 && this.Api.World.Calendar.TotalHours > hoursToGrow)
+        var hoursToGrow = pumpkinTotalHoursForNextStage[blockFacing];
+        while (hoursToGrow > 0.0 && Api.World.Calendar.TotalHours > hoursToGrow)
         {
-          BlockPos blockPos = this.Pos.AddCopy(blockFacing);
-          Block block = this.Api.World.BlockAccessor.GetBlock(blockPos);
-          if (this.IsPumpkin(block))
+          var blockPos = Pos.AddCopy(blockFacing);
+          var block = Api.World.BlockAccessor.GetBlock(blockPos);
+          if (IsPumpkin(block))
           {
-            int currentPumpkinStage = this.CurrentPumpkinStage(block);
-            int growthPotential = this.pumpkinGrowthPotential[blockFacing];
+            var currentPumpkinStage = CurrentPumpkinStage(block);
+            var growthPotential = pumpkinGrowthPotential[blockFacing];
             if (currentPumpkinStage == growthPotential)
             {
               hoursToGrow = 0.0;
             }
             else
             {
-              this.SetPumpkinStage(block, blockPos, currentPumpkinStage + 1);
+              SetPumpkinStage(block, blockPos, currentPumpkinStage + 1);
               hoursToGrow += pumpkinHoursToGrow;
             }
           }
           else
             hoursToGrow = 0.0;
-          this.pumpkinTotalHoursForNextStage[blockFacing] = hoursToGrow;
+          pumpkinTotalHoursForNextStage[blockFacing] = hoursToGrow;
         }
       }
     }
@@ -97,53 +97,53 @@ public class BlockEntityGourdVine : BlockEntity
     private void GrowVine()
     {
       //BtCore.Logger.Warning("Growing vine");
-      ++this.internalStage;
-      Block block = this.Api.World.BlockAccessor.GetBlock(this.Pos);
-      int num = this.CurrentVineStage(block);
+      ++internalStage;
+      var block = Api.World.BlockAccessor.GetBlock(Pos);
+      var num = CurrentVineStage(block);
       //BtCore.Logger.Warning($"{num}");
-      if (this.internalStage > 6)
-        this.SetVineStage(block, num + 1);
-      if (this.IsBlooming())
+      if (internalStage > 6)
+        SetVineStage(block, num + 1);
+      if (IsBlooming())
       {
-        if (this.pumpkinGrowthTries >= maxAllowedPumpkinGrowthTries || this.Api.World.Rand.NextDouble() <  debloomProbability)
+        if (pumpkinGrowthTries >= maxAllowedPumpkinGrowthTries || Api.World.Rand.NextDouble() <  debloomProbability)
         {
-          this.pumpkinGrowthTries = 0;
-          this.SetVineStage(block, 3);
+          pumpkinGrowthTries = 0;
+          SetVineStage(block, 3);
         }
         else
         {
-          ++this.pumpkinGrowthTries;
-          this.TrySpawnPumpkin(this.totalHoursForNextStage -  vineHoursToGrow);
+          ++pumpkinGrowthTries;
+          TrySpawnPumpkin(totalHoursForNextStage -  vineHoursToGrow);
         }
       }
       if (num == 3)
       {
-        if (this.canBloom && this.Api.World.Rand.NextDouble() <  bloomProbability)
-          this.SetBloomingStage(block);
-        this.canBloom = false;
+        if (canBloom && Api.World.Rand.NextDouble() <  bloomProbability)
+          SetBloomingStage(block);
+        canBloom = false;
       }
       if (num == 2)
       {
-        if (this.Api.World.Rand.NextDouble() <  vineSpawnProbability)
-          this.TrySpawnNewVine();
-        this.totalHoursForNextStage +=  vineHoursToGrowStage2;
-        this.canBloom = true;
-        this.SetVineStage(block, num + 1);
+        if (Api.World.Rand.NextDouble() <  vineSpawnProbability)
+          TrySpawnNewVine();
+        totalHoursForNextStage +=  vineHoursToGrowStage2;
+        canBloom = true;
+        SetVineStage(block, num + 1);
       }
       if (num >= 2)
         return;
-      this.SetVineStage(block, num + 1);
+      SetVineStage(block, num + 1);
     }
     
     private void TrySpawnPumpkin(double curTotalHours)
     {
-      foreach (BlockFacing blockFacing in BlockFacing.HORIZONTALS)
+      foreach (var blockFacing in BlockFacing.HORIZONTALS)
       {
-        BlockPos pos = this.Pos.AddCopy(blockFacing);
-        if (this.CanReplace(this.Api.World.BlockAccessor.GetBlock(pos)) && GourdCropBehavior.CanSupportPumpkin(this.Api, pos.DownCopy()))
+        var pos = Pos.AddCopy(blockFacing);
+        if (CanReplace(Api.World.BlockAccessor.GetBlock(pos)) && GourdCropBehavior.CanSupportPumpkin(Api, pos.DownCopy()))
         {
-          this.Api.World.BlockAccessor.SetBlock(this.pumpkinBlock.BlockId, pos);
-          this.pumpkinTotalHoursForNextStage[blockFacing] = curTotalHours +  pumpkinHoursToGrow;
+          Api.World.BlockAccessor.SetBlock(pumpkinBlock.BlockId, pos);
+          pumpkinTotalHoursForNextStage[blockFacing] = curTotalHours +  pumpkinHoursToGrow;
           break;
         }
       }
@@ -156,32 +156,32 @@ public class BlockEntityGourdVine : BlockEntity
 
     private bool DieIfParentDead()
     {
-      if (this.parentPlantPos == null)
+      if (parentPlantPos == null)
       {
         //BtCore.Logger.Warning("Vine died with no parent (null)");
-        this.Die();
+        Die();
         return true;
       }
-      if (this.IsValidParentBlock(this.Api.World.BlockAccessor.GetBlock(this.parentPlantPos)) || this.Api.World.BlockAccessor.GetChunkAtBlockPos(this.parentPlantPos) == null)
+      if (IsValidParentBlock(Api.World.BlockAccessor.GetBlock(parentPlantPos)) || Api.World.BlockAccessor.GetChunkAtBlockPos(parentPlantPos) == null)
         return false;
       //BtCore.Logger.Warning("Vine died with no parent (parentPos)");
-      this.Die();
+      Die();
       return true;
     }
 
     private void Die()
     {
       //BtCore.Logger.Debug("Vine died");
-      this.Api.Event.UnregisterGameTickListener(this.growListenerId);
-      this.growListenerId = 0L;
-      this.Api.World.BlockAccessor.SetBlock(0, this.Pos);
+      Api.Event.UnregisterGameTickListener(growListenerId);
+      growListenerId = 0L;
+      Api.World.BlockAccessor.SetBlock(0, Pos);
     }
     
     private bool IsValidParentBlock(Block parentBlock)
     {
       if (parentBlock != null)
       {
-        string name = parentBlock.Code.GetName();
+        var name = parentBlock.Code.GetName();
         if (name.StartsWithOrdinal("crop-gourdpumpkin") || name.StartsWithOrdinal("gourdpumpkin-vine"))
           return true;
       }
@@ -190,7 +190,7 @@ public class BlockEntityGourdVine : BlockEntity
 
     public bool IsBlooming()
     {
-      Block block = this.Api.World.BlockAccessor.GetBlock(this.Pos);
+      var block = Api.World.BlockAccessor.GetBlock(Pos);
       block.LastCodePart();
       return block.LastCodePart() == "blooming";
     }
@@ -207,58 +207,58 @@ public class BlockEntityGourdVine : BlockEntity
       //BtCore.Logger.Warning("Setting vine stage to {0}", (object) toStage);
       try
       {
-        this.ReplaceSelf(block.CodeWithParts(toStage.ToString(), toStage == 4 ? "withered" : "normal"));
+        ReplaceSelf(block.CodeWithParts(toStage.ToString(), toStage == 4 ? "withered" : "normal"));
       }
       catch (Exception ex)
       {
-        this.Api.World.BlockAccessor.SetBlock(0, this.Pos);
+        Api.World.BlockAccessor.SetBlock(0, Pos);
       }
     }
 
     private void SetPumpkinStage(Block pumpkinBlock, BlockPos pumpkinPos, int toStage)
     {
-      Block block = this.Api.World.GetBlock(pumpkinBlock.CodeWithParts(toStage.ToString()));
+      var block = Api.World.GetBlock(pumpkinBlock.CodeWithParts(toStage.ToString()));
       if (block == null)
         return;
-      this.Api.World.BlockAccessor.ExchangeBlock(block.BlockId, pumpkinPos);
+      Api.World.BlockAccessor.ExchangeBlock(block.BlockId, pumpkinPos);
     }
 
-    private void SetBloomingStage(Block block) => this.ReplaceSelf(block.CodeWithParts("blooming"));
+    private void SetBloomingStage(Block block) => ReplaceSelf(block.CodeWithParts("blooming"));
 
     private void ReplaceSelf(AssetLocation blockCode)
     {
-      Block block = this.Api.World.GetBlock(blockCode);
+      var block = Api.World.GetBlock(blockCode);
       if (block == null)
         return;
-      this.Api.World.BlockAccessor.ExchangeBlock(block.BlockId, this.Pos);
+      Api.World.BlockAccessor.ExchangeBlock(block.BlockId, Pos);
     }
 
     private void TrySpawnNewVine()
     {
-      BlockFacing vineSpawnDirection = this.GetVineSpawnDirection();
-      BlockPos blockPos = this.Pos.AddCopy(vineSpawnDirection);
-      if (!this.IsReplaceable(this.Api.World.BlockAccessor.GetBlock(blockPos)))
+      var vineSpawnDirection = GetVineSpawnDirection();
+      var blockPos = Pos.AddCopy(vineSpawnDirection);
+      if (!IsReplaceable(Api.World.BlockAccessor.GetBlock(blockPos)))
       {
-        BlockPos abovePos = blockPos.UpCopy();
-        if (!this.IsReplaceable(this.Api.World.BlockAccessor.GetBlock(abovePos)) || !this.CanGrowOn(this.Api, blockPos))
+        var abovePos = blockPos.UpCopy();
+        if (!IsReplaceable(Api.World.BlockAccessor.GetBlock(abovePos)) || !CanGrowOn(Api, blockPos))
         {
           return;
         }
         blockPos = abovePos;
       }
       --blockPos.Y;
-      if (!this.CanGrowOn(this.Api, blockPos))
+      if (!CanGrowOn(Api, blockPos))
       {
-        if (this.CanGrowOn(this.Api, blockPos.DownCopy()))
+        if (CanGrowOn(Api, blockPos.DownCopy()))
           blockPos = blockPos.DownCopy();
         else
           return;
       }
       ++blockPos.Y;
-      this.Api.World.BlockAccessor.SetBlock(this.stage1VineBlock.BlockId, blockPos);
-      if (!(this.Api.World.BlockAccessor.GetBlockEntity(blockPos) is BlockEntityGourdVine blockEntity))
+      Api.World.BlockAccessor.SetBlock(stage1VineBlock.BlockId, blockPos);
+      if (!(Api.World.BlockAccessor.GetBlockEntity(blockPos) is BlockEntityGourdVine blockEntity))
         return;
-      blockEntity.CreatedFromParent(this.Pos, vineSpawnDirection, this.totalHoursForNextStage);
+      blockEntity.CreatedFromParent(Pos, vineSpawnDirection, totalHoursForNextStage);
     }
     
     public void CreatedFromParent(
@@ -267,26 +267,26 @@ public class BlockEntityGourdVine : BlockEntity
       double currentTotalHours)
     {
       //BtCore.Logger.Warning("Vine created from parent at {0} with preferred growth direction {1}", (object) parentPlantPos, (object) preferredGrowthDir);
-      this.totalHoursForNextStage = currentTotalHours + vineHoursToGrow;
+      totalHoursForNextStage = currentTotalHours + vineHoursToGrow;
       this.parentPlantPos = parentPlantPos;
       this.preferredGrowthDir = preferredGrowthDir;
     }
 
     private bool CanGrowOn(ICoreAPI api, BlockPos pos)
     {
-      return api.World.BlockAccessor.GetMostSolidBlock(pos.X, pos.Y, pos.Z).CanAttachBlockAt(api.World.BlockAccessor, this.stage1VineBlock, pos, BlockFacing.UP);
+      return api.World.BlockAccessor.GetMostSolidBlock(pos.X, pos.Y, pos.Z).CanAttachBlockAt(api.World.BlockAccessor, stage1VineBlock, pos, BlockFacing.UP);
     }
 
     private bool IsReplaceable(Block block) => block == null || block.Replaceable >= 6000;
 
     private BlockFacing GetVineSpawnDirection()
     {
-      return this.Api.World.Rand.NextDouble() <  preferredGrowthDirProbability ? this.preferredGrowthDir : this.DirectionAdjacentToPreferred();
+      return Api.World.Rand.NextDouble() <  preferredGrowthDirProbability ? preferredGrowthDir : DirectionAdjacentToPreferred();
     }
 
     private BlockFacing DirectionAdjacentToPreferred()
     {
-      return BlockFacing.NORTH == this.preferredGrowthDir || BlockFacing.SOUTH == this.preferredGrowthDir ? (this.Api.World.Rand.NextDouble() >= 0.5 ? BlockFacing.WEST : BlockFacing.EAST) : (this.Api.World.Rand.NextDouble() >= 0.5 ? BlockFacing.SOUTH : BlockFacing.NORTH);
+      return BlockFacing.NORTH == preferredGrowthDir || BlockFacing.SOUTH == preferredGrowthDir ? (Api.World.Rand.NextDouble() >= 0.5 ? BlockFacing.WEST : BlockFacing.EAST) : (Api.World.Rand.NextDouble() >= 0.5 ? BlockFacing.SOUTH : BlockFacing.NORTH);
     }
 
     private int CurrentVineStage(Block block)

@@ -17,71 +17,71 @@ public class BlockEntityGourdMotherplant : BlockEntity
     private float tickGrowthProbability;
     private readonly float defaultGrowthProbability = 0.1f;
 
-    public ITreeAttribute CropAttributes => this.cropAttrs;
+    public ITreeAttribute CropAttributes => cropAttrs;
     
     public override void Initialize(ICoreAPI api)
     {
         base.Initialize(api);
         if (api is ICoreServerAPI)
         {
-            this.listenerId = this.RegisterGameTickListener(new Action<float>(this.Update),  3300 + rand.Next(400));
+            listenerId = RegisterGameTickListener(new Action<float>(Update),  3300 + rand.Next(400));
         }
-        this.tickGrowthProbability = this.Block.Attributes?["tickGrowthProbability"]?.AsFloat(defaultGrowthProbability) ?? defaultGrowthProbability;
+        tickGrowthProbability = Block.Attributes?["tickGrowthProbability"]?.AsFloat(defaultGrowthProbability) ?? defaultGrowthProbability;
     }
 
     private void Update(float obj)
     {
-        if (rand.NextDouble() >= (double) tickGrowthProbability || !IsNotOnFarmland(this.Api.World, this.Pos))
+        if (rand.NextDouble() >= tickGrowthProbability || !IsNotOnFarmland(Api.World, Pos))
             return;
-        if (!((ICoreServerAPI)this.Api).World.IsFullyLoadedChunk(this.Pos))
+        if (!((ICoreServerAPI)Api).World.IsFullyLoadedChunk(Pos))
             return;
-        this.TryGrowCrop(Api.World.Calendar.TotalHours);
-        if (this.GetCropStage(this.GetCrop()) == 8)
+        TryGrowCrop(Api.World.Calendar.TotalHours);
+        if (GetCropStage(GetCrop()) == 8)
         {
-            this.Api.World.UnregisterGameTickListener(this.listenerId);
+            Api.World.UnregisterGameTickListener(listenerId);
         }
     }
 
     public bool TryGrowCrop(double currentTotalHours)
     {
-        Block crop = this.GetCrop();
+        var crop = GetCrop();
         if (crop == null)
             return false;
-        int cropStage = this.GetCropStage(crop);
+        var cropStage = GetCropStage(crop);
         if (cropStage >= crop.CropProps.GrowthStages)
             return false;
-        int newGrowthStage = cropStage + 1;
-        Block block = this.Api.World.GetBlock(crop.CodeWithParts(newGrowthStage.ToString() ?? ""));
+        var newGrowthStage = cropStage + 1;
+        var block = Api.World.GetBlock(crop.CodeWithParts(newGrowthStage.ToString() ?? ""));
         if (block == null)
             return false;
         if (crop.CropProps.Behaviors != null)
         {
-            EnumHandling handling = EnumHandling.PassThrough;
-            bool flag = false;
+            var handling = EnumHandling.PassThrough;
+            var flag = false;
             var behavior = GetGourdBehavior();
-            flag = behavior.TryGrowCrop(this.Api, this, currentTotalHours, newGrowthStage, ref handling);
+            flag = behavior.TryGrowCrop(Api, this, currentTotalHours, newGrowthStage, ref handling);
             if (handling == EnumHandling.PreventSubsequent)
                 return flag;
             if (handling == EnumHandling.PreventDefault)
                 return flag;
         }
-        if (this.Api.World.BlockAccessor.GetBlockEntity(this.Pos) == null)
-            this.Api.World.BlockAccessor.SetBlock(block.BlockId, this.Pos);
+        if (Api.World.BlockAccessor.GetBlockEntity(Pos) == null)
+            Api.World.BlockAccessor.SetBlock(block.BlockId, Pos);
         else
-            this.Api.World.BlockAccessor.ExchangeBlock(block.BlockId, this.Pos);
+            Api.World.BlockAccessor.ExchangeBlock(block.BlockId, Pos);
         return true;
     }
     
     internal Block GetCrop()
     {
-        Block block = this.Api.World.BlockAccessor.GetBlock(this.Pos);
+        var block = Api.World.BlockAccessor.GetBlock(Pos);
         return block == null || block.CropProps == null ? null : block;
     }
     
     internal GourdCropBehavior GetGourdBehavior()
     {
         GourdCropBehavior gourdCropBehavior = null;
-        var cropPropsBehaviors = (this.Block as BlockCrop)?.CropProps.Behaviors;
+        var cropPropsBehaviors = (Block as BlockCrop)?.CropProps.Behaviors;
         if (cropPropsBehaviors != null)
             gourdCropBehavior =
                 Array.Find(cropPropsBehaviors, b => b is GourdCropBehavior) as

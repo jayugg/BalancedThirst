@@ -30,7 +30,7 @@ public class WaterContainerBehavior : DrinkableBehavior
             inSlot.Itemstack.Collectible is not BlockLiquidContainerBase container
             || inSlot.Itemstack.Attributes?.GetInt("toolMode") != DirtyWaterMode) return base.GetHeldInteractionHelp(inSlot, ref handling);
         var result = base.GetHeldInteractionHelp(inSlot, ref handling);
-        WorldInteraction newInteraction = new WorldInteraction()
+        var newInteraction = new WorldInteraction()
         {
             ActionLangCode = $"{BtCore.Modid}:heldhelp-container-getvanillawater",
             HotKeyCode = "ctrl",
@@ -103,14 +103,14 @@ public class WaterContainerBehavior : DrinkableBehavior
 
     internal override HydrationProperties GetHydrationProperties(IWorldAccessor world, ItemStack itemstack, Entity byEntity)
     {
-        return base.ExtractContainerHydrationProperties(world, itemstack, byEntity);
+        return ExtractContainerHydrationProperties(world, itemstack, byEntity);
     }
 
     public static float GetTransitionRateMul(CollectibleObject collectible, EnumTransitionType transType)
     {
         try
         {
-            JsonObject attribute = collectible.Attributes?["waterTransitionMul"];
+            var attribute = collectible.Attributes?["waterTransitionMul"];
             return attribute is { Exists: true } ? attribute.AsFloat(1) : 1;
         }
         catch (Exception ex)

@@ -31,10 +31,10 @@ public class KettleInFirepitRenderer : IInFirepitRenderer
 
     public KettleInFirepitRenderer(ICoreClientAPI capi, ItemStack stack, BlockPos pos, bool isInOutputSlot)
     {
-        this._capi = capi;
-        this._stack = stack;
-        this._pos = pos;
-        this._isInOutputSlot = isInOutputSlot;
+        _capi = capi;
+        _stack = stack;
+        _pos = pos;
+        _isInOutputSlot = isInOutputSlot;
 
         var variant = stack.Collectible.Code.EndVariant();
 

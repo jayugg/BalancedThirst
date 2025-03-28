@@ -40,7 +40,7 @@ public static class ConfigSystem
         {
             player.GetBehavior<EntityBehaviorThirst>().Dehydration = 0;
         }
-        foreach (var stat in ConfigSystem.ConfigServer.ThirstStatMultipliers.Keys)
+        foreach (var stat in ConfigServer.ThirstStatMultipliers.Keys)
         {
             player.Stats.Remove(stat, BtCore.Modid + ":thirsty");
         }

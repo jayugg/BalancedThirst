@@ -27,7 +27,7 @@ public class HarmonyPatches : ModSystem
     public override double ExecuteOrder() => 0.03;
     public override void Start(ICoreAPI api)
     {
-        this._api = api;
+        _api = api;
         Patch();
         var configData = ConfigSystem.ConfigServer;
 

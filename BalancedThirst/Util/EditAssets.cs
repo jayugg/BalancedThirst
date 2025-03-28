@@ -15,7 +15,7 @@ public static class EditAssets
     {
         foreach (var collectible in api.World.Collectibles.Where(c => c?.Code != null))
         {
-            HydrationProperties hydrationProps = ConfigSystem.ConfigServer?.HydratingLiquids.FirstOrDefault(keyVal => collectible.MyWildCardMatch(keyVal.Key)).Value;
+            var hydrationProps = ConfigSystem.ConfigServer?.HydratingLiquids.FirstOrDefault(keyVal => collectible.MyWildCardMatch(keyVal.Key)).Value;
             
             if (hydrationProps != null)
             {

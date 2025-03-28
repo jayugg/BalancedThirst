@@ -10,50 +10,40 @@ namespace BalancedThirst.Hud
     public class ThirstBarHudElement : HudElement
     {
         private BetterGuiElementStatbar _thirstBar;
-        private BetterGuiElementStatbar _bladderBar;
         private float _lastHydration;
         private float _lastMaxHydration;
         
-        private float _lastBladderLevel;
-        private float _lastBladderCapacity;
-
-        private bool ShouldShowBladderBar => ConfigSystem.ConfigClient.BladderBarVisible && ConfigSystem.ConfigServer.EnableBladder;
-        private bool ShouldShowThirstBar => ConfigSystem.ConfigServer.EnableThirst;
-        public double[] ThirstBarColor => ModGuiStyle.FromHex(ConfigSystem.ConfigClient.ThirstBarColor);
-        public double[] BladderBarColor => ModGuiStyle.FromHex(ConfigSystem.ConfigClient.BladderBarColor);
-        public bool FirstComposed { get; private set; }
+        private static bool ShouldShowThirstBar => ConfigSystem.ConfigServer.EnableThirst;
+        private static double[] ThirstBarColor => ModGuiStyle.FromHex(ConfigSystem.ConfigClient.ThirstBarColor);
+        private bool FirstComposed { get; set; }
         
         public ThirstBarHudElement(ICoreClientAPI capi) : base(capi)
         {
             capi.Event.RegisterGameTickListener(OnGameTick, 20);
-            capi.Event.RegisterGameTickListener(this.OnFlashStatbars, 2500);
+            capi.Event.RegisterGameTickListener(OnFlashStatbars, 2500);
             capi.Event.RegisterEventBusListener(ReloadBars, filterByEventName: EventIds.ConfigReloaded);
         }
 
         private void ReloadBars(string eventname, ref EnumHandling handling, IAttribute data)
         {
             if (!FirstComposed) return;
-            this.ClearComposers();
-            this.Dispose();
-            this.ComposeGuis();
+            ClearComposers();
+            Dispose();
+            ComposeGuis();
             if (ShouldShowThirstBar)
                 UpdateThirstBar(true);
-            if (ShouldShowBladderBar)
-                UpdateBladderBar(true);
         }
 
         private void OnGameTick(float dt)
         {
             if (ShouldShowThirstBar)
                 UpdateThirstBar();
-            if (ShouldShowBladderBar)
-                UpdateBladderBar();
         }
         
         public override void OnOwnPlayerDataReceived()
         {
             ComposeGuis();
-            this.OnGameTick(1);
+            OnGameTick(1);
         }
         
         private void UpdateThirstBar(bool forceReload = false)
@@ -78,62 +68,16 @@ namespace BalancedThirst.Hud
             _lastMaxHydration = maxHydration.Value;
         }
         
-        private void UpdateBladderBar(bool forceReload = false)
-        {
-            var bladderTree = this.capi.World.Player.Entity.WatchedAttributes.GetTreeAttribute(BtCore.Modid+":bladder");
-            if (bladderTree == null || _bladderBar == null) return;
-
-            var currentLevel = bladderTree.TryGetFloat("currentlevel");
-            var capacity = bladderTree.TryGetFloat("capacity");
-
-            if (!currentLevel.HasValue || !capacity.HasValue) return;
-
-            var isLevelChanged = Math.Abs(_lastBladderLevel - currentLevel.Value) >= 0.1;
-            var isCapacityChanged = Math.Abs(_lastBladderCapacity - capacity.Value) >= 0.1;
-
-            if (!isLevelChanged && !isCapacityChanged && !forceReload) return;
-
-            _bladderBar.SetLineInterval(100f);
-            _bladderBar.SetValues(currentLevel.Value, 0.0f, capacity.Value);
-
-            _lastBladderLevel = currentLevel.Value;
-            _lastBladderCapacity = capacity.Value;
-        }
-        
         private void OnFlashStatbars(float dt)
         {
-            var thirstTree = this.capi.World.Player.Entity.WatchedAttributes.GetTreeAttribute(BtCore.Modid+":thirst");
-            var bladderTree  = this.capi.World.Player.Entity.WatchedAttributes.GetTreeAttribute(BtCore.Modid+":bladder");
-            if (thirstTree != null && this._thirstBar != null) 
-            {
-                var nullable2 = thirstTree.TryGetFloat("currenthydration");
-                var nullable1 = thirstTree.TryGetFloat("maxhydration");
-                var nullable3 = nullable2.HasValue & nullable1.HasValue ? nullable2.GetValueOrDefault() / (double) nullable1.GetValueOrDefault() : new double?();
-                var num = 0.2;
-                if (nullable3.GetValueOrDefault() < num & nullable3.HasValue) 
-                    this._thirstBar.ShouldFlash = true;
-                if (bladderTree != null && ShouldShowBladderBar)
-                {
-                    var currentlevel = bladderTree.TryGetFloat("currentlevel");
-                    var capacity = bladderTree.TryGetFloat("capacity");
-                    var ratio = currentlevel.HasValue & capacity.HasValue
-                        ? currentlevel.GetValueOrDefault() / (double)capacity.GetValueOrDefault()
-                        : new double?();
-                    if (ratio.GetValueOrDefault() > 1 & ratio.HasValue)
-                        this._thirstBar.ShouldFlash = true;
-                }
-            }
-            
-            if (bladderTree != null && !ShouldShowBladderBar && this._bladderBar != null)
-            {
-                var currentlevel = bladderTree.TryGetFloat("currentlevel");
-                var capacity = bladderTree.TryGetFloat("capacity");
-                var ratio = currentlevel.HasValue & capacity.HasValue
-                    ? currentlevel.GetValueOrDefault() / (double)capacity.GetValueOrDefault()
-                    : new double?();
-                if (ratio.GetValueOrDefault() > 1 & ratio.HasValue)
-                    this._bladderBar.ShouldFlash = true;
-            }
+            var thirstTree = capi.World.Player.Entity.WatchedAttributes.GetTreeAttribute(BtCore.Modid+":thirst");
+            if (thirstTree == null || _thirstBar == null) return;
+            var nullable2 = thirstTree.TryGetFloat("currenthydration");
+            var nullable1 = thirstTree.TryGetFloat("maxhydration");
+            var nullable3 = nullable2.HasValue & nullable1.HasValue ? nullable2.GetValueOrDefault() / (double) nullable1.GetValueOrDefault() : new double?();
+            var num = 0.2;
+            if (nullable3.GetValueOrDefault() < num & nullable3.HasValue) 
+                _thirstBar.ShouldFlash = true;
         }
         
         private void ComposeGuis()
@@ -141,47 +85,22 @@ namespace BalancedThirst.Hud
             FirstComposed = true;
             var num = 850f;
             var parentBounds = GenParentBounds();
-            if (ShouldShowThirstBar)
-            {
-                var thirstBarBounds = ElementStdBounds.Statbar(EnumDialogArea.RightBottom, num * 0.41)
-                    .WithFixedAlignmentOffset(-2.0 + ConfigSystem.ConfigClient.ThirstBarX,
-                        21 + ConfigSystem.ConfigClient.ThirstBarY);
-                thirstBarBounds.WithFixedHeight(10.0);
-                var compo = capi.Gui.CreateCompo("thirstbar", parentBounds.FlatCopy().FixedGrow(0.0, 20.0));
+            var thirstBarBounds = ElementStdBounds.Statbar(EnumDialogArea.RightBottom, num * 0.41)
+                .WithFixedAlignmentOffset(-2.0 + ConfigSystem.ConfigClient.ThirstBarX,
+                    21 + ConfigSystem.ConfigClient.ThirstBarY);
+            thirstBarBounds.WithFixedHeight(10.0);
+            var compo = capi.Gui.CreateCompo("thirstbar", parentBounds.FlatCopy().FixedGrow(0.0, 20.0));
 
-                _thirstBar =
-                    new BetterGuiElementStatbar(capi, thirstBarBounds, ThirstBarColor, true, false);
+            _thirstBar =
+                new BetterGuiElementStatbar(capi, thirstBarBounds, ThirstBarColor, true, false);
 
-                compo.BeginChildElements(parentBounds)
-                    .AddInteractiveElement(_thirstBar, "thirstbar")
-                    .EndChildElements()
-                    .Compose();
-                
-                this._thirstBar.Hide = !ShouldShowThirstBar;
-                this.Composers["thirstbar"] = compo;
-            }
-
-            if (ShouldShowBladderBar)
-            {
-                var bladderBarBounds = ElementStdBounds.Statbar(EnumDialogArea.RightBottom, num * 0.41)
-                    .WithFixedAlignmentOffset(-2.0 + ConfigSystem.ConfigClient.ThirstBarX,
-                        10 + ConfigSystem.ConfigClient.ThirstBarY);
-                bladderBarBounds.WithFixedHeight(6.0);
-
-                var compo2 = capi.Gui.CreateCompo("bladderbar", parentBounds.FlatCopy().FixedGrow(0.0, 20.0));
-
-                _bladderBar = new BetterGuiElementStatbar(capi, bladderBarBounds, BladderBarColor, true, true);
-
-                compo2.BeginChildElements(parentBounds)
-                    .AddInteractiveElement(_bladderBar, "bladderbar")
-                    .EndChildElements()
-                    .Compose();
-                
-                this._bladderBar.HideWhenLessThan = ConfigSystem.ConfigClient.HideBladderBarAt;
-                this._bladderBar.Hide = !ShouldShowBladderBar;
-
-                this.Composers["bladderbar"] = compo2;
-            }
+            compo.BeginChildElements(parentBounds)
+                .AddInteractiveElement(_thirstBar, "thirstbar")
+                .EndChildElements()
+                .Compose();
+            
+            _thirstBar.Hide = !ShouldShowThirstBar;
+            Composers["thirstbar"] = compo;
             
             TryOpen();
         }

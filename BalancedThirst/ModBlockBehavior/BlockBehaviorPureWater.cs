@@ -40,11 +40,11 @@ public class BlockBehaviorPureWater : BlockBehavior
     
     private bool IsImpureWaterNearby(IBlockAccessor blockAccessor, BlockPos pos)
     {
-        foreach (BlockFacing facing in BlockFacing.HORIZONTALS)
+        foreach (var facing in BlockFacing.HORIZONTALS)
         {
-            BlockPos adjacentPos = pos.AddCopy(facing);
+            var adjacentPos = pos.AddCopy(facing);
             if (blockAccessor.GetBlock(adjacentPos).IsLiquidSourceBlock() &&
-                !blockAccessor.GetBlock(adjacentPos).IsSameLiquid(this.block))
+                !blockAccessor.GetBlock(adjacentPos).IsSameLiquid(block))
             {
                 return true;
             }

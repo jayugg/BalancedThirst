@@ -32,7 +32,7 @@ public class BlockLiquidContainerSealable : BlockLiquidContainerBase
     {
         try
         {
-            JsonObject obj = stack?.ItemAttributes?["waterTightContainerProps"];
+            var obj = stack?.ItemAttributes?["waterTightContainerProps"];
             if (obj != null && obj.Exists) return obj.AsObject<WaterTightContainableProps>(null, stack.Collectible.Code.Domain);
             return null;
         }
@@ -44,13 +44,13 @@ public class BlockLiquidContainerSealable : BlockLiquidContainerBase
     
         public override WorldInteraction[] GetPlacedBlockInteractionHelp(IWorldAccessor world, BlockSelection selection, IPlayer forPlayer)
     {
-        List<ItemStack> liquidContainerStacks = new List<ItemStack>();
+        var liquidContainerStacks = new List<ItemStack>();
 
-        foreach (CollectibleObject obj in api.World.Collectibles)
+        foreach (var obj in api.World.Collectibles)
         {
             if (obj is BlockLiquidContainerTopOpened || obj is ILiquidSource || obj is ILiquidSink || obj is BlockWateringCan)
             {
-                List<ItemStack> stacks = obj.GetHandBookStacks((ICoreClientAPI)api);
+                var stacks = obj.GetHandBookStacks((ICoreClientAPI)api);
                 if (stacks != null) liquidContainerStacks.AddRange(stacks);
             }
         }
@@ -75,7 +75,7 @@ public class BlockLiquidContainerSealable : BlockLiquidContainerBase
                     HotKeyCodes = new[] { "sneak", "sprint" },
                     MouseButton = EnumMouseButton.Right,
                     ShouldApply = (_, bs, _) => {
-                        BlockEntitySealable beSealable = world.BlockAccessor.GetBlockEntity(bs.Position) as BlockEntitySealable;
+                        var beSealable = world.BlockAccessor.GetBlockEntity(bs.Position) as BlockEntitySealable;
                         return beSealable is { IsSealed: true };
                     }
                 },
@@ -85,7 +85,7 @@ public class BlockLiquidContainerSealable : BlockLiquidContainerBase
                     HotKeyCodes = new[] { "sneak", "sprint" },
                     MouseButton = EnumMouseButton.Right,
                     ShouldApply = (_, bs, _) => {
-                        BlockEntitySealable beSealable = world.BlockAccessor.GetBlockEntity(bs.Position) as BlockEntitySealable;
+                        var beSealable = world.BlockAccessor.GetBlockEntity(bs.Position) as BlockEntitySealable;
                         return beSealable != null && !beSealable.IsSealed;
                     }
                 }
@@ -99,19 +99,19 @@ public class BlockLiquidContainerSealable : BlockLiquidContainerBase
         var props = GetContainableProps(liquidStack);
         if (props == null) return 0;
 
-        int desiredItems = (int)(props.ItemsPerLitre * desiredLitres);
-        int availItems = liquidStack.StackSize;
+        var desiredItems = (int)(props.ItemsPerLitre * desiredLitres);
+        var availItems = liquidStack.StackSize;
 
-        ItemStack stack = GetContent(containerStack);
-        ILiquidSink sink = containerStack.Collectible as ILiquidSink;
+        var stack = GetContent(containerStack);
+        var sink = containerStack.Collectible as ILiquidSink;
         if (sink == null) return 0;
         if (stack == null)
         {
             if (!props.Containable) return 0;
 
-            int placeableItems = (int)(sink.CapacityLitres * props.ItemsPerLitre);
+            var placeableItems = (int)(sink.CapacityLitres * props.ItemsPerLitre);
 
-            ItemStack placedstack = liquidStack.Clone();
+            var placedstack = liquidStack.Clone();
             placedstack.StackSize = GameMath.Min(availItems, desiredItems, placeableItems);
             SetContent(containerStack, placedstack);
 
@@ -121,8 +121,8 @@ public class BlockLiquidContainerSealable : BlockLiquidContainerBase
         {
             if (!stack.Equals(api.World, liquidStack, GlobalConstants.IgnoredStackAttributes)) return 0;
 
-            float maxItems = sink.CapacityLitres * props.ItemsPerLitre;
-            int placeableItems = (int)(maxItems - stack.StackSize);
+            var maxItems = sink.CapacityLitres * props.ItemsPerLitre;
+            var placeableItems = (int)(maxItems - stack.StackSize);
 
             stack.StackSize += GameMath.Min(placeableItems, desiredItems, availItems);
             return Math.Min(placeableItems, desiredItems);
@@ -133,19 +133,19 @@ public class BlockLiquidContainerSealable : BlockLiquidContainerBase
         if (liquidStack == null) return 0;
 
         var props = GetContainableProps(liquidStack);
-        int desiredItems = (int)(props.ItemsPerLitre * desiredLitres);
+        var desiredItems = (int)(props.ItemsPerLitre * desiredLitres);
         float availItems = liquidStack.StackSize;
-        float maxItems = CapacityLitres * props.ItemsPerLitre;
+        var maxItems = CapacityLitres * props.ItemsPerLitre;
 
-        ItemStack stack = GetContent(pos);
+        var stack = GetContent(pos);
         if (stack == null)
         {
             if (!props.Containable) return 0;
 
-            int placeableItems = (int)GameMath.Min(desiredItems, maxItems, availItems);
-            int movedItems = Math.Min(desiredItems, placeableItems);
+            var placeableItems = (int)GameMath.Min(desiredItems, maxItems, availItems);
+            var movedItems = Math.Min(desiredItems, placeableItems);
 
-            ItemStack placedstack = liquidStack.Clone();
+            var placedstack = liquidStack.Clone();
             placedstack.StackSize = movedItems;
             SetContent(pos, placedstack);
 
@@ -155,8 +155,8 @@ public class BlockLiquidContainerSealable : BlockLiquidContainerBase
         {
             if (!stack.Equals(api.World, liquidStack, GlobalConstants.IgnoredStackAttributes)) return 0;
 
-            int placeableItems = (int)Math.Min(availItems, maxItems - stack.StackSize);
-            int movedItems = Math.Min(placeableItems, desiredItems);
+            var placeableItems = (int)Math.Min(availItems, maxItems - stack.StackSize);
+            var movedItems = Math.Min(placeableItems, desiredItems);
 
             stack.StackSize += GameMath.Min(movedItems);
             api.World.BlockAccessor.GetBlockEntity(pos).MarkDirty(true);
@@ -168,8 +168,8 @@ public class BlockLiquidContainerSealable : BlockLiquidContainerBase
 
     public override bool OnBlockInteractStart(IWorldAccessor world, IPlayer byPlayer, BlockSelection blockSel) {
 
-        BlockEntitySealable sp = world.BlockAccessor.GetBlockEntity(blockSel.Position) as BlockEntitySealable;
-        BlockPos pos = blockSel.Position;
+        var sp = world.BlockAccessor.GetBlockEntity(blockSel.Position) as BlockEntitySealable;
+        var pos = blockSel.Position;
 
         if (byPlayer.WorldData.EntityControls.Sneak && byPlayer.WorldData.EntityControls.Sprint)
         {
@@ -185,11 +185,11 @@ public class BlockLiquidContainerSealable : BlockLiquidContainerBase
         }
 
         if (sp?.IsSealed == true) return false;
-        ItemSlot hotbarSlot = byPlayer.InventoryManager.ActiveHotbarSlot;
+        var hotbarSlot = byPlayer.InventoryManager.ActiveHotbarSlot;
 
         if (!hotbarSlot.Empty && hotbarSlot.Itemstack.Collectible.Attributes?.IsTrue("handleLiquidContainerInteract") == true)
         {
-            EnumHandHandling handling = EnumHandHandling.NotHandled;
+            var handling = EnumHandHandling.NotHandled;
             hotbarSlot.Itemstack.Collectible.OnHeldInteractStart(hotbarSlot, byPlayer.Entity, blockSel, null, true, ref handling);
             if (handling == EnumHandHandling.PreventDefault || handling == EnumHandHandling.PreventDefaultAction) return true;
         }
@@ -211,12 +211,12 @@ public class BlockLiquidContainerSealable : BlockLiquidContainerBase
 
         if (AllowHeldLiquidTransfer)
         {
-            IPlayer byPlayer = (byEntity as EntityPlayer)?.Player;
+            var byPlayer = (byEntity as EntityPlayer)?.Player;
 
-            ItemStack contentStack = GetContent(itemslot.Itemstack);
-            WaterTightContainableProps props = contentStack == null ? null : GetContentProps(contentStack);
+            var contentStack = GetContent(itemslot.Itemstack);
+            var props = contentStack == null ? null : GetContentProps(contentStack);
 
-            Block targetedBlock = byEntity.World.BlockAccessor.GetBlock(blockSel.Position);
+            var targetedBlock = byEntity.World.BlockAccessor.GetBlock(blockSel.Position);
 
             if (!byEntity.World.Claims.TryAccess(byPlayer, blockSel.Position, EnumBlockAccessFlags.BuildOrBreak))
             {
@@ -227,7 +227,7 @@ public class BlockLiquidContainerSealable : BlockLiquidContainerBase
 
             if (!TryFillFromBlock(itemslot, byEntity, blockSel.Position))
             {
-                BlockLiquidContainerTopOpened targetCntBlock = targetedBlock as BlockLiquidContainerTopOpened;
+                var targetCntBlock = targetedBlock as BlockLiquidContainerTopOpened;
                 if (targetCntBlock != null)
                 {
                     if (targetCntBlock.TryPutLiquid(blockSel.Position, contentStack, targetCntBlock.CapacityLitres) > 0)
@@ -267,13 +267,13 @@ public class BlockLiquidContainerSealable : BlockLiquidContainerBase
 
     protected bool SpillContents(ItemSlot containerSlot, EntityAgent byEntity, BlockSelection blockSel)
     {
-        BlockPos pos = blockSel.Position;
-        IPlayer byPlayer = (byEntity as EntityPlayer)?.Player;
-        IBlockAccessor blockAcc = byEntity.World.BlockAccessor;
-        BlockPos secondPos = blockSel.Position.AddCopy(blockSel.Face);
+        var pos = blockSel.Position;
+        var byPlayer = (byEntity as EntityPlayer)?.Player;
+        var blockAcc = byEntity.World.BlockAccessor;
+        var secondPos = blockSel.Position.AddCopy(blockSel.Face);
         var contentStack = GetContent(containerSlot.Itemstack);
 
-        WaterTightContainableProps props = GetContentProps(containerSlot.Itemstack);
+        var props = GetContentProps(containerSlot.Itemstack);
 
         if (props is not { AllowSpill: true } || props.WhenSpilled == null) return false;
 
@@ -283,7 +283,7 @@ public class BlockLiquidContainerSealable : BlockLiquidContainerBase
         }
 
         var action = props.WhenSpilled.Action;
-        float currentlitres = GetCurrentLitres(containerSlot.Itemstack);
+        var currentlitres = GetCurrentLitres(containerSlot.Itemstack);
 
         if (currentlitres > 0 && currentlitres < 10)
         {
@@ -292,7 +292,7 @@ public class BlockLiquidContainerSealable : BlockLiquidContainerBase
 
         if (action == WaterTightContainableProps.EnumSpilledAction.PlaceBlock)
         {
-            Block waterBlock = byEntity.World.GetBlock(props.WhenSpilled.Stack.Code);
+            var waterBlock = byEntity.World.GetBlock(props.WhenSpilled.Stack.Code);
 
             if (props.WhenSpilled.StackByFillLevel != null)
             {
@@ -301,7 +301,7 @@ public class BlockLiquidContainerSealable : BlockLiquidContainerBase
                 if (fillLevelStack != null) waterBlock = byEntity.World.GetBlock(fillLevelStack.Code);
             }
 
-            Block currentblock = blockAcc.GetBlock(pos);
+            var currentblock = blockAcc.GetBlock(pos);
             if (currentblock.Replaceable >= 6000)
             {
                 blockAcc.SetBlock(waterBlock.BlockId, pos);
@@ -327,14 +327,14 @@ public class BlockLiquidContainerSealable : BlockLiquidContainerBase
         {
             props.WhenSpilled.Stack.Resolve(byEntity.World, "liquidcontainerbasespill");
 
-            ItemStack stack = props.WhenSpilled.Stack.ResolvedItemstack.Clone();
+            var stack = props.WhenSpilled.Stack.ResolvedItemstack.Clone();
             stack.StackSize = contentStack.StackSize;
 
             byEntity.World.SpawnItemEntity(stack, blockSel.Position.ToVec3d().Add(blockSel.HitPosition));
         }
 
 
-        int moved = splitStackAndPerformAction(byEntity, containerSlot, (stack) => { SetContent(stack, null); return contentStack.StackSize; });
+        var moved = splitStackAndPerformAction(byEntity, containerSlot, (stack) => { SetContent(stack, null); return contentStack.StackSize; });
 
         DoLiquidMovedEffects(byPlayer, contentStack, moved, EnumLiquidDirection.Pour);
         BlockLiquidContainerBase_SpillContents_Patch.Postfix(this, true, containerSlot, byEntity, blockSel);
@@ -346,14 +346,14 @@ public class BlockLiquidContainerSealable : BlockLiquidContainerBase
         if (slot.Itemstack == null) return 0;
         if (slot.Itemstack.StackSize == 1)
         {
-            int moved = action(slot.Itemstack);
+            var moved = action(slot.Itemstack);
 
             if (moved > 0)
             {
                 (byEntity as EntityPlayer)?.WalkInventory((pslot) =>
                 {
                     if (pslot.Empty || pslot is ItemSlotCreative || pslot.StackSize == pslot.Itemstack.Collectible.MaxStackSize) return true;
-                    int mergableq = slot.Itemstack.Collectible.GetMergableQuantity(slot.Itemstack, pslot.Itemstack, EnumMergePriority.DirectMerge);
+                    var mergableq = slot.Itemstack.Collectible.GetMergableQuantity(slot.Itemstack, pslot.Itemstack, EnumMergePriority.DirectMerge);
                     if (mergableq == 0) return true;
 
                     var selfLiqBlock = slot.Itemstack.Collectible as BlockLiquidContainerBase;
@@ -374,10 +374,10 @@ public class BlockLiquidContainerSealable : BlockLiquidContainerBase
         }
         else
         {
-            ItemStack containerStack = slot.Itemstack.Clone();
+            var containerStack = slot.Itemstack.Clone();
             containerStack.StackSize = 1;
 
-            int moved = action(containerStack);
+            var moved = action(containerStack);
 
             if (moved > 0)
             {
@@ -397,7 +397,7 @@ public class BlockLiquidContainerSealable : BlockLiquidContainerBase
     public override void OnBeforeRender(ICoreClientAPI capi, ItemStack itemstack, EnumItemRenderTarget target, ref ItemRenderInfo renderinfo)
     {
         Dictionary<int, MultiTextureMeshRef> meshrefs;
-        bool isSealed = itemstack.Attributes.GetBool("isSealed");
+        var isSealed = itemstack.Attributes.GetBool("isSealed");
 
         object obj;
         
@@ -406,7 +406,7 @@ public class BlockLiquidContainerSealable : BlockLiquidContainerBase
         {
             variantStringBuilder.Append($"{entry.Value}-");
         }
-        string variantString = variantStringBuilder.Length > 0 ? variantStringBuilder.ToString(0, variantStringBuilder.Length - 2) : "";
+        var variantString = variantStringBuilder.Length > 0 ? variantStringBuilder.ToString(0, variantStringBuilder.Length - 2) : "";
         
         if (capi.ObjectCache.TryGetValue(variantString + "MeshRefs", out obj))
         {
@@ -416,13 +416,13 @@ public class BlockLiquidContainerSealable : BlockLiquidContainerBase
         {
             capi.ObjectCache[variantString + "MeshRefs"] = meshrefs = new Dictionary<int, MultiTextureMeshRef>();
         }
-        ItemStack contentStack = GetContent(itemstack);
+        var contentStack = GetContent(itemstack);
         if (contentStack == null) return;
-        int hashcode = GetContainerHashCode(capi.World, contentStack, isSealed);
+        var hashcode = GetContainerHashCode(capi.World, contentStack, isSealed);
         MultiTextureMeshRef meshRef = null;
         if (meshrefs != null && !meshrefs.TryGetValue(hashcode, out meshRef))
         {
-            MeshData meshdata = GenRightMesh(capi, contentStack, null, isSealed);
+            var meshdata = GenRightMesh(capi, contentStack, null, isSealed);
             meshrefs[hashcode] = meshRef = capi.Render.UploadMultiTextureMesh(meshdata);
 
         }
@@ -432,7 +432,7 @@ public class BlockLiquidContainerSealable : BlockLiquidContainerBase
     
     public virtual int GetContainerHashCode(IClientWorldAccessor world, ItemStack contentStack, bool isSealed)
     {
-        string s = contentStack.StackSize + "x" + contentStack.Collectible.Code.ToShortString();
+        var s = contentStack.StackSize + "x" + contentStack.Collectible.Code.ToShortString();
         if (isSealed) s += "sealed";
         return s.GetHashCode();
     }
@@ -444,35 +444,35 @@ public class BlockLiquidContainerSealable : BlockLiquidContainerBase
         var maxY = MaxFillY;
         
         var newMaxY = minY + (maxY - minY) * fullness;
-        List<ShapeElement> newElements = new List<ShapeElement>();
+        var newElements = new List<ShapeElement>();
 
         foreach (var element in fullShape.Elements)
         {
-            double elementMinY = Math.Min(element.From[1], element.To[1]);
-            double elementMaxY = Math.Max(element.From[1], element.To[1]);
+            var elementMinY = Math.Min(element.From[1], element.To[1]);
+            var elementMaxY = Math.Max(element.From[1], element.To[1]);
         
             if (elementMaxY < minY || elementMinY > newMaxY) continue;
         
             var newElement = element.Clone();
-            double adjustedFromY = Math.Max(element.From[1], 0);
-            double adjustedToY = Math.Min(element.To[1], newMaxY);
+            var adjustedFromY = Math.Max(element.From[1], 0);
+            var adjustedToY = Math.Min(element.To[1], newMaxY);
             if (!(adjustedFromY <= adjustedToY)) continue;
             newElement.From[1] = adjustedFromY;
             newElement.To[1] = adjustedToY;
             
             // Calculate the proportion of the adjustment
-            double originalHeight = elementMaxY - elementMinY;
-            double newHeight = adjustedToY - adjustedFromY;
-            double heightProportion = originalHeight > 0 ? newHeight / originalHeight : 0;
+            var originalHeight = elementMaxY - elementMinY;
+            var newHeight = adjustedToY - adjustedFromY;
+            var heightProportion = originalHeight > 0 ? newHeight / originalHeight : 0;
             
-            for (int i = 0; i < 4; i++)
+            for (var i = 0; i < 4; i++)
             {
                 var face = newElement.FacesResolved[i];
                 if (face != null)
                 {
                     double vMin = face.Uv[1];
                     double vMax = face.Uv[3];
-                    double vRange = vMax - vMin;
+                    var vRange = vMax - vMin;
                 
                     // Adjust the V values based on the height proportion
                     face.Uv[1] = (float)(vMin + vRange * (1 - heightProportion));
@@ -489,16 +489,16 @@ public class BlockLiquidContainerSealable : BlockLiquidContainerBase
 
 
     public MeshData GenRightMesh(ICoreClientAPI capi, ItemStack contentStack, BlockPos forBlockPos = null, bool isSealed = false) {
-        Shape shape = capi.Assets.TryGet(isSealed && Attributes.IsTrue("canSeal") ? LidShapeLoc : EmptyShapeLoc).ToObject<Shape>();
+        var shape = capi.Assets.TryGet(isSealed && Attributes.IsTrue("canSeal") ? LidShapeLoc : EmptyShapeLoc).ToObject<Shape>();
         MeshData bucketmesh;
         capi.Tesselator.TesselateShape(this, shape, out bucketmesh);
 
         if (contentStack != null)
         {
-            WaterTightContainableProps props = GetInContainerProps(contentStack);
-            ContainerTextureSource contentSource = new ContainerTextureSource(capi, contentStack, props.Texture);
+            var props = GetInContainerProps(contentStack);
+            var contentSource = new ContainerTextureSource(capi, contentStack, props.Texture);
             MeshData contentMesh;
-            float fullness = contentStack.StackSize / (props.ItemsPerLitre * CapacityLitres);
+            var fullness = contentStack.StackSize / (props.ItemsPerLitre * CapacityLitres);
 
             if (props.Texture == null) return null;
 
@@ -510,21 +510,21 @@ public class BlockLiquidContainerSealable : BlockLiquidContainerBase
 
             if (props.ClimateColorMap != null)
             {
-                int col = capi.World.ApplyColorMapOnRgba(props.ClimateColorMap, null, ColorUtil.WhiteArgb, 196, 128, false);
+                var col = capi.World.ApplyColorMapOnRgba(props.ClimateColorMap, null, ColorUtil.WhiteArgb, 196, 128, false);
                 if (forBlockPos != null)
                 {
                     col = capi.World.ApplyColorMapOnRgba(props.ClimateColorMap, null, ColorUtil.WhiteArgb, forBlockPos.X, forBlockPos.Y, forBlockPos.Z, false);
                 }
 
-                byte[] rgba = ColorUtil.ToBGRABytes(col);
+                var rgba = ColorUtil.ToBGRABytes(col);
 
-                for (int i = 0; i < contentMesh.Rgba.Length; i++)
+                for (var i = 0; i < contentMesh.Rgba.Length; i++)
                 {
                     contentMesh.Rgba[i] = (byte)((contentMesh.Rgba[i] * rgba[i % 4]) / 255);
                 }
             }
 
-            for (int i = 0; i < contentMesh.Flags.Length; i++)
+            for (var i = 0; i < contentMesh.Flags.Length; i++)
             {
                 contentMesh.Flags[i] = contentMesh.Flags[i] & ~(1 << 12); // Remove water waving flag
             }
@@ -551,23 +551,23 @@ public class BlockLiquidContainerSealable : BlockLiquidContainerBase
         BlockSelection blockSel,
         ItemStack byItemStack)
     {
-        int num1 = base.DoPlaceBlock(world, byPlayer, blockSel, byItemStack) ? 1 : 0;
+        var num1 = base.DoPlaceBlock(world, byPlayer, blockSel, byItemStack) ? 1 : 0;
         if (num1 == 0)
             return false;
         if (!(world.BlockAccessor.GetBlockEntity(blockSel.Position) is BlockEntitySealable blockEntity))
             return true;
-        BlockPos blockPos = blockSel.DidOffset ? blockSel.Position.AddCopy(blockSel.Face.Opposite) : blockSel.Position;
-        double num2 = Math.Atan2(byPlayer.Entity.Pos.X - (blockPos.X + blockSel.HitPosition.X), byPlayer.Entity.Pos.Z - (blockPos.Z + blockSel.HitPosition.Z));
-        float num3 = 0.3926991f;
+        var blockPos = blockSel.DidOffset ? blockSel.Position.AddCopy(blockSel.Face.Opposite) : blockSel.Position;
+        var num2 = Math.Atan2(byPlayer.Entity.Pos.X - (blockPos.X + blockSel.HitPosition.X), byPlayer.Entity.Pos.Z - (blockPos.Z + blockSel.HitPosition.Z));
+        var num3 = 0.3926991f;
         double num4 = num3;
-        float num5 = (int) Math.Round(num2 / num4) * num3;
+        var num5 = (int) Math.Round(num2 / num4) * num3;
         blockEntity.MeshAngle = num5;
         return true;
     }
 
     public override ItemStack OnPickBlock(IWorldAccessor world, BlockPos pos)
     {
-        ItemStack drop = base.OnPickBlock(world, pos);
+        var drop = base.OnPickBlock(world, pos);
 
         if (world.BlockAccessor.GetBlockEntity(pos) is BlockEntitySealable sp)
         {

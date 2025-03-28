@@ -19,10 +19,10 @@ public class BlockLiquidContainerLeaking : BlockLiquidContainerTopOpened
     {
         try
         {
-            JsonObject itemAttribute = itemstack?.ItemAttributes?["leakageRate"];
+            var itemAttribute = itemstack?.ItemAttributes?["leakageRate"];
             if (itemAttribute is { Exists: true })
             {
-                float leakageRate = itemAttribute.AsFloat(1);
+                var leakageRate = itemAttribute.AsFloat(1);
                 if (leakageRate is >= 0 and <= 1)
                 {
                     return leakageRate;
@@ -48,7 +48,7 @@ public class BlockLiquidContainerLeaking : BlockLiquidContainerTopOpened
     {
         base.OnHeldIdle(slot, byEntity);
 
-        long currentTime = byEntity.World.ElapsedMilliseconds;
+        var currentTime = byEntity.World.ElapsedMilliseconds;
         if (slot.Itemstack.Collectible is not BlockLiquidContainerBase container) return;
         if (container.IsEmpty(slot.Itemstack))
         {
@@ -58,7 +58,7 @@ public class BlockLiquidContainerLeaking : BlockLiquidContainerTopOpened
         
         if (slot.Itemstack.Attributes.HasAttribute("nextLeakage"))
         {
-            long nextLeakage = slot.Itemstack.Attributes.GetLong("nextLeakage");
+            var nextLeakage = slot.Itemstack.Attributes.GetLong("nextLeakage");
             if (currentTime < nextLeakage)
             {
                 return;
@@ -69,7 +69,7 @@ public class BlockLiquidContainerLeaking : BlockLiquidContainerTopOpened
             slot.Itemstack.Attributes.SetLong("nextLeakage", (long) (currentTime + 1000 / GetLeakageRate(slot.Itemstack)));
             return;
         }
-        this.TryTakeLiquid(slot.Itemstack, LeakagePerTick / (float)slot.Itemstack.StackSize);
+        TryTakeLiquid(slot.Itemstack, LeakagePerTick / slot.Itemstack.StackSize);
         slot.Itemstack.Attributes.SetLong("nextLeakage", (long) (currentTime + 1000 / GetLeakageRate(slot.Itemstack)));
     }
 
@@ -77,16 +77,16 @@ public class BlockLiquidContainerLeaking : BlockLiquidContainerTopOpened
     {
         base.GetHeldItemInfo(inSlot, dsc, world, withDebugInfo);
 
-        string description = dsc.ToString();
-        string pattern = Lang.Get("Mod: {0}", ".*");
-        string newLine = Lang.Get(BtCore.Modid + ":container-leaky");
+        var description = dsc.ToString();
+        var pattern = Lang.Get("Mod: {0}", ".*");
+        var newLine = Lang.Get(BtCore.Modid + ":container-leaky");
         if (inSlot.Itemstack.Collectible is BlockLiquidContainerBase container && container.GetContent(inSlot.Itemstack)?.StackSize > 0)
         {
             newLine = $"<font color=\"#1097b4\">{newLine}</font>";
         }
 
         var lines = description.Split(new[] { '\n' }, StringSplitOptions.None);
-        for (int i = 0; i < lines.Length; i++)
+        for (var i = 0; i < lines.Length; i++)
         {
             if (Regex.IsMatch(lines[i], pattern))
             {

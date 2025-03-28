@@ -38,7 +38,6 @@ public class ConfigServer : IModConfig
     public float OkayPurityLevel { get; set; } = 0.6f;
     public float StagnantPurityLevel { get; set; } = 0.3f;
     public float RotPurityLevel { get; set; } = 0.1f;
-    public bool GushingSpringWater { get; set; } = true;
     
     // Advanced settings
     public Dictionary<string, StatMultiplier> ThirstStatMultipliers { get; set; } = new()
@@ -56,26 +55,6 @@ public class ConfigServer : IModConfig
     // Compatibility
     public float HoDClothingCoolingMultiplier { get; set; } = 1f; 
     public float CamelHumpMaxHydrationMultiplier { get; set; } = 1/3f;
-
-    #endregion
-
-    #region bladder
-
-    public bool EnableBladder { get; set; } = true;
-    public bool UrineStains { get; set; } = true;
-    public bool SpillWashStains { get; set; } = true;
-    
-    public float BladderWalkSpeedDebuff { get; set; } = 0.5f;
-    public float BladderCapacityOverload { get; set; } = 0.25f;
-    public float UrineNutrientChance { get; set; } = 0.1f;
-    public float UrineDrainRate { get; set; } = 3f;
-    
-    // Advanced settings
-    public Dictionary<EnumSoilNutrient, float> UrineNutrientLevels { get; set; } = BtConstants.UrineNutrientLevels;
-    public List<EnumBlockMaterial> UrineStainableMaterials { get; set; } = BtConstants.UrineStainableMaterials;
-    
-    // Compatibility
-    public float ElephantBladderCapacityMultiplier { get; set; } = 1/2f;
 
     #endregion
 
@@ -111,7 +90,6 @@ public class ConfigServer : IModConfig
         OkayPurityLevel = previousConfigServer.OkayPurityLevel;
         StagnantPurityLevel = previousConfigServer.StagnantPurityLevel;
         RotPurityLevel = previousConfigServer.RotPurityLevel;
-        GushingSpringWater = previousConfigServer.GushingSpringWater;
         ThirstStatMultipliers = previousConfigServer.ThirstStatMultipliers;
         WaterContainers = previousConfigServer.WaterContainers;
         WaterPortions = previousConfigServer.WaterPortions;

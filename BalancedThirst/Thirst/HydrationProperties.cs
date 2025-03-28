@@ -17,12 +17,12 @@ public class HydrationProperties
     {
         return new HydrationProperties()
         {
-            Hydration = this.Hydration,
-            HydrationLossDelay = this.HydrationLossDelay,
-            Purity = this.Purity,
-            EuhydrationWeight = this.EuhydrationWeight,
-            Scalding = this.Scalding,
-            Dehydration = this.Dehydration
+            Hydration = Hydration,
+            HydrationLossDelay = HydrationLossDelay,
+            Purity = Purity,
+            EuhydrationWeight = EuhydrationWeight,
+            Scalding = Scalding,
+            Dehydration = Dehydration
         };
     }
     

@@ -16,13 +16,13 @@ public class BlockCookedContainer_GetHeldItemInfo_Patch
     public static void Postfix(ItemSlot inSlot, StringBuilder dsc, IWorldAccessor world, bool withDebugInfo)
     {
         if (ShouldSkipPatch) return;
-        HydrationProperties hydrationProps = inSlot.Itemstack.Collectible.GetHydrationProperties(world, inSlot.Itemstack, null);
+        var hydrationProps = inSlot.Itemstack.Collectible.GetHydrationProperties(world, inSlot.Itemstack, null);
         if (hydrationProps != null && Math.Round(hydrationProps.Hydration) != 0)
         {
-            string hydrationText = Lang.Get($"{BtCore.Modid}:blockinfo-meal-hyd", Math.Round(hydrationProps.Hydration));
-            string dscString = dsc.ToString();
+            var hydrationText = Lang.Get($"{BtCore.Modid}:blockinfo-meal-hyd", Math.Round(hydrationProps.Hydration));
+            var dscString = dsc.ToString();
             if (dscString.Contains(hydrationText)) return;
-            int index = dscString.IndexOf(Lang.Get("Nutrition Facts"), StringComparison.Ordinal);
+            var index = dscString.IndexOf(Lang.Get("Nutrition Facts"), StringComparison.Ordinal);
             if (index != -1)
             {
                 dsc.Insert(index + Lang.Get("Nutrition Facts").Length, $"\n- {hydrationText}");

@@ -22,14 +22,14 @@ public class GourdCropBehavior : PumpkinCropBehavior
     public override void Initialize(JsonObject properties)
     {
         base.Initialize(properties);
-        this.vineGrowthStage = properties["vineGrowthStage"].AsInt();
-        this.vineGrowthQuantityGen = properties["vineGrowthQuantity"].AsObject<NatFloat>();
-        this.vineBlockLocation = new AssetLocation($"{BtCore.Modid}:gourdpumpkin-vine-1-normal");
+        vineGrowthStage = properties["vineGrowthStage"].AsInt();
+        vineGrowthQuantityGen = properties["vineGrowthQuantity"].AsObject<NatFloat>();
+        vineBlockLocation = new AssetLocation($"{BtCore.Modid}:gourdpumpkin-vine-1-normal");
     }
     
     public override void OnPlanted(ICoreAPI api)
     {
-        this.vineGrowthQuantity = this.vineGrowthQuantityGen.nextFloat(1f, api.World.Rand);
+        vineGrowthQuantity = vineGrowthQuantityGen.nextFloat(1f, api.World.Rand);
     }
     
     public override bool TryGrowCrop(
@@ -39,20 +39,20 @@ public class GourdCropBehavior : PumpkinCropBehavior
         int newGrowthStage,
         ref EnumHandling handling)
     {
-        if ((double) this.vineGrowthQuantity == 0.0)
+        if (vineGrowthQuantity == 0.0)
         {
-            this.vineGrowthQuantity = farmland.CropAttributes.GetFloat("vineGrowthQuantity", this.vineGrowthQuantityGen.nextFloat(1f, api.World.Rand));
-            farmland.CropAttributes.SetFloat("vineGrowthQuantity", this.vineGrowthQuantity);
+            vineGrowthQuantity = farmland.CropAttributes.GetFloat("vineGrowthQuantity", vineGrowthQuantityGen.nextFloat(1f, api.World.Rand));
+            farmland.CropAttributes.SetFloat("vineGrowthQuantity", vineGrowthQuantity);
         }
         handling = EnumHandling.PassThrough;
-        if (newGrowthStage >= this.vineGrowthStage)
+        if (newGrowthStage >= vineGrowthStage)
         {
             if (newGrowthStage == 8)
             {
-                bool flag = true;
-                foreach (BlockFacing facing in BlockFacing.HORIZONTALS)
+                var flag = true;
+                foreach (var facing in BlockFacing.HORIZONTALS)
                 {
-                    Block block = api.World.BlockAccessor.GetBlock(farmland.Pos.AddCopy(facing).Up());
+                    var block = api.World.BlockAccessor.GetBlock(farmland.Pos.AddCopy(facing).Up());
                     if (block.Code.PathStartsWith("gourdpumpkin-vine"))
                         flag &= block.LastCodePart() == "withered";
                 }
@@ -60,8 +60,8 @@ public class GourdCropBehavior : PumpkinCropBehavior
                     handling = EnumHandling.PreventDefault;
                 return false;
             }
-            if (api.World.Rand.NextDouble() < (double) this.vineGrowthQuantity)
-                return this.TrySpawnVine(api, farmland, currentTotalHours);
+            if (api.World.Rand.NextDouble() < vineGrowthQuantity)
+                return TrySpawnVine(api, farmland, currentTotalHours);
         }
         return false;
     }
@@ -71,13 +71,13 @@ public class GourdCropBehavior : PumpkinCropBehavior
         IFarmlandBlockEntity farmland,
         double currentTotalHours)
     {
-        BlockPos upPos = farmland.UpPos;
-        foreach (BlockFacing facing in BlockFacing.HORIZONTALS)
+        var upPos = farmland.UpPos;
+        foreach (var facing in BlockFacing.HORIZONTALS)
         {
-            BlockPos blockPos = upPos.AddCopy(facing);
+            var blockPos = upPos.AddCopy(facing);
             if (CanReplace(api.World.BlockAccessor.GetBlock(blockPos)) && PumpkinCropBehavior.CanSupportPumpkin(api, blockPos.DownCopy()))
             {
-                this.DoSpawnVine(api, blockPos, upPos, facing, currentTotalHours);
+                DoSpawnVine(api, blockPos, upPos, facing, currentTotalHours);
                 return true;
             }
         }
@@ -91,20 +91,20 @@ public class GourdCropBehavior : PumpkinCropBehavior
         int newGrowthStage,
         ref EnumHandling handling)
     {
-        if ((double) this.vineGrowthQuantity == 0.0)
+        if (vineGrowthQuantity == 0.0)
         {
-            this.vineGrowthQuantity = motherplant.CropAttributes.GetFloat("vineGrowthQuantity", this.vineGrowthQuantityGen.nextFloat(1f, api.World.Rand));
-            motherplant.CropAttributes.SetFloat("vineGrowthQuantity", this.vineGrowthQuantity);
+            vineGrowthQuantity = motherplant.CropAttributes.GetFloat("vineGrowthQuantity", vineGrowthQuantityGen.nextFloat(1f, api.World.Rand));
+            motherplant.CropAttributes.SetFloat("vineGrowthQuantity", vineGrowthQuantity);
         }
         handling = EnumHandling.PassThrough;
-        if (newGrowthStage >= this.vineGrowthStage)
+        if (newGrowthStage >= vineGrowthStage)
         {
             if (newGrowthStage == 8)
             {
-                bool flag = true;
-                foreach (BlockFacing facing in BlockFacing.HORIZONTALS)
+                var flag = true;
+                foreach (var facing in BlockFacing.HORIZONTALS)
                 {
-                    Block block = api.World.BlockAccessor.GetBlock(motherplant.Pos.AddCopy(facing));
+                    var block = api.World.BlockAccessor.GetBlock(motherplant.Pos.AddCopy(facing));
                     if (block.Code.PathStartsWith("gourdpumpkin-vine"))
                         flag &= block.LastCodePart() == "withered";
                 }
@@ -112,8 +112,8 @@ public class GourdCropBehavior : PumpkinCropBehavior
                     handling = EnumHandling.PreventDefault;
                 return false;
             }
-            if (api.World.Rand.NextDouble() < (double) this.vineGrowthQuantity)
-                return this.TrySpawnVine(api, motherplant, currentTotalHours);
+            if (api.World.Rand.NextDouble() < vineGrowthQuantity)
+                return TrySpawnVine(api, motherplant, currentTotalHours);
         }
         return false;
     }
@@ -123,13 +123,13 @@ public class GourdCropBehavior : PumpkinCropBehavior
         BlockEntityGourdMotherplant motherplant,
         double currentTotalHours)
     {
-        BlockPos motherplantPos = motherplant.Pos;
-        foreach (BlockFacing facing in BlockFacing.HORIZONTALS)
+        var motherplantPos = motherplant.Pos;
+        foreach (var facing in BlockFacing.HORIZONTALS)
         {
-            BlockPos blockPos = motherplantPos.AddCopy(facing);
+            var blockPos = motherplantPos.AddCopy(facing);
             if (CanReplace(api.World.BlockAccessor.GetBlock(blockPos)) && PumpkinCropBehavior.CanSupportPumpkin(api, blockPos.DownCopy()))
             {
-                this.DoSpawnVine(api, blockPos, motherplantPos, facing, currentTotalHours);
+                DoSpawnVine(api, blockPos, motherplantPos, facing, currentTotalHours);
                 return true;
             }
         }
@@ -143,11 +143,11 @@ public class GourdCropBehavior : PumpkinCropBehavior
         BlockFacing facing,
         double currentTotalHours)
     {
-        Block block = api.World.GetBlock(this.vineBlockLocation);
+        var block = api.World.GetBlock(vineBlockLocation);
         api.World.BlockAccessor.SetBlock(block.BlockId, vinePos); 
         if (!(api.World is IServerWorldAccessor))
             return;
-        BlockEntity blockEntity = api.World.BlockAccessor.GetBlockEntity(vinePos);
+        var blockEntity = api.World.BlockAccessor.GetBlockEntity(vinePos);
         if (!(blockEntity is BlockEntityGourdVine vine))
             return;
         vine.CreatedFromParent(motherplantPos, facing, currentTotalHours);

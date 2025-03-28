@@ -10,12 +10,7 @@ public class ConfigClient : IModConfig
 {
     public float ThirstBarX { get; set; }
     public float ThirstBarY { get; set; }
-    public EnumPeeMode PeeMode { get; set; }
-    public bool BladderBarVisible { get; set; } = true;
-    public float HideBladderBarAt { get; set; } = 0.0f;
     public string ThirstBarColor { get; set; } = ModGuiStyle.ThirstBarColor.ToHex();
-    public string BladderBarColor { get; set; } = ModGuiStyle.BladderBarColor.ToHex();
-    public string UrineColor { get; set; } = "default";
     
     public ConfigClient(ICoreAPI api, ConfigClient previousConfig = null)
     {
@@ -26,10 +21,5 @@ public class ConfigClient : IModConfig
         ThirstBarX = previousConfig.ThirstBarX;
         ThirstBarY = previousConfig.ThirstBarY;
         ThirstBarColor = previousConfig.ThirstBarColor;
-        PeeMode = previousConfig.PeeMode;
-        BladderBarVisible = previousConfig.BladderBarVisible;
-        HideBladderBarAt = previousConfig.HideBladderBarAt;
-        BladderBarColor = previousConfig.BladderBarColor;
-        UrineColor = previousConfig.UrineColor;
     }
 }

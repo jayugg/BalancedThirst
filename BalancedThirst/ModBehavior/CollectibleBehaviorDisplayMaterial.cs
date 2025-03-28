@@ -22,11 +22,11 @@ public class CollectibleBehaviorDisplayMaterial : CollectibleBehavior
         if (material == null) return;
         material = char.ToUpper(material[0]) + material.Substring(1);
 
-        string description = dsc.ToString();
-        string pattern = Regex.Escape(Lang.Get("Material: ")) + ".*";
-        string replacement = $"Material: {material}";
+        var description = dsc.ToString();
+        var pattern = Regex.Escape(Lang.Get("Material: ")) + ".*";
+        var replacement = $"Material: {material}";
 
-        string updatedDescription = Regex.Replace(description, pattern, replacement);
+        var updatedDescription = Regex.Replace(description, pattern, replacement);
         dsc.Clear();
         dsc.Append(updatedDescription);
     }

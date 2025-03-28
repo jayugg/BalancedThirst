@@ -23,7 +23,7 @@ public class BlockMeal_tryFinishEatMeal_Patch
         var api = byEntity?.World?.Api;
         if (api is not { Side: EnumAppSide.Server } || slot?.Itemstack == null) return;
         var collObj = slot.Itemstack.Collectible;
-        if (collObj is not Vintagestory.GameContent.BlockMeal meal || !(secondsUsed >= 0.95f)) return;
+        if (collObj is not BlockMeal meal || !(secondsUsed >= 0.95f)) return;
         var hydrationProps = meal.GetHydrationProperties(byEntity.World, slot.Itemstack, byEntity);
         if (hydrationProps == null || byEntity is not EntityPlayer player) return;
         var transitionState = collObj.UpdateAndGetTransitionState(byEntity.Api.World, slot, EnumTransitionType.Perish);

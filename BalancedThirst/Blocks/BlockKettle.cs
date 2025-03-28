@@ -52,7 +52,7 @@ public class BlockKettle : BlockLiquidContainerSealable, IInFirepitRendererSuppl
     public override void DoSmelt(IWorldAccessor world, ISlotProvider cookingSlotsProvider, ItemSlot inputSlot, ItemSlot outputSlot)
     {
         if (!CanSmelt(world, cookingSlotsProvider, inputSlot.Itemstack, outputSlot.Itemstack)) return;
-        ItemStack product = new ItemStack(world.GetItem(new AssetLocation("boilingwaterportion")));
+        var product = new ItemStack(world.GetItem(new AssetLocation("boilingwaterportion")));
         product.StackSize = 0;
 
         product.StackSize += (int) (GetTotalLitres(cookingSlotsProvider, inputSlot.Itemstack) * 100f);
@@ -71,21 +71,21 @@ public class BlockKettle : BlockLiquidContainerSealable, IInFirepitRendererSuppl
     public override float GetMeltingDuration(IWorldAccessor world, ISlotProvider cookingSlotsProvider, ItemSlot inputSlot)
     {
         if (!CanSmelt(world, cookingSlotsProvider, inputSlot?.Itemstack, null)) return float.MaxValue;
-        float speed = 10f;
-        float litres = GetTotalLitres(cookingSlotsProvider, inputSlot?.Itemstack);
+        var speed = 10f;
+        var litres = GetTotalLitres(cookingSlotsProvider, inputSlot?.Itemstack);
         return 30 * litres / speed;
     }
 
     public override float GetMeltingPoint(IWorldAccessor world, ISlotProvider cookingSlotsProvider, ItemSlot inputSlot)
     {
         if (!CanSmelt(world, cookingSlotsProvider, inputSlot.Itemstack, null)) return float.MaxValue;
-        float temp = 100f;
+        var temp = 100f;
         return temp;
     }
    
     public string GetOutputText(IWorldAccessor world, InventorySmelting inv)
     {
-        ItemStack product = new ItemStack(world.GetItem(new AssetLocation("boilingwaterportion")));
+        var product = new ItemStack(world.GetItem(new AssetLocation("boilingwaterportion")));
         var litres = GetTotalLitres(inv, inv[1]?.Itemstack);
         return litres == 0f ? "" : Lang.Get("firepit-gui-willcreate", litres, Lang.Get($"{BtCore.Modid}:firepit-gui-litres", product.GetName()));
     }

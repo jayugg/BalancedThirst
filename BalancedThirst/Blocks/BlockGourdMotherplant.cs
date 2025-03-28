@@ -18,8 +18,8 @@ public class BlockGourdMotherplant : BlockCrop
     public override void OnLoaded(ICoreAPI api)
     {
         base.OnLoaded(api);
-        this.gourdBehavior = Array.Find(this.CropProps.Behaviors, b => b is GourdCropBehavior) as GourdCropBehavior;
-        this.vineBlockLocation = new AssetLocation($"{BtCore.Modid}:gourdpumpkin-vine-1-normal");
+        gourdBehavior = Array.Find(CropProps.Behaviors, b => b is GourdCropBehavior) as GourdCropBehavior;
+        vineBlockLocation = new AssetLocation($"{BtCore.Modid}:gourdpumpkin-vine-1-normal");
     }
     
     public override bool ShouldReceiveServerGameTicks(
@@ -35,7 +35,7 @@ public class BlockGourdMotherplant : BlockCrop
         if (offThreadRandom.NextDouble() >= this.tickGrowthProbability || !this.IsNotOnFarmland(world, pos))
             return false;
          */
-        extra = this.GetNextGrowthStageBlock(world, pos);
+        extra = GetNextGrowthStageBlock(world, pos);
         return true;
     }
 
@@ -53,12 +53,12 @@ public class BlockGourdMotherplant : BlockCrop
         IWorldAccessor world,
         BlockPos motherplantPos)
     {
-        foreach (BlockFacing facing in BlockFacing.HORIZONTALS)
+        foreach (var facing in BlockFacing.HORIZONTALS)
         {
-            BlockPos blockPos = motherplantPos.AddCopy(facing);
+            var blockPos = motherplantPos.AddCopy(facing);
             if (GourdCropBehavior.CanReplace(world.BlockAccessor.GetBlock(blockPos)) && GourdCropBehavior.CanSupportPumpkin(api, blockPos.DownCopy()))
             {
-                this.DoSpawnVine(world, blockPos, motherplantPos, facing);
+                DoSpawnVine(world, blockPos, motherplantPos, facing);
                 return true;
             }
         }
@@ -71,11 +71,11 @@ public class BlockGourdMotherplant : BlockCrop
         BlockPos motherplantPos,
         BlockFacing facing)
     {
-        Block block = api.World.GetBlock(this.vineBlockLocation);
+        var block = api.World.GetBlock(vineBlockLocation);
         api.World.BlockAccessor.SetBlock(block.BlockId, vinePos); 
         if (!(api.World is IServerWorldAccessor))
             return;
-        BlockEntity blockEntity = api.World.BlockAccessor.GetBlockEntity(vinePos);
+        var blockEntity = api.World.BlockAccessor.GetBlockEntity(vinePos);
         if (!(blockEntity is BlockEntityGourdVine vine))
             return;
         vine.CreatedFromParent(motherplantPos, facing, world.Rand.Next(24, 72));
@@ -90,8 +90,8 @@ public class BlockGourdMotherplant : BlockCrop
     {
         if (blockAccessor.GetBlock(pos.X, pos.Y - 1, pos.Z).Fertility == 0)
             return false;
-        blockAccessor.SetBlock(this.BlockId, pos);
-        blockAccessor.SpawnBlockEntity(this.EntityClass, pos);
+        blockAccessor.SetBlock(BlockId, pos);
+        blockAccessor.SpawnBlockEntity(EntityClass, pos);
         //DoTill(blockAccessor, pos);
         //gourdBehavior?.OnPlanted(this.api);
         return true;
@@ -99,15 +99,15 @@ public class BlockGourdMotherplant : BlockCrop
     
     public void DoTill(IBlockAccessor blockAccessor, BlockPos pos)
     {
-        Block block1 = blockAccessor.GetBlock(pos);
+        var block1 = blockAccessor.GetBlock(pos);
         if (!block1.Code.PathStartsWith("soil"))
             return;
-        string str = block1.LastCodePart(1);
-        Block block2 = blockAccessor.GetBlock(new AssetLocation("farmland-dry-" + str));
+        var str = block1.LastCodePart(1);
+        var block2 = blockAccessor.GetBlock(new AssetLocation("farmland-dry-" + str));
         if (block2 == null)
             return;
         blockAccessor.SetBlock(block2.BlockId, pos);
-        BlockEntity blockEntity = blockAccessor.GetBlockEntity(pos);
+        var blockEntity = blockAccessor.GetBlockEntity(pos);
         if (blockEntity is BlockEntityFarmland)
             ((BlockEntityFarmland) blockEntity).OnCreatedFromSoil(block1);
         blockAccessor.MarkBlockDirty(pos);
@@ -115,10 +115,10 @@ public class BlockGourdMotherplant : BlockCrop
     
     private Block GetNextGrowthStageBlock(IWorldAccessor world, BlockPos pos)
     {
-        int num = this.CurrentStage() + 1;
-        if (world.GetBlock(this.CodeWithParts(num.ToString())) == null)
+        var num = CurrentStage() + 1;
+        if (world.GetBlock(CodeWithParts(num.ToString())) == null)
             num = 1;
-        return world.GetBlock(this.CodeWithParts(num.ToString()));
+        return world.GetBlock(CodeWithParts(num.ToString()));
     }
     
     private bool IsNotOnFarmland(IWorldAccessor world, BlockPos pos)

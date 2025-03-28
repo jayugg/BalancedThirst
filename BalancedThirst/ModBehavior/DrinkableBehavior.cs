@@ -58,7 +58,7 @@ public class DrinkableBehavior : CollectibleBehavior
     {
         try
         {
-            JsonObject itemAttribute = itemstack?.ItemAttributes?["hydrationProps"];
+            var itemAttribute = itemstack?.ItemAttributes?["hydrationProps"];
             return itemAttribute is { Exists: true } ? itemAttribute.AsObject<HydrationProperties>(null, itemstack.Collectible.Code.Domain) : null;
         }
         catch (Exception ex)
@@ -73,11 +73,11 @@ public class DrinkableBehavior : CollectibleBehavior
       ItemStack itemstack)
     {
       if (itemstack == null) return null;
-      ItemStack content = container.GetContent(itemstack);
+      var content = container.GetContent(itemstack);
       if (content == null) return null;
       if (!content.Collectible.HasBehavior<DrinkableBehavior>()) return null;
       var behavior = content.Collectible.GetBehavior<DrinkableBehavior>();
-      HydrationProperties hydrationProperties = behavior.ExtractDirectHydrationProperties(new ItemStack(content.Item) {Attributes = content.Attributes});
+      var hydrationProperties = behavior.ExtractDirectHydrationProperties(new ItemStack(content.Item) {Attributes = content.Attributes});
       return hydrationProperties;
     }
     
@@ -86,12 +86,12 @@ public class DrinkableBehavior : CollectibleBehavior
       ItemStack itemstack)
     {
       if (itemstack == null) return null;
-      ItemStack content = container.GetContent(itemstack);
+      var content = container.GetContent(itemstack);
       if (content == null) return null;
       var hydrationProperties = GetContentHydrationPropsPerLitre(container, itemstack);
-      WaterTightContainableProps containableProps = BlockLiquidContainerBase.GetContainableProps(content);
+      var containableProps = BlockLiquidContainerBase.GetContainableProps(content);
       if (containableProps == null || hydrationProperties == null) return null;
-      float num = content.StackSize / containableProps.ItemsPerLitre;
+      var num = content.StackSize / containableProps.ItemsPerLitre;
       hydrationProperties.Hydration *= num;
       hydrationProperties.HydrationLossDelay *= num;
       return hydrationProperties;
@@ -115,7 +115,7 @@ public class DrinkableBehavior : CollectibleBehavior
     {
       try
       {
-        JsonObject attribute = collectible.Attributes?["waterportion"];
+        var attribute = collectible.Attributes?["waterportion"];
         return attribute is { Exists: true } && attribute.AsBool();
       }
       catch (Exception ex)
@@ -130,90 +130,90 @@ public class DrinkableBehavior : CollectibleBehavior
       base.GetHeldItemInfo(inSlot, dsc, world, withDebugInfo);
         var itemstack = inSlot.Itemstack;
         var collectible = itemstack.Collectible;
-        EntityPlayer entity = world.Side == EnumAppSide.Client ? (world as IClientWorldAccessor)?.Player.Entity : null;
+        var entity = world.Side == EnumAppSide.Client ? (world as IClientWorldAccessor)?.Player.Entity : null;
         if (entity == null) return;
-        HydrationProperties hydrationProperties = this.GetHydrationProperties(world, itemstack, entity);
+        var hydrationProperties = GetHydrationProperties(world, itemstack, entity);
         if (hydrationProperties == null) return;
-        float spoilState = collectible.AppendPerishableInfoText(inSlot, new StringBuilder(), world);
-        float spoilageFactor = GlobalConstants.FoodSpoilageSatLossMul(spoilState, itemstack, entity);
+        var spoilState = collectible.AppendPerishableInfoText(inSlot, new StringBuilder(), world);
+        var spoilageFactor = GlobalConstants.FoodSpoilageSatLossMul(spoilState, itemstack, entity);
         var hydration = hydrationProperties.Hydration * spoilageFactor;
-        string existingText = dsc.ToString();
+        var existingText = dsc.ToString();
         
-        string satietyPattern = Lang.Get("When eaten: {0} sat", @"([-]?[0-9.]+)");
-        string healthPattern = Lang.Get("When eaten: {0} sat, {1} hp", @"([-]?[0-9.]+)", @"([-]?[0-9.]+)");
+        var satietyPattern = Lang.Get("When eaten: {0} sat", @"([-]?[0-9.]+)");
+        var healthPattern = Lang.Get("When eaten: {0} sat, {1} hp", @"([-]?[0-9.]+)", @"([-]?[0-9.]+)");
         
-        Match satietyMatch = Regex.Match(existingText, satietyPattern);
-        Match healthMatch = Regex.Match(existingText, healthPattern);
+        var satietyMatch = Regex.Match(existingText, satietyPattern);
+        var healthMatch = Regex.Match(existingText, healthPattern);
         
-        string mySatietyHydrationPattern = Lang.Get("When eaten: {0} sat, {1} hyd", @"([-]?[0-9.]+)", @"([-]?[0-9.]+)");
-        string myHydrationPattern = Lang.Get("When drank: {0} hyd", @"([-]?[0-9.]+)");
-        string mySatietyHydrationHealthPattern = Lang.Get("When eaten: {0} sat, {1} hyd, {2} hp", @"([-]?[0-9.]+)", @"([-]?[0-9.]+)", @"([-]?[0-9.]+)");
+        var mySatietyHydrationPattern = Lang.Get("When eaten: {0} sat, {1} hyd", @"([-]?[0-9.]+)", @"([-]?[0-9.]+)");
+        var myHydrationPattern = Lang.Get("When drank: {0} hyd", @"([-]?[0-9.]+)");
+        var mySatietyHydrationHealthPattern = Lang.Get("When eaten: {0} sat, {1} hyd, {2} hp", @"([-]?[0-9.]+)", @"([-]?[0-9.]+)", @"([-]?[0-9.]+)");
         
-        Match mySatietyHydrationMatch = Regex.Match(existingText, mySatietyHydrationPattern);
-        Match myHydrationMatch = Regex.Match(existingText, myHydrationPattern);
-        Match mySatietyHydrationHealthMatch = Regex.Match(existingText, mySatietyHydrationHealthPattern);
+        var mySatietyHydrationMatch = Regex.Match(existingText, mySatietyHydrationPattern);
+        var myHydrationMatch = Regex.Match(existingText, myHydrationPattern);
+        var mySatietyHydrationHealthMatch = Regex.Match(existingText, mySatietyHydrationHealthPattern);
 
         // If a match is found, replace the hydration value in the matched line with the new hydration value
         if (mySatietyHydrationMatch.Success && mySatietyHydrationMatch.Groups.Count > 0)
         {
-            string existingLine = mySatietyHydrationMatch.Value;
-            string updatedLine = Lang.Get("When eaten: {0} sat, {1} hyd",
+            var existingLine = mySatietyHydrationMatch.Value;
+            var updatedLine = Lang.Get("When eaten: {0} sat, {1} hyd",
                 mySatietyHydrationMatch.Groups[1].Value, Math.Round(hydration * spoilageFactor));
             dsc.Replace(existingLine, updatedLine);
         }
         else if (myHydrationMatch.Success)
         {
-            string existingLine = myHydrationMatch.Value;
-            string updatedLine = Lang.Get("When drank: {0} hyd", Math.Round(hydration * spoilageFactor));
+            var existingLine = myHydrationMatch.Value;
+            var updatedLine = Lang.Get("When drank: {0} hyd", Math.Round(hydration * spoilageFactor));
             dsc.Replace(existingLine, updatedLine);
         }
         else if (mySatietyHydrationHealthMatch.Success && mySatietyHydrationHealthMatch.Groups.Count > 1)
         {
-            string existingLine = mySatietyHydrationHealthMatch.Value;
-            string updatedLine = Lang.Get("When eaten: {0} sat, {1} hyd, {2} hp",
+            var existingLine = mySatietyHydrationHealthMatch.Value;
+            var updatedLine = Lang.Get("When eaten: {0} sat, {1} hyd, {2} hp",
                 mySatietyHydrationHealthMatch.Groups[1].Value, Math.Round(hydration * spoilageFactor), mySatietyHydrationHealthMatch.Groups[2].Value);
             dsc.Replace(existingLine, updatedLine);
         }
         else if (healthMatch.Success && healthMatch.Groups.Count > 1)
         {
             // Access the matched satiety and health values
-            string satiety = healthMatch.Groups[1].Value;
-            string health = healthMatch.Groups[2].Value;
+            var satiety = healthMatch.Groups[1].Value;
+            var health = healthMatch.Groups[2].Value;
             
-            string existingLine = healthMatch.Value;
-            string updatedLine = Lang.Get("When eaten: {0} sat, {1} hyd, {2} hp",
+            var existingLine = healthMatch.Value;
+            var updatedLine = Lang.Get("When eaten: {0} sat, {1} hyd, {2} hp",
                 Math.Round(double.Parse(satiety)), Math.Round(hydration * spoilageFactor), Math.Round(double.Parse(health)));
             dsc.Replace(existingLine, updatedLine);
         } else if (satietyMatch.Success && satietyMatch.Groups.Count > 0)
         {
             // Access the matched satiety value
-            string satiety = satietyMatch.Groups[1].Value;
+            var satiety = satietyMatch.Groups[1].Value;
             
             if (Math.Round(double.Parse(satiety)) == 0 && hydration != 0)
             {
-                string existingLine = satietyMatch.Value;
-                string updatedLine = Lang.Get("When drank: {0} hyd", Math.Round(hydration * spoilageFactor));
+                var existingLine = satietyMatch.Value;
+                var updatedLine = Lang.Get("When drank: {0} hyd", Math.Round(hydration * spoilageFactor));
                 dsc.Replace(existingLine, updatedLine);
             }
 
             // If the hydration is not zero and the health value was not matched, append the hydration
             if (hydration != 0 && !healthMatch.Success)
             {
-                string existingLine = satietyMatch.Value;
-                string updatedLine = Lang.Get("When eaten: {0} sat, {1} hyd",
+                var existingLine = satietyMatch.Value;
+                var updatedLine = Lang.Get("When eaten: {0} sat, {1} hyd",
                     Math.Round(double.Parse(satiety)), Math.Round(hydration * spoilageFactor));
                 dsc.Replace(existingLine, updatedLine);
             }
         }
-        FoodNutritionProperties nutritionProperties = collectible.GetNutritionProperties(world, itemstack, entity);
+        var nutritionProperties = collectible.GetNutritionProperties(world, itemstack, entity);
         if (nutritionProperties != null && nutritionProperties.FoodCategory == EnumFoodCategory.NoNutrition)
         {
-            string foodCategoryPattern = Lang.Get("Food Category: {0}", @"(.*)");
-            Match foodCategoryMatch = Regex.Match(existingText, foodCategoryPattern);
+            var foodCategoryPattern = Lang.Get("Food Category: {0}", @"(.*)");
+            var foodCategoryMatch = Regex.Match(existingText, foodCategoryPattern);
             
             if (foodCategoryMatch.Success && hydration != 0)
             {
-                string existingLine = foodCategoryMatch.Value;
+                var existingLine = foodCategoryMatch.Value;
                 dsc.Replace(existingLine, "");
             }
         }

@@ -26,14 +26,6 @@ public static class BtCommands
             .WithArgs(api.ChatCommands.Parsers.OptionalWord("playerName"),
                 api.ChatCommands.Parsers.Float("hydrationValue"))
             .HandleWith((args) => OnSetThirstCommand(api, args));
-
-        api.ChatCommands
-            .Create("setBladder")
-            .WithDescription("Sets the player's bladder level.")
-            .RequiresPrivilege("controlserver")
-            .WithArgs(api.ChatCommands.Parsers.OptionalWord("playerName"),
-                api.ChatCommands.Parsers.Float("bladderValue"))
-            .HandleWith((args) => OnSetBladderCommand(api, args));
     }
 
     private static TextCommandResult OnResetStatsCommand(ICoreServerAPI api, TextCommandCallingArgs args)
@@ -101,35 +93,6 @@ public static class BtCommands
         }
 
         return null;
-    }
-
-    private static TextCommandResult OnSetBladderCommand(ICoreServerAPI api,
-        TextCommandCallingArgs args)
-    {
-        var playerName = args[0] as string;
-        var newLevel = (float)args[1];
-
-        IServerPlayer targetPlayer;
-
-        if (string.IsNullOrEmpty(playerName))
-        {
-            targetPlayer = args.Caller.Player as IServerPlayer;
-        }
-        else
-        {
-            targetPlayer = GetPlayerByName(api, playerName);
-            if (targetPlayer == null)
-            {
-                return TextCommandResult.Error($"Player '{playerName}' not found.");
-            }
-        }
-
-        var bladderBehavior = targetPlayer?.Entity.GetBehavior<EntityBehaviorBladder>();
-        if (bladderBehavior == null) return TextCommandResult.Error("Bladder behavior not found.");
-
-        bladderBehavior.CurrentLevel = newLevel;
-
-        return TextCommandResult.Success($"Bladder set to {newLevel} for player '{targetPlayer.PlayerName}'.");
     }
     
     public static void ResetModBoosts(EntityPlayer player)

@@ -9,7 +9,7 @@ public class HydratingFoodBehavior : DrinkableBehavior
 
     internal override HydrationProperties GetHydrationProperties(IWorldAccessor world, ItemStack itemstack, Entity byEntity)
     {
-        return base.ExtractNutritionHydrationProperties(world, itemstack, byEntity);
+        return ExtractNutritionHydrationProperties(world, itemstack, byEntity);
     }
     
     public HydratingFoodBehavior(CollectibleObject collObj) : base(collObj)

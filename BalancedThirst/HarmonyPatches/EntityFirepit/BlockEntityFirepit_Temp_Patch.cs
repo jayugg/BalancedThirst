@@ -19,10 +19,10 @@ public class BlockEntityFirepit_Temp_Patch
             __result = stack.Collectible.GetTemperature(__instance?.Api?.World, stack);
             return;
         }
-        float temperature = stack.Collectible.GetTemperature(__instance.Api?.World, stack);
+        var temperature = stack.Collectible.GetTemperature(__instance.Api?.World, stack);
         foreach (var slot in inventory.CookingSlots)
         {
-            ItemStack itemstack = slot?.Itemstack;
+            var itemstack = slot?.Itemstack;
             if (itemstack?.Collectible != null)
             {
                 temperature = Math.Min(itemstack.Collectible?.GetTemperature(__instance.Api?.World, itemstack) ?? 0f, temperature);

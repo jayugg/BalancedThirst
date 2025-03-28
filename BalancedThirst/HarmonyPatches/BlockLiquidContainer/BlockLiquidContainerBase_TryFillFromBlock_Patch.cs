@@ -84,16 +84,16 @@ public class BlockLiquidContainerBase_TryFillFromBlock_Patch
         var weights = ConfigSystem.ConfigServer.DynamicWaterPurityWeights;
 
         // Calculate purity for each factor
-        float tPurity = CalculateTemperatureEffect(temp);
-        float rPurity = CalculateRainfallEffect(rainfall);
-        float fPurity = CalculateFertilityEffect(fertility);
-        float fdPurity = CalculateForestDensityEffect(forestDensity);
-        float gPurity = CalculateGeologicActivityEffect(geologicActivity);
-        float aPurity = CalculateAltitudeEffect(altitude);
-        float fwPurity = flowingWater;
+        var tPurity = CalculateTemperatureEffect(temp);
+        var rPurity = CalculateRainfallEffect(rainfall);
+        var fPurity = CalculateFertilityEffect(fertility);
+        var fdPurity = CalculateForestDensityEffect(forestDensity);
+        var gPurity = CalculateGeologicActivityEffect(geologicActivity);
+        var aPurity = CalculateAltitudeEffect(altitude);
+        var fwPurity = flowingWater;
         
         // Calculate weighted average
-        float purity =
+        var purity =
             weights["temperature"] * tPurity +
             weights["rainfall"] * rPurity +
             weights["fertility"] * fPurity +
@@ -155,15 +155,15 @@ public class BlockLiquidContainerBase_TryFillFromBlock_Patch
     private static float CalculateGeologicActivityEffect(float geologicActivity)
     {
         // Mean and standard deviation of the Gaussian curve
-        float mu = 0.5f; // Moderate geologic activity is ideal for water quality
-        float sigma = 0.2f; // Spread around the mean
+        var mu = 0.5f; // Moderate geologic activity is ideal for water quality
+        var sigma = 0.2f; // Spread around the mean
         // Calculate the Gaussian function
         return (float)Math.Exp(-Math.Pow((geologicActivity - mu), 2) / (2 * Math.Pow(sigma, 2)));
     }
     
     private static float CalculateFertilityEffect(float fertility)
     {
-        float maxFertility = 100.0f; // Assuming fertility is measured on a 0-100 scale
+        var maxFertility = 100.0f; // Assuming fertility is measured on a 0-100 scale
         // Higher fertility reduces purity
         return Math.Max(0.1f, 1.0f - (fertility / maxFertility));
     }

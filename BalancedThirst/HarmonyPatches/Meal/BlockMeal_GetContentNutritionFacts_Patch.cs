@@ -24,9 +24,9 @@ public class BlockMeal_GetContentNutritionFacts_Patch
     {
         if (ShouldSkipPatch) return;
         if (contentStacks == null || contentStacks.Length == 0) return;
-        HydrationProperties hydrationProps = contentStacks.GetHydrationProperties(world, forEntity);
+        var hydrationProps = contentStacks.GetHydrationProperties(world, forEntity);
         if (hydrationProps == null) return;
-        string hydrationText = Lang.Get($"{BtCore.Modid}:blockinfo-meal-hyd", hydrationProps.Hydration);
+        var hydrationText = Lang.Get($"{BtCore.Modid}:blockinfo-meal-hyd", hydrationProps.Hydration);
         StringBuilder dsc = new(__result);
         dsc.AppendLine($"- {hydrationText}");
         __result = dsc.ToString();

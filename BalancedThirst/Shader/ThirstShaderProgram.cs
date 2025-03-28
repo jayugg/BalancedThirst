@@ -9,12 +9,12 @@ namespace BalancedThirst.Shader;
 
     public float DehydrationVignetting
     {
-      set => this.Uniform("dehydrationVignetting", value);
+      set => Uniform("dehydrationVignetting", value);
     }
     
     public float VomitVignetting
     {
-      set => this.Uniform("vomitVignetting", value);
+      set => Uniform("vomitVignetting", value);
     }
     
   }

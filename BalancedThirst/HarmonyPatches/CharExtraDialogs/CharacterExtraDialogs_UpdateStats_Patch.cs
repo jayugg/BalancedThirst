@@ -14,23 +14,23 @@ public class CharacterExtraDialogs_UpdateStats_Patch
     public static void Postfix(CharacterExtraDialogs __instance)
     { 
         if (ShouldSkipPatch()) return;
-        Traverse traverse = Traverse.Create(__instance);
+        var traverse = Traverse.Create(__instance);
         var api = traverse.Field("capi").GetValue();
         if (api is not ICoreClientAPI capi) return;
         var dlg = traverse.Field("dlg").GetValue() as GuiDialogCharacterBase;
         if (dlg == null) return;
         var composers = dlg.Composers;
         var entity = capi.World.Player.Entity;
-        GuiComposer composer = composers["modstats"];
+        var composer = composers["modstats"];
         if (composer == null || !traverse.Method("IsOpened").GetValue<bool>())
             return;
         float? hydration;
         float? maxHydration;
         getHydration(entity, out hydration, out maxHydration);
-        float blended = entity.Stats.GetBlended(BtCore.Modid+":thirstrate");
+        var blended = entity.Stats.GetBlended(BtCore.Modid+":thirstrate");
         if (hydration.HasValue && maxHydration.HasValue)
             composer.GetDynamicText("hydration").SetNewText(((int) hydration.Value).ToString() + " / " + ((int) maxHydration.Value).ToString());
-        GuiElementDynamicText dynamicText = composer.GetDynamicText("thirstrate");
+        var dynamicText = composer.GetDynamicText("thirstrate");
         if (dynamicText != null)
         {
             var num = (int) Math.Round(100.0 * blended);
@@ -45,13 +45,13 @@ public class CharacterExtraDialogs_UpdateStats_Patch
     {
         hydration = new float?();
         maxHydration = new float?();
-        ITreeAttribute treeAttribute1 = entity.WatchedAttributes.GetTreeAttribute("balancedthirst:thirst");
+        var treeAttribute1 = entity.WatchedAttributes.GetTreeAttribute("balancedthirst:thirst");
         if (treeAttribute1 != null)
         {
             hydration = treeAttribute1.TryGetFloat("currenthydration");
             maxHydration = treeAttribute1.TryGetFloat("maxhydration");
         }
         if (hydration.HasValue)
-            new float?((float) (int) hydration.Value);
+            new float?((int) hydration.Value);
     }
 }
