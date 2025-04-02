@@ -12,14 +12,8 @@
   <component name="ChangeListManager">
     <list default="true" id="9363b40e-165c-4a01-a221-4b01f3a6d07c" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.BalancedThirst/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.BalancedThirst/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BalancedThirst/BalancedThirst.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/BalancedThirst.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BalancedThirst/Util/BtConstants.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/Util/BtConstants.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/itemtypes/liquid/lantportion.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/itemtypes/liquid/urineportion.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/recipes/barrel/lantportion.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/recipes/barrel/soakedhidelant.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/recipes/smithing/dowsingrod.json" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/recipes/smithing/dowsingrod.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BalancedThirst/assets/game/blocktypes/purewater.json" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst/assets/game/blocktypes/purewater.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BalancedThirst.sln.DotSettings.user" beforeDir="false" afterPath="$PROJECT_DIR$/BalancedThirst.sln.DotSettings.user" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/patches/playerhasabladder.json" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -280,6 +274,7 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/c1f9f1d656394ee5bb78c49d93c5e56f1c2400/f6/0fefd77f/ItemstackComponentBase.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/c1f9f1d656394ee5bb78c49d93c5e56f1c2400/f9/e59264ec/KeyCombination.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/c1f9f1d656394ee5bb78c49d93c5e56f1c2400/fb/1feed24c/IEventAPI.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/c4688c3d01e14072b1a944dde183b215a5e00/b1/62134d27/EntityBehaviorHealth.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/d06e0ddb8bc343068b8ca5d54948028929b000/02/f36e1d35/ClientMain.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/d06e0ddb8bc343068b8ca5d54948028929b000/15/13ab8d79/GameTickListener.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/db47eeeb90324f0c8c1710156b26ea682b6e00/0b/9ecb4310/BlockEntityLiquidContainer.cs" root0="SKIP_HIGHLIGHTING" />
@@ -294,12 +289,14 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/27ebb9dba057336696da6e2e2c8b7cd73c515b284a6ab731c1e0e31b5deb/Type.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/5d46f35cc10c0f21348d324d6965a48709c61fa67dfdcfa0254ce8cdbbb8/DateTime.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/a4cb9591c21230d9be732f46914bf44e165d819809330102617bef23157b/ToCollection.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/BalancedThirst/Config/ConfigLibCompat.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/BalancedThirst/Systems/BtCore.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/BalancedThirst/Systems/ConfigSystem.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/BalancedThirst/assets/balancedthirst/patches/playeristhirsty.json" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
   <component name="ProblemsViewState">
-    <option name="selectedTabId" value="SWEA" />
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 0
@@ -456,6 +453,10 @@
       <workItem from="1740330221681" duration="16964000" />
       <workItem from="1741571100050" duration="1493000" />
       <workItem from="1741923219496" duration="18000" />
+      <workItem from="1743198910401" duration="3235000" />
+      <workItem from="1743204601385" duration="4308000" />
+      <workItem from="1743521672798" duration="617000" />
+      <workItem from="1743524476746" duration="1861000" />
     </task>
     <task id="LOCAL-00001" summary="Working kettle, and smelting, demijohn">
       <option name="closed" value="true" />
@@ -689,7 +690,23 @@
       <option name="project" value="LOCAL" />
       <updated>1740344037081</updated>
     </task>
-    <option name="localTasksCounter" value="30" />
+    <task id="LOCAL-00030" summary="Remove bladder and refactor">
+      <option name="closed" value="true" />
+      <created>1743199517582</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1743199517582</updated>
+    </task>
+    <task id="LOCAL-00031" summary="Finish removing bladder">
+      <option name="closed" value="true" />
+      <created>1743200379526</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1743200379526</updated>
+    </task>
+    <option name="localTasksCounter" value="32" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -731,26 +748,9 @@
     <MESSAGE value="Unstable release" />
     <MESSAGE value="[Fix] Rebuild to newer configlib and XLib versions" />
     <MESSAGE value="Config dejank" />
-    <option name="LAST_COMMIT_MESSAGE" value="Config dejank" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/BalancedThirst/Systems/DrinkNetwork.Pee.cs</url>
-          <line>82</line>
-          <properties documentPath="$PROJECT_DIR$/BalancedThirst/Systems/DrinkNetwork.Pee.cs" containingFunctionPresentation="Method 'HandlePeeAction'">
-            <startOffsets>
-              <option value="3369" />
-            </startOffsets>
-            <endOffsets>
-              <option value="3437" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="34" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <MESSAGE value="Remove bladder and refactor" />
+    <MESSAGE value="Finish removing bladder" />
+    <option name="LAST_COMMIT_MESSAGE" value="Finish removing bladder" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
